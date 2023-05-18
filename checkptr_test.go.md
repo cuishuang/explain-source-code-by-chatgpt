@@ -1,0 +1,34 @@
+# File: checkptr_test.go
+
+checkptr_test.go是Go语言运行时（runtime）包中用于测试内存错误检查的测试文件。它包含一系列用于测试runtime/checkptr包的测试用例，这些测试用例包括测试指向非堆内存的指针、测试指向已释放内存的指针等。
+
+checkptr是一个在运行时检查指针是否有效的包，它可以有效防止悬空指针等内存错误。在Go语言中，当一个指针被声明时，它会被分配到堆内存中，而checkptr会在堆内存释放后将其标记为无效，从而检查指针是否指向有效的内存。
+
+checkptr_test.go的作用是验证checkptr包是否可以正确地检查指针是否有效，以确保运行时不会发生空指针等内存错误。通过测试checkptr包，可以确保Go语言的内存管理机制在运行时能够有效地防止内存错误的发生。
+
+## Functions:
+
+### TestCheckPtr
+
+TestCheckPtr函数是一个测试函数，用于测试runtime包中的CheckPtr函数。CheckPtr函数用于检查指针是否为nil或者是否指向了非法内存地址，该函数通常用于调试和排错。TestCheckPtr函数会测试CheckPtr函数的多种情况和边界情况，例如空指针、有效指针等。
+
+具体来说，TestCheckPtr函数会创建一个指针p，其中一些指针为nil，另一些指针指向已分配的内存地址。然后，TestCheckPtr函数会使用CheckPtr函数检查这些指针，检查结果会与预期结果进行比较，以检验CheckPtr函数的正确性。如果所有的检查均成功，TestCheckPtr函数会结束并打印测试通过的信息。如果出现了错误，testCtx.Fatalf()函数会打印错误信息并关闭当前测试。
+
+总之，TestCheckPtr函数的作用是测试runtime包中的CheckPtr函数，以确保它能够正常工作并检查指针是否为nil或指向非法内存地址。
+
+
+
+### TestCheckPtr2
+
+TestCheckPtr2函数是一个单元测试函数，用于测试runtime包中的CheckPtr和checkptrInHeap函数。该函数的作用是检查传入的指针是否指向堆空间中的合法对象，并在不合法的情况下抛出一个panic异常。
+
+函数中首先声明了一个测试用的struct类型Value，并在堆中使用new函数为其分配了一段内存。接着将指向Value结构的指针v传给了CheckPtr函数进行检查，由于v指向的是一个在堆中的合法对象，因此这里的检查会通过，不会抛出异常。
+
+紧接着将v的值加上了堆内存总大小的一个偏移量，这里偏移量是用sizeof函数计算得到的，意味着v现在指向了堆空间之外的内存。再次调用CheckPtr函数检查v指针，由于v指向的不再是堆空间中的合法对象，此时CheckPtr函数会抛出一个panic异常。
+
+接下来的checkptrInHeap函数测试类似，它是一个私有的函数，它将传入的指针强制转换为uintptr（一个无符号整数类型）并与获取到的堆空间首地址进行比较，如果指针指向的地址不在堆空间范围内，则抛出一个panic异常。
+
+TestCheckPtr2函数的作用在于验证代码中调用的CheckPtr和checkptrInHeap函数是否能够正确地检查指针的合法性，避免程序在使用指针时出现内存泄漏或空指针引用等严重问题。
+
+
+

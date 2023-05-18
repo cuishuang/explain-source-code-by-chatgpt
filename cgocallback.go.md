@@ -1,0 +1,36 @@
+# File: cgocallback.go
+
+cgocallback.go这个文件是Go语言运行时包中的一个文件，主要用于支持CGO(即Go和C语言混合编程)中的回调函数。
+
+在CGO中，有一种常见的使用场景是将C语言的函数作为参数传递给Go函数，并在Go函数中调用C函数。这种情况下，需要在Go函数和C函数之间建立一个双向的桥梁，用于传递参数和执行回调操作。cgocallback.go这个文件就提供了这样的桥梁实现。
+
+具体来说，cgocallback.go中的重要函数有以下几个：
+
+1. cgocallback(funcval, frame unsafe.Pointer, framesize uintptr)
+
+这个函数用于在Go函数和C函数之间建立桥梁。它接受三个参数：funcval表示要执行的C函数指针，frame表示C函数的栈帧指针，framesize表示栈帧大小。cgocallback函数会将栈帧和参数复制到Go的栈上，然后执行C函数，并将返回值复制回来。
+
+2. asmcgocallback(funcval, frame unsafe.Pointer)
+
+这个函数在cgocallback的基础上进行了优化，直接使用汇编语言实现。它接受两个参数：funcval和frame分别表示要执行的C函数指针和栈帧指针。asmcgocallback的效率比cgocallback更高，但使用起来更加复杂。
+
+3. cgocallback_gofunc(funcval, frame unsafe.Pointer, framesize uintptr)
+
+这个函数用于在Go函数和C函数之间建立桥梁，但它是通过反射调用Go函数的方式实现的。它接受三个参数，和cgocallback一致。cgocallback_gofunc函数会将参数解析成Go类型，并通过反射调用Go函数进行处理，最后将结果转换回C类型。
+
+总之，cgocallback.go这个文件的作用是提供了CGO中Go函数和C函数之间的桥梁实现，使得两者可以进行双向交互和回调操作。它是Go语言支持CGO的重要基础之一。
+
+## Functions:
+
+### _cgo_panic_internal
+
+_cgo_panic_internal函数是在CGO程序调用C语言函数时发生panic时被调用的内部函数，它的作用是将C语言函数中的panic信息转换成Go语言中的panic信息，确保CGO程序能够正确处理和报告panic信息。
+
+在CGO程序中，当Go语言代码调用C语言函数时，如果C语言函数中发生panic，CGO会自动捕获这个panic并调用_cgo_panic函数传递C语言函数中的panic信息。_cgo_panic_internal函数则是在_cgo_panic函数内部被调用来完成转换工作的。
+
+具体来说，_cgo_panic_internal函数首先读取传递过来的C语言panic信息，并将其转换为一个CgoString类型的值，然后再将这个值传递给runtime·panicwrap函数，由它进一步将panic信息转换为Go语言中的panic信息，最终抛出一个Go语言的panic异常。
+
+总之，_cgo_panic_internal函数的作用就是将C语言函数中的panic信息转换为Go语言中的panic信息，以确保CGO程序能够正确处理和报告panic信息。
+
+
+

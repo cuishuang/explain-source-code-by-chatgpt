@@ -1,0 +1,8 @@
+# File: cgo_ppc64x.go
+
+cgo_ppc64x.go文件是Go语言中运行时库的一部分，它实现了在PowerPC64架构上使用CGO(以C语言编写的Go语言扩展)的功能。它的作用是为PowerPC64架构上的CGO提供有关机器架构和编译器实现的信息，从而保证能够正确的创建、计算和传递C指针和其他原语类型数据。
+
+cgo_ppc64x.go文件中包含了一些与PowerPC64架构有关的类型定义，比如cgoContext和swtchPri等。同时，它还提供了一些重要的函数实现，例如_cgo_yield()、cgoCheckPointer()、cgoCheckResult()等，这些函数的作用是确保在PowerPC64架构上使用CGO时，C语言与Go语言交互的安全性和正确性。
+
+总之，cgo_ppc64x.go文件是Go语言中运行时库中一个非常重要的文件，它为在PowerPC64架构上使用CGO提供了必要的支持和保障，保证了CGO在这个平台上的正确性和安全性。
+
