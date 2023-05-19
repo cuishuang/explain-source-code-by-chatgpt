@@ -241,6 +241,8 @@ TestSimpleDeadlock()函数的作用在于通过测试上述死锁场景并检测
 
 
 
+
+
 ### TestInitDeadlock
 
 TestInitDeadlock函数是用来测试runtime.Init函数在初始化时是否会发生死锁（deadlock）的。
@@ -460,6 +462,7 @@ TestGoexitInPanic函数是一个用于测试Goexit在panic时是否正常工作�
 ### TestRuntimePanicWithRuntimeError
 
 TestRuntimePanicWithRuntimeError是一个测试函数，在运行时期间通过调用panic函数来测试运行时错误的处理情况。具体来说，它通过提供不同的错误条件（例如空指针引用，整数除以零等等），触发运行时错误，然后捕获这些错误并测试对其的响应情况。此测试函数的目的是验证运行时错误处理机制是否能够正确地检测和处理各种运行时错误。此函数是编写和维护runtime包中的代码时，必要的测试工具之一，因为它可以帮助开发人员保证代码的正确性和稳定性。
+
 
 
 
