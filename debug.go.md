@@ -1,0 +1,96 @@
+# File: debug.go
+
+debug.go文件是Go语言运行时包（runtime）中的一个文件，主要包含一些调试的函数和变量，用于在运行时进行调试和性能分析。该文件的作用主要包括以下几个方面：
+
+1. 调试函数和变量：debug.go文件中定义了一些调试函数和变量，可以帮助开发者在运行时进行调试和排错，例如PrintStack()函数可以打印当前的堆栈信息，获取调用栈等有用的信息。
+
+2. 内存分析：runtime包中还有一些输出信息的函数，例如ReadMemStats函数，可以获取程序运行时的内存使用情况，包括堆内存使用情况、垃圾回收等信息。
+
+3. 控制CPU：该文件中还定义了一些控制CPU的函数和变量，例如GOMAXPROCS变量可以用来设置并发执行的最大CPU数目，SetMaxThreads和SetPanicOnFault函数可以用来设置线程的最大数量和当线程出现系统错误时触发panic。
+
+4. 性能分析：go语言程序的性能分析一般使用pprof标准库，其中不少函数在debug.go文件中定义和实现，使用pprof可以对go程序的CPU、内存、阻塞等性能参数进行详细的分析和优化。
+
+总之，debug.go文件在go语言程序的性能分析和调试中起到了重要的作用，可以帮助开发者追踪和定位问题，提高程序的性能和可靠性。
+
+## Functions:
+
+### GOMAXPROCS
+
+GOMAXPROCS是一个Go语言运行时包中的函数，它用于设置应用程序使用的最大CPU数量（也就是可用的最大逻辑处理器数量）。它会在多核CPU上对应用程序进行并发处理时发挥作用，决定Go程序中的多个goroutine（协程）可以同时运行的最大数量。在Go 1.5及之后的版本中，GOMAXPROCS的默认值为机器的CPU数量。
+
+具体来说，GOMAXPROCS函数可以将Go程序中的执行线程（执行goroutine的线程）与CPU核心进行绑定，以便于实现真正的并行处理。它可以通过设置GOMAXPROCS的值来控制并行处理的数量，以达到优化处理性能的目的。但是，需要注意的是，GOMAXPROCS的值太大也可能会导致性能下降，因为当GOMAXPROCS的值大于CPU核心数量时，会产生过多的线程调度开销，从而降低程序的性能。
+
+总的来说，GOMAXPROCS函数的作用是控制并行处理的并发度，以优化Go程序的性能。
+
+
+
+### NumCPU
+
+在go语言的runtime中，NumCPU()函数返回当前系统的的CPU个数。该函数主要用于线程管理和并发控制，以优化程序的性能表现。
+
+具体来说，当程序需要进行一些CPU密集型的计算任务时，通过调用NumCPU()函数获取系统的CPU数目，可以在多个CPU上并发执行该任务，从而提高程序的执行效率和响应速度。
+
+此外，NumCPU()还可以用于在不同的CPU核心上运行不同的goroutine，以提高程序的并发能力和执行效率。
+
+总之，在go语言的并发编程中，NumCPU()是一个非常重要的函数，能够帮助程序员更好地管理和使用多核资源，提高程序的并发性和性能表现。
+
+
+
+### NumCgoCall
+
+NumCgoCall是一个变量，不是func。它的作用是记录Runtime执行的CGO调用（通过cgo调用C库代码）的数量。
+
+CGO是Go语言与C语言之间的桥梁，可以在Go程序中调用C语言函数或库。在CGO调用中，Go程序会将函数参数打包成C语言可接受的形式，然后传递给C语言函数处理。由于CGO调用涉及跨越不同语言的边界，因此运行CGO调用会带来一些性能开销。
+
+因此，NumCgoCall变量有助于我们了解程序在执行CGO调用时的性能表现。在程序中执行大量的CGO调用可能会导致性能瓶颈，使用NumCgoCall可以帮助我们确定是否需要优化程序或减少CGO调用的数量。
+
+在Go语言中，可以使用CGO_ENABLED环境变量来控制是否启用CGO调用。要记录CGO调用次数，我们可以在程序初始化时使用NumCgoCall变量来跟踪程序中的CGO调用。在程序运行过程中，可以通过查看NumCgoCall的值来统计CGO调用的数量。
+
+
+
+### NumGoroutine
+
+NumGoroutine是一个函数，它的作用是返回当前系统中正在运行的goroutine的数量。
+
+在Go语言中，goroutine是轻量级线程，它比操作系统线程更加轻量级，具有更小的堆栈空间等特点。因此，在Go程序中，通常会有大量的goroutine在同时运行。为了方便监控和调试，我们需要知道当前系统中有多少个goroutine在运行。
+
+NumGoroutine通过访问运行时系统的内部信息统计，可以非常快速地返回当前系统中正在运行的goroutine的数量。
+
+在调试和监控Go应用程序时，可以使用NumGoroutine函数来检查goroutine的数量是否超出限制，并确定是否需要进行goroutine泄漏分析和优化。同时，NumGoroutine也可以帮助监控系统的性能和资源占用情况，并进行相应的调整和优化。
+
+
+
+### debug_modinfo
+
+在Go语言中，debug_modinfo()函数是用于输出模块信息的工具函数。 
+
+当我们运行一个Go程序时，程序会使用一系列的模块文件。这些模块文件可以包含程序的各种功能，例如库函数、依赖项等。因此，了解这些模块的信息对于调试Go程序非常重要。
+
+debug_modinfo()函数可以输出当前程序中加载的所有模块文件的信息。输出内容包括模块名称、模块大小、链接地址等。此外，还可以通过debug_modinfo()函数将这些信息导出到文件中，方便分析和调试。
+
+总的来说，debug_modinfo()函数是一个给调试工具使用的工具函数，用于输出Go程序中加载的模块信息，方便我们进行程序的分析和调试。
+
+
+
+### mayMoreStackPreempt
+
+debug.go文件中的mayMoreStackPreempt函数实现了可抢占的栈增长功能。在Go语言中，每个goroutine都有一个栈，用来保存其执行过程中的函数调用、局部变量等信息。当栈空间不足时，需要将栈大小进行扩展，以便容纳更多的信息。扩展栈空间的过程中，如果一个goroutine一直在执行，而其他goroutine需要执行，就可能会导致调度的问题。
+
+mayMoreStackPreempt函数的作用就是在函数执行期间，定期检查栈是否需要扩展，并在必要时抢占当前goroutine，以便让其他goroutine能够得到执行机会。具体来说，mayMoreStackPreempt函数会在当前goroutine的执行期间，间隔地检查栈的大小，如果栈快要满了，就会触发可抢占调度器，将当前goroutine的执行权交给其他goroutine执行，以便更好地利用CPU资源。
+
+总之，mayMoreStackPreempt函数的作用是实现可抢占的栈增长功能，以提高Go语言程序的执行效率。
+
+
+
+### mayMoreStackMove
+
+mayMoreStackMove函数是Go语言运行时库runtime中的一个内部函数，它的作用是在协程（goroutine）发生栈溢出时进行堆栈扩容操作。当一个协程的函数调用栈使用过多空间时，操作系统会向该协程分配更多的内存空间，这个过程就称为栈扩容。
+
+mayMoreStackMove函数是一个内部函数，不对外暴露，它的作用主要是调用栈扩容函数growstack来完成堆栈扩容的具体操作。在调用growstack函数之前，mayMoreStackMove函数会先检查当前运行时栈空间是否还有足够的剩余空间，如果剩余空间足够，mayMoreStackMove就直接返回，否则就会通过调用growstack函数来扩容协程的栈空间。
+
+mayMoreStackMove函数中还包含了一些其他的逻辑，比如它会判断当前协程是否处于信号处理程序中，如果是的话，mayMoreStackMove就不会扩容堆栈；此外，mayMoreStackMove还使用函数growDoneLocked来检查堆栈是否已经被扩容完毕。如果扩容操作已经完成，mayMoreStackMove会退出并返回true，否则返回false。
+
+总之，mayMoreStackMove函数是一个实现堆栈扩容的内部函数，它的主要作用是检查当前协程的栈空间是否足够，并调用growstack函数来扩容堆栈。通过mayMoreStackMove函数，Go语言可以在协程发生栈溢出时及时进行栈扩容操作，确保程序的正常运行。
+
+
+

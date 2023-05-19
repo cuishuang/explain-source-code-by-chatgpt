@@ -1,0 +1,162 @@
+# File: debug_test.go
+
+Go语言中的`debug_test.go`文件是用于对runtime包中调试功能的单元测试。在运行测试时，它通过一系列测试用例对runtime包中的调试功能进行了测试，以确保它们能够正确运行。
+
+`debug_test.go`包含了一组测试功能，这些测试可以帮助开发人员诊断、调试和解决运行时错误，例如内存泄漏、死锁、协程阻塞等问题。它使用了Go的testing包来创建测试用例，并利用了runtime包中的一系列调试函数和工具。
+
+在测试中，`debug_test.go`使用了各种断言和比较来确保测试用例的预期结果与实际结果相匹配。例如，它会检查并比较协程数、内存使用量、系统CPU时间等指标。
+
+总的来说，`debug_test.go`是Go语言运行时程序员维护、开发和测试调试功能的重要工具。它的存在使运行时调试变得更加容易和高效。
+
+## Functions:
+
+### startDebugCallWorker
+
+startDebugCallWorker是go/src/runtime/debug_test.go文件中的一个函数，其作用是启动多个协程执行debugCallWorker函数，并将结果写入channel中。
+
+具体来说，debugCallWorker函数是一个死循环，它从channel中获取调试请求，执行相应的调试操作，然后将结果写入另一个channel中。这个函数需要在单独的goroutine中执行，因为它是一个长时间运行的操作，不能阻塞其他线程。
+
+startDebugCallWorker函数的作用是启动多个这样的死循环协程，以便可以处理多个调试请求。它首先创建两个channel用于通信，一个用于放置调试请求，另一个用于放置调试结果。然后，它启动多个goroutine，每个goroutine都会执行debugCallWorker函数，从请求channel中获取请求，并将结果写入结果channel中。
+
+通过启动多个这样的协程，可以更快地处理多个调试请求，从而加快调试操作的速度。这在特定的调试场景中非常有用，例如调试多个并发的goroutine时。
+
+
+
+### debugCallWorker
+
+debugCallWorker这个函数是用于调试goroutine状态和运行状态的函数。它被用于在调试时手动调用一个goroutine来执行一些实验性的代码。它的主要作用如下：
+
+1. 手动触发goroutine的执行。当我们需要在调试时手动让一个goroutine执行时，就可以使用debugCallWorker函数。该函数会创建一个新的系统线程，并将一个新的goroutine设置为当前的执行上下文，然后调用runtime.exitsyscall函数开始执行这个goroutine。
+
+2. 判断goroutine状态。debugCallWorker函数会先检查当前goroutine的状态，如果当前goroutine处于等待状态，就会将它从等待队列中移除，并将它标记为非等待状态。这一步是为了确保这个goroutine可以被调用以执行代码。
+
+3. 调用实验性的代码。debugCallWorker函数会调用传入的fn参数，这个参数是一个函数类型。可以在这个函数中写任何需要实验或调试的代码。
+
+4. 检查goroutine状态。当fn执行完成后，debugCallWorker函数会再次检查当前goroutine的状态。如果当前goroutine处于非等待状态，就会将它标记为等待状态，并将它加入到等待队列中。这一步是为了确保这个goroutine可以被垃圾回收机制正常回收。
+
+总之，debugCallWorker函数是一个用于调试goroutine状态和运行状态的函数，它可以触发goroutine的执行，调用实验性的代码，并确保goroutine的状态可以被垃圾回收机制正常处理。
+
+
+
+### debugCallWorker2
+
+在Go的运行时环境中，debugCallWorker2函数的作用是模拟调试器的行为，为调度器寻找工作线程以执行goroutine的任务。
+
+在Go中，调度器负责管理goroutine的执行和调度。在某些情况下，比如当一个goroutine被阻塞时，调度器需要新的工作线程来执行其他协程。
+
+debugCallWorker2函数在这种情况下被调用，它会创建一个新的goroutine来执行输入的函数，并把这个goroutine放入到调度器的工作线程列表中。这个函数提供了一种手动方式来模拟调试器的行为，以便可让调度器更好地处理不同的执行场景。
+
+这个函数是一种很有用的测试和调试工具。在Go的运行时环境中，使用debugCallWorker2函数可以很方便地模拟一些特殊的执行情况，来验证程序的正确性和稳定性，并进行性能测试。
+
+
+
+### debugCallTKill
+
+debugCallTKill函数是用于模拟操作系统信号停止goroutine的函数。当编写调试程序时，我们需要测试处理操作系统信号的代码，这个函数就可以用于模拟操作系统信号发送到goroutine时的行为，从而验证代码是否正确处理了该信号。
+
+debugCallTKill函数的实现很简单，它会向一个channel发送信号（通过向channel发送非零整数），然后调用runtime.gopark函数挂起当前goroutine，等待操作系统信号的到来。一旦该信号到来，该goroutine就会被正常停止。
+
+由于debugCallTKill函数在调用runtime.gopark函数时会将当前goroutine挂起，所以它只能在测试环境下使用，不能用于生产环境中。此外，该函数的行为可能取决于操作系统和计算机架构，所以在使用时需要小心。
+
+
+
+### skipUnderDebugger
+
+skipUnderDebugger是在调试器（例如GDB）下运行测试时使用的函数。它会检测当前进程是否正在被调试器调试，如果是，则该函数会返回真，表明测试应该被跳过。
+
+在调试器下运行测试时，可能会受到调试器的干扰，例如断点、单步调试等操作可能会导致测试失败或者死锁。因此，这个函数可以帮助避免这样的问题。
+
+具体实现逻辑如下：
+
+1. 首先，该函数检查当前操作系统是否支持ptrace系统调用。如果不支持，则直接返回。
+
+2. 如果支持ptrace系统调用，将会以PTRACE_TRACEME参数调用ptrace系统调用来检查当前进程是否已经被其他进程调用过ptrace。如果调用成功，则表示该进程未被任何调试器调试，并返回false。
+
+3. 如果调用ptrace失败，则检查errno是否为ESRCH或EPERM。如果是，则表示该进程已被其他调试器调试或者ptrace被禁用，返回true；否则抛出异常。
+
+综上所述，skipUnderDebugger主要用于在调试器下运行测试时的安全性检查，以避免一些在调试环境下可能会出现的问题。
+
+
+
+### TestDebugCall
+
+文件路径：go/src/runtime/debug_test.go
+
+TestDebugCall是一个单元测试函数，主要用于对runtime/debug包中的DebugCall函数进行测试和验证。DebugCall函数是用于从任何已经暂停的goroutine中调用任何函数。
+
+TestDebugCall函数使用了Go的测试框架testing包中的函数，包括t.Fatal、t.Logf、t.Run和t.Errorf。测试函数首先在main函数中创建了一个简单的goroutine，该goroutine在被调用时仅打印输出并休眠1秒钟，然后在调用DebugCall函数时，将同样的函数和参数传递给了DebugCall函数。测试函数还创建了一个标记并将其设置为false，以确保调用DebugCall函数的goroutine已至少运行1秒钟，然后再返回结果。
+
+在测试函数中，调用DebugCall函数的结果分为三种情况进行处理。如果函数返回成功，则将goroutine上下文打印到t.Logf，并将标记设置为true，以表明goroutine已成功运行。如果函数返回失败，则在t.Fatalf中打印错误消息。如果DebugCall回调被取消，则在t.Errorf中打印出错误消息。
+
+TestDebugCall函数的目的是测试DebugCall函数是否能够成功调用指定的函数，并在给定上下文中确保它们没有出错或被取消。这个测试函数的结果可以帮助开发者和测试人员确定runtime/debug包中的函数是否正确地工作。
+
+
+
+### TestDebugCallLarge
+
+TestDebugCallLarge这个func是一种测试函数，用于测试调试器在调用大型函数时的表现。它可以模拟堆栈深度很大，或者函数内部有大量递归调用的情况，以确保调试器可以正确地处理这些情况。
+
+在测试中，TestDebugCallLarge调用了一个名为debugCallLarge的函数，该函数被调用了20,000次。这会导致堆栈非常深，并且需要调试器能够正确地跟踪和浏览堆栈。测试还会检查调试器是否能够正确地打印每个堆栈帧的信息，包括调用器和被调用函数的名称以及参数。
+
+总的来说，TestDebugCallLarge测试函数是用来测试调试器在处理大型函数和堆栈时的表现，以确保调试器能够正确地跟踪和调试代码。
+
+
+
+### TestDebugCallGC
+
+TestDebugCallGC是Go语言标准库runtime中的一个单元测试函数，它的作用是测试runtime.GC函数的调用过程和效果。这个函数会通过一系列操作来触发垃圾回收机制，然后检查被回收的对象是否符合预期。
+
+具体来说，TestDebugCallGC函数会先分配一些对象，在一些条件下不断引用或销毁这些对象，然后手动调用runtime.GC函数触发垃圾回收，最后检查被回收的对象是否和预期相同。这个测试函数覆盖了很多情况，比如并发环境下对象的回收、finalizer的调用等等。
+
+通过这个测试函数，可以确保runtime.GC函数的正确性，防止在实际应用中出现调用GC后未被回收或误回收的情况。同时，这个测试函数也为垃圾回收机制的优化提供了参考，可以通过修改测试用例中的参数、条件等来模拟各种场景下的垃圾回收，评估回收效果和性能。
+
+
+
+### TestDebugCallGrowStack
+
+TestDebugCallGrowStack是一个针对runtime/debug包中DebugCall函数的测试函数，主要用于测试DebugCall函数在执行过程中对栈空间的扩展操作。
+
+在Go语言中，函数调用的栈空间大小是有限制的，如果函数调用的栈空间超过了这个限制，就会出现栈溢出的错误。DebugCall函数的作用是在当前Goroutine上下文中执行一个函数，并且尝试将栈空间扩展到一个给定的大小。
+
+TestDebugCallGrowStack函数首先创建了一个testCase结构体实例，其中包含了需要执行的函数和期望的结果，然后调用DebugCall函数执行该函数，并将执行结果与期望的结果进行比较，以验证DebugCall函数是否能够成功扩展栈空间并执行函数。如果执行结果与期望的结果不符，则测试失败。
+
+TestDebugCallGrowStack是Go语言中的一个单元测试函数，它的主要作用是测试DebugCall函数是否按照预期工作。在保证代码正确性和稳定性的前提下，可以通过多次测试来提高代码的质量。
+
+
+
+### debugCallUnsafePointWorker
+
+debugCallUnsafePointWorker这个函数是在调试时使用的函数，它的作用是模拟程序运行到了一个unsafe point（不安全点）。 
+
+在 Go 语言中，unsafe point 指的是在特定的代码位置上，可以让程序停顿等待垃圾回收器执行任务。如果程序没有到达 unsafe point，垃圾回收器将无法工作，也无法及时回收内存，导致程序运行速度变慢或者内存泄漏。因此区分和识别 unsafe point 的位置非常重要。
+
+debugCallUnsafePointWorker这个函数的作用就是在任何位置强制让程序到达一个 unsafe point，以便在调试时检查程序的运行情况和内存使用情况，有助于优化程序性能和稳定性。 
+
+该函数会阻塞 goroutine 执行，直到它到达一个 unsafe point。它会从 CPU 中移除调用者 goroutine 的线程上下文，并解锁调度器，允许其他 goroutine 运行。一旦到达一个 unsafe point，它会重新锁定调度器，再次获取线程上下文，并继续执行 goroutine。 
+
+在调试过程中，该函数可以与 runtime.SetCPUProfileRate() 函数一起使用，以捕获某个 time slice 中的 goroutine 运行情况和内存使用情况，帮助分析程序的瓶颈和问题。
+
+
+
+### TestDebugCallUnsafePoint
+
+TestDebugCallUnsafePoint函数是runtime包中用于测试调试工具调用unsafe point（不安全点）功能的函数。
+
+在Go语言的并发模型中，程序执行的状态会被记录在调度器中的goroutine队列和调度器上下文中。当程序运行时，goroutine会在任务完成前或遇到阻塞点时主动地将控制权交给调度器，等待下一次调度。这种机制称为协作式调度（cooperative scheduling）。由于goroutine在任意点都可以阻塞，因此Go语言需要一种机制来确保所有goroutine都能正确响应调度器。为了实现这个目的，Go语言会在一些特定的代码点设置unsafe point，即不安全点，强制性的将goroutine交给调度器。这些不安全点通常出现在可能导致长时间阻塞或资源瓶颈的代码中，如系统调用或长时间的循环等。
+
+TestDebugCallUnsafePoint函数通过在代码中插入一个不安全点，强制性地将当前goroutine交给调度器，从而测试调试工具调用不安全点的功能是否正常。这个函数会再次恢复该goroutine并检查是否正常返回，确保调试工具正常运行。
+
+总之，TestDebugCallUnsafePoint函数是runtime包中用于测试调试工具调用unsafe point功能的函数，是确保调试工具正常运转的重要部分。
+
+
+
+### TestDebugCallPanic
+
+TestDebugCallPanic函数是用于测试在调试模式下发生panic时的行为的函数。
+
+具体来说，函数首先使用GDB模拟一个panic事件，然后测试程序是否能够正确地捕获此panic并记录相应的栈跟踪信息。该函数还测试了调用 CallersFrames 函数，以获取有关栈跟踪信息的详细信息。
+
+该函数在调试和性能分析方面都非常有用。在调试期间，您可以使用它来确定程序失败的位置，并收集相关的栈跟踪信息。在性能分析中，您可以使用它来确定性能瓶颈，并确定那些函数需要进行进一步的优化。
+
+
+
