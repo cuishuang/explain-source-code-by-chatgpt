@@ -1,0 +1,56 @@
+# File: histogram_test.go
+
+histogram_test.go是Go语言标准库中runtime包中的一个测试文件，它的主要作用是测试runtime包中的函数runtime.Histogram()。runtime.Histogram()函数用于统计程序中各个操作的耗时，并将统计结果按照时间区间分档展示出来。此函数一般用于性能分析和优化。
+
+histogram_test.go中主要包含以下测试案例：
+
+1. TestHistogram：测试runtime.Histogram()函数是否能够正确统计程序的操作耗时，并按时间区间分档展示出来。
+2. BenchmarkHistogram：基准测试runtime.Histogram()函数的性能，测试在不同数据规模和请求次数下函数的执行时间。这些数据可以用来优化程序并确定性能瓶颈。
+
+histogram_test.go文件通过这些测试案例确保了runtime.Histogram()函数的正确性和稳定性，使得程序开发者可以在进行性能调优时使用该函数进行详细的性能分析和优化。
+
+
+
+
+---
+
+### Var:
+
+### dummyTimeHistogram
+
+在runtime包中，histogram_test.go文件中的dummyTimeHistogram变量是用于测试histogram.go文件中定义的TimeHistogram类型的一个假的时间(时间间隔)直方图。
+
+具体来说，TimeHistogram类型用于存储一组时间统计信息。它由一个名字和一组buckets组成。每个bucket都指定一个时间间隔，TimeHistogram会统计这个时间间隔内的事件数量。dummyTimeHistogram是一个从1到10的时间间隔的假直方图，用于测试TimeHistogram的功能是否正常。
+
+在测试中，dummyTimeHistogram被传递给TimeHistogram的几个方法进行测试。它可以用来检查TimeHistogram中的buckets的数量、时间范围的正确性等等。此外，dummyTimeHistogram还可以用来测试TimeHistogram的序列化和反序列化功能。
+
+总之，dummyTimeHistogram是一个用于测试TimeHistogram的假时间直方图，可以用于检查TimeHistogram的各种功能是否正常。
+
+
+
+## Functions:
+
+### TestTimeHistogram
+
+TestTimeHistogram函数是用于测试时间直方图的功能和性能的函数。它会创建一个时间直方图，并在不同的时间段（从1纳秒到10秒）内多次随机生成时间值，并将这些时间值添加到时间直方图中。
+
+在测试过程中，TestTimeHistogram会记录时间直方图关键指标的性能数据，如平均插入时间、最大值、最小值、标准差等，并将这些数据显示在输出结果中。这些指标能够帮助开发者了解直方图的性能表现和准确度。
+
+此外，TestTimeHistogram还包括一些用于检验时间直方图正确性的测试用例，如测试直方图中的数值是否在时间范围内、测试直方图中的数据分布是否均匀等。
+
+总的来说，TestTimeHistogram函数是用于测试和验证时间直方图功能和性能的重要函数，旨在确保直方图工作正常并符合预期要求。
+
+
+
+### TestTimeHistogramMetricsBuckets
+
+TestTimeHistogramMetricsBuckets是Go语言runtime包中histogram_test.go文件中的一个测试函数。该函数的作用是测试runtime包中的histogram模块是否正确地记录和统计时间间隔的直方图数据。
+
+函数首先通过NewTimeHistogramMetrics函数创建一个时间直方图度量对象，并使用AddDuration函数向度量对象中添加了多个不同时间段（0.1s，1s，5s等）的数据。然后，使用GetBuckets函数获取这些数据被分配到的直方图桶，并使用assert相关函数测试各直方图桶中数据的准确性。
+
+该测试函数的主要作用是验证时间直方图度量工具是否正确记录和汇总时间间隔的分布情况，以便在调试和优化代码时可帮助开发人员更好地理解程序的性能特征，尤其是对于时间敏感的应用程序，如网络编程和计时器中使用的程序等。
+
+总之，TestTimeHistogramMetricsBuckets函数的作用在于测试Go语言runtime包中直方图模块的功能是否正常以及在程序性能分析和调试上的作用和使用效果。
+
+
+
