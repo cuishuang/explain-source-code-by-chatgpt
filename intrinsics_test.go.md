@@ -1,0 +1,50 @@
+# File: intrinsics_test.go
+
+intrinsics_test.go是Go语言标准库中runtime包的一个测试文件，主要测试runtime包中诸如memcpy、memmove、memset等汇编实现的基本内存操作，以及一些CPU指令级别的优化代码。
+
+该测试文件中主要包含三个部分：
+
+1. benchmark tests：通过对一些基本内存操作的性能进行测试来检查Go语言在处理内存操作时的效率，使用Benchmarks测试框架进行。
+
+2. unit tests：对一些汇编实现的内存函数进行单元测试，验证其正确性，使用go test框架进行。
+
+3. asm tests：测试诸如encode、decode等汇编实现的指令，是否正常支持各种操作符和寄存器，并检查代码质量。使用go assembler框架。
+
+通过intrinsics_test.go，可以很好地检查Go语言在处理内存操作上的效率和准确性，以及汇编实现的质量和完整性，对于Go语言的性能调优和汇编优化都有很大的帮助。
+
+## Functions:
+
+### TestTrailingZeros64
+
+TestTrailingZeros64这个函数是用于测试64位整数的尾部零的个数的功能是否正确。在计算机体系结构中，尾部零的个数通常被称为Trailing Zeros或Trailing Zero Count (TZCNT)，它是指一个二进制数字中结尾处的连续0的数量。在golang的内部函数中，runtime/trailingzeros_amd64.s实现了计算TZCNT的方法。TestTrailingZeros64函数通过比较golang实现的tzcnt函数返回值和预计的结果来验证golang内部的tzcnt实现是否正确。如果测试通过，则表示golang内部的tzcnt实现正确，否则需要检查golang的tzcnt实现是否有误，并进行修复。这个测试函数的作用是保证golang中的基础运算函数的正确性，从而保证计算机的底层运算功能的正常使用。
+
+
+
+### TestTrailingZeros32
+
+TestTrailingZeros32是intrinsics_test.go文件中的一个函数，用于测试TrailingZeros32函数的正确性。TrailingZeros32函数是一个汇编指令，用于求一个32位整数的二进制表示中，从右边开始连续的零的个数。
+
+该函数的作用是验证TrailingZeros32函数的正确性。该函数输入不同的32位整数值作为参数，然后在运行TrailingZeros32函数之后，与预期输出做比较，如果结果一样，则测试通过，否则测试失败。该函数可以帮助开发者确保TrailingZeros32函数的正确性，从而提高代码的可靠性和稳定性。
+
+TestTrailingZeros32函数还在函数体内定义了一些变量，如input、expected等，并使用了Go的testing包来输出测试用例的结果。如果测试结果未通过，则会输出错误信息，以便开发者分析和解决问题。
+
+
+
+### TestBswap64
+
+TestBswap64函数是用于测试bswap64()的函数。bswap64()是一个编译器内置的指令（intrinsic），用于反转64位数据的字节序。在大多数体系结构上，数据的存储在内存中的方式通常是按照小端字节序进行的，而在网络通信中，数据的传输则通常使用大端字节序。当程序在不同的平台上进行移植时，如果没有处理好字节序，就会导致数据错误。
+
+TestBswap64函数会测试bswap64()函数是否正确地反转了64位数据的字节序，并保证在不同的操作系统和编译器上都能正常工作。具体来说，TestBswap64函数会生成两个随机的64位数，并使用bswap64()函数反转它们的字节序，然后将反转后的值与预期结果进行比较，如果两个值相等，则测试通过。TestBswap64函数会将这个测试用例连续运行100次，以确保函数的正确性和稳定性。
+
+
+
+### TestBswap32
+
+TestBswap32函数是Go语言内置函数的一部分，它的作用是测试基于CPU指令集中的bswap指令实现的字节序转换操作。bswap是一个汇编指令，它将一个32位无符号整数中的字节序列反转。当CPU支持bswap指令时，Go语言的字节序转换操作可以更加高效。
+
+TestBswap32函数的测试过程包括首先写入一个32位无符号整数，然后利用Go语言的字节序转换函数对该整数进行字节序转换操作，最后将转换后的结果与利用bswap指令进行转换的结果进行比较，以验证Go语言的字节序转换函数是否正确实现了对bswap指令的调用，并且逻辑正确。
+
+这个测试函数的目的是确保Go语言使用bswap指令时能够正确地执行字节序转换操作，同时也是为了确保代码在不同的CPU架构下具有可移植性，能够正确处理字节序的问题，从而避免在跨平台部署时出现数据不一致的问题。
+
+
+
