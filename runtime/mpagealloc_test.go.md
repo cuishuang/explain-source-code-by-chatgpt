@@ -1,0 +1,88 @@
+# File: mpagealloc_test.go
+
+mpagealloc_test.go文件是Go语言运行时中的一个测试文件，其主要作用是测试Go语言的内存分配器中的mpagealloc（分配器中的一种分页内存分配器）是否正常工作。
+
+该文件中包含了一系列的测试用例，用于测试在不同的内存分配场景下，mpagealloc分配器能否正常地进行内存分配和释放操作。测试用例会创建多个goroutine，模拟多个并发的内存分配和释放操作，并对其进行验证，保证内存分配器的正确性和稳定性。
+
+通过该测试文件，开发人员可以验证和调试Go语言中的内存分配器，确保其能够正常地处理各种内存分配场景和并发操作，提高程序的性能和稳定性。同时，测试用例还可以作为开发人员对内存分配器进行性能优化、bug修复等工作的参考依据。
+
+## Functions:
+
+### checkPageAlloc
+
+checkPageAlloc函数是mpagealloc_test.go文件中的一个函数，用于检查pageAlloc函数在分配和释放内存时的正确性。 
+
+具体来说，checkPageAlloc函数会调用pageAlloc函数来分配一段内存，然后检查返回的地址是否在合法的内存范围内，并且该内存是否对齐。如果有任何这些条件不符合，checkPageAlloc函数会打印出相应的错误信息，表示在分配内存时出现了错误。
+
+随后，checkPageAlloc函数还会调用pageFree函数来释放这段内存，并再次检查内存是否已经被正确地释放。如果没有，同样会打印相应的错误信息，表示在释放内存时出现了错误。
+
+总之，checkPageAlloc函数的主要作用是检查pageAlloc和pageFree函数是否可以正确地分配和释放内存，并且保证分配和释放的过程是安全和正确的。由于内存管理是一个重要的系统功能，所以这些测试非常重要，可以保证整个系统的正确性和稳定性。
+
+
+
+### TestPageAllocGrow
+
+TestPageAllocGrow函数是用来测试在堆内存不足的情况下，对于堆内存的增长与分配是否能够正常工作的。具体测试过程如下：
+
+1. 首先，定义了一个MB大小的内存块，并将其分为几个小块，以模拟一个已经被分配了一部分空间的堆。
+
+2. 然后，调用PageAllocGrow函数尝试申请一些额外的内存空间。由于之前的内存块已经占用了一部分空间，所以在没有增加堆内存的情况下，分配出更多内存将会失败。
+
+3. 接着，调用PageAllocSetLimit函数将堆内存的上限设置为了2MB，这应该对之后的测试产生影响。
+
+4. 再次调用PageAllocGrow函数尝试申请更多内存，这次也应该失败，因为已经达到了堆内存的上限。
+
+5. 最后，再次调用PageAllocSetLimit函数将堆内存的上限设置为5MB，并且再次尝试申请内存，此时应该可以成功。
+
+通过这个测试函数，我们可以验证在堆内存紧张的情况下，Go语言的内存分配机制是否能够正确地处理增长和释放的问题。这对于保证程序的稳定性和可靠性非常重要，特别是在大规模的并发应用中。
+
+
+
+### TestPageAllocAlloc
+
+TestPageAllocAlloc函数是在测试程序中用于测试runtime包中的mpagealloc.go文件中的PageAlloc和PageRelease函数。这两个函数用于管理整个程序中的虚拟内存分配和释放。
+
+具体来说，TestPageAllocAlloc函数首先创建了一定数量的内存页，然后使用PageAlloc函数从这些页中分配一些虚拟内存给程序使用。然后，它会检查分配的虚拟内存是否正确，并且将已分配的虚拟内存释放。最后，函数检查已释放的虚拟内存是否成功地返回给系统。
+
+通过这些测试，我们可以确保PageAlloc和PageRelease函数能够正确地管理程序中的虚拟内存，并且没有内存泄漏或其他问题。这对于保证程序的稳定性和可靠性非常重要，特别是在需要处理大量数据和需要高性能计算的应用程序中。
+
+
+
+### TestPageAllocExhaust
+
+TestPageAllocExhaust是一个单元测试函数，位于go/src/runtime/mpagealloc_test.go文件中。
+
+其作用是测试内存分配器在内存耗尽的情况下的表现，主要包括以下两方面：
+
+1. 测试内存分配器在内存不足的情况下，能否正确地返回错误信息或者panic。
+
+2. 测试内存分配器在内存不足的情况下，能否通过调用GC来释放不再使用的内存，并继续分配更多内存。
+
+具体实现方案是，通过循环分配大块内存，直到内存分配失败为止，然后测试其返回错误信息或者panic，并在分配失败后人为地制造一些内存垃圾来触发GC，以测试内存分配器能否在GC后继续分配更多内存。
+
+TestPageAllocExhaust是一个非常重要的单元测试，它能够有效保证内存分配器的健壮性和正确性，确保其在内存不足或者内存垃圾过多的情况下仍然能够正常工作。
+
+
+
+### TestPageAllocFree
+
+TestPageAllocFree这个函数是用来测试runtime中内存分配方法的一种可行性。该函数通过创建一些指定大小的对象，在运行时通过内存分配方法分配内存并将其删除，以确保内存分配方法能够正常工作且没有泄漏或使用过多的内存。
+
+该函数首先计算每个对象所需的字节数，并通过runtime.MHeap_Alloc函数分配内存。然后它使用runtime.MHeap_Free函数将内存释放，并检查释放后的堆是否正确。最后，它通过runtime.MHeap_Check将堆检查一遍以确保没有错误。
+
+该函数的目的是确保runtime中的内存分配和释放方法正常工作并且不会造成内存泄漏或浪费，并帮助开发人员在调试代码时发现问题。
+
+
+
+### TestPageAllocAllocAndFree
+
+TestPageAllocAllocAndFree是一个功能测试函数，用于测试runtime/mpagealloc模块中的PageAllocAlloc和PageAllocFree函数。
+
+PageAllocAlloc函数的作用是在g0的本地堆上分配一定数量的连续页。这些页可以用于存储对象或者其他数据。PageAllocFree函数的作用是释放之前分配的页，使其可以再次被重用。
+
+TestPageAllocAllocAndFree用于测试PageAllocAlloc和PageAllocFree函数的正确性。在测试开始时，该函数会调用PageAllocAlloc函数分配指定数量的连续页，然后将分配的页上的每个字节都填充上固定的随机值。接着用PageAllocFree函数释放这些页。最后，将重新调用PageAllocAlloc函数再次分配同样数量的页，检查分配的地址是否与之前的分配地址相同，并检查之前填充的随机值是否已被擦除，以确保PageAllocFree函数有效释放了之前分配的页。
+
+TestPageAllocAllocAndFree函数的测试目的是确保PageAllocAlloc和PageAllocFree函数能够正确分配和释放页，并且不会出现内存泄漏问题。
+
+
+

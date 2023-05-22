@@ -1,0 +1,74 @@
+# File: mpagecache_test.go
+
+mpagecache_test.go文件是Go语言运行时（runtime）中内置的测试文件之一，主要测试了内存页缓存（mpagecache）的基本功能和性能。
+
+内存页缓存是Go语言运行时系统用于管理内存页的数据结构，它用于将内存页从底层的操作系统内核分配器缓存以及用于堆的虚拟内存中分离出来，并跟踪哪些页是空闲的以及哪些页已经在使用中。内存页缓存在Go语言运行时系统构建上具有重要的作用，能够提高Go语言程序的内存分配和内存管理效率。
+
+该测试文件的测试用例主要功能包括：
+
+1. 测试系统的内存分配操作是否正确，并验证是否能够成功分配指定大小的内存页。
+
+2. 测试内存页缓存的基本功能是否正确，包括将内存页从缓存中取出、将内存页放回缓存，以及从内存页缓存分配内存页等等。
+
+3. 测试内存页缓存的性能，验证内存页缓存在大规模并发情况下的性能采用不会出现明显的性能瓶颈。
+
+该测试文件的执行需要Go语言的运行时环境支持，并需要在操作系统上进行，可以通过运行以下命令在本地机器上执行内存页缓存测试：
+
+```
+go test -v runtime/mpagecache_test.go
+```
+
+以上是对Go语言的runtime中的mpagecache_test.go文件的简要介绍，希望对您有所帮助。
+
+## Functions:
+
+### checkPageCache
+
+checkPageCache这个函数是用于检查pageCache中的全部page是否都被正确地清除的。在函数执行过程中，它会遍历所有的mheap对象，检查它们的page是否被正确地清除。如果页面没有被正确地清除，函数就会抛出错误。
+
+在具体的实现上，函数首先会遍历所有的mheap对象并访问它们，这会触发pagecache的清理操作。接下来，函数会遍历所有的span对象，检查它们的used字段是否为0，如果不是，则说明页面没有被正确地清除。最后，函数还会检查pagecache中的全部page数量是否为0，如果不是，则说明有些页面没有被清除。
+
+这个函数的作用是，在进行Go语言运行时的开发、调试过程中，确保pagecache能够正确地清除所有不再使用的页面，以避免出现内存泄漏的问题。
+
+
+
+### TestPageCacheAlloc
+
+TestPageCacheAlloc是一个单元测试函数，它主要用于测试runtime包中的mpagecache.go中的PageCacheAlloc函数。
+
+具体来说，PageCacheAlloc函数用于从一个大块内存中分配小块内存，这个大块内存通常是通过虚拟内存映射来实现的。PageCacheAlloc函数使用了一个lru列表来缓存已分配的内存块，以便在后续的分配中能够快速重用已分配的块。
+
+TestPageCacheAlloc函数通过创建一个PageCache对象，并多次调用PageCacheAlloc函数，检查返回的内存块是否符合预期。具体来说，它测试了以下方面：
+
+1. 分配的内存块的大小是否正确。
+2. 分配的内存块是否来自预期的内存池。
+3. 分配的内存块是否可以正确地写入和读取。
+
+通过这些测试，TestPageCacheAlloc函数可以验证PageCacheAlloc函数的正确性，以确保它能够正确地分配和重用内存块。这有助于提高性能，减少对操作系统虚拟内存的频繁调用。
+
+
+
+### TestPageCacheFlush
+
+TestPageCacheFlush函数是Go语言运行时中mpagecache包的一个测试函数，主要测试了PageCacheFlush函数的正确性和性能。
+
+PageCacheFlush函数是mpagecache包中的函数，用于将PageCache中的数据刷到磁盘中。PageCache是一个缓存文件系统中的页面缓存，用于提高文件访问的性能。当程序使用文件时，操作系统会先将文件中的数据读取到PageCache中，然后再从PageCache中读取数据给程序使用。这样做可以减少磁盘的IO操作，提高文件读取的速度。
+
+在TestPageCacheFlush函数中，首先生成了一个大小为1GB的文件，然后将文件映射到PageCache中，接着调用PageCacheFlush函数将PageCache中的数据刷到磁盘中。最后比较原文件和刷盘后的文件的MD5值，检查数据是否正确。
+
+测试的目的是验证PageCacheFlush函数的正确性，即使在极端情况下，如大文件（1GB）且PageCache中的数据已经全部被修改，PageCacheFlush函数仍然能够正确地将数据刷到磁盘中。同时，该测试还可以测试PageCacheFlush函数的性能，即刷盘的速度和资源占用情况是否符合要求。
+
+
+
+### TestPageAllocAllocToCache
+
+TestPageAllocAllocToCache是一个用于测试PageAllocAllocToCache函数的测试函数。PageAllocAllocToCache函数是runtime包中的一个函数，其作用是将一些物理内存分配给堆，同时将一些物理内存缓存起来以备后续使用。
+
+TestPageAllocAllocToCache的作用是验证PageAllocAllocToCache函数的功能是否正确。该函数通过调用PageAllocAllocToCache函数，并检查返回值是否正确，来测试PageAllocAllocToCache函数的功能。
+
+具体来说，TestPageAllocAllocToCache会首先调用PageAllocAllocToCache函数，将一些物理内存分配给堆，并将其余部分缓存起来。然后，它会检查返回值是否正确。如果返回值与预期值相符，则测试通过；否则，则测试不通过。通过测试可以确保PageAllocAllocToCache函数在实现时没有出现错误，并且能够按照预期的方式工作。
+
+总之，TestPageAllocAllocToCache函数是runtime包中一个重要的测试函数，用于确保PageAllocAllocToCache函数按照预期工作，并且没有出现任何错误。
+
+
+

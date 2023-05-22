@@ -1,0 +1,28 @@
+# File: mem_js.go
+
+mem_js.go是Go语言运行时的一个文件，它提供了一个与JavaScript引擎交互的接口，用于实现Go语言中的内存管理。
+
+具体来说，mem_js.go中定义了一些用于分配、释放内存、复制内存、判断内存是否相等等操作的函数。这些函数的具体实现依赖于JavaScript的内存管理机制，可以通过JavaScript的TypedArray实现高效的内存操作。
+
+Go语言的垃圾回收机制是基于标记清除算法实现的。当Go运行时需要释放内存时，mem_js.go中定义的函数会调用JavaScript的垃圾回收器来释放内存。这样可以确保Go语言和JavaScript共享同一份内存，避免内存泄漏和资源浪费。
+
+总之，mem_js.go的作用是提供JavaScript和Go语言之间的内存管理接口，让它们可以共享同一份内存，实现高效的内存操作。
+
+## Functions:
+
+### resetMemoryDataView
+
+resetMemoryDataView是用于重置JavaScript的内存数据视图对象的函数。在WebAssembly中运行Go程序时，内存是在JavaScript中分配的。通过内存数据视图对象，Go程序可以直接访问JavaScript内存，并读取或写入数据，来在Go和JavaScript之间进行数据交换。
+
+resetMemoryDataView函数的作用是将内存数据视图对象的长度设置为与Go程序中的内存长度相同。这样做是为了确保内存数据视图对象对Go程序中的所有内存都可见，并且可以进行正确的读写操作。
+
+具体来说，resetMemoryDataView函数会执行以下操作：
+
+1. 获取JavaScript中的内存数据视图对象；
+2. 设置内存数据视图对象的长度为Go程序中的内存长度；
+3. 更新内存数据视图对象的引用地址，以便Go程序可以使用它来访问JavaScript中的内存。
+
+通过重置内存数据视图对象，Go程序可以正确地访问JavaScript内存，并与其进行交互。这使得在WebAssembly中运行的Go程序可以与JavaScript代码紧密集成，并且能够访问Web页面的各种功能和API。
+
+
+

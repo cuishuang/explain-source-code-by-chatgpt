@@ -1,0 +1,157 @@
+# File: mpallocbits_test.go
+
+mpallocbits_test.go文件是Go语言运行时包中的一部分，主要用于测试runtime包中的mpallocbits.go文件的功能和性能。
+
+mpallocbits.go文件中定义了一些用于内存分配的函数和数据结构，包括内存块的分配和释放、内存池的维护等。这些函数和数据结构的正确性和性能对于Go程序的执行效率和稳定性至关重要，因此需要进行严格的测试和验证。
+
+mpallocbits_test.go文件提供了一系列针对mpallocbits.go文件中定义的函数和数据结构的测试用例，包括测试内存分配的正确性和效率、测试内存池的正确性和效率等。这些测试用例覆盖了mpallocbits.go文件中的各种情况和边界条件，对于保证runtime包的正确性和稳定性有着重要的作用。
+
+总之，mpallocbits_test.go文件的作用是测试和验证runtime包中的mpallocbits.go文件的功能和性能，以保证Go程序的执行效率和稳定性。
+
+## Functions:
+
+### checkPallocBits
+
+checkPallocBits函数的作用是检查分配给堆的内存块的分配位图palloc中是否都是1，如果不是1，则返回错误信息。
+
+在Go语言中，运行时系统使用分配位图palloc来跟踪堆内存的使用情况。palloc包含一系列的位，每一位代表着堆中对于相应的内存块的分配情况。当内存块被分配时，palloc中相应的位会被标记为1；当内存块被释放时，相应的位会被标记为0。
+
+checkPallocBits函数主要用于调试和测试。它检查分配位图palloc中的位是否都是1，从而确保在对堆进行分配和释放时，分配位图palloc的使用是正确的。如果有任何错误，例如某些位未被正确标记为1，则该函数将返回错误信息。
+
+
+
+### makePallocBits
+
+在Go语言中，用于内存管理的堆是通过位图算法实现的。mpallocbits_test.go文件中的makePallocBits函数是用于创建PallocBits的辅助函数。
+
+PallocBits是一个结构体，表示一块内存中的位图信息，用于记录哪些块已经被分配或者释放。makePallocBits函数的作用就是根据给定的内存地址、大小和页大小，创建一个新的PallocBits结构体并初始化其中的属性值。
+
+具体来说，makePallocBits函数会先计算需要几个页大小来覆盖整个内存区域。然后使用make函数创建一个长度为这个页数的切片，每个元素的值都是默认值0。
+
+接着，根据给定的内存地址和大小，计算出它们所在的页数和相对于每个页的偏移量。然后，for循环遍历所有需要覆盖的页，将相应的位图信息设置为1。
+
+最后，makePallocBits函数返回PallocBits结构体，其中包含已经设置好的位图信息和其他属性值。
+
+总的来说，makePallocBits函数是实现位图算法中的一部分，用于为指定的内存区域创建位图信息。这个函数通过创建并初始化PallocBits结构体，为内存管理器提供了必要的位图信息。
+
+
+
+### TestPallocBitsAllocRange
+
+TestPallocBitsAllocRange函数是针对mpallocbits.go文件中的PallocBitsAllocRange函数进行的单元测试函数。PallocBitsAllocRange函数用于在指定范围内分配连续的页并设置页对应的位图为已分配状态。该函数在启动分配器时会被调用，用于预先分配内存。TestPallocBitsAllocRange函数用于验证PallocBitsAllocRange函数是否正确地分配了连续的页并设置了对应的位图。具体的测试用例包括：
+
+1. 测试分配的地址是否在指定的范围内。
+2. 测试分配的连续页数是否正确。
+3. 测试位图是否正确设置为已分配状态。
+
+通过这些测试用例，可以确保PallocBitsAllocRange函数正常工作，并避免因为该函数出现问题导致程序崩溃或分配异常等问题。
+
+
+
+### invertPallocBits
+
+invertPallocBits这个函数的作用是翻转pallocbits数组中的指定位段的值（0变成1、1变成0）。
+
+在Go语言的垃圾回收算法中，pallocbits数组用来表示哪些物理内存页面被标记为已分配状态。该数组中每一位代表1页（4096字节）物理内存。如果该位的值为1，则表示对应的物理页面已经被分配；如果为0，则表示该页面未被分配。
+
+在某些情况下，需要把pallocbits数组中特定范围的位取反。比如，在垃圾回收算法中，为了避免扫描被标记为已分配的物理内存页面，需要把这些页面对应的pallocbits数组位取反，使之变成未分配状态，从而确保垃圾回收器能够正确地扫描所有未被标记的页面。
+
+invertPallocBits函数就是用来完成这个操作的。它接受一个范围参数，指定了需要翻转的pallocbits数组的位段。当该函数被调用时，它会遍历这个位段中的每一个位，将其值取反。这样就完成了对pallocbits数组的翻转操作。
+
+
+
+### checkPallocSum
+
+checkPallocSum函数是用于检查Palloc的大小和数量是否正确的函数。在Go语言中，palloc是一种动态分配内存的机制。它会将内存分配到不同的sizeclass中，并对其进行管理。checkPallocSum函数负责检查每个sizeclass中分配了多少内存，以及这些内存总大小是否与期望的大小一致。如果检查失败，函数会输出错误信息并终止程序。
+
+具体来说，checkPallocSum函数会遍历所有的MSpan，计算每个sizeclass的内存数量和大小，然后与预期的值进行比较。如果有任何一个sizeclass的数量或大小不匹配，则会输出错误信息，并通过调用t.Fatalf终止程序。这样可以确保Palloc机制能够正常工作，并且不会导致意外的内存泄漏或内存溢出。
+
+
+
+### TestMallocBitsPopcntRange
+
+TestMallocBitsPopcntRange是一个测试函数，用于测试runtime包中的函数popcntRange。popcntRange函数用于计算一个二进制数字的特定范围内1的个数。在mpallocbits_test.go中，TestMallocBitsPopcntRange函数会生成一些二进制数字，并调用popcntRange函数计算它们的1的个数，然后与预期的结果进行比较，以确保popcntRange函数的正确性。这个测试函数的作用是确保popcntRange函数能够正确地计算1的个数，避免出现错误和问题，并提高代码的可靠性和稳定性。
+
+
+
+### TestPallocBitsSummarizeRandom
+
+TestPallocBitsSummarizeRandom函数是一个单元测试函数，主要用于测试随机分配内存时，内存分配位图的正确性。
+
+测试的过程中，首先调用pallocBitsSummarizeRandom函数随机分配内存，然后进行一系列比较，包括内存总大小是否正确、分配的内存块数是否正确、未分配的内存块数是否正确、已分配的内存块数是否正确等等，以此来验证内存分配位图的正确性。
+
+该函数的目的是确保分配内存时内存分配位图的正确性，以及保证系统在分配内存时能够正确管理内存位图。这对于保证系统内存稳定性和可靠性是非常重要的。
+
+
+
+### TestPallocBitsSummarize
+
+TestPallocBitsSummarize是一个测试函数，用于测试PallocBitsSummarize函数的正确性。PallocBitsSummarize函数的主要作用是计算和输出堆栈中每个字节的使用情况，以便在调试和优化内存分配器时使用。该函数从堆栈分配器中获取信息，然后遍历整个堆栈并对每个字节进行计数。最后，该函数将结果输出到标准输出流中，以便进行进一步分析和调试。
+
+TestPallocBitsSummarize函数使用一些预定义的测试用例来模拟不同的内存使用情况，并测试PallocBitsSummarize函数是否能够正确地计算每个字节的使用情况。如果函数的输出结果与预期结果匹配，则该测试被视为通过，否则测试失败。该测试还可以检查PallocBitsSummarize函数在处理大量内存时的性能和效率。
+
+总之，TestPallocBitsSummarize函数是用于测试和验证PallocBitsSummarize函数的正确性和性能的一个功能函数。
+
+
+
+### BenchmarkPallocBitsSummarize
+
+BenchmarkPallocBitsSummarize是一个基准测试函数，它的作用是测试在分配内存时mpallocbits模块的性能，具体是计算按位存储的标记位集合中标记的数量。
+
+在Go语言中，mpallocbits模块是一个用于管理内存分配的数据结构，它使用位图来表示一段连续内存中哪些位置已经被分配了。这种方式可以大量节省内存，但同时也会带来一些计算成本。
+
+BenchmarkPallocBitsSummarize函数的主要工作就是测试在mpallocbits模块中，计算标记数量的函数（summarize）在不同输入大小下的性能。具体来说，该函数通过调用summarize函数并对其执行时间进行测量，来评估mpallocbits模块计算标记数量的速度是否足够快，以满足实际应用场景的需求。该函数会在不同输入大小下运行多次，以获得一个平均性能指标。
+
+总之，BenchmarkPallocBitsSummarize函数的作用是测试mpallocbits模块计算标记数量的性能表现。这可以帮助开发人员优化内存分配管理模块的性能，以提高应用程序的整体性能。
+
+
+
+### TestPallocBitsAlloc
+
+TestPallocBitsAlloc这个函数是对mpallocbits_alloc函数进行测试的，其作用是验证该函数能够正常分配内存并返回正确的内存空间位置。首先，该函数利用NewHeapArena函数创建了一个arena，然后调用mpallocbits_init函数对该arena中的palloc_bits进行初始化。接着，通过调用mpallocbits_alloc函数，请求分配一段大小为pageSize（默认为8KB）的内存空间，如果分配成功，函数会将分配到的内存空间置为1，表示已被占用。最后，函数校验分配的内存是否符合要求，即是否在arena的范围内且空间大小为pageSize。如果验证通过，则测试通过。 
+
+总体来说，TestPallocBitsAlloc函数的作用是确保mpallocbits_alloc函数能够在正确的范围内为程序分配内存，并保证其准确性和稳定性。同时，它也是一种测试方法，通过测试我们可以验证分配复杂的内存数据结构时的正确性和效率。
+
+
+
+### TestPallocBitsFree
+
+TestPallocBitsFree函数是Go语言运行时的自动测试之一，它的主要作用是测试mpallocbits模块中的pallocBitsFree函数。该函数是用来释放一段内存的，释放的内存必须是以前通过palloc函数分配的，并且必须在相应的锁的保护下调用。
+
+在TestPallocBitsFree函数中，我们可以看到它首先定义了一个内存块，并使用palloc函数为其分配了内存。然后它将内存块的地址传递给pallocBitsAlloc函数，该函数将分配的内存块分配给另一个地址。然后，它再次使用pallocBitsFree函数释放原来分配的内存块，并在检查该内存块是否可以再次使用之前，调用了一些额外的辅助函数。
+
+整个测试的目的是确保pallocBitsFree函数可以正确地释放以前分配的内存块，并在需要使用时将其标记为可用。由于内存分配和释放是Go语言程序的基本操作之一，确保这些操作的正确性对于运行时系统来说至关重要。
+
+因此，TestPallocBitsFree函数在MP分配器中占据着重要的地位，并帮助确保Go语言程序的可靠性和性能。
+
+
+
+### TestFindBitRange64
+
+TestFindBitRange64是一个单元测试函数，用于测试mpallocbits_findbitrange64函数的功能是否正确。
+
+mpallocbits_findbitrange64函数用于在一个64位二进制位图中查找一段连续的位，即找到一个从start位开始的长度为n的连续的0位或1位，并返回其起始位置和长度。
+
+TestFindBitRange64函数测试了mpallocbits_findbitrange64的以下几个方面：
+
+1. 当从start位开始查找一个连续的1位时，函数能够正确返回符合要求的起始位和长度；
+2. 当从start位开始查找一个连续的0位时，函数能够正确返回符合要求的起始位和长度；
+3. 当64位二进制位图中不存在符合要求的连续位时，函数能够返回错误信息；
+4. 当start位超过了64位二进制位图的长度时，函数能够返回错误信息。
+
+通过TestFindBitRange64函数的单元测试，可以保证mpallocbits_findbitrange64函数的功能正确性，提高代码的稳定性和可靠性。
+
+
+
+### BenchmarkFindBitRange64
+
+BenchmarkFindBitRange64函数是用来测试mpallocbits包中FindBitRange64函数的性能的基准测试函数。该函数的作用是：
+
+1. 生成一个长度为64的随机数数组，用于模拟多个64位位图
+2. 随机选择一个起始位和一个结束位作为要查找的位的范围
+3. 重复运行FindBitRange64函数，计算函数的平均执行时间
+
+FindBitRange64函数是一个高效的位图查找函数，用于查找由多个64位位图组成的大位图中，从给定的起始位到结束位的位中的第一个为0的位的索引。通过对该函数进行基准测试可以评估它在处理大型位图时的执行效率，帮助开发人员优化代码。
+
+
+
