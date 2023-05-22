@@ -3,7 +3,7 @@
 <br>
 
 
-- 令chatgpt讲解Go核心源码中每个文件，变量，结构体，方法的作用；目前仅针对**[runtime](https://github.com/cuishuang/explain-source-code-by-chatgpt/tree/main/runtime)**包，后续会陆续增加**sync**，**net**，**cmd/go**等核心package
+- 令chatgpt讲解Go核心源码中每个文件，变量，结构体，方法的作用；目前仅针对[runtime](https://github.com/cuishuang/explain-source-code-by-chatgpt/tree/main/runtime)包，后续会陆续增加**sync**，**net**，**cmd/go**等核心package
 
 
 - 内容由chatgpt生成，仅供参考，不作为面试依据；内容必然存在大量错误，如果尽信，指定得被带到沟里..欢迎指出&提issue探讨,提pr勘误👏🏻
