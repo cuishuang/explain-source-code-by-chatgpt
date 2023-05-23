@@ -1,0 +1,206 @@
+# File: waitgroup_test.go
+
+waitgroup_test.go是Go语言中的测试文件，主要用于测试sync.WaitGroup类型的并发控制机制。该文件包含了多个测试函数，用于测试不同情况下WaitGroup的行为和效果。
+
+其中的主要测试函数包括TestWaitGroupAdd、TestWaitGroupDone、TestWaitGroupWait等。这些函数在执行前会创建一个WaitGroup实例，并对其进行不同的操作，然后利用Go语言自带的testing包进行断言，检验WaitGroup的状态是否符合预期。
+
+通过这些测试函数，可以验证WaitGroup在不同的并发场景下是否能够正确地暂停和恢复程序执行，并防止主线程过早结束。同时，也可以检验WaitGroup是否具备线程安全、高效等特性，以确保程序的正确性和性能。
+
+总之，waitgroup_test.go文件是对sync.WaitGroup并发控制机制进行单元测试的重要文件，通过对其不同方法的测试，可以确保程序能够正确高效地完成并发任务。
+
+## Functions:
+
+### TestNoRaceWaitGroup
+
+TestNoRaceWaitGroup这个func是一个测试函数，主要的作用是测试WaitGroup类型在没有竞态条件（race condition）下的正确性。
+
+在Golang中，WaitGroup类型是一种用来实现并发协程间同步的机制。在使用WaitGroup时，我们可以将计数器初始化为零。然后在每个协程中执行任务时，都将计数器加1。当所有的协程都执行完任务后，我们可以调用Wait方法来阻塞主线程，直到计数器归零。
+
+TestNoRaceWaitGroup测试函数会创建多个协程，并在所有协程执行完任务后，检查WaitGroup的计数器是否为零。如果计数器为零，说明所有协程都执行完毕并正确使用了WaitGroup。
+
+此测试函数的作用是确保WaitGroup在不考虑并发竞争的情况下，能够正常工作并实现正确的同步。
+
+
+
+### TestRaceWaitGroup
+
+TestRaceWaitGroup这个函数的作用是测试在并发的情况下使用WaitGroup时是否存在数据竞争。
+
+具体来说，这个函数会启动若干个goroutine，并让它们同时调用WaitGroup的Add和Done方法，以模拟多个goroutine并发执行的场景。然后，该函数使用sync/atomic包提供的函数来增加一个计数器，来判断WaitGroup中的计数器是否正确地同步了所有goroutine的执行，并最终以零值结束。
+
+通过这个测试函数，我们可以在模拟的并发场景中，验证WaitGroup是否能够正确地在goroutine之间同步计数器，同时不会存在数据竞争或其他并发问题。
+
+
+
+### TestNoRaceWaitGroup2
+
+TestNoRaceWaitGroup2是runtime/waitgroup_test.go文件中的一个测试函数，用于测试WaitGroup的并发安全性。该函数的主要作用是模拟多个goroutine并发执行对同一个WaitGroup的Add、Done和Wait操作，验证这些操作在并发情况下是否会引起数据竞争和内存错误等问题。
+
+具体来说，TestNoRaceWaitGroup2会启动多个goroutine，每个goroutine都会执行一次Add操作和一定次数的Done操作，然后等待所有的goroutine都执行完成。在并发执行时，TestNoRaceWaitGroup2使用了sync/atomic包提供的原子操作来保证WaitGroup中计数器的线程安全性，避免发生数据竞争和内存错误等问题。
+
+通过这个测试函数，我们可以验证WaitGroup在多个goroutine并发使用的场景下的并发安全性，从而确保在实际应用中使用WaitGroup时不会引起并发问题。
+
+
+
+### TestRaceWaitGroupAsMutex
+
+TestRaceWaitGroupAsMutex是一个测试函数，用于测试使用WaitGroup作为互斥锁时可能出现的竞争条件。
+
+在这个函数中，它创建了一个WaitGroup和一个共享变量value，然后启动100个goroutine，每个goroutine会对value进行累加。由于WaitGroup本身用于等待goroutine执行完毕，因此在对value进行累加时，将WaitGroup的Add方法视为加锁，Done方法视为解锁。
+
+然而，在WaitGroup被当做互斥锁使用时，如果不注意使用顺序，可能会导致多个goroutine同时对value进行累加，从而产生竞争条件，最终结果可能无法预测。
+
+因此，TestRaceWaitGroupAsMutex函数的作用就是为了测试这种竞争条件的发生情况，验证WaitGroup是否可以安全地作为互斥锁使用。如果在测试中发现了竞争条件，说明使用WaitGroup作为互斥锁是不安全的，需要采用其他更为适合的互斥机制。
+
+
+
+### TestRaceWaitGroupWrongWait
+
+TestRaceWaitGroupWrongWait是一个测试函数，用于测试在使用WaitGroup时可能会发生的竞态条件（Race Condition）。
+
+在这个测试函数中，先创建一个WaitGroup对象，并将其计数器设置为1。接下来启动两个goroutine，一个goroutine会等待计数器减到0，另一个goroutine会调用WaitGroup的Done方法将计数器减1。由于第二个goroutine很快就会执行，所以第一个goroutine在等待之前就会结束。然后第一个goroutine再次调用Wait方法等待计数器减到0，此时会发生竞态条件，因为计数器已经减到了0，但是第一个goroutine仍然在等待。
+
+这种情况可能导致程序出现死锁或者其他异常情况。因此，在编写使用WaitGroup的代码时，需要注意这种竞态条件的情况，以避免出现不必要的问题。 
+
+该测试函数会验证WaitGroup的正确使用方法，避免出现错误情况，进而确保代码运行的正确性和鲁棒性。
+
+
+
+### TestRaceWaitGroupWrongAdd
+
+TestRaceWaitGroupWrongAdd是一个测试函数，它用于测试在WaitGroup中错误地添加或减少计数器的情况下是否存在竞争条件。
+
+在这个测试函数中，首先创建了一个WaitGroup实例并将其计数器设置为1。然后启动两个goroutine，这两个goroutine都会对该WaitGroup实例进行操作，一个会错误地增加计数器，而另一个则正确地减少计数器。在增加和减少操作之后，测试函数会检查WaitGroup的计数器是否为0，从而判断是否存在竞争条件。
+
+这个测试函数的作用是验证在操作WaitGroup实例时是否存在竞争条件。如果存在竞争条件，那么测试函数将会在运行过程中报告错误。这个测试可以帮助开发者在编写并发代码时及时发现并解决潜在的竞争问题，从而提高代码的安全性和稳定性。
+
+
+
+### TestNoRaceWaitGroupMultipleWait
+
+TestNoRaceWaitGroupMultipleWait是一个测试函数，它的主要作用是测试sync包中的WaitGroup类型的并发安全性。
+
+在这个测试函数中，首先定义了一个WaitGroup变量wg，并将其计数器设置为2。接着创建两个goroutine，分别调用wg.Add(1)将计数器加一，然后分别执行一些耗时的操作。最后，在主goroutine中调用wg.Wait()等待两个子goroutine执行完毕。
+
+由于两个子goroutine的执行时间不确定，并且可能存在并发竞争条件，因此需要在测试函数中使用go test -race命令进行竞争检测，以确保程序能够正确地运行并防止数据竞争。
+
+该测试函数的期望结果是：不会报告任何竞争条件或数据竞争问题。如果测试成功，则说明WaitGroup类型具有并发安全性，可以在多个goroutine之间安全地共享和使用。
+
+
+
+### TestNoRaceWaitGroupMultipleWait2
+
+TestNoRaceWaitGroupMultipleWait2函数是Go语言中runtime包中waitgroup_test.go文件中的一个测试函数，用于测试WaitGroup的并发操作。具体作用如下：
+
+1. 创建5个协程进行并发操作。
+
+2. 每个协程会将一个WaitGroup对象的计数值加1，然后再通过Wait方法等待计数值清零。
+
+3. 在所有协程执行完毕后，再新建10个协程进行同样的操作。
+
+4. 最后再次使用Wait方法等待所有协程都执行完毕。
+
+测试函数会验证在上述操作过程中是否发生了竞争条件。
+
+该测试函数的作用是测试WaitGroup对象的可靠性和并发安全性，以验证在并发场景下WaitGroup对象的正常功能和性能表现。同时，该测试也可以用于检测并发调度器的正确性和稳定性。
+
+
+
+### TestNoRaceWaitGroupMultipleWait3
+
+TestNoRaceWaitGroupMultipleWait3是一个测试函数，它的作用是测试WaitGroup的多次等待功能。
+
+在这个测试函数中，首先创建一个WaitGroup对象，并启动两个并发goroutine去执行一个模拟的任务，每个goroutine都需要完成一次任务并通知WaitGroup，然后进入等待状态，等待另外一个goroutine完成任务。
+
+在第一次等待结束后，再启动两个新的goroutine去执行同样的模拟任务，这个过程循环执行3次，也就是总共产生6个goroutine去执行模拟任务。
+
+在所有goroutine完成任务后，主线程调用WaitGroup的Wait()方法等待所有goroutine结束。如果所有goroutine都成功完成任务，那么测试通过，否则测试失败。
+
+这个测试函数的主要目的是测试WaitGroup是否能够正确地处理多次等待、多个goroutine的情况，以及检查Wait()方法是否能够正确地等待所有goroutine完成任务。这样可以确保在实际代码中使用WaitGroup时，能够正确地等待所有goroutine完成任务，避免出现因为goroutine还没有完成任务而导致程序继续执行的情况。
+
+
+
+### TestRaceWaitGroup2
+
+TestRaceWaitGroup2函数是runtime包中waitgroup_test.go文件中第二个测试函数。该函数主要用于测试在多个goroutine中同时使用WaitGroup时是否会发生竞态条件（race condition）。
+
+在函数中，首先创建了一个WaitGroup对象并将其计数器设置为2。然后创建了两个goroutine，每个goroutine中都执行了WaitGroup的Done方法，将计数器减1。最后通过调用Wait方法等待计数器归零。
+
+测试函数的主要目的是测试在两个goroutine同时执行Done方法时是否会出现竞态条件，因此函数使用了race标记，以便使用go test命令时能够检测到数据竞争。
+
+如果在测试执行过程中发现竞态条件，则测试将失败。否则测试将通过。
+
+该测试函数可以帮助开发人员验证在使用WaitGroup时是否实现了正确的并发控制，以确保goroutine之间的同步和正确的资源管理。
+
+
+
+### TestNoRaceWaitGroupPanicRecover
+
+TestNoRaceWaitGroupPanicRecover这个函数是一个Go语言测试函数，主要的作用是测试在WaitGroup中使用panic和recover函数时是否会出现竞态条件以及是否能够正常地恢复执行。在WaitGroup中，如果所有的goroutine还没有完成它们的工作就已经被通知，那么它们将会陷入永久等待。如果在WaitGroup中的goroutine中发生了panic，那么它所等待的goroutine可能永远都不会被唤醒，并且程序将会陷入无限等待的状态。
+
+TestNoRaceWaitGroupPanicRecover函数先创建了一个WaitGroup，并且启动了5个goroutine，每个goroutine都会在WaitGroup中调用它的Done()函数。然后，在其中一个goroutine的执行过程中，它会发生一个panic错误，测试代码通过使用recover函数来捕获这个异常，并且在恢复执行后检查所有的goroutine是否都已经完成它们的工作。这个测试函数的目的是确定在WaitGroup中使用panic和recover函数时是否会出现竞态条件以及能否正常的进行错误恢复。
+
+
+
+### TestNoRaceWaitGroupPanicRecover2
+
+TestNoRaceWaitGroupPanicRecover2函数是在测试waitgroup_no_race函数的时候使用的，用于测试在并发情况下waitgroup是否能够正确地工作，以及防止panic不会泄漏到其他goroutine中。
+
+具体来讲，TestNoRaceWaitGroupPanicRecover2 函数创建了一个waitgroup，使用三个（即numCPU）goroutine来模拟并发操作，在每个goroutine中执行如下代码：添加一个waitgroup计数器，然后调用panic函数，然后再恢复panic，最后减少waitgroup计数器。这个过程是在一定的延迟后进行的。
+
+TestNoRaceWaitGroupPanicRecover2函数还实现了一个函数panicTestRecover，用于恢复panic并将其传播到主test goroutine中。最后，TestNoRaceWaitGroupPanicRecover2函数使用t.Parallel()声明支持并发测试，并使用t.RunParallel()来启动多个测试goroutine，并在各个goroutine之间同步等待waitgroup计数器清零，确保每个goroutine都执行完毕。
+
+通过这个测试，我们可以验证waitgroup在并发下是否能够正常工作，还可以测试waitgroup对panic的处理是否正确，以及验证Go语言的并发机制是否能够有效地处理并发异常，从而提高代码的稳定性和可靠性。
+
+
+
+### TestNoRaceWaitGroupTransitive
+
+TestNoRaceWaitGroupTransitive是go语言runtime包中的一个测试函数，主要作用是测试WaitGroup的并发安全性。
+
+在测试中，首先创建一个WaitGroup对象，然后启动多个goroutine同时对WaitGroup的计数器进行增加和减少操作，通过assert语句判断测试结果是否正确。在这个过程中，由于涉及到多个goroutine同时访问WaitGroup对象，因此需要通过mutex等机制来保证并发安全。
+
+具体来说，代码中通过go run -race命令来检测可能存在的并发访问问题。如果检测到了并发访问错误，测试就会失败。如果测试通过，说明WaitGroup的并发安全性得到了保证。
+
+总之，TestNoRaceWaitGroupTransitive函数主要是为了验证WaitGroup在多线程环境中的并发安全性，确保程序正常运行、正确计数。
+
+
+
+### TestNoRaceWaitGroupReuse
+
+TestNoRaceWaitGroupReuse函数的作用是测试在并发情况下，使用WaitGroup的重复使用会不会出现竞争条件。这个测试函数创建了一个计数器（count）和一个WaitGroup实例（wg），启动5个goroutine同时对计数器进行加1操作，然后调用wg.Wait()等待所有goroutine执行完毕。然后再次启动5个goroutine，对计数器进行加1操作，再次调用wg.Wait()等待所有goroutine执行完毕，最后检查计数器的值是否为10。
+
+TestNoRaceWaitGroupReuse函数的目的是测试WaitGroup的重复使用不会出现竞争条件，因为WaitGroup本身是线程安全的。这个测试函数通过多次重复使用WaitGroup来模拟实际场景中的并发操作。如果重复使用WaitGroup时出现了竞争条件，那么会导致计数器的值不为10，从而导致测试失败。
+
+
+
+### TestNoRaceWaitGroupReuse2
+
+TestNoRaceWaitGroupReuse2是一个测试函数，旨在测试使用sync.WaitGroup在多个goroutine中进行计数和等待的情况下是否会出现数据竞争问题。
+
+该测试函数首先通过一个循环创建了10个协程，每个协程会向同一个WaitGroup对象中添加计数器。然后在另一个循环中，等待所有的协程完成任务。
+
+在这个测试函数中，使用了Race Detector来检测是否存在数据竞争。Race Detector是Go语言内置的工具，用于检测并发程序中可能存在的数据竞争问题。
+
+如果测试函数运行不出现数据竞争，则说明sync.WaitGroup在多个goroutine中使用是安全的。反之，则需要进一步审查代码，解决可能存在的竞态条件问题。
+
+
+
+### TestRaceWaitGroupReuse
+
+TestRaceWaitGroupReuse这个函数是runtime包中WaitGroup类型的一个测试函数，用于测试在并发环境下WaitGroup的重用是否会出现竞态条件（race condition）。该函数创建了100个Goroutines并发地执行一段逻辑，其中每个Goroutine都会wait一个WaitGroup并等待一段时间后，再将该WaitGroup重置（reset）并再次wait。如果WaitGroup的重置和wait操作不是原子的，那么就有可能出现race condition，导致程序出错。因此，该测试函数用于检查WaitGroup的重置和wait操作是否是原子的，以保证在并发环境下WaitGroup的正确使用。
+
+
+
+### TestNoRaceWaitGroupConcurrentAdd
+
+TestNoRaceWaitGroupConcurrentAdd是一个并发测试函数，它旨在测试WaitGroup的线程安全性。该测试函数的测试用例是：在多个goroutine中同时增加WaitGroup的计数器值，以确保WaitGroup的计数器在并发环境下能够正常工作，不会发生数据竞争和死锁等问题。
+
+具体来说，TestNoRaceWaitGroupConcurrentAdd函数创建了多个goroutine，并且每个goroutine都会对WaitGroup的计数器值进行多次加1操作。最后，该测试函数会使用Wait函数等待所有goroutine执行完毕，然后检查WaitGroup的计数器值是否为0，以保证所有goroutine都已经完成了自己的工作。
+
+这个测试函数的目的是为了测试WaitGroup在高并发情况下的线程安全性。通过并发执行加1操作，可以确保WaitGroup在并发环境下能够正常工作而不会发生数据竞争问题。如果发现计数器值不为0，说明在计数器增加和清零的过程中存在并发问题，因为有些goroutine还没有被计数器清零，从而导致测试失败。
+
+因此，TestNoRaceWaitGroupConcurrentAdd函数的作用是测试WaitGroup在并发环境下的线程安全性，提高程序的稳定性和可靠性。
+
+
+

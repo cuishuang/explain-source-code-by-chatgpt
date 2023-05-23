@@ -1,0 +1,67 @@
+# File: sema_test.go
+
+sema_test.go文件是Go语言运行时包中用于对并发原语（semaphore）的单元测试文件。该文件中包含多个测试用例，用于测试在并发环境下对于信号量的并发访问和同步机制是否正确。
+
+具体来说，该文件中的测试用例主要包括以下几个方面：
+
+1. 测试创建和初始化semaphore的函数（makeSem）
+2. 测试P操作函数（acquireSema）和V操作函数（releaseSema）的正确性
+3. 测试在并发情况下多个goroutine之间的同步和竞争
+4. 测试semaphore被多次使用时的状态转换和正确性
+
+所有的测试用例都采用了go test的方式进行测试，通过对函数返回值、状态变量等进行检查，验证其是否符合预期。通过这些测试用例，可以确保在使用信号量时，不会出现死锁、资源竞争等问题，从而提高程序的稳定性和可靠性。
+
+总之，sema_test.go文件的主要作用是确保并发环境下对于信号量的使用是正确的，并且能够保证程序的正确性和稳定性。
+
+## Functions:
+
+### TestSemaHandoff
+
+TestSemaHandoff是一个用于测试带缓冲信道执行信号发送和接收时的情况的函数。在这个测试方法中，有两个协程，一个是sender协程，负责向sema管道中发送数据；另一个是receiver协程，负责从sema管道中接收数据。测试首先设置一个带有3个缓冲的信道sema，然后在sender协程中向sema发送3个信号，随后在receiver协程中接收这3个信号。最后，测试方法断言接收到的信号的数量等于发送的数量（即3）。如果测试执行成功，那么它将说明带有缓冲的信道可以成功地进行信号的发送和接收。这在某些并发场景中是非常有用的，比如对于进程间的消息传递或者协调不同协程之间的工作。
+
+
+
+### TestSemaHandoff1
+
+TestSemaHandoff1是go语言中runtime包下的一个测试函数，其作用是测试两个协程之间的信号量(semaphore)传递机制。在这个测试函数中，会创建两个协程（goroutine），一个协程将会等待另一个协程传递信号量，即一次手动的信号量转移，而另一个协程将会手动给等待的协程传递信号量，并且重复操作多次，以模拟信号量传递的实际应用场景。
+
+在TestSemaHandoff1函数中，使用了runtime包中的Semaphore对象（sem），该对象包含了一堆协程需要的数据结构，包括链表等。同时，函数中还使用了runtime包中的Gosched函数，该函数的作用是让出CPU的时间片，让其他的协程可以有机会运行。在测试过程中，协程之间会频繁地通过sem对象进行信号量的转移，从而达到模拟实际应用的目的。
+
+总之，TestSemaHandoff1函数的作用是测试go语言中信号量传递机制的正确性，以及运用了runtime包中的Semaphore对象和Gosched函数来模拟实际应用场景的效果。
+
+
+
+### TestSemaHandoff2
+
+TestSemaHandoff2是Go语言运行时包中的一个测试函数，它主要用于测试同步原语semaphore在并发情况下的工作效果。这个函数模拟了多个进程同时执行时，使用信号量进行资源竞争的情况。
+
+具体来说，TestSemaHandoff2创建了两个goroutine，一个sender和一个receiver，它们共享一个semaphore信号量。sender会等待1毫秒后，尝试获取信号量。如果获取成功，它会向一个channel中发送一个数据（即资源）。如果获取失败，sender会继续等待，直到获取到信号量。
+
+receiver则会从channel中接收数据，当收到数据后，它会立即释放信号量，以便其他进程能够获取到资源。receiver也会等待1毫秒后再次尝试接收其他进程发送的资源。
+
+通过这样的测试，我们可以验证semaphore信号量是否能够正确地在多个goroutine之间进行资源竞争和同步，并且它能否保证程序的正确性和稳定性。
+
+
+
+### testSemaHandoff
+
+testSemaHandoff函数是用于测试go语言中的信号量机制（semaphore）的交接（handoff）过程的。该函数通过创建一个channel，然后通过多个goroutine并发地对该channel进行读写来模拟信号量的交接过程。
+
+具体来说，testSimaHandoff函数首先创建了一个大小为3的buffered channel。然后它启动了4个goroutine并发地对该channel进行读写操作。其中3个goroutine（称为p0、p1和p2）尝试向channel中写入一个值，而另一个goroutine（称为p3）尝试从channel中读取消息。这个过程中，每当有一个goroutine准备向channel中写入消息时，它会首先将一个类型为handoff的数据结构写入到channel中，然后等待其他goroutine来接手这个结构并向其中写入实际的消息。每当有一个goroutine准备接手handoff数据结构时，它会从channel中读取这个数据结构，并将其中的消息写入到channel中。
+
+这种交接方式的设计可以允许多个goroutine并发地向channel中写入消息，并保证每个消息最终只会被一个goroutine接收到。同时，由于buffered channel的机制，即使所有goroutine都在等待，也不会出现死锁的情况。
+
+testSimaHandoff函数使用该机制进行了多次读写操作，最终通过assertion检查是否最终只有一个goroutine成功从channel中读取到了消息。这样就验证了go语言中信号量的交接机制的正确性。
+
+
+
+### BenchmarkSemTable
+
+BenchmarkSemTable是用于测试并发信号量机制的性能的基准测试函数。在Go语言实现中，信号量机制是通过“互斥锁”和“条件变量”组合实现的。BenchmarkSemTable的作用就是用于测试在不同的并发程度下，这种信号量机制的性能表现。
+
+具体来说，这个函数会创建不同数量的goroutine并发访问同一个临界区。在进入临界区前，每个goroutine都会尝试获取一个信号量，如果当前信号量已被其他goroutine占用，则这个goroutine会进入等待状态，直到信号量被释放后再尝试获取。这种机制可以保证在同时只有一个goroutine可以访问临界区，防止数据竞争和不一致性的问题发生。
+
+BenchmarkSemTable会分别测试在1、2、4、8、16、32、64、128、256、512、1024、2048、4096个goroutine并发访问临界区的情况下，信号量机制的性能表现。它会记录每个测试所耗费的时间，并生成一张性能表格，让程序员可以直观地了解信号量在不同并发程度下的性能表现。
+
+
+
