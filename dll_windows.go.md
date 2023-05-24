@@ -1,0 +1,40 @@
+# File: dll_windows.go
+
+dll_windows.go文件是Go语言运行时系统中的一个模块，它主要负责与Windows操作系统上的动态链接库（DLL）进行交互。这个模块提供了一组操作Windows DLL的函数和数据结构，使得Go语言程序能够与Windows DLL互操作。
+
+具体来说，dll_windows.go文件实现了以下主要功能：
+
+1. 加载和卸载DLL：通过调用Windows API函数，dll_windows.go文件提供了加载和卸载DLL的功能。在Go语言程序中，可以使用LoadLibrary和FreeLibrary函数来加载和卸载DLL。
+
+2. 导出函数：dll_windows.go文件可以将Go语言函数导出成Windows DLL中的函数，使得其他程序可以调用这些函数。通过调用Windows API函数，dll_windows.go文件提供了导出函数的功能。
+
+3. 设置DLL搜索路径：dll_windows.go文件可以设置Windows DLL的搜索路径。在Go语言程序中，可以使用SetDllDirectory函数来设置DLL搜索路径。
+
+4. 获取导出函数地址：dll_windows.go文件可以获取Windows DLL中导出函数的地址。在Go语言程序中，可以使用GetProcAddress函数来获取导出函数地址。
+
+总之，dll_windows.go文件的作用是为Go语言程序提供与Windows DLL互操作的能力，从而扩展了Go语言程序的功能和灵活性。
+
+## Functions:
+
+### init
+
+init函数是Go语言中的特殊函数，它被自动调用，并且最先执行。在此文件中，init函数的作用是在Windows操作系统下加载运行时DLL，并进行一些初始化工作。
+
+在init函数中，首先调用了syscall.LoadLibrary函数加载了Windows下的运行时DLL文件，这个DLL文件是Go语言编译后的二进制文件的一部分，其中包含了为支持运行时所需的各种系统调用的函数实现。接着调用了syscall.MustLoadDLL函数将DLL加载到进程空间，然后调用RegisterUnixSignal函数注册Unix信号处理程序（该函数在Windows下仅供内部使用）。最后，在init函数结束时，调用了初始化CPU和Goroutine本地存储器的函数（initCPU和initGoroutineLocalStorage）。
+
+总的来说，init函数的作用是在程序执行之前对运行时进行初始化，并加载所需的DLL文件。这些初始化工作为程序的正常运行打下了基础，并保证了Go语言程序在Windows下的可靠性和稳定性。
+
+
+
+### CgoDLLImportsMain
+
+CgoDLLImportsMain这个func的作用是在Go程序启动时，加载所有需要的DLL并保存函数指针。
+
+在Windows系统上，为了使用一些系统调用或第三方库，Go程序需要加载动态链接库（DLL），并调用其中的函数。CgoDLLImportsMain负责自动加载这些DLL，并获取其中函数的地址，这些地址保存在Go语言中的函数指针中，以便在程序运行时直接使用。
+
+具体地说，CgoDLLImportsMain读取Go程序中定义的所有CgoImportDynamic指令，这些指令声明了需要加载的动态链接库的名称和函数名，并在程序启动时执行。对于每个指令，CgoDLLImportsMain首先尝试从已加载的DLL中获取函数地址，如果成功则将其保存到Go程序中对应的函数指针中，如果失败则加载对应的DLL并再次尝试获取函数地址，直到成功为止。
+
+总之，CgoDLLImportsMain的作用是自动加载并保存动态链接库中的函数地址，方便程序在运行时直接调用。
+
+
+
