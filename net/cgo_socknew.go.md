@@ -1,0 +1,34 @@
+# File: cgo_socknew.go
+
+cgo_socknew.go是Go标准库中net包的一部分，其作用是提供平台相关的socket创建和连接实现。
+
+在网络编程中，Go标准库提供了通过Dial函数来创建网络连接，同时也提供了基于TCP、UDP等协议的socket接口，这些操作都需要底层平台所提供的API支持。cgo_socknew.go文件就是实现这些底层API接口的实现，通过CGO技术将Go代码连接到C/C++代码中，实现了底层socket创建和连接的功能。
+
+cgo_socknew.go文件中有几个重要的函数，分别是：
+
+1. cgoSocket：创建socket
+
+2. cgoConnect：连接socket
+
+这些函数通过CGO技术调用了C/C++代码中的socket和connect函数，实现了底层的socket创建和连接操作。同时，cgo_socknew.go文件还实现了一些其他的辅助函数，如getsockopt、setsockopt等，用于在不同的平台上配置socket参数。
+
+总之，cgo_socknew.go文件的作用是将Go的高级网络API与C/C++的底层网络API连接在一起，实现了底层的网络通讯功能。
+
+## Functions:
+
+### cgoSockaddrInet4
+
+cgoSockaddrInet4是一个用于将Go中的net.IP转换为C语言中的sockaddr_in结构体的函数。在网络编程中，IP地址和端口号通常被以sockaddr结构的形式传递给系统函数，而这个结构体的具体定义会因操作系统而异。在Linux系统中，表示IPv4地址和端口号的结构体是sockaddr_in。因此，在C代码中，经常需要将IP地址和端口号转换为sockaddr_in结构体。
+
+在cgoSockaddrInet4函数中，ip参数是要转换的Go语言中的net.IP类型的对象，port参数表示端口号。该函数首先分配一个sockaddr_in结构体，并设置其中的sin_family字段表示使用的是IPv4地址，然后将IP地址和端口号复制到结构体的sin_addr和sin_port字段中，最后将该结构体转换为一个指向sockaddr类型的指针，并将其作为函数的返回值。
+
+cgoSockaddrInet4函数的作用是将Go语言中的net.IP和端口号转换为C语言中的sockaddr_in结构体，这样就可以将其传递给系统函数进行网络通信。
+
+
+
+### cgoSockaddrInet6
+
+cgoSockaddrInet6函数是在net包中实现的用于将C语言中的sockaddr_in6结构体类型转化为Go语言中的IP地址和端口号的函数。IPv6地址是一个128位二进制数，需要将其转换为四个32位的数字，再将这些数字转换为16进制表示的字符串。该函数还可以将IPv6地址中的0段进行省略，在输出中以双冒号表示。此外，该函数还会根据传入的ip地址和端口号创建一个新的Socket连接，并返回该Socket连接的文件描述符。总的来说，cgoSockaddrInet6函数的作用是连接客户端和服务器端的Socket连接，并提供IPv6地址的转换和显示功能。
+
+
+
