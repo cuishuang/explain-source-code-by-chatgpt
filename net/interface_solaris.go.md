@@ -1,0 +1,52 @@
+# File: interface_solaris.go
+
+interface_solaris.go文件是Go语言标准库net包中专门为Solaris操作系统编写的网络接口实现文件。该文件中包含了在Solaris系统上实现的网络接口函数和类型，用于处理网络设备和接口的操作。
+
+该文件中的函数包括获取和设置网络接口的IP地址、子网掩码，MAC地址和MTU等信息，以及激活或禁用网络接口、配置接口的路由信息和获取接口的统计信息等。此外，该文件还包括处理ARP协议和接收底层数据包的函数和类型。
+
+总之，interface_solaris.go文件主要负责实现与网络接口相关的功能，为Go语言在Solaris系统上的网络编程提供支持。
+
+## Functions:
+
+### interfaceTable
+
+在go/src/net中，interface_solaris.go文件中的interfaceTable函数的作用是返回当前系统上可用网络接口的列表。
+
+更具体地说，它会调用C函数if_nameindex和if_freenameindex来获取系统上所有网络接口的名称和索引，然后使用getifaddrs和getifaddrs64函数来获取每个接口的详细信息，包括IPv4和IPv6地址以及MAC地址等。最后，它会将这些信息存储在一个类似哈希表的数据结构中，其中键是网络接口的名称，值是对应的接口信息。
+
+通过调用interfaceTable函数，我们可以轻松地获得系统上所有可用网络接口的详细信息，比如IP地址、MAC地址和MTU（Maximum Transmission Unit）等。这些信息对开发网络应用程序非常重要。
+
+
+
+### linkFlags
+
+在Go的net包中，interface_solaris.go文件中的linkFlags函数是用于返回在solaris平台上编译网络包所需的链接器标志的函数。
+
+具体来说，它主要是为了处理Solaris平台上的动态链接库依赖关系。对于许多操作系统和编程语言，共享库文件，通常也称为动态链接库文件，是一种可被多个程序使用的软件库。而在Solaris平台上编译网络库时，必须通过linkFlags设置正确的动态链接库依赖关系，以确保库文件能够正常加载和链接。
+
+该函数返回的链接器标志包括动态库的路径、库名和版本等，以及一些特定于Solaris平台的标志和选项。这些标志和选项被传递给go build命令，以便正确地构建和链接网络包。
+
+因此，linkFlags函数的作用是提供Solaris平台上的链接器标志，以便在编译网络包时正确地设置动态链接库依赖关系。
+
+
+
+### interfaceAddrTable
+
+在Solaris系统上，interfaceAddrTable函数用于获取网络接口的地址信息。此函数返回一个包含接口地址信息的切片。每个地址信息包括接口的IP地址、子网掩码、广播地址和标志。标志可以标识接口是否为点对点接口、是否支持广播、是否为组播接口等。这些信息是管理网络连接和路由的关键数据。
+
+interfaceAddrTable函数是net包中的一个私有函数，实现了Solaris系统特定的接口信息获取方式。在其他操作系统上，可能会使用不同的系统调用或命令来获取网络接口信息。由于不同系统之间的实现方式差异较大，所以在net包中需要特定的实现来适配不同的系统，从而提供统一的接口操作方式。
+
+
+
+### interfaceMulticastAddrTable
+
+函数名称：interfaceMulticastAddrTable
+
+作用：该函数用于在Solaris操作系统中获取一个网络接口的多播地址表，返回一个由多播组地址和接口索引对组成的数组。
+
+具体实现：该函数首先调用getIfmaddrs函数获取一个包含所有网络接口多播地址的链表ifmaddrs，然后遍历链表，筛选出与指定接口相同的多播地址，将其加入结果数组中返回。
+
+注意事项：在其他操作系统中，该函数可能不存在或具有不同的实现。
+
+
+
