@@ -3,6 +3,8 @@
 <br>
 
 
+- 基于Go 1.21
+
 - 令chatgpt讲解Go核心源码中每个文件，变量，结构体，方法的作用；目前仅针对[runtime](https://github.com/cuishuang/explain-source-code-by-chatgpt/tree/main/runtime)包，后续会陆续增加**sync**，**net**，**cmd/go**等核心package
 
 
