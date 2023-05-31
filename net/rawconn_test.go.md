@@ -1,0 +1,32 @@
+# File: rawconn_test.go
+
+rawconn_test.go文件主要是对net包中的RawConn进行单元测试和基准测试。RawConn提供了对底层网络连接的访问，可以直接读取和写入未经过解析的数据。RawConn通过封装底层网络文件描述符的方式来实现对网络连接的访问，因此在单元测试中需要对其进行测试以确保其正确性和可靠性。
+
+该文件包含了很多测试用例，以对RawConn的不同功能进行测试。例如，测试RawConn是否能够正确创建RawConn对象、是否能够正确的读取和写入数据、是否能够正确关闭连接等等。此外，该文件中还包含RawConn的基准测试用例，以测试其在不同情况下的性能表现。
+
+通过对rawconn_test.go文件进行单元测试和基准测试，可以保证RawConn在使用过程中的正确性、可靠性和性能，从而确保网络连接的稳定性和可靠性。
+
+## Functions:
+
+### TestRawConnReadWrite
+
+TestRawConnReadWrite函数是一个测试函数，用于测试RawConn的读写操作是否正确。
+
+具体来说，这个函数首先创建了一个本地TCP监听器，然后创建了两个RawConn连接，分别作为客户端和服务器端。在测试函数中，客户端发送一条简单的消息给服务器端，服务器端接收到消息后再将其返回给客户端。最后客户端检查返回的消息是否与发送的相同。
+
+这个测试函数的作用是验证原始连接RawConn的读写操作是否可以正常工作。如果这个函数的测试通过，就说明RawConn连接可以在网络层正常传输数据，这对于网络通信服务的稳定性和可靠性非常重要。
+
+
+
+### TestRawConnControl
+
+TestRawConnControl是net包中的一个测试函数，它测试RawConn的Control方法是否正确。RawConn是一个底层网络连接的抽象，封装了操作系统提供的原始的socket连接。
+
+Control方法允许用户操作RawConn的一些底层属性，比如设置TCP是否启用了Nagle算法、设置TCP的拥塞控制算法等。这些属性可以直接操作操作系统提供的socket选项实现。
+
+TestRawConnControl测试通过Control方法设置TCP是否启用了Nagle算法和返回当前选项的值是否正确。测试的过程中先使用Dial函数建立一条TCP连接，然后通过RawConn方法获取底层网络连接的对象，最后使用Control方法设置/获取相关属性。
+
+该测试函数主要作用是验证RawConn的Control方法的正确性，确保用户可以正确地设置底层网络连接的属性。
+
+
+

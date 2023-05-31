@@ -1,0 +1,24 @@
+# File: unixsock_readmsg_cmsg_cloexec.go
+
+该文件定义了一个函数readMsgWithUnixRights并提供了对该函数实现的支持。
+
+readMsgWithUnixRights函数作为unix domain socket协议（AF_UNIX）的一部分，被用来接收数据以及对控制消息（control message）进行操作，返回一个包括接收到数据的缓冲区和控制消息的元组（tuple）。
+
+控制消息常用于进程之间传递文件描述符或UNIX域套接字，可以帮助实现服务进程与客户端进程之间的消息传递，实现有利于网络数据传输的机制。
+
+该文件中的readMsgWithUnixRights函数具有CLOEXEC功能，也就是在进程执行期间，在执行exec调用时控制文件描述符的关闭和继承属性，确保了进程中打开的不必要文件描述符不会被不小心继承并造成资源浪费或数据损坏。
+
+总之， unixsock_readmsg_cmsg_cloexec.go文件的作用是定义了支持UNIX Domain Socket数据接收的函数，并提供CLOEXEC功能，保证进程与文件描述符不会产生意外的交互影响。
+
+## Functions:
+
+### setReadMsgCloseOnExec
+
+setReadMsgCloseOnExec函数的作用是将传入的文件描述符设置为CloseOnExec模式，这会在该文件描述符被用于exec执行系统调用时自动关闭。
+
+在Go语言中，当一个进程调用exec执行另一个程序时，该进程的状态会转移到新的程序中，而新的程序会从头执行。如果进程在调用exec之前没有将文件描述符设置为CloseOnExec模式，那么这些文件描述符会被新的程序继承并保持打开状态，可能会导致一些安全问题。
+
+在UNIX域套接字的读取过程中，需要通过CMSG（控制消息）机制传递一些辅助性的信息，如UNIX域套接字上一次连接的进程ID等。其中的文件描述符也是通过这种机制传递的。因此，在读取消息时需要设置CloseOnExec模式，以避免安全问题。
+
+
+

@@ -1,0 +1,66 @@
+# File: main_plan9_test.go
+
+main_plan9_test.go是Go标准库中net包的一个测试文件，主要用来测试该包在Plan 9操作系统上的功能。
+
+Plan 9是一种类Unix操作系统，主要用于分布式计算和网络通信。由于Plan 9的网络接口与其他操作系统不同，因此需要进行特殊的测试来确保net包在该操作系统上的功能正常。
+
+该测试文件包含了多个测试用例，用来测试net包中的各种功能，如TCP连接、UDP数据包传输、获取本机IP地址等。测试用例实际运行的是Plan 9操作系统上的网络服务器和客户端，通过发送和接收网络数据包来验证net包在该操作系统上的相关功能是否正常。
+
+通过这些测试用例，我们可以确保net包在Plan 9操作系统上的功能正常，并且可以与其他操作系统进行正常的网络通信。这对于需要在Plan 9上进行网络开发的开发人员来说非常重要。
+
+## Functions:
+
+### installTestHooks
+
+在go/src/net/main_plan9_test.go中，installTestHooks函数是一个用于测试目的的辅助函数。它的作用是将一组测试钩子函数与net包的不同方法关联起来，以便在执行测试时捕获有关其行为的更多信息。
+
+在安装测试钩子函数时，这些函数被设计为拦截并记录net包内部调用的一些关键信息，例如：
+
+1. 请求网络地址的次数和方式
+2. 反映与网络连接建立和关闭相关的动作
+3. 返回值以及是否发生错误
+
+这些信息可以帮助测试人员更深入地了解net包的内部机制，帮助他们更有效地识别和处理可能存在的问题。
+
+通过安装测试钩子函数，installTestHooks函数使得所有的测试用例都可以受益于这些额外的信息。同时，这个函数还可以通过删除测试钩子函数来恢复原始的行为。
+
+
+
+### uninstallTestHooks
+
+main_plan9_test.go文件中的uninstallTestHooks函数是用于卸载在initTestHooks函数中注册的测试钩子的函数。在测试期间，可以使用initTestHooks函数注册自定义的测试钩子，例如能够捕获网络请求和响应的钩子。在测试结束时，需要使用uninstallTestHooks函数将这些钩子从系统中卸载，以便其不会影响其他测试或实际生产环境的运行。该函数会遍历所有的注册钩子并将其从所处的map数据结构中删除。同时，该函数还会确保任何因为注册的钩子而临时注册的Socket缓存都能够正确地重置为初始状态，以确保后续运行的测试不会受到其的影响。该函数在net包中的Plan 9系统测试用例中被调用，以确保所有测试运行时所注册的所有特定于测试的钩子均能够在测试结束时被安全地清理和卸载。
+
+
+
+### forceCloseSockets
+
+main_plan9_test.go文件是Go语言标准库中net包的一个测试文件，forceCloseSockets是该文件中的一个函数。这个函数的作用是强制关闭一个或多个socket（套接字）连接。
+
+在Plan 9操作系统中，socket是以文件描述符的形式存在的，因此关闭socket连接也相当于关闭了文件描述符。由于Plan 9操作系统的限制，当一个socket连接没有被正确关闭时，可能会导致文件描述符资源被无限占用，最终导致系统崩溃。因此，forceCloseSockets函数的作用就是为了确保所有的socket连接都能够正确关闭，避免系统崩溃。
+
+具体实现上，forceCloseSockets函数会遍历所有当前进程中打开的文件，查找socket类型的文件描述符并关闭它们。如果有多个socket连接，函数会依次关闭它们，直到所有连接都被正确关闭为止。由于该函数在测试代码中使用，因此它并不适用于在实际生产环境中使用。
+
+
+
+### enableSocketConnect
+
+main_plan9_test.go文件位于go/src/net目录下，是Go语言标准库中网络包（net）的一个测试文件。该文件中定义了一些测试函数，用于测试在Plan 9操作系统上使用网络包的各种功能。
+
+在该文件中，enableSocketConnect函数的作用是开启Plan 9操作系统的socket连接。Plan 9操作系统是一款支持分布式系统的操作系统，其网络模型采用了类似Unix的套接字（socket）接口。然而，在默认情况下，Plan 9系统的socket连接是被禁用的。因此，在使用网络包测试Plan 9系统的时候，必须手动调用enableSocketConnect函数来开启socket连接。
+
+该函数的具体实现是通过执行系统命令“ip/dns -d”来开启socket连接。该命令会启动一个网络服务进程，并将其与“/net”目录下的socket文件关联。这样，网络包就可以通过socket文件与网络服务进程通信，进而实现网络连接的建立。
+
+总之，enableSocketConnect函数的作用是在Plan 9操作系统上开启socket连接，让网络包能够正常使用。
+
+
+
+### disableSocketConnect
+
+在go/src/net/main_plan9_test.go文件中，disableSocketConnect函数的作用是禁用Socket连接并切换为TCP连接，以便进行Plan 9测试。Plan 9是一种分布式操作系统，它的网络协议栈不同于其他操作系统，因此需要在测试中进行特殊处理。
+
+disableSocketConnect函数会将net.socketAPI变量设置为一个空的net-internal/sockAPI接口。该接口用于控制网络连接的创建和关闭，例如对TCP连接的处理。在Plan 9中，Socket接口是不可用的，因此需要使用TCP协议进行网络连接。因此，在执行Plan 9测试时，disableSocketConnect函数会将默认的Socket接口禁用，从而启用TCP连接。
+
+总之，disableSocketConnect函数的作用是针对Plan 9测试的特殊需求来禁用Socket连接并启用TCP连接，以确保测试能够顺利执行。
+
+
+

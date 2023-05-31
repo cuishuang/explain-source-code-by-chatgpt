@@ -1,0 +1,51 @@
+# File: unixsock_linux_test.go
+
+unixsock_linux_test.go是Go语言标准库中net包的子包之一，其中包含了Unix域套接字相关的测试用例。
+
+Unix域套接字是一种特殊的套接字，用于在同一主机上的进程间通信。它与传统的网络套接字不同，不需要经过网络协议栈，因此速度更快，适合在单机上通过IPC（Inter-Process Communication，进程间通信）来传递数据。Unix域套接字可以用于在同一主机上的进程之间传递文件描述符，这种方式通常比传统的IPC方式更高效。
+
+在unixsock_linux_test.go中，测试用例给出了Unix域套接字的常见用法，包括创建Unix域套接字、绑定到本地地址、监听连接请求、接受客户端连接、发送和接收数据等。这些测试用例可以确保Unix域套接字的基本功能正常运行，同时也为使用Unix域套接字的开发者提供了参考。
+
+总之，unixsock_linux_test.go文件的作用是测试Unix域套接字相关功能是否符合预期，并提供使用Unix域套接字的示例代码。
+
+## Functions:
+
+### TestUnixgramAutobind
+
+TestUnixgramAutobind是go/src/net/unixsock_linux_test.go文件中的一个函数，它的作用是测试Unix domain socket的自动绑定功能。
+
+Unix domain socket提供了一种本地进程间通信的机制，与TCP和UDP不同，它们不依赖于网络协议栈，而是基于文件系统。在使用Unix domain socket时，需要绑定一个文件路径，其它进程可以通过该文件路径来连接到该socket。
+
+TestUnixgramAutobind函数中，它创建了两个Unix domain socket，一个用于发送消息，一个用于接收消息。它先将接收socket绑定到一个随机文件路径，然后在发送socket上发送一条消息到该路径。随后，它就会等待接收socket收到这条消息，并验证消息的正确性。
+
+该函数测试了Unix domain socket的自动绑定功能，即在不指定绑定路径的情况下，发送socket会自动到本地文件系统中创建一个随机路径，并将该路径作为目标路径，让接收socket可以自动连接到该路径。这样，发送socket就无需知道接收socket的具体路径，从而简化了应用程序的开发。
+
+总之，TestUnixgramAutobind函数对Unix domain socket的自动绑定功能进行了测试，确保该功能能够正常工作，简化了应用程序的开发。
+
+
+
+### TestUnixAutobindClose
+
+TestUnixAutobindClose是一个功能测试函数，主要测试在使用Unix域套接字监听时，当进程退出时是否会自动解除该套接字绑定。具体来说，它的作用如下：
+
+1. 创建一个Unix域套接字，并使用SO_REUSEADDR选项允许套接字地址可以被重用。
+2. 对该套接字进行bind绑定，并在之后使用net.DialUnix进行客户端连接。
+3. 验证客户端连接成功，并且可以进行通信。
+4. 在客户端和服务器之间断开连接，并且关闭服务器端的监听套接字。
+5. 模拟服务器进程意外退出，触发操作系统自动关闭套接字。
+6. 再次使用相同的Unix域套接字地址进行监听，并验证是否可以重新绑定。
+
+通过测试这个功能，可以确保在使用Unix域套接字进行监听时，当进程异常退出或者被终止时，操作系统可以自动清理该套接字的绑定，避免出现占用端口号的问题。此外，该测试函数还可以验证是否可以在同一个进程中，使用相同的Unix域套接字地址进行绑定和监听。
+
+
+
+### TestUnixgramLinuxAbstractLongName
+
+TestUnixgramLinuxAbstractLongName函数是一个测试函数，目的是测试Unix域socket中使用Linux抽象命名空间的情况下，是否能够发送和接收数据。Linux 抽象命名空间是指针对Unix域socket的一种特殊命名，可以用来在内核中创建并且使用一个全局唯一的Unix域socket，而不需要在文件系统中创建一个文件来表示这个socket。
+
+在这个测试函数中，会先创建一个Unix域socket，并且使用Linux抽象命名空间来命名这个socket。然后启动一个goroutine来监听这个socket，一旦有数据发送过来，就将这个数据通过channel传递出去。接着在主函数中，通过Unix域socket发送一段字符串数据，并且等待goroutine将这个数据传递过来，最后进行比对。
+
+这个测试函数的作用是验证使用Linux抽象命名空间的Unix域socket是否能够正常工作，以及与普通Unix域socket相比，是否存在明显的性能差异。如果测试结果正常，说明Linux抽象命名空间可以作为一种有效的Unix域socket命名方式来使用。
+
+
+

@@ -1,0 +1,139 @@
+# File: net_windows_test.go
+
+net_windows_test.go文件是Go语言标准库中net包的一个测试文件，它主要用于对net包在Windows平台下的各种功能进行测试，并确保其能够正常工作。该文件中包含了大量的测试代码，涵盖了TCP、UDP、ICMP、IP、IPv6等网络层协议。
+
+该文件中主要涉及的测试内容包括：
+
+1.测试TCP和UDP网络连接是否能正常建立和关闭。
+
+2.测试通过TCP协议进行数据传输时，数据是否能正常接收和发送。
+
+3.测试通过UDP协议进行数据传输时，数据是否能正常接收和发送。
+
+4.测试ICMP协议的功能是否正常，例如ping操作是否能正常执行。
+
+5.测试IPv6协议的功能是否正常，例如IPv6地址是否能正确解析等。
+
+测试结果将会被输出到控制台，以便开发人员检查和分析测试结果。
+
+总的来说，net_windows_test.go文件是Go语言标准库中一个非常重要的测试文件，在保证程序质量和可靠性方面发挥着重要作用。
+
+## Functions:
+
+### toErrno
+
+toErrno函数是用于将Windows操作系统中的错误码转化为errno值的函数。在网络编程中，errno值指示函数执行结果的成功或失败状态。toErrno函数将Windows操作系统中的错误码映射到POSIX（Portable Operating System Interface）标准或类UNIX操作系统中的errno值，以便在跨平台的网络编程中使用。Windows操作系统中的错误码可能与POSIX标准和类UNIX操作系统中的errno值不同，toErrno函数将其转换为相应的errno值，使之与在UNIX系统上编写的网络应用程序使用的errno值保持一致。这有助于简化跨平台的网络编程并提高代码的可移植性。
+
+
+
+### TestAcceptIgnoreSomeErrors
+
+TestAcceptIgnoreSomeErrors函数是net_windows_test.go文件中的一个函数，它是用于测试在Windows上Accept函数是否会忽略一些错误情况的。
+
+在该函数中，先启动一个本地TCP监听器，然后使用Dial函数在同一主机上启动一个TCP连接，并发送一些数据。接下来，在Accept调用期间，故意发送一些错误数据，以测试Accept函数是否会忽略这些错误并继续执行。最后，验证Accept函数是否成功将连接添加到已连接列表中。
+
+通过测试这个函数，我们可以检查在Windows操作系统上，如果出现某些错误，是否能够保持网络连接的稳定性和可靠性。如果函数运行成功，那么说明在Windows上的网络连接是稳定可靠的，如果出现错误，就需要进一步排查并解决这些问题，以确保网络连接的可靠性。
+
+
+
+### runCmd
+
+runCmd是在net_windows_test.go文件中定义的一个函数，它的作用是在Windows操作系统上执行命令并返回执行结果。具体来说，runCmd通过调用Windows操作系统的cmd.exe程序来执行command参数指定的命令，并将执行输出作为[]byte类型的结果返回。
+
+在net的测试代码中，runCmd主要用于测试Windows平台上的网络功能，例如测试TCP连接、UDP连接等。通过调用runCmd函数，在Windows平台上执行相应的命令进行测试，以确保相关网络功能的正确性和可用性。
+
+runCmd函数的实现细节包括使用os/exec包创建cmd.exe进程、设置输入输出流、执行命令并等待结果、关闭输入输出流等等。这些细节可以在具体的代码实现中查看，帮助我们更好地理解runCmd的实现原理。
+
+
+
+### checkNetsh
+
+checkNetsh这个函数是在net/windows_test.go文件中定义的。它的主要目的是检查当前系统上是否安装了Netsh命令行工具，用于在Windows上管理网络。Netsh是一个非常强大的命令行工具，可以设置和管理网络连接、DHCP、DNS等。在Windows系统中，很多网络设置都可以通过Netsh来完成。
+
+对于Net包中的一些测试，需要检测系统上是否安装了Netsh。如果未安装，则这些测试将被跳过。checkNetsh函数通过运行Netsh帮助命令来检测Netsh是否已安装。如果Netsh已安装，则函数返回nil；否则，返回一个错误，表示Netsh未安装。
+
+这种做法可以让我们在Windows环境下编写比较可靠的测试代码，确保在运行测试时不会出现因为系统环境问题导致的测试失败。如果Netsh未安装，就没有必要运行测试了，因为测试必然会失败。因此，这个函数起到了保障测试过程的稳定性和可靠性的作用。
+
+
+
+### netshInterfaceIPShowInterface
+
+net_windows_test.go这个文件是net包在Windows下的测试文件，其中的netshInterfaceIPShowInterface函数用于显示网络接口的IP信息。
+
+该函数通过在Windows命令提示符中执行netsh命令来获取网络接口的IP信息。具体来说，它调用了以下命令：
+
+```
+netsh interface ip show address "InterfaceName" | findstr /R "^ *IP Address" | %{"${_}".Split()[2]}
+```
+
+其中，InterfaceName是指定的网络接口的名称，例如：“以太网”或“本地连接”。该命令将显示指定网络接口的IP地址和子网掩码。
+
+在net包的测试中，netshInterfaceIPShowInterface函数被用于测试net.DialTimeout函数。该函数用于在指定的网络类型、地址和端口上建立TCP连接，并限制连接时间。在Windows下，此函数还需要使用netsh命令获取网络接口的IP信息，以便将连接绑定到正确的本地IP地址和端口。
+
+
+
+### TestInterfacesWithNetsh
+
+在net_windows_test.go文件中，TestInterfacesWithNetsh函数的作用是测试netsh命令是否能够正确地获取Windows系统的网络接口信息。
+
+具体来说，TestInterfacesWithNetsh通过调用netsh命令来获取系统中所有的网络接口，并将这些接口的信息解析成一个Interface结构体数组返回。这个数组中每个元素代表一个网络接口，包括接口的名称、状态、IP地址、MAC地址等信息。
+
+在测试过程中，TestInterfacesWithNetsh会比较netsh命令获取的接口信息和Go语言标准库中获取接口信息的方法是否一致，以确保netsh命令的正确性。
+
+总之，TestInterfacesWithNetsh函数是用于测试Windows系统网络接口信息获取的一个重要函数，可以帮助Go语言开发者确保相关功能函数的正确性，并提高程序稳定性和可靠性。
+
+
+
+### netshInterfaceIPv4ShowAddress
+
+net_windows_test.go文件中，netshInterfaceIPv4ShowAddress函数用于获取指定网络接口的IPv4地址信息。在该函数中，通过调用Windows系统命令netsh.exe，并传递参数，可以获取IPv4地址信息，包括IP地址、子网掩码、默认网关和DNS服务器等。
+
+该函数主要用于对网络接口的配置进行测试。在测试中，需要确保网络接口的IPv4地址设置正确，才能保证网络连接正常。通过调用netshInterfaceIPv4ShowAddress函数，可以获取到网络接口的IPv4地址信息，对比设置的地址信息，从而进行测试。
+
+此外，在Windows系统中，通过命令行netsh.exe工具可以进行网络的配置，包括设置IP地址、子网掩码、默认网关和DNS等。netshInterfaceIPv4ShowAddress函数本质上是通过调用netsh.exe工具实现了对网络接口IPv4地址的获取。
+
+
+
+### netshInterfaceIPv6ShowAddress
+
+在net/src/net_windows_test.go文件中，netshInterfaceIPv6ShowAddress是一个Windows测试函数，用于显示某个网络接口的IPv6地址信息。该函数主要是通过调用Windows命令行中的netsh.exe程序实现的，该程序是一种命令行界面下的网络配置工具，可以用于配置和管理网络接口、IPv6地址、路由表等。
+
+具体来说，netshInterfaceIPv6ShowAddress函数中首先定义了一个cmd字符串，用于存储调用netsh.exe程序的命令和参数。然后通过exec.Command函数创建一个命令行进程，执行cmd字符串中的命令，并返回一个Cmd对象。接着调用Cmd对象的Output()方法运行该命令并获取输出结果。在获取结果后，该函数会将其转化为字符串并返回。
+
+总的来说，netshInterfaceIPv6ShowAddress函数的作用是获取某个网络接口的IPv6地址信息，并将其转化为字符串格式返回，方便开发人员在测试网络应用程序时进行调试和定位问题。
+
+
+
+### TestInterfaceAddrsWithNetsh
+
+TestInterfaceAddrsWithNetsh这个函数是用于测试在Windows平台上获取网络接口地址的功能。在Windows平台上，使用net包中的接口获取IP地址可能会受到限制或不准确，因此在此测试中我们将使用Windows内置的命令行工具netsh来获取接口信息。此测试函数会执行以下操作：
+
+1. 使用netsh获取本地计算机的接口列表和接口信息。
+2. 遍历接口列表，获取每个接口的IP地址列表，并将其存储在一个set（集合）中。
+3. 使用net包中的接口获取IP地址列表。
+4. 对比set中存储的IP地址和net包获取的IP地址，确保它们匹配。
+
+在测试过程中，TestInterfaceAddrsWithNetsh函数会验证net包获取的IP地址列表是否与netsh获取的列表相同，以确保该功能的准确性。这个测试函数的作用是确保在Windows系统上能够正确获取网络接口地址，在net包中实现正确的获取IP地址的方法。
+
+
+
+### checkGetmac
+
+在net_windows_test.go文件中，checkGetmac是一个函数，用于检查Windows系统上获取MAC地址的功能是否正常。它通过执行Windows命令行工具“getmac”来获取MAC地址，并验证返回的MAC地址是否与实际硬件的MAC地址匹配。
+
+该函数的作用是确保Windows下的网络功能正常工作，并且能够正确识别计算机上的网络适配器。由于MAC地址是网络设备的唯一标识符，因此这个函数可以有效地验证网络适配器是否正确地安装和配置。
+
+在测试网络代码时，检查网络适配器的状态和配置是非常重要的，因为它会影响网络连接的稳定性和速度。因此，checkGetmac函数可以帮助确保网络代码在Windows上的正常运行。
+
+
+
+### TestInterfaceHardwareAddrWithGetmac
+
+TestInterfaceHardwareAddrWithGetmac这个函数是用于测试在Windows平台上获取网络接口的硬件地址（即MAC地址）的函数。测试是通过调用net.interfaceHardwareAddrWithGetmac函数来实现的。
+
+在Windows平台上，可以使用getmac命令来获取网络接口的MAC地址。net.interfaceHardwareAddrWithGetmac函数会使用exec.Command函数来执行getmac命令，并从命令输出中解析出MAC地址。
+
+这个函数的作用是确保net.interfaceHardwareAddrWithGetmac可以正确地获取网络接口的MAC地址，以确保在使用网络连接时数据的准确性和安全性。
+
+
+

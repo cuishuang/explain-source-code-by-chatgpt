@@ -1,0 +1,24 @@
+# File: sendfile_windows.go
+
+sendfile_windows.go是Go语言中net包中的一个文件，用于为Windows平台实现sendfile函数。
+
+sendfile函数是Linux中实现零拷贝传输的一种方式，可以直接把文件传输到网络socket中，而不需要在用户空间中复制文件内容。Windows平台中没有sendfile系统调用，因此需要通过其他手段来实现零拷贝传输。
+
+sendfile_windows.go中的实现基于Windows平台的WSASend函数和CreateFileMapping函数实现。WSASend将文件内容传输到socket中，而CreateFileMapping则用于建立文件或磁盘文件映射。
+
+具体来说，sendfile_windows.go中的sendfile函数会首先创建一个文件映射对象，并把该对象映射到文件的起始位置上。然后调用WSASend，将映射对象的内容传输到socket中。
+
+sendfile_windows.go中的sendfile函数是net包中实现sendfile函数的一种方式，可以在Windows平台上使用sendfile函数进行高效地文件传输。
+
+## Functions:
+
+### sendFile
+
+sendFile函数是在Windows系统下使用sendfile系统调用来发送文件数据的。sendfile系统调用可以将磁盘上的文件直接复制到网络套接字中，而无需经过用户空间。这样可以减少数据传输的CPU和内存开销，提高数据传输速度。
+
+该函数通过调用Windows API函数CreateFile、CreateFileMapping、MapViewOfFile、UnmapViewOfFile、CloseHandle和TransmitFile来实现文件传输。它的参数包括源文件描述符、目标描述符、发送数据的起始位置、发送数据的长度、以及一个可选的FileIO传输选项值。
+
+sendFile函数的主要作用是实现高效的文件传输，尤其是对于大文件的传输。它可以减少CPU和内存开销，提高数据传输速度。在Web服务器等高并发应用场景下，使用sendFile可以显著提高服务器的性能和吞吐量。
+
+
+

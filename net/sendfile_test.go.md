@@ -1,0 +1,70 @@
+# File: sendfile_test.go
+
+sendfile_test.go是Go语言中的net包中用于测试sendfile函数的文件。sendfile函数是一个系统调用，用于将一个文件的数据直接传输到另一个文件或网络连接中，而不需要通过用户空间的缓冲区。因此，sendfile函数可以大大提高数据传输的效率。
+
+sendfile_test.go文件中包含多个测试用例，分别测试sendfile函数在不同情况下的使用方法和效果。这些测试用例包括：
+
+1. TestSendfileWithFile：在两个文件之间传输数据；
+2. TestSendfileWithTCPConn：在TCP连接中传输数据；
+3. TestSendfileWithUDPConn：在UDP连接中传输数据；
+4. TestSendfileLargeFile：传输大文件时的效率测试；
+5. TestSendfileNotExist：处理文件不存在的情况。
+
+这些测试用例可以确保sendfile函数在不同的使用场景下都能正常工作，并且能够尽可能地提高数据传输的效率。此外，这些测试用例还可以帮助开发人员检测&排除代码中的错误和漏洞，确保网络编程的稳定性和安全性。
+
+## Functions:
+
+### TestSendfile
+
+TestSendfile函数是对net包中sendfile函数的测试函数。它的作用是测试sendfile函数在将本地文件传输到网络连接时的正确性。
+
+具体来说，TestSendfile函数创建了两个本地文件，并分别向这两个文件中写入一些数据。然后它使用net包中的TCP服务器和客户端模拟了一个网络连接，并在连接上调用了sendfile函数将第一个本地文件发送到连接中。
+
+在发送完成后，TestSendfile函数会读取连接中的数据，将其与第二个本地文件进行比较，以检查发送是否成功。如果发送成功，TestSendfile函数将打印“PASS”表示测试通过，否则打印“FAIL”表示测试失败。
+
+TestSendfile函数的作用在于确保sendfile函数在将本地文件传输到网络连接时能够正确地发送数据，并在传输完成后能够正确地读取和比较接收到的数据，保证了整个传输过程的正确性。
+
+
+
+### TestSendfileParts
+
+TestSendfileParts函数是一个单元测试，它用于测试Net包中的sendfileParts函数。sendfileParts函数是用来将源文件的一部分写入目标文件的函数。TestSendfileParts函数会在测试过程中调用sendfileParts函数，并用示例数据模拟源文件和目标文件，最后检查写入数据的正确性和错误情况。
+
+更具体的说，TestSendfileParts函数会创建一个源文件和目标文件，并将源文件中指定字节范围内的数据写入目标文件。该函数会测试不同的参数组合，如不同的字节范围、偏移量和写入大小，并检查函数执行后目标文件中的数据是否正确。如果执行过程中出现错误，TestSendfileParts函数会抛出相应的异常，这样我们就可以在开发时及时发现和解决问题。
+
+
+
+### TestSendfileSeeked
+
+TestSendfileSeeked这个func是用来测试在调用sendfile函数时，文件偏移量（即读取文件的起始位置）的影响。sendfile函数是一种高效的文件传输机制，它可以将一个文件中的数据从一个文件描述符传输到另一个文件描述符。
+
+该测试函数首先创建了一个大小为4096字节的文件，并将其填充为随机数据。然后，它使用os.File的Seek函数将文件指针移动到中间位置，并测量了从该位置到文件末尾的数据传输速度。接下来，它将文件指针移动到开头，并再次进行测试。最后，它将文件指针移动到末尾，并再次进行测试。
+
+通过这些测试，TestSendfileSeeked函数可以得出以下结论：
+
+1. 在文件传输过程中，sendfile函数会从当前文件偏移量开始读取数据，因此在使用sendfile函数之前需要使用文件描述符的Seek函数来设置文件偏移量。
+2. 对于较大的文件，sendfile函数的速度相比使用标准的I/O操作会更快，但是在短距离内的数据传输时，sendfile函数的优势并不明显。
+3. 在测试中发现，将文件指针设置到文件末尾不会影响sendfile函数的性能。
+
+
+
+### TestSendfilePipe
+
+TestSendfilePipe是一个测试函数，用于测试在网络中的sendfile功能。在这个测试函数中，会创建一个简单的HTTP服务器和客户端，服务器将一个文件通过HTTP协议发送给客户端。
+
+测试函数首先创建一个管道(pipe)，然后启动一个goroutine来读取管道中的数据并将其写入HTTP响应的Body中。然后使用net.Listen函数在本地地址监听一个TCP端口，等待客户端连接。接着客户端使用http.NewRequest函数创建一个HTTP请求，并设置请求的URL为服务器地址和端口号，并发起请求。在服务器处理HTTP请求时，会使用sendfile函数将文件直接发送给客户端，而无需将文件先读入内存再写到网络连接中。
+
+最后，测试函数会通过断言检查客户端是否成功接收到完整的文件，并且接收到的文件内容是否正确。如果检查通过，则测试函数返回nil；否则，测试函数会返回一个错误信息。
+
+
+
+### TestSendfileOnWriteTimeoutExceeded
+
+TestSendfileOnWriteTimeoutExceeded是net包中sendfile_test.go文件中的一个测试函数。该函数用于测试在发送文件时，当超过写入超时时间时的行为。
+
+具体地说，该函数通过创建一个socket，接着创建一个文件，然后将文件发送到socket。在发送文件的过程中，使用了SetWriteDeadline将超时时间设置为1毫秒。此时，由于超时时间过短，文件无法在规定时间内完全发送，导致函数返回一个超时错误。最后，该函数使用checkError函数检查是否确实返回了超时错误，并对socket和文件进行关闭。
+
+TestSendfileOnWriteTimeoutExceeded函数的作用是测试在发送文件时，当写入超时时间过短时是否会触发超时错误，并检查相应的错误处理行为是否正确。通过这种方式，可以确保在真正的应用中，发送文件时的超时处理是正确且稳定的。
+
+
+

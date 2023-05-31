@@ -1,0 +1,32 @@
+# File: sock_linux.go
+
+sock_linux.go是Go语言net包中用于Linux操作系统的Socket实现代码文件。它包括了Linux平台实现网络编程的各种Socket函数，例如socket、bind、listen、accept等等。此外，该文件还有对于版本、错误码、协议等的具体定义。
+
+该文件中的函数实现了Go语言中网络编程所需要的底层操作，为Go语言网络编程提供了强有力的支持。它让Go语言在Linux平台上可以通过Socket实现网络通信，实现了网络编程的各种功能，例如Socket建立、绑定、监听、连接、接收/发送数据等。
+
+sock_linux.go文件使得Go语言的网络编程实现更加底层并且灵活。同时，它也为在Linux上开发网络应用的开发者提供了便利。对于在Go语言中编写网络应用的开发者们而言，sock_linux.go是Go语言net包中不可或缺的文件之一。
+
+## Functions:
+
+### maxAckBacklog
+
+在go/src/net中，sock_linux.go文件中的maxAckBacklog函数是用于获取TCP最大Ack队列大小的函数。
+
+TCP协议中的Ack（acknowledge）是确认收到数据的信号，发送方收到这个信号后才会继续发送下一批数据。系统为了防止TCP服务器在繁忙的时候发生类似雪崩效应的问题，会对其进行流控制限制（所谓的backlog队列大小），针对不同操作系统的版本和内核版本，backlog队列大小有所不同。
+
+在Linux中，TCP的maxAckBacklog函数的作用就是获取当前系统的TCP最大Ack队列大小。这个值可以对于服务器负载的预测有所帮助，因为如果TCP的maxAckBacklog值太小，则意味着服务器的网络性能可能已经达到瓶颈，需要进行监控和相应优化措施。
+
+总之，TCP的maxAckBacklog函数对于保障服务器的网络性能和稳定性具有重要的作用。
+
+
+
+### maxListenerBacklog
+
+maxListenerBacklog是一个函数，它定义了Linux系统中TCP监听队列的最大长度。它的作用是限制在同一个TCP连接上等待服务的客户端数量，以避免服务请求过多造成服务质量下降或拒绝服务。
+
+这个函数实际上是返回一个指定网络地址和端口的TCP最大监听队列长度。具体来说，它查询系统的网络配置参数并返回一个整数值，这个整数值是系统能够支持的最大监听队列长度。在Linux系统中，默认情况下maxListenerBacklog的值是128。在网络负载很高的情况下，可以通过修改maxListenerBacklog的值来增加TCP监听队列的长度，从而提高系统的网络处理能力。
+
+在网络编程中，使用maxListenerBacklog可以提高网络应用程序与客户端之间的连接请求处理能力，降低请求被拒绝或被阻塞的风险。但同时，也需要注意maxListenerBacklog的值不能设置过大，否则可能会导致资源浪费和系统负载过高。
+
+
+

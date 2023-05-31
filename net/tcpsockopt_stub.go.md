@@ -1,0 +1,34 @@
+# File: tcpsockopt_stub.go
+
+tcpsockopt_stub.go是一个网络包中的文件，它主要是用于在Go语言中实现TCP协议时，对一些TCP选项的处理。
+
+TCP协议是一种可靠传输协议，而在实际的通信过程中，我们可能需要对TCP选项进行一些调整和配置，以适应不同的网络环境和应用场景。在Go语言中，我们可以通过tcpsockopt_stub.go文件中的一些函数和结构体来实现这些TCP选项的处理。
+
+具体来说，tcpsockopt_stub.go文件中定义了一些和TCP选项相关的常量和结构体，如TCP_KEEPALIVE，TCP_NODELAY等常量，以及TCPConn结构体和TCPListener结构体，它们分别表示TCP连接和TCP监听器，并提供了一些处理TCP选项的方法和函数。
+
+例如，通过TCPConn结构体中的SetKeepAlive方法，我们可以启用TCP连接的心跳功能，让TCP连接保持长时间的活动状态，以避免因为长时间未有数据传输而被网络中的路由器或网络设备自动关闭。另外，通过TCPConn结构体中的SetNoDelay方法，我们也可以关闭TCP的nagle算法，加速TCP数据传输，提高网络传输的效率等。
+
+总之，tcpsockopt_stub.go文件的作用在于为Go语言实现TCP协议提供了一些处理TCP选项的工具和方法，方便开发者在实际开发中根据需要进行TCP选项的配置和调整。
+
+## Functions:
+
+### setNoDelay
+
+tcpsockopt_stub.go中的setNoDelay函数是用于设置TCP连接的NoDelay选项，即禁用Nagle算法。
+
+Nagle算法是一种优化TCP网络传输的算法，它会缓存一定量的数据，然后再一次性发送。这样可以减少网络数据包的数目，提高网络传输效率，但是也会增加数据传输的延迟。在某些情况下，如实时视频传输、在线游戏等对延迟敏感的应用中，Nagle算法可能反而会降低网络传输效率。
+
+setNoDelay函数的作用是禁用Nagle算法，即每次发送数据都立即发送，不缓存数据。这可以减少数据传输的延迟，提高网络传输效率，但也可能会增加网络数据包的数目，影响网络传输速度。因此，在使用setNoDelay函数时需要权衡延迟和传输效率的影响，根据实际需要进行设置。
+
+
+
+### setKeepAlivePeriod
+
+setKeepAlivePeriod函数实际是一个兼容性的空函数，用于在不支持TCP keep-alive选项的平台上使用。在支持TCP keep-alive选项的平台上，该函数不会被调用，而是调用操作系统提供的原生函数。
+
+TCP keep-alive是指发送一系列探测包以维持TCP连接的状态，防止连接被意外断开。setKeepAlivePeriod函数的作用就是设置TCP keep-alive的时间间隔。在调用该函数时，如果系统支持TCP keep-alive，则会将设置转发给操作系统的原生函数进行处理，否则该函数将不做任何操作。
+
+该函数的兼容性设计保证了程序的可移植性，即使在不支持TCP keep-alive选项的平台上也能正常运行。
+
+
+

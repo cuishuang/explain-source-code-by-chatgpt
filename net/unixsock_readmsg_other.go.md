@@ -1,0 +1,30 @@
+# File: unixsock_readmsg_other.go
+
+unixsock_readmsg_other.go是Go语言标准库中net包的一部分，其作用是实现Unix域套接字的接收消息操作。
+
+在Unix域套接字中，当一个进程向另一个进程发送消息时，接收方需要通过调用recvmsg系统调用来接收消息。而在Go语言中，该操作封装在unixsock_readmsg_other.go文件中的UnixConn.recvMsg函数中。
+
+具体来说，UnixConn.recvMsg函数会先调用UnixConn.readMsg函数从Unix域套接字中读取消息，然后再解析该消息并返回。其中，消息的解析过程包括以下几个步骤：
+
+1. 解析控制消息：如果接收到的消息中包含控制信息（如Unix域套接字的文件描述符），则需要将其解析出来并保存在UnixConn控制信息缓存中。
+
+2. 解析普通消息：根据Unix域套接字的类型（面向字节流或面向消息），将接收到的消息解析成一个或多个普通消息。对于面向消息的Unix域套接字，每个普通消息都包含消息头和消息体两部分。
+
+3. 返回消息：将解析出来的消息作为recvMsg函数的返回值返回。
+
+总之，unixsock_readmsg_other.go文件的作用是实现Unix域套接字接收消息的操作，为Go语言网络编程提供了强大的支持。
+
+## Functions:
+
+### setReadMsgCloseOnExec
+
+setReadMsgCloseOnExec函数的作用是将Unix domain socket的文件描述符标记为close-on-exec，在执行exec系统调用（例如fork和exec）时自动关闭。这个函数在Unix系统中非常有用，可以帮助避免出现一些潜在的安全问题（如父进程打开一个Unix domain socket，在执行exec之后，子进程同样可以访问该socket，这可能导致未授权的访问）。
+
+setReadMsgCloseOnExec函数是在Unix域套接字的读取操作的过程中调用的。由于该函数被标记为internal，它不应该在代码中直接调用。相反，它的目的是被readMsg函数使用，并且仅在底层Linux系统支持SOCK_CLOEXEC选项时才会起作用。
+
+具体来说，setReadMsgCloseOnExec函数使用fcntl系统调用来设置SOCK_CLOEXEC选项。这个选项标志告诉内核在exec调用期间关闭描述符。基本上，它让描述符在子进程中不再可用。因为一旦调用了exec，就不能访问和继承父进程中的描述符，这样就可以保证socket不会被未授权的进程到处传递。
+
+总之，setReadMsgCloseOnExec函数是在Unix域套接字的读取操作期间使用的一个内部函数，它的作用是将Unix domain socket的文件描述符标记为close-on-exec，以保护系统免于未授权访问的风险。
+
+
+
