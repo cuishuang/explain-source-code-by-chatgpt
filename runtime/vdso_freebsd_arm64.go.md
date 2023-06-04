@@ -1,0 +1,32 @@
+# File: vdso_freebsd_arm64.go
+
+vdso_freebsd_arm64.go文件是Go语言运行时系统中用于处理FreeBSD平台上的ARM64架构下的vdso的文件。vdso全称为Virtual Dynamic Shared Object，是Linux和FreeBSD等操作系统中的一种动态链接库，它包含了一些系统调用的实现，这些系统调用可以由用户空间的应用程序直接调用，而不需要陷入内核态。这种实现方式可以大大提高系统调用的性能和减少上下文切换的开销。
+
+在FreeBSD平台上，ARM64架构下的vdso用于实现一些重要的系统调用，例如获取当前时间等。vdso_freebsd_arm64.go文件就是用于解析这些系统调用，以便Go语言程序可以直接使用这些系统调用，而无需进行系统调用的上下文切换和开销。该文件中定义了一些函数和数据结构，用于实现vdso的加载、解析和调用。
+
+需要注意的是，vdso只在特定的CPU架构和操作系统版本下才能正常工作，因此vdso_freebsd_arm64.go文件只适用于运行在FreeBSD平台上的ARM64架构的机器上的Go程序。
+
+## Functions:
+
+### getCntxct
+
+getCntxct函数的作用是获取当前线程的上下文信息，并将其保存在参数中。在FreeBSD arm64操作系统中，该函数通过调用FreeBSD系统调用getcontext获取当前线程的上下文信息。
+
+在操作系统中，线程的上下文信息包括程序计数器、CPU寄存器状态、堆栈指针等重要信息。这些信息是线程运行的基础，也是线程切换的关键。
+
+在vdso_freebsd_arm64.go文件中，getCntxct函数是实现VDSO（virtual dynamic shared object，虚拟动态共享对象）的关键。VDSO是一种优化机制，它允许内核通过特殊的方式映射功能到用户空间，从而提高了系统调用的性能。在FreeBSD arm64操作系统中，getCntxct函数是通过VDSO方式实现系统调用getcontext，从而避免了用户态和内核态之间的切换，提高了程序的执行效率。
+
+简而言之，getCntxct函数的作用是获取当前线程的上下文信息，并将其保存在参数中，以提高系统调用的性能。
+
+
+
+### getTimecounter
+
+getTimecounter是go/src/runtime中vdso_freebsd_arm64.go文件中的一个函数，主要用于获取系统时钟的当前计数器值。
+
+在FreeBSD系统中，时钟计数器是一个具有高精度和高效率的硬件计时器，可以用于记录和测量时间间隔。因此，getTimecounter函数可以通过读取时钟计数器的值来获取当前系统的精确时间，提供给go程序使用。
+
+在ARM64架构上使用虚拟动态共享对象（VDSo）技术，使该函数能够以最佳性能运行。它是go语言运行时内部使用的一个辅助函数，提供了对FreeBSD系统时钟计数器的底层访问，可以用于实现各种高性能和高精度的计时功能。
+
+
+

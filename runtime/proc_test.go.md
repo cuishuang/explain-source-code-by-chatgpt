@@ -1,0 +1,792 @@
+# File: proc_test.go
+
+proc_test.go文件主要是运行时系统（runtime）中的一个测试文件，用来测试调度器（scheduler）的各个方面是否正常工作，包括线程的创建、终止，调度和运行等等。测试用例主要围绕着几个方面进行，包括G、P和M的关系、退化、负载均衡、抢占、系统调用等等。
+
+在测试中，首先会生成一组不同的G（goroutine），这些G会执行不同的任务，然后尝试用不同的调度算法将它们分配到P（processor）上进行执行，同时重点测试调度器的各个方面是否正确，如抢占、任务恢复等等。通过这些测试，可以确保调度器在不同场景下的表现稳定可靠，提高程序的运行效率和稳定性。
+
+总的来说，proc_test.go文件是一个非常重要的测试文件，配合其他测试文件和代码一起使用，可以全面测试调度器和整个runtime的各个方面，保证程序的正确性和稳定性。
+
+
+
+
+---
+
+### Var:
+
+### stop
+
+在go/src/runtime/proc_test.go文件中，stop这个变量用于控制异步goroutine的运行。
+
+具体而言，stop是一个类型为int32的原子变量，其初始值为0。在测试代码中，stop这个变量被用于通知各个goroutine停止运行。
+
+当测试代码开始运行时，主goroutine会启动多个子goroutine，并将它们的goroutine ID存储到一个叫做gList的slice中。此后，主goroutine会进入一个循环，不断检查stop变量的值是否为1。如果stop的值为1，说明测试需要停止运行，主goroutine会向所有子goroutine发送停止信号，并等待所有子goroutine完成任务，然后结束测试。
+
+子goroutine会按照一定的时间间隔打印输出，输出当前goroutine的ID以及当前goroutine的时间戳。同时，子goroutine也会在每次输出后检查stop变量的值，如果stop被设置为1，子goroutine会准备停止运行，否则会继续输出。
+
+通过stop这个变量及其相关的机制，测试代码可以控制所有goroutine的运行状态，并在需要时停止其运行，从而保证测试的正确性。
+
+
+
+### preempt
+
+在Go语言中，preempt变量用于控制操作系统是否可以中断Goroutine并进行调度。在Go语言中，Goroutine是轻量级线程，可以并发执行。当发生系统调用或者阻塞操作时，操作系统会中断当前正在执行的Goroutine，并将CPU分配给其他可以运行的Goroutine。这个过程叫做调度。
+
+preempt变量的值是一个布尔型，表示是否启用抢占式调度。如果preempt为true，那么操作系统可以在任何时刻中断当前正在执行的Goroutine，并将CPU分配给其他可以运行的Goroutine。否则，操作系统只能在当前Goroutine主动放弃CPU时才能调度其他Goroutine执行。
+
+在实际应用中，如果你需要在Goroutine中进行一些耗时的运算，或者需要等待I/O操作完成，那么最好启用抢占式调度。这能够保证你的程序在多核CPU上充分利用资源，提高程序的吞吐量和性能。但是，出于一些特殊的需求，你也可以禁用抢占式调度，这能够确保程序执行的可预测性和稳定性。
+
+
+
+### padData
+
+在Go语言的runtime包中，proc_test.go文件中的padData变量用来在堆栈的分配中进行填充，以确保堆栈分配后的内存对齐。
+
+具体地说，padData变量是一个字节数组，用来填充每次分配的一小块堆栈内存。堆栈的分配一般是以系统页（通常是4k）为单位进行的，而内存对齐通常比较重要。因此，当分配的堆栈内存大小不是页大小的整数倍时，就需要填充一些无用的字节以对齐内存。
+
+padData的大小是256字节，这是因为在AMD64架构上，堆栈的对齐大小为16字节，256/16等于16，即一个页大小内可以对齐16次。因此，每次分配堆栈时，都会使用padData中的一段字节来进行填充，以确保堆栈内存对齐。
+
+总之，padData变量的作用是为了确保堆栈内存的对齐，以提高程序的性能和稳定性。
+
+
+
+### sysNanosleep
+
+proc_test.go文件中的sysNanosleep变量是一个用于控制时间休眠的变量。在Go语言中，如果一个goroutine需要等待一段时间后再执行下一步操作，可以使用time包提供的Sleep函数实现。Sleep函数会使当前goroutine休眠一段时间后再继续执行。
+
+在底层实现中，Sleep函数会调用runtime包中的sysNanosleep变量。sysNanosleep变量是一个指向操作系统中实现nano级休眠的函数指针。由于不同操作系统的实现方式不同，因此sysNanosleep变量的具体实现方式也不同。
+
+sysNanosleep变量通过实现睡眠操作来控制goroutine的休眠。在Go语言中，实现系统级别的睡眠是需要依赖底层系统调用的。而不同操作系统的实现方式不同，可以自由地选择使用不同的系统调用来完成实现。
+
+通过sysNanosleep变量的实现，在Go语言语言中实现时间休眠的功能变得更加灵活和可定制。这也使得Go语言可以在不同操作系统下实现统一的休眠函数，并且可以支持不同的毫秒、微秒和纳秒级别的实现。
+
+
+
+
+
+
+---
+
+### Structs:
+
+### Matrix
+
+在go/src/runtime中，proc_test.go文件中的Matrix结构体是一个2x2的矩阵，用于测试goroutine的调度器的工作方式。
+
+Matrix结构体具有以下字段和方法：
+
+1.字段
+
+- c [2][2]chan bool：一个2x2的布尔类型通道数组，用于协调不同goroutine之间的同步。其中c[i][j]（i，j∈[0，1]）表示如果第i行和第j列都为true，则表明矩阵已被填满。
+- count int：一个整数类型的计数器，表示已经写入矩阵的元素个数。
+
+2.方法
+
+- (m *Matrix) FillRow(row int, c0, c1 chan bool)：该方法用于填充矩阵的一行，其中row表示将要填充的行数，c0和c1用于通知行和列已经准备好接收下一个元素。在该方法中，它会等待c0和c1都为true，然后写入矩阵的元素，最后通过将c0和c1的值都设置为false，通知下一行和下一列准备好接收下一个元素。
+- (m *Matrix) Check()：该方法用于检查矩阵是否已被填满，如果是，则返回true；否则，返回false。
+
+Matrix结构体的主要作用是对并发编程的调度器进行测试，以确保goroutine可以按预期执行。在测试过程中，多个goroutine同时执行FillRow方法来填充矩阵，并调用Check方法来检查矩阵是否已被填满。如果所有goroutine都能够正确地写入和读取矩阵中的元素，则可以证明调度器正确地处理了goroutine的并发执行。
+
+
+
+## Functions:
+
+### perpetuumMobile
+
+在Go语言中，perpetuumMobile是一个测试函数，位于go/src/runtime/proc_test.go文件中，它主要用于测试Go语言中的Goroutine调度器的性能和稳定性。
+
+该函数的作用是创建一个无限循环的goroutine，该goroutine会在执行时不断地往一个通道（channel）中发送数据，并立即再次接收同样的数据。这样做的效果是，该goroutine在一直运行并保持活动状态，而不会阻塞或停止。
+
+同时，在该测试函数中，还创建了多个goroutine，它们分别执行不同的任务，而这些任务的调度和执行，正是由Goroutine调度器实现的。通过这些任务的执行，可以测试Goroutine调度器在并发情况下的性能和稳定性。
+
+总之，该测试函数的主要作用是测试Go语言中Goroutine调度器的性能和稳定性，以确保其可靠性和高效性。
+
+
+
+### TestStopTheWorldDeadlock
+
+TestStopTheWorldDeadlock是Go语言运行时的一个测试函数，在runtime包中的proc_test.go文件中。该函数的作用是测试并发垃圾回收中的停止世界死锁问题，以保证系统的可靠性和稳定性。
+
+停止世界死锁是指垃圾回收器在并发执行时，当某个goroutine或操作系统线程锁定了某些资源却不释放或释放不及时时，其他goroutine或线程无法访问该资源从而导致系统崩溃的问题。在Go语言中，垃圾回收器需要停止所有运行的goroutine以便进行垃圾回收，因此如果这个过程中发生停止世界死锁，会导致整个系统停滞甚至崩溃，对系统的可用性造成很大损害。
+
+TestStopTheWorldDeadlock函数通过模拟并发垃圾回收过程中的停止世界死锁问题，包括锁定并不释放一个Mutex、在锁定的情况下阻塞线程、使用不可重入锁等场景，来验证Go语言垃圾回收器对这些问题的处理是否正确，以保证系统的可靠性和稳定性。
+
+
+
+### TestYieldProgress
+
+TestYieldProgress是一个测试函数，旨在测试Go语言中用于停止和重新启动活跃goroutine的runtime.Gosched()函数的工作原理。该函数使用了Go语言中的testing包，实现了对停止和重新启动goroutine的测试。
+
+在TestYieldProgress函数中，首先创建了两个Go协程，一个是计数器协程，另一个是打印协程；然后用循环迭代计数器协程，并在每次迭代时将计数器的值打印出来。打印协程是在协程中运行的，它负责打印计数器的值和打印YieldProgress标志（表示在运行计数器协程时进行了Yield操作）。
+
+然后在协程中使用了runtime.Gosched()，它能够将当前协程转换为非活跃状态并且将控制权返回给调度程序，同时允许其他goroutine运行。这个函数在每次迭代后被调用，并且在检测到YieldProgress标志时记录消息。
+
+最后，在计数器协程完成特定的数量后，测试函数检查打印协程记录的消息是否正确，用于验证是否进行了Yield操作。
+
+因此，TestYieldProgress函数的作用是测试Go语言中的runtime.Gosched()函数是如何操作以便于停止和重新启动活跃的goroutine，并且确保是否进行了Yield操作。
+
+
+
+### TestYieldLockedProgress
+
+TestYieldLockedProgress是Go语言运行时的一个测试函数，用于测试当某个协程进入某个临界区（例如加锁操作）后，其他协程能否正确访问共享资源。
+
+在测试中，该函数通过启动两个协程和一个临界区来模拟并发情况。其中一个协程进入临界区进行加锁操作，另一个协程在等待加锁操作完成后访问共享资源。测试会循环执行多次，每次都会交换两个协程的顺序，从而测试出Go运行时对于多协程情况下的临界区保护能力是否正确。
+
+通过这个测试函数，可以验证Go语言运行时在多协程场景下的协程调度和锁机制的正确性，从而确保整个系统的稳定性和性能。
+
+
+
+### testYieldProgress
+
+testYieldProgress函数是Golang runtime库中的一个测试函数，用于测试在并发任务中，协程调度的效果和进展情况。
+
+在多线程编程中，协程调度是一个非常重要的概念。当多个协程同时运行时，操作系统需要决定如何在这些协程之间进行切换，并且使每个协程都有机会运行。因此，协程调度的效果和进展情况是非常重要的。
+
+testYieldProgress函数通过创建一个包含多个协程的任务，并在这些协程之间不断切换，测试协程调度的效果和进展情况。具体来说，testYieldProgress函数创建了一个叫做yieldTask的任务，里面包含了4个协程。每个协程都会打印一条消息，表示它已经开始运行。然后，这些协程会不断地相互切换，直到yieldTask任务完成。此时，testYieldProgress函数会检查每个协程打印的消息，以确保它们都已经执行了，并且没有卡住或死锁等问题。
+
+通过这个测试，可以检查操作系统在协程调度方面的表现，并且确保所有的协程都可以得到平等的运行机会。
+
+
+
+### TestYieldLocked
+
+TestYieldLocked这个函数是runtime包中的一个测试函数，它的主要作用是测试Goroutine在锁定了某个资源时，是否可以主动让出调度器，并让其他Goroutine运行。
+
+在这个函数中，首先创建了两个Goroutine。接着，在第一个Goroutine中，它首先获取了一个锁，并在此时主动让出调度器。然后，第二个Goroutine运行并尝试获取同一个锁，但是由于锁已经被第一个Goroutine占用，所以第二个Goroutine会被阻塞。接着，第一个Goroutine又重新运行，并释放了锁，这样第二个Goroutine就能成功获取锁并运行。
+
+这个测试函数的主要目的是验证Goroutine在锁定资源时，是否具有可中断性和可调度性。如果Goroutine不具备可中断性和可调度性，那么第二个Goroutine就无法获取锁，会一直被阻塞。但是由于Go语言的并发模型保证了Goroutine在需要时可以主动让出调度器，所以第二个Goroutine可以在第一个Goroutine主动让出调度器时运行并获取锁。
+
+总之，TestYieldLocked这个测试函数验证了Goroutine在锁定资源时是否具有可中断性和可调度性，同时也验证了Go语言的并发模型是否正确。
+
+
+
+### TestGoroutineParallelism
+
+TestGoroutineParallelism是一个测试函数，位于go/src/runtime/proc_test.go文件中。该函数主要用于测试Go运行时系统中的Goroutine并行性。它会创建多个Goroutine，并在它们之间传递数据，以测试Goroutine的调度、并发执行、同步等方面的功能。
+
+具体来说，TestGoroutineParallelism会创建一个长度为10的管道，然后启动10个Goroutine，它们会在管道中交替发送和接收整数。在这个过程中，TestGoroutineParallelism会观察并记录每个Goroutine的执行状态、运行时间、使用的CPU数量等信息。最后，它会比较这些数据，以评估Goroutine并行性的质量和效率。
+
+通过这个测试函数，我们可以检查Goroutine的并行性是否符合我们的期望，是否能够实现高效的并发处理。同时，我们也可以对Go运行时系统的性能进行评估和改进。
+
+
+
+### TestGoroutineParallelism2
+
+TestGoroutineParallelism2是一个用于测试并发 goroutine 数量限制的函数。
+
+该函数会首先创建一定数量的 goroutine，然后通过 channel 的方式让每个 goroutine 依次开始运行。每个 goroutine 运行的任务是：等待一段时间后，向一个 channel 发送自己的编号。然后主函数会从这个 channel 中接收这些编号，最终统计并输出运行的 goroutine 数量。
+
+通过不断调整并发数量、等待时间等参数，可以测试系统对 goroutine 并发数量的限制情况，以此来评估和优化系统的并发性能。
+
+
+
+### testGoroutineParallelism2
+
+testGoroutineParallelism2函数是一个并发测试函数，它用于测试Go程序中的并发性能和调度器的行为。具体来说，它会创建一些goroutine并发执行一些任务，并且记录实际并行度和期望并行度之间的差异。如果实际并行度低于期望并行度，则可能表示调度器存在问题，或者系统资源不足。
+
+在testGoroutineParallelism2函数中，首先确定创建goroutine数量的上限，并调整goroutine的数量以便测试不同场景的性能表现。然后使用sync.WaitGroup来等待所有goroutine执行完毕。每个goroutine的执行任务是通过调用time.Sleep来模拟一个计算密集型操作。在每个goroutine的开始和结束时，testGoroutineParallelism2函数会调用runtime_procPin返回的值来确定goroutine绑定的P的编号，以便进一步分析调度的行为。
+
+最后，该函数会比较预期的最大并行度和实际的最大并行度，并通过t.Errorf向测试输出错误信息。如果实际并行度明显低于期望的并行度，那么就需要进一步分析调度器的行为，找出性能瓶颈所在，并进行优化。
+
+总的来说，testGoroutineParallelism2函数是一种强大的工具，可以用于测试和分析Go程序的并发性能和调度行为，帮助程序员发现并解决性能瓶颈问题。
+
+
+
+### TestBlockLocked
+
+TestBlockLocked这个函数是runtime包中proc_test.go文件中的一个测试函数，它用于测试在不同的情况下，一个被锁住的goroutine是否会被正确的阻塞和解锁。
+
+具体来说，TestBlockLocked函数通过调用runParallel函数开启了多个goroutine同时运行，其中每个goroutine都会在一段时间内获取一个锁并持有它，这样就会导致其他goroutine被阻塞。
+
+然后，TestBlockLocked函数会等待一段时间后，尝试去获取这个锁，这时应该会被阻塞。随后，它会随机的解除其中一个持有锁的goroutine的锁，并再次尝试获取锁，这时应该会获取成功。
+
+通过这样的流程，TestBlockLocked函数能够验证在不同的情况下，一个被锁住的goroutine是否会被正确的阻塞和解锁，以及是否会出现死锁等问题。
+
+
+
+### TestTimerFairness
+
+TestTimerFairness这个函数是Golang运行时库中proc_test.go文件中的一个测试函数，主要用于测试定时器的公平性。具体来说，该函数创建了多个Goroutine，并在每个Goroutine中使用`time.After()`函数创建一个定时器，每个Goroutine在定时器到期时会输出一条消息。
+
+在测试过程中，TestTimerFairness会不停地生成新的Goroutine，每个Goroutine都会在定时器到期时输出一条消息。函数会检查每个Goroutine输出的消息数量是否相等，并且在一定时间内是否输出了一定数量的消息。如果所有的Goroutine都能够在规定时间内输出一定数量的消息，并且每个Goroutine输出的消息数量相等，那么该测试就被认为是通过的。
+
+这个测试旨在验证Golang运行时库中的定时器是公平的，即所有的Goroutine都有平等的机会在定时器到期时被唤醒，而不会出现某些Goroutine长时间处于等待状态的情况，从而导致不公平。在实际应用中，定时器的公平性非常重要，特别是在高并发环境下，如果定时器不公平会导致某些请求长时间得不到处理，影响系统的性能和稳定性。
+
+
+
+### TestTimerFairness2
+
+TestTimerFairness2是runtime包中的一个函数，用于测试定时器的公平性。
+
+具体来说，TestTimerFairness2会创建一定数量的goroutine，并对它们设置不同的定时器，然后等待这些定时器触发。同时，它会记录每个goroutine触发定时器的次数，并收集这些计数结果，以验证定时器的公平性。
+
+这个测试函数有如下的步骤：
+
+1. 创建一定数量的goroutines，并对它们设置不同的定时器。
+
+2. 等待每个goroutine触发定时器，并记录每个goroutine的计数结果。
+
+3. 收集所有的计数结果，并检查每个goroutine触发定时器的次数是否相近，以验证定时器的公平性。
+
+测试结果需要保证定时器的公平性，也就是每个goroutine触发定时器的次数应该差不多相等。如果测试失败，则说明定时器存在不公平的问题，需要进行进一步的修复和测试。
+
+总之，TestTimerFairness2作为一个测试函数，主要用于保证定时器的公平性，以确保runtime在处理多个goroutines的时候能够保证公平性和稳定性。
+
+
+
+### TestPreemption
+
+TestPreemption是Go语言运行时中的测试函数之一。它的作用是测试在并发程序中启用抢占调度的能力。抢占调度是指在执行某个goroutine时，另外一个更高优先级的goroutine可以把当前的goroutine挤占掉，并且立即开始执行。
+
+TestPreemption函数模拟了多个goroutine并发执行，其中一些goroutine会执行耗时较长的操作。测试程序通过设置不同的优先级来模拟系统对不同任务的处理顺序，并且使用一个计时器来跟踪单个goroutine的执行时间。如果在预设时间内没有完成，则该goroutine应该挤占并让优先级更高的goroutine立即开始执行。
+
+在测试中，TestPreemption会创建10个goroutine，并将它们设置为不同的优先级。每个goroutine都会启动一个循环，其中包含两个步骤：打上标记表示goroutine已经运行，然后循环一定时间。在循环的过程中，TestPreemption会使用select语句检测计时器是否已经超时，如果超时就退出当前goroutine，并做出失败的标志。如果没有超时，那么就等待其他goroutine执行，看是否有更高优先级的goroutine需要执行。如果有，当前goroutine就会挤占并让优先级更高的goroutine立即开始执行。如果没有，则当前goroutine会继续执行，直到循环达到一定次数或被抢占。测试结果会根据预期值进行判断，如果结果符合预期，则该测试通过，否则测试失败。
+
+
+
+### TestPreemptionGC
+
+TestPreemptionGC是Go语言运行时的一个单元测试函数，作用是测试当goroutine长时间占用CPU时，是否能够被抢占并执行垃圾回收（Preemption和GC的联合测试）。在这个测试函数中，会创建一个占用CPU的长时间任务以模拟goroutine长时间占用CPU的情况，然后让它与另一个goroutine交替执行，在此过程中检查当前goroutine是否被正确抢占，并且是否正常执行了垃圾回收操作。
+
+具体来说，TestPreemptionGC函数的主要测试步骤包括：
+
+1. 创建一个占用CPU资源的goroutine，让其执行一个死循环，模拟长时间占用CPU的场景。
+
+2. 创建另一个goroutine，让它和前面的goroutine交替执行。具体做法是让每个goroutine在执行一段代码后，让出CPU时间片给另一个goroutine，让其继续执行。
+
+3. 在测试过程中，检查当前正常执行的goroutine是否被正确抢占，即检查当前goroutine是否成功让出了CPU时间片，以及新的goroutine是否正确地继续执行。
+
+4. 在测试过程中，触发垃圾回收操作，并检查垃圾回收是否正常执行，并是否释放了占用的内存资源。
+
+通过这些测试步骤，TestPreemptionGC函数能够测试Go语言运行时在执行长时间占用CPU的任务的情况下，是否能够正确地执行抢占和垃圾回收操作，从而验证Go语言运行时的稳定性和性能。
+
+
+
+### TestAsyncPreempt
+
+TestAsyncPreempt是runtime包中的一个测试函数，它测试了异步抢占的功能是否正常，即在协程执行过程中，能否被其他协程中的异步抢占恢复挂起状态。
+
+在TestAsyncPreempt函数中，首先定义了一个协程函数f，该函数中包含一个for循环，循环次数为1e9，即循环1亿次。在for循环中，通过runtime.Gosched()函数主动释放CPU资源，以模拟协程在等待I/O、锁等阻塞操作时释放CPU资源的情况。然后该函数执行了一条print语句，输出"ok"字符串。
+
+接着在main函数中，创建一个协程，执行函数f，然后调用runtime.Gosched()函数主动放弃CPU，让其他协程有机会执行。同时启动一个计时器，计算时间片的使用情况。
+
+随后，创建10个协程，调用runtime.Gosched()函数来让这些协程被加入到调度器的可运行队列中。这些协程在同时竞争CPU时间片，并随时可能抢占已运行的协程，进行异步抢占。
+
+最后在main函数中，等待f函数执行完毕，并关闭计时器。然后检查时间片的使用情况，如果时间片利用率小于40%，则认为异步抢占功能正常。
+
+总之，TestAsyncPreempt函数测试异步抢占的功能是否正常，即在多个协程竞争争夺CPU资源时，调度器能够及时抢占正在运行的协程，执行其他等待运行的协程，从而实现并发执行。
+
+
+
+### TestGCFairness
+
+TestGCFairness是一个用于测试Go语言垃圾回收公平性的函数。它是runtime包中proc_test.go文件中的一个测试函数。这个函数的作用是测试垃圾回收机制是否能够公平地对待多个Goroutine。
+
+函数的具体实现是，创建一个容量为100的通道，使用100个Goroutine向通道中不断发送数据。数据包括需要分配的字节数和分配的对象数。在这个过程中，使用runtime.GC()手动触发垃圾回收。最后，统计每个Goroutine分配的字节数和对象数，判断是否相对公平。
+
+这个测试函数的目的是保证在实际应用场景中，多个Goroutine之间不会因为垃圾回收的不公平而导致程序性能异常。如果存在垃圾回收机制不公平的问题，测试函数可能会在某些情况下失败，提醒开发人员需要对垃圾回收机制进行优化。
+
+
+
+### TestGCFairness2
+
+TestGCFairness2函数是 Go 语言运行时的测试程序。该程序主要用于测试垃圾回收策略的公平性。
+
+在这个测试函数中，会创建一定数量的 goroutine，并且每个 goroutine 每隔一定时间就会分配一段内存。同时，在运行时会观察每个 goroutine 分配内存的时间和次数，并统计它们收到的垃圾回收时间片的数量和频率。
+
+通过这个测试函数，可以测试在不同的垃圾回收策略下，各个 goroutine 分配内存的公平性。如果某个 goroutine 的内存分配次数远大于其它 goroutine，或者在垃圾回收时某个 goroutine 始终无法获得时间片，那么就说明垃圾回收策略不够公平，需要调整。
+
+因此，TestGCFairness2函数在 Go 语言的垃圾回收策略优化中起到了非常重要的作用。它能够帮助开发人员找出垃圾回收策略中的不公平性，从而提高 Goroutine 的执行效率和公平性。
+
+
+
+### TestNumGoroutine
+
+TestNumGoroutine是一个测试函数，作用是测试当前goroutine的数量。
+
+在测试函数中，会创建一些goroutine，并在创建完成后使用runtime.NumGoroutine()函数获取当前goroutine的数量。然后对goroutine的数量进行一些断言，例如判断当前goroutine数量是否和预期值相等等。通过这样的测试可以确保程序中的goroutine数量没有出现不正常的增加或减少，从而避免资源的浪费或造成程序的崩溃。
+
+此外，TestNumGoroutine还包含了一些其他的测试逻辑，例如当goroutine数量较大时，测试函数会等待goroutine数量减少到一个较小的值再进行断言，以避免由于goroutine数量未及时减少导致测试失败。
+
+总之，TestNumGoroutine的作用是保证程序中的goroutine数量符合预期，从而确保程序的正确性和稳定性。
+
+
+
+### TestPingPongHog
+
+TestPingPongHog是一个针对Go语言运行时（runtime）中协作式调度（cooperative scheduling）的测试用例函数。它使用了两个goroutine（goroutine是Go语言中的轻量级线程）来模拟一个“乒乓球”游戏，两个goroutine交替执行任务，直到其中一个goroutine停止。
+
+具体来说，TestPingPongHog函数中，创建了两个goroutine，一个执行ping操作，一个执行pong操作，这两个goroutine之间通过channel来传递消息，实现了两个goroutine的协作调度。在TestPingPongHog函数中还设置了一些控制参数，比如最大运行时间、ping和pong操作的次数等，通过这些参数来控制测试的范围和运行时间。
+
+这个测试用例的作用是检验Go语言运行时中协作式调度的正确性和稳定性。协作式调度是Go语言运行时的一种调度策略，它不像传统的抢占式调度（preemptive scheduling）那样，在执行时硬性中断当前任务，而是需要任务自己响应调度器的请求，主动进行切换，因此在设计上更加轻量级、高效和灵活。而TestPingPongHog函数则可以模拟出具有竞争性和协作性的任务，并验证协作式调度的正确性和稳定性，从而为Go语言运行时开发和优化提供指导和参考。
+
+
+
+### BenchmarkPingPongHog
+
+BenchmarkPingPongHog是一个基准测试函数，用于测试goroutine之间的性能。它模拟了一个ping pong的场景，包括两个goroutine之间持续不断地传递控制权。
+
+在这个函数中，首先创建了两个goroutine，用于模拟ping pong场景中的两个角色。在每个goroutine中，使用select语句轮流发送和接收一个空的channel，以便控制权可以传递给另一个goroutine。这个过程会一直循环下去，直到该函数被中止。
+
+该函数可以用于测试不同的goroutine数量下的性能表现，从而了解goroutine之间的交互和调度对程序性能的影响。通过在函数参数中指定相应的goroutine数量，可以进行不同规模下的性能测试，以优化程序效率和资源利用率。
+
+总的来说，BenchmarkPingPongHog函数是一种对于goroutine性能测试的有效工具，可以帮助开发人员优化复杂多线程程序，提高程序的性能和稳定性。
+
+
+
+### stackGrowthRecursive
+
+stackGrowthRecursive是proc_test.go文件中一个用于测试的函数，主要用于测试goroutine在使用过程中堆栈是如何动态扩展的。该函数是一个递归函数，不断的调用自身直到达到设定的深度，以此测试堆栈的动态扩展。
+
+该函数的主要作用是测试不带缓冲通道的行为。在函数的开头，它创建了一个无缓冲的通道，以便在递归调用中传递参数和返回值。然后，它计算出一个随机的递归深度，并在继续前等待一段随机的持续时间。接下来，它尝试往该无缓冲通道中写入一个数据，并等待另一个goroutine从该通道中读取一个数据。
+
+如果另一个goroutine成功从该通道中读取了一个数据，则该函数会继续进行递归调用。否则，如果由于通道没有缓冲而无法写入数据，则堆栈将被动态扩展，并且该函数将在新的堆栈上进行递归调用。
+
+通过这种方式，stackGrowthRecursive测试了不带缓冲通道在使用goroutine时的行为，包括堆栈的动态扩展和通道的同步操作。同时，它还可以测试系统在堆栈空间不够时如何处理，在堆栈空间耗尽时自动分配新的空间以保证程序正确运行。
+
+
+
+### TestPreemptSplitBig
+
+TestPreemptSplitBig函数是Go语言运行时的测试函数之一，用于测试在处理大型任务时，Goroutine是否能够及时响应抢占调度。在Go语言中，Goroutine是由Go调度器进行调度的，调度器通过分配时间片来处理不同的Goroutine，从而使多个Goroutine并行执行。在某些情况下，可能会出现某个Goroutine长时间运行，从而导致其他Goroutine无法得到执行的情况，影响程序性能。而抢占调度机制则可以使运行时间过长的Goroutine被及时挂起，从而让其他的Goroutine得到执行机会。
+
+TestPreemptSplitBig函数模拟了一个需要处理大量数据的任务，通过让一个Goroutine长时间执行一个for循环，从而占用大量的CPU时间，来测试抢占调度机制的实际效果。同时，该函数利用了一个休眠时间段的机制，通过在for循环中插入休眠时间，使该Goroutine有机会被抢占，从而测试抢占调度机制的正确性。该函数运行了多个Goroutine，并对它们进行了定时调度，以确保它们都有机会得到执行，并测试它们的时间片长度和抢占时间是否正确。
+
+总之，TestPreemptSplitBig函数的目的是测试Go语言运行时对于大型任务的抢占调度机制的正确性和有效性，从而保证程序具有良好的性能和可靠性。
+
+
+
+### big
+
+
+
+
+
+### bigframe
+
+bigframe函数是在golang运行时的proc_test.go文件中定义的一个函数。它的作用是在测试时分配和填充内存，以模拟大量内存负载，用于测试和诊断golang的内存回收机制。
+
+具体来说，bigframe函数使用一个循环来分配连续的内存块，并在每个内存块中填充特定模式的数据。在循环中，它会反转内存块的顺序，以模拟随机内存分配和释放的情况。最后，函数返回分配的内存块的首地址和分配的内存块大小。
+
+这个函数的使用场景包括：
+
+- 进行内存测试，例如诊断内存泄漏问题
+- 模拟大容量数据的生成和操作，例如测试GPU计算、大文件IO等操作的性能
+
+在golang内存管理机制的设计中，精细的内存分配和回收可以显著提高程序的性能和稳定性，而通过bigframe等函数模拟高压内存负载，可以有效地测试和评估golang的内存管理机制。
+
+
+
+### small
+
+proc_test.go文件中small函数的作用是测试Goroutine的创建和销毁。具体来说，small函数创建了一定数量的Goroutine，并且每个Goroutine都会进行一些简单的计算。在进行计算之后，这些Goroutine会被销毁。这样可以测试Goroutine的创建和销毁过程是否正常，以及系统的并发能力。
+
+在small函数中，首先创建了一个sync.WaitGroup对象，用于等待所有Goroutine完成计算。然后使用for循环创建了一定数量的Goroutine。在每个Goroutine中，使用for循环进行简单的计算。计算完成后，调用sync.WaitGroup的Done()方法来标记自己已经完成计算，然后退出Goroutine。最后，在主线程中调用sync.WaitGroup的Wait()方法，等待所有Goroutine完成计算，然后结束测试。
+
+综上，small函数在测试中起到了创建和销毁Goroutine的作用，并通过简单的计算来测试并发能力。
+
+
+
+### nonleaf
+
+非叶子节点（non-leaf）是一种树结构中的节点，它有子节点，即它不是叶子节点。在proc_test.go文件中，nonleaf是用来测试调度器是否能够正确地调度非叶子Goroutine的函数。
+
+具体来说，nonleaf函数创建一个树形结构，其中每个节点都是一个Goroutine，包括叶子节点和非叶子节点。非叶子节点将会创建两个子节点，然后阻塞，等待这两个子节点完成。一旦子节点完成，nonleaf节点会向其父节点发送信号告知它已完成。整个树形结构被构建完毕后，会等待所有的Goroutine完成，并清理所有的资源。
+
+通过这个测试用例，可以测试调度器是否能够正确地处理非叶子节点的阻塞和唤醒操作，以及正确地管理多个Goroutine之间的依赖关系。这对于确保Go语言运行时的稳定性和性能非常重要。
+
+
+
+### TestSchedLocalQueue
+
+TestSchedLocalQueue这个func是go/src/runtime中proc_test.go文件中的一个测试函数，主要是用来测试当一个goroutine的本地队列（local queue）已满时，会发生什么。
+
+在Go语言中，每个goroutine都有自己的本地队列，用于存储待执行的任务。当一个goroutine执行一个任务时，它会先从本地队列中取出一个任务执行，如果本地队列为空，则会去全局队列（global queue）中取任务。如果全局队列也为空，则会去其他goroutine的本地队列中偷取（steal）任务。
+
+TestSchedLocalQueue函数中，会创建一个固定数量的goroutine，并向它们的本地队列中添加任务，使本地队列满载。然后再向这些goroutine的本地队列中添加一些任务，此时这些任务无法被添加到本地队列中，因为本地队列已满。在此之后，会检查每个goroutine的本地队列是否被成功地添加了任务。
+
+这个测试函数能够测试以下情况：
+
+1. 当本地队列已满时，任务是否会被添加到全局队列中；
+
+2. 当全局队列也为空时，任务是否会被成功偷取到其他goroutine的本地队列中。
+
+这个测试函数能够帮助我们深入了解Go语言的调度机制，以及如何优化并发编程中的性能。
+
+
+
+### TestSchedLocalQueueSteal
+
+TestSchedLocalQueueSteal是Go语言运行时（runtime）中的一个测试函数。这个函数主要用于测试并发调度（concurrent scheduling）中的本地队列窃取（local queue stealing）机制。
+
+在Go语言中，调度器（scheduler）采用了M:N的协程模型，即若干个Goroutine（协程）运行在若干个线程（thread）上。线程与协程之间的关系由调度器负责调度，将协程分配到对应的线程上运行。而本地队列即为每个线程上的队列，用于存放该线程上的协程；窃取机制则是指若当前线程上的协程执行完毕，却没有新的协程可运行时，调度器会尝试从其他线程的本地队列中窃取协程进行运行，以提高系统的并发运行效率。
+
+TestSchedLocalQueueSteal就是模拟并发运行的场景，通过验证窃取机制是否有效来测试该机制的正确性。具体实现过程为：在多个线程上创建若干个协程，并且每个线程都有独立的本地队列；协程的执行顺序随机，并且执行时间不同。当某个线程上的本地队列为空时，调度器会尝试从其他线程的本地队列中窃取协程运行。测试函数最终会检查协程的执行结果，通过比较预期结果和实际结果来验证窃取机制的正确性。
+
+总之，TestSchedLocalQueueSteal是Go语言运行时中的一个测试函数，用于验证并发调度中的本地队列窃取机制是否有效，进而提高系统的并发运行效率。
+
+
+
+### TestSchedLocalQueueEmpty
+
+TestSchedLocalQueueEmpty函数是Go语言运行时库中的一个测试函数，主要测试的是本地队列空的情况。
+
+在Go语言中，每个操作系统线程都有一个本地队列，用于存储当前线程需要执行的协程。TestSchedLocalQueueEmpty函数通过向本地队列中添加协程，然后不断执行该协程，直到本地队列为空，测试本地队列是否能正常工作。这个测试函数主要用于确保本地队列能够正确地存储和执行协程，保证程序的稳定性和正确性。
+
+在测试过程中，函数会使用GOMAXPROCS环境变量来设置最大的操作系统线程数，模拟多线程环境下的本地队列情况。当本地队列为空时，需要等待其他线程中的协程被调度到当前线程的本地队列中才能继续执行。测试结束后，会对本地队列进行状态和数量的检查，确保本地队列的正确性。
+
+因此，TestSchedLocalQueueEmpty函数是一个非常重要的测试函数，可以确保Go语言运行时库中的本地队列能够正确地工作，保证Go程序的正确性和性能。
+
+
+
+### benchmarkStackGrowth
+
+proc_test.go中的benchmarkStackGrowth是一个性能测试函数，用于测试协程（goroutine）的堆栈增长性能。
+
+在Go语言中，协程是轻量级线程，可以在单个线程上执行多个协程。每个协程都有自己的堆栈，用于存储本地变量和函数调用信息。当协程需要更多的堆栈空间时，它会分配更多的堆栈内存。
+
+benchmarkStackGrowth函数的作用是测试协程在堆栈增长时的性能表现。它创建了一个协程，在其中执行一个递归函数，该函数会不断调用自己，并在每次调用时将一些数据压入堆栈中。这样可以模拟协程在执行任务时递归深度不断增加的情况，从而测试堆栈增长的性能。
+
+在测试过程中，benchmarkStackGrowth函数会循环执行堆栈增长的过程，每次测试过程中都会记录下堆栈的大小和增长所需的时间。最后，函数会输出测试结果，包括堆栈大小、堆栈增长时间和每秒钟堆栈增长量等指标，用于评估Go语言协程的堆栈增长性能。
+
+
+
+### BenchmarkStackGrowth
+
+BenchmarkStackGrowth是一个基准测试函数，在Go语言的运行时包（runtime）中。该函数主要用于测量函数调用时堆栈的增长速度。
+
+在Go语言中，每个goroutine都有一个堆栈。当调用函数时，堆栈会增长以适应函数调用期间使用的内存。如果堆栈不足以容纳所需的内存，就会引发堆栈溢出错误。
+
+BenchmarkStackGrowth函数通过多次调用一个简单的递归函数来测量堆栈的增长速度。它使用了Go语言的基准测试框架，可以测试在不同环境下堆栈增长的速度，以及在不同操作系统上的表现。
+
+通过这个基准测试函数，可以帮助开发人员更好地了解代码在不同环境下的性能表现，以便更好地优化程序代码。
+
+
+
+### BenchmarkStackGrowthDeep
+
+BenchmarkStackGrowthDeep 函数是 Go 语言运行时包中的一种基准测试函数。它的作用是测试单个 goroutine 在递归调用的情况下堆栈的增长性能。也就是说，它会创建一个调用深度非常大的递归函数，然后测试在这个过程中堆栈的增长情况，以及调用函数所需的时间。
+
+具体来说，这个函数会先创建一个递归函数，每次递归时都会将一个新的字符串拼接到一个已有的字符串中。然后它会对这个递归过程进行基准测试，测试的内容包括：
+
+1. 在递归过程中堆栈所需的内存增长情况。
+2. 在递归过程中堆栈所需的内存释放情况。
+3. 在递归过程中每次函数调用所需的时间。
+
+通过这个基准测试，我们可以了解到 Go 语言运行时在处理大量递归函数调用时，堆栈的扩展和释放速度以及运行时间的性能表现。这对于优化 Go 语言程序的性能和节省系统资源非常重要。
+
+
+
+### BenchmarkCreateGoroutines
+
+BenchmarkCreateGoroutines是一个基准测试函数，用于测试在创建goroutine时的性能表现。
+
+在这个函数中，首先设置一个goroutine的数量，然后使用Go语句创建这么多数量的goroutine，并且让goroutine在启动后立即退出。这样做的目的是测试创建goroutine的速度，并且这些goroutine在退出后也可以避免消耗过多的系统资源。
+
+接着，使用Go语句创建一个监控goroutine，这个goroutine会循环执行直到所有的goroutine都已经退出。在每次循环时，它会使用goroutine数量减去runtime.NumGoroutine()的结果得到还没有退出的goroutine数量，如果这个数量等于0，则表示所有goroutine都已退出，退出循环并结束测试函数的执行。
+
+最后，调用testing.B中的ReportAllocs和StopTimer方法，分别用于报告内存分配信息和停止计时器。
+
+整个测试的结果会被记录下来，并且可以比较不同参数下创建goroutine的速度。通过分析测试结果，可以找到创建goroutine的瓶颈，并进行优化，提高程序的性能。
+
+
+
+### BenchmarkCreateGoroutinesParallel
+
+BenchmarkCreateGoroutinesParallel是一个性能测试函数，目的是测试在并行时创建goroutines的效率和性能。该函数通过对比串行创建goroutines和并行创建goroutines的时间来评估goroutine的创建效率和并行性能。
+
+具体实现如下：首先，函数使用testing.Benchmark()函数来执行测试。然后，它使用for循环创建多个goroutines，模拟并行创建goroutines的过程。接下来，函数等待所有goroutines完成执行，然后返回执行时间。在并行创建goroutines时，函数使用sync.WaitGroup来同步所有goroutines的执行。
+
+总之，通过这个函数，我们可以了解goroutines创建的效率和并行性能，可以在需要高并发处理的应用程序中提高执行效率和并发性能。
+
+
+
+### benchmarkCreateGoroutines
+
+benchmarkCreateGoroutines这个func是一个性能测试函数，用于测试并发创建goroutine的性能。
+
+在该函数中，首先定义了一个waitGroup（等待组）用于协调goroutine的执行。接着，使用Go语言的并发特性，创建了N个goroutine，并在每个goroutine中执行一段简单的代码逻辑，这里的代码逻辑并没有什么实际意义，只是为了让goroutine进行一定的计算和调度。另外还传入了一个参数p，表示创建goroutine的P数目。
+
+通过多次迭代，benchmarkCreateGoroutines函数会分别测试在不同P数目下，并发创建不同数量的goroutine所需要的时间，进而评估系统的并发创建goroutine的性能表现。
+
+这个函数的作用是帮助开发者了解系统在高并发场景下的性能表现，从而更好地优化系统的并发执行能力，提高系统的吞吐量和响应速度。
+
+
+
+### BenchmarkCreateGoroutinesCapture
+
+BenchmarkCreateGoroutinesCapture是一个基准测试函数，用于测试在创建多个goroutines时的性能表现。该函数通过使用Go语言的协程机制并使用sync.WaitGroup来等待所有goroutines完成，以确保所有goroutines都已完成。
+
+函数内部首先设置要创建的goroutines数量n，然后创建一个长度为n的管道，用于收集所有的goroutines是否完成。接着，该函数启动n个goroutines，每个goroutine将自己的ID（从0到n-1）写入管道中，并在完成后将管道中相应的位置设置为true。最后，使用sync.WaitGroup等待所有goroutines完成，然后关闭管道。
+
+该函数的主要作用是测试并发编程的性能表现，测试创建多个goroutines的效率和并行性。这对于编写高效的并发程序非常重要，因为能够快速创建和处理大量的goroutines可以极大地提高程序的性能。同时，这个函数还可以用来测试Go语言的并发特性和协程机制是否能够有效地支持并发编程。
+
+
+
+### warmupScheduler
+
+warmupScheduler函数是Go语言运行时中的一个调度器函数，主要用于在程序启动时提前预热一些关键组件和资源。
+
+该函数在Go语言程序启动时被调用，会先执行一系列的初始化操作，然后会根据一定的算法进行预热，以提高系统性能。预热期间，系统会根据一些参数来分配处理器资源和线程资源，避免因处理器和线程分配不均导致系统效率低下的情况出现。
+
+在预热完成后，warmupScheduler函数会把控制权交还给调用者，整个程序开始进入正常的工作状态。
+
+总之，warmupScheduler函数的作用是在程序启动时提前预热一些关键组件和资源，以提升系统性能，并避免出现处理器和线程资源分配不均的情况。
+
+
+
+### doWork
+
+在go/src/runtime/proc_test.go中，doWork函数用于模拟正在运行的工作。该函数接受一个整数参数n，表示要执行的工作的数量。doWork将使用for循环模拟一些工作的执行，具体执行行为依赖于n的值。
+
+当n大于0时，doWork将为每个i（0<=i<n）模拟一个协程。每个协程都将在一个未命名的函数中执行，使用for循环模拟“工作”。在函数结尾，它会使用Go的select机制来向通道done通知它完成了工作。
+
+当n小于等于零时，doWork将立即通知done通道它完成了工作。
+
+doWork的主要目的是为了测试Go运行时系统的调度和调用堆栈跟踪能力。在测试场景中，doWork函数是由主协程直接调用的，而Go运行时系统会将其它协程调度到不同的操作系统线程上运行。这样，我们可以测试Go协程是如何并发执行工作的，以及在执行期间产生的堆栈跟踪和等待时间。
+
+
+
+### BenchmarkCreateGoroutinesSingle
+
+BenchmarkCreateGoroutinesSingle这个func是用来测试在单个线程中创建大量goroutine的性能的。它首先使用go语句启动一个goroutine，然后在一个for循环中使用go语句创建了一定数量的goroutine，并在每个goroutine中执行一个简单的任务，最后等待所有goroutine完成任务并记录所需的时间。这个测试函数的目的是探索go语言在创建和管理大量的goroutine时所需的性能开销，例如堆栈分配和上下文切换。通过使用这个函数，我们可以获得有关go语言在特定硬件平台和操作系统上的最佳表现的信息。
+
+
+
+### BenchmarkClosureCall
+
+BenchmarkClosureCall函数主要用于测试对闭包的调用速度。
+
+具体来说，这个函数会创建一个包含多个闭包的切片，然后遍历该切片并对每个闭包进行1000次调用。在测试过程中，会记录下每个闭包的运行时间，并将所有闭包的运行时间求和作为整个测试的结果。最后，函数会输出每个闭包的平均运行时间和整个测试的总运行时间。
+
+通过这个测试，我们可以比较不同类型的闭包在调用时的性能表现，以及检查运行时间与闭包大小、嵌套层次等因素之间的关系。这有助于开发者选择最优的闭包实现方式，从而提高程序的性能。
+
+
+
+### benchmarkWakeupParallel
+
+benchmarkWakeupParallel这个函数是一个用于测试并发唤醒的基准测试函数。它主要通过创建一定数量的goroutine，并在每个goroutine的任务完成之后进行唤醒，来测试唤醒操作的性能和效率。
+
+具体来说，该函数的实现过程如下：
+
+1. 首先，该函数设置了一些参数，包括goroutine的数量、每个goroutine的任务量、以及用于测试性能的计时器。
+
+2. 接着，该函数使用Go的内置库创建了一组goroutine，并将它们都置于sleep状态。
+
+3. 然后，该函数启动计时器，并对每个goroutine进行唤醒操作，通过唤醒操作来观察并发任务执行速度的提升。
+
+4. 最后，该函数停止计时器并输出测试结果，包括唤醒操作的性能和效率。
+
+通过benchmarkWakeupParallel这个函数，我们可以测试并发唤醒操作在Go中的性能和效率，并可以用于评估系统的并发处理能力。
+
+
+
+### BenchmarkWakeupParallelSpinning
+
+BenchmarkWakeupParallelSpinning是Go语言运行时中的一个基准测试函数。它的作用是测试在多个并行的goroutine中使用自旋锁来唤醒休眠的goroutine的性能。
+
+具体来说，这个函数创建numProcs个goroutine，每个goroutine都在一个自旋锁上等待。然后，它在一个goroutine中循环调用procWakeup函数来唤醒这些goroutine。唤醒之后，这些goroutine会释放自旋锁并退出。
+
+这个函数的目的是测试在高并发场景下，使用自旋锁来唤醒休眠的goroutine的性能。它可以帮助开发者了解Go语言运行时的性能瓶颈，以便优化程序的性能。
+
+在实际的应用中，如果需要经常唤醒休眠的goroutine，可以考虑使用更高效的唤醒方法，比如使用信号量或者条件变量来实现。
+
+
+
+### BenchmarkWakeupParallelSyscall
+
+BenchmarkWakeupParallelSyscall是一个基准测试函数，它用来测试在并行系统调用的情况下，唤醒goroutine的性能表现。在Go语言中，goroutine是轻量级线程，可以在不同的CPU核心上同时运行，从而加速程序的执行。
+
+这个函数测试了在唤醒goroutine的情况下，系统调用的性能表现。在测试过程中，它会创建多个goroutine，并同时执行系统调用（syscall），然后通过一个channel来唤醒所有的goroutine。
+
+函数的主要逻辑如下：
+
+1. 定义一些测试参数，如goroutine数量、每个goroutine需要执行的时间等参数。
+
+2. 创建一个channel并向其中发送数据，同时创建多个goroutine，并在每个goroutine中执行一个系统调用，并阻塞其执行。
+
+3. 开始计时，并使用channel唤醒所有的goroutine。
+
+4. 等待所有goroutine执行完毕后，停止计时，并计算整个测试的执行时间。
+
+5. 输出测试结果，包括每个goroutine的执行时间、总体执行时间等信息。
+
+这个函数的作用是测试在并行系统调用场景下的性能表现，对于评估Go语言的并发性能非常有价值。
+
+
+
+### BenchmarkMatmult
+
+BenchmarkMatmult函数是一个性能测试函数，主要用于测试Go语言运行时系统中的矩阵乘法函数的性能。它模拟了两个大矩阵的乘法操作，并记录计算时间和内存分配情况以进行性能评估。
+
+该函数的主要作用是对该矩阵乘法函数进行性能评估，评估其在不同数据体积和计算负载下的性能表现，并为优化运行时系统性能提供参考。
+
+在执行过程中，BenchmarkMatmult函数首先生成两个大小为N×N的矩阵，并使用循环将它们相乘。然后，它使用Go语言内置的时间记录功能计算该操作的耗时，并输出结果。最后，该函数使用Go语言的内存分配和回收监视机制收集内存分配数据，以便进一步分析性能瓶颈。
+
+BenchmarkMatmult函数的输出结果包括每次测试的执行时间、每次测试的内存分配情况，以及平均执行时间和平均内存分配情况。这些数据可以用于评估该矩阵乘法函数的性能，并优化其实现以提高运行时系统的整体性能。
+
+
+
+### makeMatrix
+
+makeMatrix函数是用来创建二维数组的函数。
+
+该函数接收两个整数参数：rows和cols。它将使用这些参数创建一个新的二维数组，并初始化每个元素为0。
+
+该函数返回一个二维int数组，其中每个元素都被初始化为0。
+
+该函数在runtime包的测试文件proc_test.go中使用，在测试程序中创建了一些随机大小的二维数组，以测试在多处理器系统上的并发性能。
+
+
+
+### matmult
+
+proc_test.go文件是Go语言的运行时库(runtime)中的一部分，其中包含了一些测试用例，用于检验和验证Go语言运行时系统的正确性和性能。其中的matmult函数是一个用于进行矩阵乘法运算的实现。
+
+矩阵乘法是一个常见的矩阵操作，它是将两个矩阵相乘得到一个新的矩阵的运算。这个操作在科学计算和数学建模中经常用到。在matmult函数中，它通过使用Go语言的协程并发执行矩阵乘法，以提高运算速度和效率。
+
+具体来说，matmult函数接收两个参数，包含矩阵元素的二维数组A和B。它通过使用两个嵌套的循环来遍历矩阵A和B的所有元素，计算结果矩阵C中每个元素的值。每次循环都会启动一个新的协程来处理部分矩阵乘法运算，以利用多核计算机上的并行性能。
+
+matmult函数还包含一些优化措施，如在内部使用行主元组织格式（CSR）来优化矩阵乘法的内存访问和计算速度。通过这些优化，matmult函数可以在处理大型矩阵乘法运算时提供非常好的性能和效率。
+
+
+
+### TestStealOrder
+
+TestStealOrder这个func是一个测试用例，主要是测试Goroutine的抢占顺序。
+
+在Go语言中，Goroutine的抢占是通过调度器实现的。调度器会跟踪每个Goroutine的运行状态，当一个Goroutine处于运行状态，而其他Goroutine处于等待状态时，调度器会尝试抢占当前正在运行的Goroutine，将CPU资源分配给可运行的Goroutine。
+
+TestStealOrder这个func中，首先创建一个大小为5的Goroutine队列，并让每个Goroutine都处于休眠状态。然后，通过创建另一个Goroutine，向队列中一个随机选择的Goroutine发送一个唤醒信号。
+
+经过测试发现，被唤醒的Goroutine不一定会立刻被调度运行，而是可能出现被其他Goroutine抢占的情况。这是因为调度器并没有严格按照唤醒顺序执行，而是根据一定的策略进行抢占决策。
+
+通过这个测试用例，可以检查调度器的抢占策略是否与预期相符，并帮助开发人员深入了解Goroutine的调度原理，以编写更高效的并发代码。
+
+
+
+### TestLockOSThreadNesting
+
+TestLockOSThreadNesting是runtime包中用于测试当前goroutine是否已经锁定OS线程的函数之一。在Go语言中，默认情况下，每个goroutine都会跑在一个当前线程中，而一个线程可以被多个goroutine共享。但是，如果需要在goroutine中执行某些需要OS线程级别同步的操作，比如使用C语言库中的函数、调用系统级别的API，就必须将当前goroutine锁定到一个OS线程上，这样才能保证线程安全。
+
+TestLockOSThreadNesting测试函数主要用于测试当前goroutine在嵌套锁定OS线程时的正确性和稳定性。首先，它会创建一个goroutine，在其中执行若干个需要OS线程级别同步的操作，并对当前goroutine进行锁定。接着，它会再次启动一个go routine，并在其内部执行嵌套的OS线程锁定操作。然后，它将继续执行若干线程级别同步操作，并检查这两个锁定操作是否都已经成功。如果成功，则表示当前goroutine支持嵌套锁定操作，并且可以正常进行。
+
+总之，TestLockOSThreadNesting函数主要用于测试当前goroutine是否支持嵌套OS线程锁定，并检查其是否健壮。在Go语言中，嵌套OS线程锁定并非最佳的实践，应该尽可能避免使用。但是，有些情况下，嵌套OS线程锁定是必要的，比如在调用C语言库时，建议使用嵌套锁定操作来保证线程安全。
+
+
+
+### TestLockOSThreadExit
+
+TestLockOSThreadExit是在runtime包中proc_test.go文件中的一个函数，主要用于测试在执行goroutine时使用LockOSThread锁定操作系统线程的情况下，当一个goroutine因为异常而退出时，其他goroutine是否能够正常执行。
+
+在函数执行过程中，它会启动三个goroutines，其中第一个和第三个goroutine都被LockOSThread锁定到同一个操作系统线程上，而第二个goroutine则不会被锁定到任何线程。然后，第一个和第三个goroutine都会调用f函数，在f函数中会向第一个和第三个goroutine发送一个消息，这个消息是一个带有channel的结构体。接着，f函数会关闭这个channel，然后调用runtime.Goexit()函数使当前goroutine退出。在第一个和第三个goroutine的退出之后，第二个goroutine将会从通道中接收到一个消息，然后打印一条信息表示收到了消息，最后执行完毕。
+
+通过这个测试函数，我们可以验证在使用LockOSThread锁定操作系统线程的情况下，当一个goroutine因为异常退出时，其他goroutine是否能够正常执行。如果测试函数能够正常执行完毕，说明LockOSThread机制能够成功地保护其他goroutine的执行，使其在锁定了的操作系统线程上继续运行。
+
+
+
+### testLockOSThreadExit
+
+testLockOSThreadExit函数是Go中用于测试LockOSThread的函数，它测试当一个goroutine被 locked，则该goroutine调用exit之后会发生什么。
+
+LockOSThread是一个能够把当前goroutine锁定到当前线程的函数，使得该goroutine只能在这个线程上运行。在某些情况下，我们需要保证某些任务只在特定的线程上运行，这时就可以使用LockOSThread。
+
+testLockOSThreadExit函数中，启动2个goroutine。第一个goroutine被LockOSThread锁定，第二个goroutine则并没有锁定。然后在第一个goroutine中调用exit函数，测试会发生什么。
+
+由于第一个goroutine被LockOSThread锁定，所以它在运行时只能在当前线程上运行，当它调用exit之后会直接退出而不会影响其他goroutine的执行。而第二个goroutine没有被锁定，所以它仍然可以在其他线程上运行，不受第一个goroutine的影响。
+
+通过这个测试，可以证明LockOSThread确实可以将某个goroutine锁定在当前线程上运行，从而保证其在该线程上运行并且不会影响其他goroutine的执行。
+
+
+
+### TestLockOSThreadAvoidsStatePropagation
+
+TestLockOSThreadAvoidsStatePropagation这个函数的作用是测试在Go runtime中使用LockOSThread函数可以避免在不同的goroutine之间共享状态。具体来说，它测试了在一个goroutine中设置的局部变量是否可以在另一个goroutine中被访问。
+
+LockOSThread是一个函数，它可以将当前goroutine绑定到当前线程，并防止其他goroutine在该线程上运行。这意味着在该线程上运行的所有goroutine都可以访问相同的局部变量和资源。
+
+在测试函数中，首先创建两个goroutine，每个goroutine都在一个循环中运行，并在循环中尝试访问一个共享的全局变量。然后，第一个goroutine调用LockOSThread将其绑定到当前线程，并在循环中设置一个局部变量。第二个goroutine不调用LockOSThread，并尝试访问第一个goroutine设置的局部变量。
+
+如果LockOSThread函数正常工作，那么第二个goroutine不应该能够访问第一个goroutine设置的局部变量。测试将检查这个假设是否正确，并确认LockOSThread确实可以避免在不同的goroutine之间共享状态。
+
+
+
+### TestLockOSThreadTemplateThreadRace
+
+TestLockOSThreadTemplateThreadRace 是 Golang 中 runtime 包中的一种测试函数，主要用于验证在模板线程在竞争情况下是否会锁定 OS 线程。该函数的作用如下：
+
+1. 创建多个抢占的Goroutine，它们试图在竞争条件下锁定当前OS线程。
+
+2. 模板线程在竞争情况下的行为得到了验证，它控制着所有测试协程的执行顺序。
+
+3. 该函数使用sync.WaitGroup来等待所有协程的运行完毕。
+
+该函数是一种对 Golang 程序进行并发测试的方法，主要目的是检测模板线程是否能够在多个 Goroutine 竞争时成功锁定当前 OS 线程。这对于保持程序的稳定性和可靠性非常重要，因为 OS线程锁定的正确性确保了并发执行的正确性，有效地解决了线程安全的问题。
+
+
+
+### fakeSyscall
+
+在go/src/runtime中proc_test.go这个文件中的fakeSyscall这个func的作用是模拟操作系统的系统调用，用于测试go程序的对于系统调用的处理是否正确。在测试过程中，可以调用fakeSyscall来模拟系统调用的行为，比如读取或写入文件等等。fakeSyscall会将系统调用的参数和返回结果存储在一个名为fakeSyscallTable的map中。在测试过程中，可以通过读取fakeSyscallTable来检查程序对于系统调用的处理是否正确。fakeSyscall使用了一个名为fakeSyscallImpl的函数，该函数负责处理模拟系统调用的逻辑。fakeSyscallImpl会根据传入的系统调用号和参数，模拟相应的系统调用，并返回相应的系统调用结果。通过使用fakeSyscall和fakeSyscallImpl，可以在不涉及真实系统调用的情况下，测试程序对于系统调用的正确性，从而提高程序的可靠性和稳定性。
+
+
+
+### testPreemptionAfterSyscall
+
+testPreemptionAfterSyscall函数在runtime中proc_test.go文件中，主要是为了测试在系统调用之后进行抢占。系统调用是在操作系统内核中执行的一些操作，例如处理系统中断、读写文件等操作。当程序进行系统调用时，它会切换到内核模式，此时不能被内核抢占，也不能被Go调度器抢占。
+
+在这个测试函数中，首先会创建一个新的线程并运行一个for循环，在每次循环中，会进行一次系统调用，而在执行系统调用之前，调用runtime.Gosched()主动让出当前goroutine的时间片，以便被其他goroutine抢占。
+
+接下来，主线程会等待一段时间之后，通过runtime.Gosched()让出时间片，以便让新线程得到运行机会。如果新线程能够在进行系统调用之前被抢占并恢复执行，那么就证明了在系统调用之后进行抢占是有效的。
+
+这个测试函数的作用就在于验证在系统调用之后进行抢占的可行性，以此来确保Go系统在高并发情况下的稳定性和可靠性。
+
+
+
+### TestPreemptionAfterSyscall
+
+TestPreemptionAfterSyscall这个func的作用是测试在系统调用之后发生抢占的情况。在Go语言的运行时中，抢占是指一个正在运行的goroutine被另一个正在等待运行的goroutine所代替。这个测试的目的是确保在系统调用中途发生抢占时，代码可以正确地重新启动系统调用。
+
+具体来说，这个测试在一个goroutine中启动了一个长时间的系统调用（write系统调用），并用另一个goroutine在一段时间后发起抢占。当被抢占的goroutine重新运行时，它应该能够正确地恢复系统调用的状态并继续执行。
+
+这个测试的目的是确保Go语言的运行时能够正确地处理系统调用和抢占，以保证程序的正确性和可靠性。
+
+
+
+### TestGetgThreadSwitch
+
+TestGetgThreadSwitch是一种测试用例函数，用于测试Go语言运行时系统中对于goroutine和操作系统线程（或“M”）之间的切换的实现。
+
+在该函数中，使用了一个封装了一系列GOMAXPROCS和goroutine创建/执行代码的测试helper函数。在每个测试helper函数中，进行了以下操作：
+
+1. 创建多个goroutine。
+2. 测试执行h.gcount个goroutine需要多少时间，记录下来。
+3. 执行runtime.Gosched()，主动将CPU时间片让给其他goroutine。
+4. 再次测试执行相同数量的goroutine需要多少时间，记录下来。
+5. 比较前后两次时间的差异，计算出调度M与goroutine的时间开销。
+6. 对于不同GOMAXPROCS的设置，重复上述操作。
+
+最终，该函数的作用是通过测试来验证Go的调度算法的性能和正确性。具体而言，通过比较不同GOMAXPROCS的设置下，调度M与goroutine的时间开销的变化情况，确定Go运行时调度算法的优化程度。这对于在多核计算机上开发并发应用程序的工程师来说非常有用，因为他们可以通过这个测试来判断他们的程序在不同GOMAXPROCS下的并发能力和效率。
+
+
+
+### TestNetpollBreak
+
+TestNetpollBreak是go/src/runtime中的一个测试函数，它的作用是测试当goroutine在网络轮询中阻塞时，另一个goroutine能否正确地打断网络轮询。
+
+具体来说，TestNetpollBreak创建了两个goroutine：一个goroutine向另一个goroutine发送数据，让它阻塞在网络轮询中；另一个goroutine会在一定时间后打断该阻塞的goroutine的网络轮询，并检查阻塞的goroutine是否正确地被唤醒。
+
+通过测试TestNetpollBreak函数，可以确保在网络轮询中阻塞的goroutine能够及时地被唤醒，以避免无法及时处理网络请求的问题。
+
+
+
+### TestBigGOMAXPROCS
+
+TestBigGOMAXPROCS函数是Go语言runtime包中proc_test.go文件中的一个测试函数，它的作用是测试在不同的GOMAXPROCS设置下的并发性能。
+
+在该函数中使用了一个循环，循环次数为5，在每次循环中，首先设置GOMAXPROCS参数为当前循环次数乘以2，然后启动一个goroutine，该goroutine的函数是一个死循环，执行时间为1秒。之后，在等待1秒后，比较执行该goroutine所用的时间是否小于2秒（当前循环次数乘以1秒），以此来判断并发性能是否得到了提升。
+
+通过该测试函数中的测试用例，可以对GOMAXPROCS参数的不同取值和系统的并发处理能力进行评估和测试，以帮助开发者正确地设置并发参数，从而提高程序的性能和效率。
+
+
+

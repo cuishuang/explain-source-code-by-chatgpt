@@ -1,0 +1,45 @@
+# File: vdso_linux_mips64x.go
+
+vdso_linux_mips64x.go文件是Go语言运行时的一部分，它的作用是为在MIPS64架构下运行的Linux系统中的vDSO提供接口。
+
+vDSO（virtual dynamic shared object）是一种由操作系统内核提供的动态共享库，它包含了一些频繁调用的系统调用的简单实现，使得用户空间代码可以直接调用这些系统调用，从而减少系统调用的开销，提高了程序的性能。
+
+这个文件中的代码主要是为了提供vDSO的系统调用接口的函数，以及一些与vDSO相关的基本信息，比如vDSO库的地址等等。在Go程序中，如果需要调用vDSO中的系统调用，就可以通过这个文件中提供的接口来进行调用。
+
+总之，vdso_linux_mips64x.go文件是Go语言运行时的一个重要组成部分，它提供了在MIPS64架构下运行的Linux系统中vDSO的接口和信息，使得Go程序可以直接调用vDSO中的系统调用，从而提高程序的性能。
+
+
+
+
+---
+
+### Var:
+
+### vdsoLinuxVersion
+
+vdsoLinuxVersion是一个常量，用于指定当前Linux内核中vDSO库的版本。vDSO（virtual dynamic shared object）是Linux内核中的一个特殊的共享库，它提供了一些系统调用的实现，可以使用户态代码直接调用这些系统调用，而无需进入内核态，从而提高了系统性能。
+
+vDSO库的版本是由内核版本决定的，它会随着内核版本的升级而更新。在go中，vdsoLinuxVersion这个变量用于指定当前系统中所使用的vDSO库的版本，以及在运行时是否需要更新vDSO库的地址缓存。
+
+具体来说，在调用vDSO中的函数时，go会先检查当前内核中vDSO库的版本是否与预定义的版本一致。如果版本不一致，go会重新加载vDSO库，并更新vDSO地址缓存中的相应地址。这样可以确保go在不同的内核版本下都能正确地调用vDSO中的函数，保证系统性能和稳定性。
+
+
+
+### vdsoSymbolKeys
+
+vdsoSymbolKeys变量是一个字符串数组，存储了vDSO（virtual dynamic shared object，虚拟动态共享对象）中的导出函数名称，以便程序在使用vDSO时可以通过名称来定位和调用函数。
+
+在Linux系统中，vDSO是一个位于用户空间的内核代码副本，它为用户空间的应用程序提供了一种快速、低开销的访问内核功能的方式。vDSO包含了一些常用的系统调用，如获取当前的系统时间等，应用程序可以通过直接调用vDSO的函数来避免陷入内核态。
+
+在vdso_linux_mips64x.go文件中，vdsoSymbolKeys变量中存储了mips64x架构下vDSO中的导出函数名称，如__vdso_clock_gettime、__vdso_gettimeofday等。这些函数名称是程序在使用vDSO时需要使用的重要信息，通过vdsoSymbolKeys变量，程序可以在编译和链接期间将这些函数名称与实际的函数地址进行匹配，以便在程序运行时可以直接调用这些函数。
+
+
+
+### vdsoClockgettimeSym
+
+vdsoClockgettimeSym是Go语言运行时中与系统调用相关的符号变量之一，用于确定在MIPS64架构的Linux系统上通过VDSO（Virtual Dynamic Shared Object）调用clock_gettime()函数的入口点。VDSO是Linux内核提供的一种机制，允许应用程序通过在用户空间映射一小段内核代码来直接访问某些系统调用，从而避免了进入内核态的开销，提高了系统调用的速度和效率。
+
+具体来说，vdsoClockgettimeSym变量存储的是clock_gettime()函数在VDSO动态链接库中的符号名，程序可以通过该符号名动态获取该函数在VDSO中的地址，从而直接调用该函数，而不必通过传统的Trap进入内核执行系统调用。这样可以减少系统调用的处理时间，提高程序执行效率。
+
+
+

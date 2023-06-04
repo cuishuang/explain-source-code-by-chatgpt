@@ -1,0 +1,10 @@
+# File: sys_solaris_amd64.s
+
+sys_solaris_amd64.s是Go语言运行时（runtime）的汇编实现。该文件包含了在Solaris操作系统上执行Go程序所需的底层系统调用的实现。
+
+在Solaris操作系统上，系统调用需要使用系统调用门（syscall gate）方法进行跨用户空间和内核空间的切换。sys_solaris_amd64.s中包含了通过syscall gate执行Solaris系统调用的汇编代码。
+
+该文件还实现了Solaris对应的Go语言运行时接口函数。这些接口函数包括栈（stack）相关的几个函数，如stackinit、newstack和morestack，以及对信号的处理函数sigpanic和sigreturn等。
+
+总之，sys_solaris_amd64.s文件的作用是提供Solaris操作系统下Go语言程序底层的操作系统调用实现，并提供Go语言运行时对应的接口函数。
+

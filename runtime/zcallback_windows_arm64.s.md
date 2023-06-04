@@ -1,0 +1,10 @@
+# File: zcallback_windows_arm64.s
+
+zcallback_windows_arm64.s是Go语言运行时(runtime)中的一个汇编文件，用于实现Windows ARM64平台下的ZeroCopy回调函数。
+
+在Windows下，通过ZeroCopy技术可以实现网络数据的高效传输，具体来说就是通过将网络数据直接映射到进程地址空间中而避免了数据的复制操作。但是在使用ZeroCopy技术时，需要实现一个回调函数来处理数据的接收和发送。zcallback_windows_arm64.s文件就是实现这个回调函数的核心之一。
+
+具体来说，zcallback_windows_arm64.s中定义了一个名为·ZeroCopyCallback函数，即ZeroCopy回调函数。当使用ZeroCopy技术进行网络数据传输时，Windows系统核心会调用该函数，来将网络数据映射到进程地址空间中，或者将进程地址空间中的数据映射到网络中。因此，这个函数非常重要，是实现ZeroCopy高效传输的关键之一。
+
+需要特别注意的是，zcallback_windows_arm64.s这个文件是一个汇编文件，使用的是汇编语言编写。对于开发者来说，了解其原理和具体实现可能比较困难。因此，在使用ZeroCopy技术的时候，需要注意编写良好的接口，避免因汇编编程错误导致系统崩溃等严重问题。
+

@@ -1,0 +1,6 @@
+# File: rt0_android_amd64.s
+
+rt0_android_amd64.s是Go语言在Android平台上编译生成的可执行文件。它的作用是引导程序启动并初始化运行时环境，加载操作系统提供的动态链接库和Go语言本身提供的运行时库，并调用程序的main函数开始执行。rt0_android_amd64.s通过实现_loader()函数，调用RTLD_NEXT获取crtbegin_dynamic数组指针，执行该数组中的函数以初始化全局构造函数列表和DT_INIT段指向的全局初始化函数。rt0_android_amd64.s还会处理全局变量的初始化、调用main函数和程序退出时的清理工作。
+
+在Android平台上，Go语言使用了gomobile工具链将Go应用编译成可以在Android上运行的库文件，然后在Android应用程序中通过JNI接口调用这些库文件。在运行时，rt0_android_amd64.s起到了调度、初始化和清理的作用，使得Go语言编写的Android应用能够在Android平台上安全、稳定地运行。
+

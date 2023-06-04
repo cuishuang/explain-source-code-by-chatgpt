@@ -1,0 +1,12 @@
+# File: gcc_linux_mips64x.c
+
+gcc_linux_mips64x.c是Go语言标准库中运行时系统的一部分，用于支持在Linux系统下使用MIPS64X架构进行编译和运行。它主要包含了与MIPS64X架构相关的一些代码和函数实现。
+
+这个文件中包括了一些与进程和线程有关的操作函数，如startThread、stopThread、park、unpark等，这些函数用于管理在MIPS64X架构下运行的Go程序的线程和进程。
+
+另外，gcc_linux_mips64x.c还包含了一些与系统调用有关的函数实现，例如sysconf、getpid、sigaction等，这些函数用于与操作系统进行交互，为Go程序提供底层系统调用的支持。
+
+此外，该文件还包含了一些其他函数实现，例如abort、perror、gettimeofday等，用于在MIPS64X架构下处理各种错误和异常情况。
+
+总之，gcc_linux_mips64x.c是Go语言标准库中运行时系统的重要组成部分，它提供了在Linux系统下使用MIPS64X架构进行编译和运行的基础设施，为Go程序的编译和运行提供了底层支持。
+

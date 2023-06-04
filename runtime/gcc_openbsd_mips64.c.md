@@ -1,0 +1,8 @@
+# File: gcc_openbsd_mips64.c
+
+gcc_openbsd_mips64.c是Go语言运行时系统中的一个特定平台（OpenBSD/MIPS64）的支持文件。这个文件的作用是提供这个平台上所需的特定代码以使Go程序能够在该平台上正确地编译和运行。
+
+具体来说，这个文件中包含了一些特定于OpenBSD/MIPS64架构的编译器指令和系统调用代码。例如，其中包括使用MIPS64架构的特殊指令集创建协程的代码，以及OpenBSD系统调用的实现代码。此外，gcc_openbsd_mips64.c还包含一些错误处理和调试代码，以帮助定位在此平台上运行Go程序时出现的问题。
+
+总之，gcc_openbsd_mips64.c是Go语言运行时系统中非常重要的一个组成部分，它确保了Go程序可以在OpenBSD/MIPS64平台上稳定、高效地运行。
+

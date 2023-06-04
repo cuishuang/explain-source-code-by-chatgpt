@@ -1,0 +1,36 @@
+# File: preempt_nonwindows.go
+
+preempt_nonwindows.go这个文件是Go语言运行时的一个文件，主要作用是在非Windows平台上实现抢占式调度。
+
+在Go语言中，一般情况下只有在发生系统调用、通信操作或阻塞时才会进行协程切换，这样可能会导致某些协程过于占用CPU时间，从而导致其他协程长时间等待，无法得到执行。为了避免这种情况，Go语言提供了抢占式调度机制，即使没有发生系统调用或阻塞，某个协程也可以被中断，进行协程切换。
+
+而preempt_nonwindows.go这个文件则是在非Windows平台上实现抢占式调度的关键，它实现了一种基于定时器的机制，在协程执行一定时间后，自动触发中断进行协程调度。
+
+具体来说，preempt_nonwindows.go会启动一个goroutine用于定时器的管理，并调用setitimer函数设置定时器。同时，它也会设置一些全局变量，如sched.preempt、sched.preemptDelay和sched.preemptTime等，用于调度器的控制。当某个协程运行时间达到调度器的预设值时，定时器就会触发，中断当前协程，将控制权转移到其他需要执行的协程上，以避免某个协程霸占CPU时间过长，导致其他协程无法得到执行。
+
+总之，preempt_nonwindows.go这个文件实现了Go语言非Windows平台上的抢占式调度机制，是Go语言调度器实现的关键之一。
+
+## Functions:
+
+### osPreemptExtEnter
+
+`osPreemptExtEnter`函数是被用来切换goroutine的执行的函数。在Go中，当一个goroutine正在执行时，它会一直运行直到它自己完成运行或者因为某种原因被强制终止。然而，在某些情况下，例如发生死锁或长时间的阻塞时，我们需要能够中断当前的goroutine，让其他goroutine有机会执行，这样可以防止全局线程饥饿。
+
+`osPreemptExtEnter`函数会在goroutine运行的时候定期地调用。其目的是确保每隔一段时间都能够让其他goroutine有机会执行。在函数内部，会先开启抢占式调度，然后判断当前goroutine是否已经运行超过了预定的时间限制。如果是，就会调用`osPreemptContinue`函数，让系统切换到其他goroutine上运行。如果没有超过时间限制，则什么也不做，直到下一个调用时再次判断。
+
+`osPreemptExtEnter`函数的作用非常重要，可以帮助防止运行时系统出现死锁或全局线程饥饿的问题。通过定期调用该函数，我们可以确保所有的goroutine都有机会运行，避免某些goroutine一直长时间阻塞而导致系统无法正常运行。
+
+
+
+### osPreemptExtExit
+
+在Go runtime中，preemption（抢占）是指在执行User Goroutine（用户定义的goroutine）时，如果该goroutine长时间阻塞或循环，会导致其他正在等待运行的Goroutine无法获得CPU时间片。为了解决此问题，Go运行时系统会进行抢占，即中断正在运行的goroutine并让其他goroutine运行，从而确保系统的公平性和响应性。
+
+在preempt_nonwindows.go文件中，osPreemptExtExit函数是一个非常重要的函数，它的作用是协调和执行抢占.
+
+当某一个Goroutine长时间阻塞或循环时，runtime就会调用osPreemptExtExit函数，该函数在运行时系统的外部执行抢占操作。实现方式为在运行时系统外部设置一个标志位，在下一次内部函数调用时检查是否需要抢占，并执行抢占操作。这个标志位可以在抢占时检查，如果被设置，则中断当前运行的Goroutine并让其他Goroutine运行。
+
+osPreemptExtExit函数在非Windows系统中被调用。对于Windows系统，该函数由preempt_windows.go中的osPreemptExtExit实现。 这个函数是Go抢占的核心函数，是实现抢占功能的关键之一。
+
+
+

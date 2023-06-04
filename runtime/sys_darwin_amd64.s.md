@@ -1,0 +1,10 @@
+# File: sys_darwin_amd64.s
+
+sys_darwin_amd64.s是存放在Go语言标准库中的一个汇编文件，它提供了一些系统相关的底层实现，以便在Go语言中实现操作系统相关的功能。
+
+在Darwin操作系统下的64位架构上，该文件定义了对应的系统调用函数，比如sys_nanosleep，sys_gettimeofday等等，在Go语言中，这些函数可以直接通过标准库中的相应包进行调用。
+
+此外，sys_darwin_amd64.s还定义了一些常量和数据结构，比如MCONTEXT_SIZE, UC_SIGMASK等等，这些都是Go语言中与操作系统相关的底层实现所需要的。
+
+总之，sys_darwin_amd64.s是Go语言在Darwin操作系统下的底层实现之一，它提供了一些系统相关的底层实现，以支持在Go语言中实现一些操作系统相关的功能。
+

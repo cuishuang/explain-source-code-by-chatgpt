@@ -1,0 +1,10 @@
+# File: asm_wasm.s
+
+asm_wasm.s是Go语言中1.11版本后新增的一个文件，主要作用是提供WebAssembly平台的汇编代码支持。
+
+WebAssembly是一种新的二进制代码格式，它可以在多个平台上运行，类似于Java的字节码。在WebAssembly中，所有的代码都是通过二进制表示，对于传统的CPU指令集而言，无法直接运行，需要通过中间表示将其转换为能够在底层CPU上执行的操作。
+
+而asm_wasm.s文件中提供的则是将Go语言中的汇编代码转换为WebAssembly的中间代码的支持。它使用了LLVM框架中的asm2wasm工具，将Go语言中的汇编指令进行转换，生成能够在WebAssembly平台上运行的二进制代码。
+
+总之，asm_wasm.s文件的作用是为Go语言提供了在WebAssembly平台上运行汇编代码的能力，这为开发者提供了更多的选择，可以在WebAssembly上运行更为灵活和高效的代码。
+

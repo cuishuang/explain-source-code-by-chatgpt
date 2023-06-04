@@ -1,0 +1,14 @@
+# File: panic.c
+
+panic.c是Go语言运行时的一部分，主要负责处理程序发生panic时所进行的一些操作。panic是Go语言中的一种错误处理机制，它代表了一种无法被程序所处理的错误，一旦程序发生了panic，程序就会立刻终止，并且运行时会向上传递panic value，并执行一些清理操作。
+
+具体来说，panic.c文件中的代码实现了如下几个功能：
+
+1. 在发生panic时，向调用栈中所有defer函数注册的清理函数发送信号，让它们立刻执行并进行必要的清理操作。
+
+2. 将panic value包装成一个特殊的error对象，并将它传递给当前goroutine的调用栈（调用栈上的函数可以使用recover函数来捕获这个error对象，并进行后续处理）。
+
+3. 如果当前goroutine没有任何捕获panic的recover函数，则运行时会向上传递panic value到当前goroutine的父goroutine。如果父goroutine也没有任何recover函数，则倒推直到整个goroutine栈都被处理完毕。最终，所有的goroutine都会被终止，系统将打印程序发生的panic信息，并以非0的状态码退出。
+
+总体来说，这个panic.c文件的作用是实现Go语言中的panic机制，并保证程序在发生panic时能够以合理的方式进行清理和退出，从而保证程序的可靠性和稳定性。
+

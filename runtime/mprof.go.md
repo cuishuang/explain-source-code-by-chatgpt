@@ -812,6 +812,7 @@ mprof.go文件中的InUseObjects函数是用于获取当前程序中的对象数
 
 
 
+
 ### Stack
 
 mprof.go文件是Go语言运行时的一部分，主要实现了用于内存剖析的函数和数据结构。其中，Stack函数主要用于获取指定goroutine的调用栈信息。

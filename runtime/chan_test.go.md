@@ -241,6 +241,8 @@ TestSelectDuplicateChannel函数首先创建了两个整型管道c1和c2，并�
 
 
 
+
+
 ### TestSelectStackAdjust
 
 TestSelectStackAdjust是一个用于测试goroutine的函数，主要用于测试在选择语句中，如果调整了栈大小是否仍能正常工作。
@@ -478,6 +480,7 @@ BenchmarkChanProdConsWork0是chan_test.go文件中的一个基准测试函数，
 最后，函数输出了测试结果，包括总共写入的元素个数、写入和读取的操作次数、以及每个操作的平均耗时等。
 
 综上，BenchmarkChanProdConsWork0函数主要测试通道在高并发情况下的性能，尤其是在同时存在大量读取和写入操作的情况下，非阻塞读写方式可以有效地提高通道的并发性能。
+
 
 
 

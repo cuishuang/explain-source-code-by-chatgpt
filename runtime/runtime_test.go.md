@@ -1,0 +1,44 @@
+# File: runtime_test.go
+
+在Go语言中，所有的程序都是运行在一种轻量级的线程叫做goroutine上，而goroutine的调度则是由runtime来完成的。runtime_test.go这个文件是Go语言的一个测试文件，它主要是用于测试runtime包中的一些函数和线程调度机制。
+
+在runtime_test.go文件中，我们可以看到大量的测试用例，其中包括了对于goroutine、线程池、内存分配、GC、锁、信号量等多方面的测试。这些测试用例不仅可以保障runtime包的正确性，也可以帮助Go语言的开发者更好地理解和使用Go语言中的线程调度机制和内存管理。
+
+另外，runtime_test.go文件也作为一个示例代码库，为Go开发者提供了一个学习和参考的平台。开发者可以通过该文件深入了解Go语言中的线程调度和内存管理机制，也可以从中发现一些有趣或实用的技巧。
+
+## Functions:
+
+### TestSetGoroutineLabels
+
+TestSetGoroutineLabels是runtime_test.go文件中的一个单元测试函数，用于测试SetGoroutineLabels函数的功能。 
+
+SetGoroutineLabels函数用于为当前Goroutine设置标签（label）和调用栈（stack）。标签用于记录Goroutine的状态和信息，调用栈用于记录Goroutine的调用过程。这些信息可以被调试器和监控程序使用，以提供更好的排查和监控能力。 
+
+TestSetGoroutineLabels函数测试了SetGoroutineLabels函数的正确性，它会创建一些Goroutine，并为它们设置标签和调用栈信息，然后验证这些信息是否被正确地记录和存储。该函数对于保证Go语言运行时的正常行为和可靠性非常重要。
+
+
+
+### TestDo
+
+TestDo是runtime包中一个测试函数，其作用是检查在并发情况下Goroutine调度器的正确性，它通过测试一些任务的分配情况，以测试调度器的负载均衡性和其它一些特性。
+
+在这个测试函数中，会创建若干个Goroutine，并行执行一个空函数，然后在运行过程中，会不断地向一个全局计数器加1，这个计数器记录了并发执行的总次数。
+
+测试程序中还会使用runtime.GOMAXPROCS函数，控制Goroutine的最大并发数，以模拟不同的并发情况，从而观察调度器的行为。同时，还会使用runtime.Gosched函数主动让出当前Goroutine的执行权，让其他Goroutine得以执行，以模拟真正的并发情况。
+
+最后，测试程序会检查全局计数器的值是否符合预期，以此判断调度器的行为是否正常，从而通过测试。
+
+
+
+### getProfLabel
+
+getProfLabel是一个在runtime_test.go中定义的函数，其作用是获取当前的性能标签。
+
+在Go语言中，对于一些需要进行性能测试的代码，通常需要在代码中添加性能标签。这些性能标签可以用于指定要对哪些代码进行性能分析，从而更好地评估代码的性能。
+
+getProfLabel函数使用了runtime.Caller函数来获取当前函数的调用栈，并从中提取性能标签。如果找到了一个性能标签，它将返回该标签的名称，否则它将返回一个空字符串。
+
+在runtime_test.go中，getProfLabel函数通常用于测试一些需要比较性能的功能。通过使用getProfLabel函数，可以将代码的性能分析限制到特定的部分，从而更好地评估性能。
+
+
+

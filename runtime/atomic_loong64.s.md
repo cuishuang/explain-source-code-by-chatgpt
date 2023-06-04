@@ -1,0 +1,10 @@
+# File: atomic_loong64.s
+
+atomic_loong64.s是用于Loongson平台的原子操作汇编代码文件。Loongson是一个基于MIPS处理器设计的CPU系列，它还有自己的一些特殊的指令和寄存器。atomic_loong64.s提供了一些在Loongson平台上使用的原子操作。在这个文件中，包括了对64位整数的CAS（Compare-And-Swap）和增加操作。
+
+对于并发编程来说，原子操作是至关重要的。它们用于防止多线程编程中产生数据竞争的问题，确保多个线程共享的数据能够正确地被访问和修改。在Go语言的运行时中，使用原子操作来实现一些重要的功能，例如goroutine的调度、channel的实现等。
+
+在Loongson平台上，由于硬件的特殊性质，需要使用特定的汇编指令来进行原子操作。atomic_loong64.s提供了一些在Loongson平台上使用的原子操作的实现。
+
+总结来说，atomic_loong64.s的作用是提供了在Loongson平台上使用的原子操作的实现，以保证多线程编程的正确性和性能。
+

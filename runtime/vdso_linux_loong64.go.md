@@ -1,0 +1,51 @@
+# File: vdso_linux_loong64.go
+
+vdso_linux_loong64.go文件位于Go语言运行时的源代码目录(go/src/runtime)中，是为龙芯64位架构的Linux系统编写的虚拟动态链接库（VDSO）的实现。
+
+VDSO是Linux内核提供的特殊动态链接库，通过该库可以访问内核中的一些功能和信息，例如获取当前时间、查询系统调用表等。VDSO可以被用户空间程序动态加载，并且不会像普通的动态链接库一样引入上下文切换和用户空间到内核空间的切换，因此具有较高的效率。
+
+vdso_linux_loong64.go文件的主要作用是实现一些基本的函数，例如获取CPU频率、获取系统启动时间、查询系统调用表等，并以符号链接的方式导出这些函数。这样，在用户空间程序中通过链接vdso动态库，就可以直接调用这些函数，而不需要通过系统调用或其他复杂的方式。
+
+该文件的实现基于龙芯64位架构的特性，包括寄存器、内存地址等，在实现中针对这些特性进行了优化和适配。该文件的作用非常重要，对Go语言在龙芯64位架构的Linux系统下的运行和性能都有一定的影响。
+
+
+
+
+---
+
+### Var:
+
+### vdsoLinuxVersion
+
+vdsoLinuxVersion变量是用于指定在什么版本的Linux内核中引入了VDSO（虚拟动态共享对象）技术。VDSO是一种高效的系统调用机制，它通过将内核函数映射到用户空间中的共享库，避免了从用户空间到内核空间的频繁切换，从而提高了系统调用的速度。
+
+在Linux 2.6版本及以上，VDSO已经被引入，因此vdsoLinuxVersion变量的值被设置为26。如果您的操作系统内核版本低于2.6，则不能使用VDSO技术。
+
+该变量还有一个作用是可以用于在调试程序时识别当前的Linux内核版本，以方便在不同内核版本下测试和调试程序。
+
+
+
+### vdsoSymbolKeys
+
+vdsoSymbolKeys变量在runtime中的vdso_linux_loong64.go文件中用于存储需要从VDSO(被验证的动态链接库)中获取的符号名字。
+
+在Linux操作系统上，VDSO是内核暴露给用户空间的接口，用于提高特定系统调用的性能。VDSO中包括一些函数和变量，这些函数和变量可以在用户空间中被直接访问，而不需要像传统的系统调用那样需要从用户空间切换到内核空间。
+
+runtime中的vdso_linux_loong64.go文件是Go语言运行时的一部分，它负责与VDSO交互，并提供一些系统调用的实现。vdsoSymbolKeys变量在这个文件中被定义，用于存储需要从VDSO中获取的符号名字。这些符号通常是与时间获取相关的函数和变量，如gettimeofday、clock_gettime等。
+
+在程序启动时，Go的runtime会进行一次VDSO的符号查找，将查找到的符号存储在vdsoSymbolKeys变量中。当程序需要调用VDSO中的符号时，runtime会首先在vdsoSymbolKeys中查找符号名字，如果能找到，就直接执行符号的代码，否则就像传统的系统调用那样从用户空间切换到内核空间。
+
+因此，vdsoSymbolKeys变量在Go语言的运行时中起着关键的作用，可以提高特定系统调用的性能，并减少用户空间和内核空间的切换。
+
+
+
+### vdsoClockgettimeSym
+
+vdsoClockgettimeSym是一个变量，在Go语言的runtime包中的vdso_linux_loong64.go文件中定义。它的作用是指向Linux系统中特定函数vdso_clock_gettime的符号（symbol），该函数可以使用VDSO（Virtual Dynamic Shared Object）技术从内核中获取时间信息，从而提高了时间获取的效率和精确度。
+
+VDSO是一种特殊的共享对象，它与内核紧密集成，但又可以像普通的共享对象一样被用户空间程序使用。VDSO中包含一些与操作系统相关的常用函数的符号，这些符号可以被用户空间程序直接调用，而无需进入内核态，从而显著提高了函数调用的效率。
+
+在Go语言的runtime包中，vdsoClockgettimeSym指向了vdso_clock_gettime函数的符号，这使得Go语言的time包中的函数可以直接调用vdso_clock_gettime函数获取时间信息，而不需要使用传统的系统调用方式，从而提高了时间获取的效率和精确度。
+
+
+

@@ -1,0 +1,48 @@
+# File: proto_windows.go
+
+proto_windows.go文件是runtime包在Windows平台上的实现文件之一，其主要作用是提供Windows平台上的系统调用的实现。
+
+在Unix/Linux平台上，系统调用通常使用syscall包实现。而在Windows平台上，由于其系统调用的方式与Unix/Linux平台不同，因此需要单独提供一个文件来实现Windows平台上的系统调用。
+
+proto_windows.go文件中定义了一系列的Windows系统调用的函数，如CreateFileW、CloseHandle、ReadFile等。这些函数的具体功能及参数调用方式与Windows系统提供的API函数相似。
+
+在Go语言中，程序中使用了系统调用的部分通常是在操作系统相关的包中实现的。在runtime包中定义了基本的系统调用实现，而在Windows平台上则需要proto_windows.go文件来提供相应的系统调用函数实现，以便Go程序能够在Windows平台上运行正常。
+
+## Functions:
+
+### readMapping
+
+在Windows操作系统上，地址空间随时可能发生变化，因此需要一个机制来将程序中的虚拟地址映射到实际的物理地址上。readMapping()函数就是用来读取Windows操作系统中运行时映射表的函数。该函数将映射表中的数据读取到缓冲区中，并返回读取的字节数。在读取这些数据后，程序就可以使用这些信息来映射虚拟地址到物理地址，从而实现正确的内存访问。
+
+具体地说，readMapping()函数读取了运行时映射表中的以下信息：
+- 内存页的虚拟地址
+- 内存页的物理地址
+- 内存页的大小
+- 内存保护等级
+
+在Windows操作系统中，这些信息存储在一个数据结构中，称为MEMORY_BASIC_INFORMATION。在readMapping()函数中，通过调用Windows API函数，可以获取运行时映射表中所有页面的MEMORY_BASIC_INFORMATION数据结构，进而获取上述信息。这些信息被存储在一个数组中，并通过参数返回给调用方。调用方可以使用这些信息来构建一个内存映射表，实现虚拟地址到物理地址的映射。
+
+
+
+### readMainModuleMapping
+
+readMainModuleMapping这个函数的作用是读取当前进程的主模块的内存映射信息，并将其存储在一个结构体中。主模块是指当前进程正在执行的代码所在的模块，它通常是程序的可执行文件或动态链接库（DLL）。
+
+在Windows操作系统中，每个进程都有一个PEB（Process Environment Block，进程环境块）。PEB是一个结构体，它存储了当前进程的各种信息，包括内存映射信息。readMainModuleMapping函数通过获取当前进程的PEB，从而可以获取到主模块的内存映射信息。
+
+这个函数主要用于运行时系统在Windows平台上的内存管理和垃圾回收等功能。在运行时系统初始化时，需要读取主模块的内存映射信息，以便进行内存分配和管理。此外，在垃圾回收过程中，也需要获取主模块的内存映射信息，以标记主模块中的对象是否存活。
+
+总的来说，readMainModuleMapping函数是运行时系统在Windows平台上实现内存管理和垃圾回收的重要工具之一。
+
+
+
+### createModuleSnapshot
+
+createModuleSnapshot是一个内部函数，用于在Windows系统上创建进程的模块快照。模块快照是指当前进程以及关联模块的信息集合。该函数利用Windows API调用CreateToolhelp32Snapshot来获取所有模块的快照信息，然后将其保存到一个结构体中，以供调用者进一步处理。
+
+具体地说，该函数可以用于获取当前进程及其关联的所有动态链接库的路径、版本号等信息，以及这些模块的基址、大小、入口点等信息。这些数据对于调试、内存管理和应用程序分析非常有用。
+
+在runtime中，createModuleSnapshot主要用于获取程序的golang版本信息。该函数首先枚举进程中所有的模块，然后遍历每个模块的导出函数表，查找并匹配与golang有关的导出函数名，比如runtime.version、runtime.buildVersion、runtime.runtime_getosversion等等。如果找到了这些导出函数，则可以进一步获取对应模块中的golang版本号或其他相关信息，从而确认当前运行的golang版本，确保运行的稳定性和正确性。
+
+
+

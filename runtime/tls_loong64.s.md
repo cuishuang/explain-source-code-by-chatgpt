@@ -1,0 +1,12 @@
+# File: tls_loong64.s
+
+tls_loong64.s文件是Go语言在LoongArch64架构平台上实现线程本地存储的文件。它是Go语言运行时的一部分，位于go/src/runtime目录下。
+
+线程本地存储（TLS）是一种用于在多线程程序中分配和访问程序中的线程专用数据的技术。在多线程编程中，全局变量的使用可能会引发竞争条件，导致程序出现错误。因此，线程本地存储被引入以帮助程序员克服这个问题。Go语言在LoongArch64架构平台上使用了TLS技术来支持goroutine的实现。
+
+tls_loong64.s文件中编写了一些汇编代码，用于初始化和管理goroutine相关的TLS变量。该文件还包含一些函数实现，如：_rt0_go、mstart、mstart_wrapper等。
+
+在Go程序启动时，首先会执行_rt0_go函数，该函数用于初始化TLS变量并启动第一个goroutine，之后runtime包会自动管理goroutine的调度。mstart函数则是负责启动一个新的系统线程并运行一个新的Go程序，mstart_wrapper则是对mstart的包装，用于支持Cgo（Go和C语言的交互）。
+
+总的来说，tls_loong64.s文件是Go语言在LoongArch64架构平台上支持goroutine实现的关键组件。通过使用TLS技术，Go语言可以避免在多线程编程中遇到的问题，提高程序的稳定性和性能。
+

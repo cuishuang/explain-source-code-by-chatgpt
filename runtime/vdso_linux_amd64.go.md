@@ -1,0 +1,63 @@
+# File: vdso_linux_amd64.go
+
+vdso_linux_amd64.go是Go语言运行时的一个文件，其中包含一个特殊的函数vdsoClockGettime，用于获取系统时间。
+
+vdso是Virtual Dynamic Shared Object的缩写，是Linux内核提供的一种优化系统调用的机制。vdso就是在用户空间中构建内核中的一部分，可以直接在用户态中调用一些系统函数，而不需要切换到内核态。vdso模块中包含了一些常用的系统调用函数的实现，通过映射到用户空间的方式来提高系统调用的性能。
+
+在Linux系统中，vdso模块包含了一个C库的接口，可以在用户空间中直接调用一些系统调用函数，比如获取系统时间。但是，Go语言运行时使用的是Go语言自己实现的运行时库，无法使用vdso模块提供的C库接口。因此，为了利用vdso模块提高系统调用的性能，在Go语言运行时中实现了vdsoClockGettime函数，来直接调用vdso模块中的系统调用来获取系统时间。
+
+vdso_linux_amd64.go文件中还包含了其他与vdso相关的实现细节，比如如何在不同的操作系统平台上正确地使用vdso模块提供的系统调用接口。同时，在这个文件中还包含了很多对系统调用的封装和优化，以便在Go语言环境中更高效地使用系统资源。
+
+
+
+
+---
+
+### Var:
+
+### vdsoLinuxVersion
+
+vdsoLinuxVersion是一个常量，表示Linux内核中VDSO（Virtual Dynamic Shared Object）的版本号。VDSO是一种特殊的共享库，它由操作系统内核动态生成，用于提供一些系统调用的快速、低开销接口。VDSO库通常被映射到每个进程的用户空间地址空间中，以便在进行系统调用时，绕过内核与用户空间之间的上下文切换，提高系统调用的效率。
+
+在运行时系统中，如果要使用VDSO，就需要知道VDSO的版本号。vdsoLinuxVersion用于标识当前运行时系统中VDSO的版本号，程序可以通过访问这个变量来获取VDSO的版本信息，以特定的方式调用相应的系统调用。
+
+在Linux中，VDSO的版本与内核版本密切相关，每个内核版本都会对应一个特定的VDSO版本。vdsoLinuxVersion变量的值通常是在编译时生成的，以保证与当前操作系统内核匹配。
+
+
+
+### vdsoSymbolKeys
+
+vdsoSymbolKeys是一个类型为map[string]int的变量，其中key为函数名，value为函数在VDSO中的偏移量。VDSO（Virtual Dynamic Shared Object）是一个用户空间的内核接口，其中包含了一些高频系统调用的实现，它们通过VDSO可以避免系统调用的开销，从而提高系统调用的执行效率。在Linux系统上，VDSO通过ld.so动态库来加载。
+
+vdsoSymbolKeys这个变量的作用是记录了一些在VDSO中被频繁使用的系统调用的函数名和其对应的偏移量，这些信息可以帮助Go程序在运行时快速地定位到相应的函数实现，从而提升程序的执行效率。
+
+在runtime包中的vdso_linux_amd64.go文件中，还定义了vdsoSymbolPtrs这个变量，它是一个类型为[]uintptr的变量，其中保存了vdsoSymbolKeys中记录的所有函数的偏移量。这些变量的定义和初始化在runtime包初始化的时候完成。在程序运行时，Go程序可以通过读取vdsoSymbolPtrs中相应函数的偏移量来直接调用VDSO中的函数，从而避免了系统调用的开销，提高了执行效率。
+
+
+
+### vdsoGettimeofdaySym
+
+vdsoGettimeofdaySym是一个uintptr类型的变量，它表示用于系统调用gettimeofday的vDSO函数的入口地址。
+
+vDSO是一种特殊的动态链接库，它包含一些常见系统调用的实现，并以一种高效的方式在用户空间中运行。在Linux内核中，vDSO被用于提升系统调用的性能，因为它可以避免用户空间和内核空间的上下文切换开销。
+
+当程序调用gettimeofday函数时，内核会判断当前是否可以使用vDSO，如果可以，就会将调用转发到vDSO的实现函数，从而避免了用户空间和内核空间之间的上下文切换开销。
+
+vdsoGettimeofdaySym变量的作用是在程序启动时，将vDSO库加载到内存中，并获取gettimeofday函数的入口地址，以便在调用gettimeofday函数时，能够正确地将其转发到vDSO实现函数。
+
+总之，vdsoGettimeofdaySym是一个与vDSO及其实现相关的变量，用于提高gettimeofday系统调用的性能。
+
+
+
+### vdsoClockgettimeSym
+
+vdsoClockgettimeSym是一个类型为vdsoSymbol的变量，它存储了一个定义为"__vdso_clock_gettime"的符号。这个符号是从Linux内核的"vdso"(Virtual Dynamic Shared Object)中获取的。
+
+"vdso"是一个在用户空间和内核空间之间提供快速系统调用接口的机制，它是在内核启动时动态创建的一个共享库，包含一些常见的系统调用函数的实现。使用"vdso"可以避免在用户空间和内核空间之间频繁切换，从而提高系统调用的性能。
+
+vdsoClockgettimeSym在Go语言的运行时中被用来获取当前系统时间。具体来说，它调用了"__vdso_clock_gettime"这个符号所代表的函数，来获取系统时钟的时间值并将其返回。
+
+总之，vdsoClockgettimeSym是在Go语言运行时中用来获取系统时间的关键变量，它利用vdso机制提高了系统调用的效率。
+
+
+

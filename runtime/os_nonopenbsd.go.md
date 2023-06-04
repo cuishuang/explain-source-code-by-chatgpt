@@ -1,0 +1,30 @@
+# File: os_nonopenbsd.go
+
+os_nonopenbsd.go是Go语言运行时包（runtime）中的一个文件，主要用于实现在非OpenBSD操作系统上的操作系统调用（syscall）和文件系统操作。
+
+该文件中包含了一些非OpenBSD操作系统上的系统调用的实现，例如linux、darwin、windows等操作系统，如文件系统操作、文件读写、文件信息查询等，同时也包括了网络相关的实现，如socket、DNS查询等。这些实现被封装在操作系统相关的函数中，如Open、Close、Read、Write、Stat等。
+
+文件中的代码主要使用了Go语言标准库中的syscall、os、net等包来实现对系统调用的操作。其中，syscall包提供了对操作系统系统调用的封装，os包则提供了对文件系统、进程、信号等操作的封装，net包提供了对网络相关操作的封装。
+
+总之，os_nonopenbsd.go文件是Go语言运行时包中的一个重要文件，它提供了在非OpenBSD操作系统上的系统调用实现和文件系统操作实现，是Go语言程序在各种操作系统上正常运行的关键之一。
+
+## Functions:
+
+### osStackAlloc
+
+osStackAlloc函数是用来分配操作系统栈空间的。在操作系统中，每个线程都有自己的栈空间，用于存储函数调用时的局部变量、临时变量以及其它函数调用时需要的数据。栈空间的大小通常在线程启动时就被分配好了，因为它必须是连续的，所以需要一次性分配好。
+
+osStackAlloc函数通过调用操作系统的系统调用，在虚拟地址空间中分配一块指定大小的内存，并将其映射到物理内存上。它还会设置栈底指针和栈顶指针，保证栈空间中的数据可以被正确地压入和弹出。
+
+在Go语言中，每个goroutine也有自己的栈空间。osStackAlloc函数用于分配goroutine的栈空间，它被调用的时机是在goroutine启动的时候。由于每个goroutine都是轻量级线程，因此它们的栈空间通常比操作系统线程小得多，通常不超过1MB，这样可以更高效地利用内存。
+
+
+
+### osStackFree
+
+osStackFree函数是用于释放堆栈空间的函数。在Go语言中，每个goroutine都有一个固定大小的堆栈，大小是由环境变量GOMAXPROCS和GOARCH（即CPU架构）决定的。当goroutine完成其任务或者退出此函数时，该函数会调用osStackFree函数来将堆栈空间返回给操作系统。这样，操作系统可以将这些空间重新分配给其他进程使用，从而提高系统的资源利用率。
+
+osStackFree函数的具体实现取决于操作系统，因为不同的操作系统有不同的堆栈管理方式。在Windows下，osStackFree函数通过调用VirtualFree函数来释放堆栈空间；而在Linux下，它通过调用madvise来释放堆栈空间。因此，osStackFree函数的实现方式具有很高的可移植性，可以在不同的操作系统上进行编译和运行。
+
+
+

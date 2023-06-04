@@ -1,0 +1,26 @@
+# File: win.go
+
+win.go是Go语言运行时的一个源代码文件，它实现了一些与Windows操作系统相关的功能。具体来说，它包含了以下功能：
+
+1. 实现了startProcess函数：该函数会在Windows操作系统中启动一个新的进程。它会创建一个新的进程，并在该进程中运行指定的命令，并返回该进程的相关信息（如进程ID、进程句柄等）。
+
+2. 实现了init函数：该函数会在程序启动时自动执行，它会初始化一些与Windows相关的配置信息，如设置系统环境变量等。
+
+3. 实现了setProcessAffinity函数：该函数会设置指定进程的CPU亲和性，即将该进程限制在指定的CPU核心上运行。这个函数对于需要使用多核心运行的应用程序非常重要。
+
+4. 实现了netGo函数：该函数会初始化一些网络相关的参数，如Windows套接字库的初始化等。
+
+总的来说，win.go的作用是为Go语言在Windows操作系统上的运行提供了一些必要的支持和工具。它让开发者能够更方便地编写Windows平台上的应用程序，同时也提高了应用程序的性能和稳定性。
+
+## Functions:
+
+### GetThread
+
+GetThread函数是runtime在Windows系统下获取当前系统线程的ID的函数。它是在runtime中实现windows.go文件中的gettid函数的底层函数。GetThread函数通过调用Windows系统API函数GetCurrentThreadId()来获取当前线程的ID，然后将其作为uint32类型的返回值返回给调用者。
+
+在Go程序执行的过程中，每个goroutine都会对应一个系统线程，因此GetThread函数的返回值可以唯一地标识当前goroutine所在的系统线程。在Go调度器中，goroutine的实现依赖于操作系统层面的线程调度，因此在需要跟踪和调试goroutine的执行过程中，GetThread函数非常有用。在调试工具中，通过调用此函数即可获取当前goroutine的所在线程ID，方便用户在操作系统层面进行调试和监控。
+
+GetThread函数只在Windows操作系统上使用，因此从源代码实现中也可以看出其与操作系统紧密相关。在使用中需要注意操作系统的版本和适配问题。
+
+
+

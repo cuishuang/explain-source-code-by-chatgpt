@@ -1,0 +1,10 @@
+# File: preempt_riscv64.s
+
+preempt_riscv64.s是Go语言运行时系统中的一部分，它实现了Go语言程序在发生抢占时的处理逻辑。在Go语言中，抢占即使某个goroutine在执行过程中被其他goroutine强制中断，让其他goroutine能够运行。为了实现抢占，Go语言需要通过协程的协作来达到协作抢占的效果。
+
+preempt_riscv64.s文件在实现抢占时发挥了重要作用。当goroutine执行时间超过调度器规定的最大允许时间时，调度器会发送中断信号给当前goroutine。这个中断信号会让当前goroutine进入抢占模式，即它将被暂停，等待其他goroutine执行完毕后再次调度执行。
+
+preempt_riscv64.s文件实现了这个中断信号的处理过程。具体来说，它通过对计时器中断的处理，让当前goroutine进入抢占模式，切换到其他goroutine的运行上下文。在切换过程中，需要保存当前goroutine的状态、寄存器值、栈指针等运行时环境，以便在未来恢复该goroutine的执行。
+
+总之，preempt_riscv64.s实现了Go语言的协作抢占机制，是Go语言在RISC-V架构上运行时的重要组成部分。
+

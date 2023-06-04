@@ -1,0 +1,10 @@
+# File: sys_openbsd_amd64.s
+
+sys_openbsd_amd64.s是go/src/runtime目录中的一个汇编文件，用于支持Go语言的运行时系统在OpenBSD操作系统上运行。
+
+该文件包含了一些具有OpenBSD特定功能的系统服务调用的实现。例如，它定义了sysresv函数，用于在系统中申请地址空间，还定义了sysmmap函数，用于将文件映射到进程地址空间。
+
+此外，sys_openbsd_amd64.s文件还包含了一些与操作系统相关的指令，例如fs和gs寄存器的初始化，以及异常处理程序的实现等。这些操作都是为了确保Go程序在OpenBSD系统上能够正常运行。
+
+总之，sys_openbsd_amd64.s文件为Go语言在OpenBSD操作系统上实现了与系统相关的底层功能，从而使Go程序可以在OpenBSD系统上运行。
+

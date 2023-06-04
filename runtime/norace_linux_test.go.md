@@ -1,0 +1,61 @@
+# File: norace_linux_test.go
+
+norace_linux_test.go是Go语言标准库(runtime)中的一个测试文件，它的作用是针对Linux环境下的Go程序进行非竞态检查。
+
+在多线程的并发编程中，竞态条件（Race Condition）是指程序中的两个或多个线程访问并修改同一共享资源（变量、内存等），导致不可预计的结果。这种情况通常是由于缺乏同步机制或不正确使用同步机制所引起的。
+
+为避免这种竞态条件，Go语言引入了非竞态检查（Non-race Detection）机制，旨在检测程序中可能存在的竞态条件，并在编译和执行时发现相关错误。
+
+norace_linux_test.go测试文件的作用是在Linux环境下对Go程序进行非竞态检查，其中采用的工具是Go的一个内置工具Race Detector（类似于C语言工具Valgrind）。
+
+该测试文件包含了多个测试用例，用于测试在不同的并发场景下，程序是否存在竞态条件。测试用例中包括了多个goroutine并发访问同一个共享资源的场景，以及使用锁同步机制等场景，以验证这些场景下程序是否存在竞态条件。
+
+总之，norace_linux_test.go测试文件的主要作用是帮助程序员在Linux环境下检测并发程序是否存在潜在的竞态条件，从而提高程序的并发安全性和可靠性。
+
+
+
+
+---
+
+### Var:
+
+### newOSProcDone
+
+在Go语言的runtime包中，norace_linux_test.go文件是用于测试的文件。其中newOSProcDone变量是一个*uint32类型的指针，主要用于同步操作系统级别的进程的启动和退出。具体来说它的作用是：
+
+1. newOSProcDone变量是用来记录goroutine启动一个新进程时，内核完成启动时的状态。在Linux系统中，当调用fork或exec方法时，新进程会先进入启动状态，并等待内核完成启动之后，才能真正开始运行。newOSProcDone变量在这个过程中起到了同步的作用。
+
+2. 当内核完成新进程的初始化并退出初始化状态时，新进程会向父进程发送一个SIGCHLD信号，表示启动已经完成。当父进程收到这个信号后，会将newOSProcDone的值设置为1，表示新进程启动完成。
+
+3. 子进程的启动可能比较耗时，因此Go语言采用阻塞的方式等待子进程启动完成。在Norace测试中，newOSProcDone变量的值只有在goroutine的父进程接收到子进程的SIGCHLD信号时才会被设置。在此之后，goroutine会解除阻塞，并完成对newOSProcDone变量的访问。
+
+总之，newOSProcDone变量是用于同步系统级别进程启动和退出的变量，它的值只有在操作系统完成进程的初始化后才会被设置。在Norace测试中，它起到了阻塞goroutine并等待子进程启动的作用。
+
+
+
+## Functions:
+
+### newOSProcCreated
+
+newOSProcCreated这个func的作用是创建一个新的OS进程，并将该进程添加到当前进程的子进程列表中。它主要用于测试并发情况下Goroutine的创建和销毁。 
+
+该函数首先调用runtime/internal/syscall包中的RawSyscall函数来创建一个新的进程。然后，它会将表示新进程的osProc结构体添加到当前进程的子进程列表中，并返回该结构体的指针。 
+
+在测试中，该函数通常与其他函数一起使用，例如checkRuntimeInitialized和wait．checkExitStatus，以确保新进程已成功创建并在适当的时间退出。 
+
+在诸如Linux和其他类Unix操作系统之类的操作系统中，进程是并发执行的主要单位，并可以在同一系统上同时执行多个进程。该函数的主要作用是为了测试Go语言在并发情况下，创建和销毁Goroutine时的正确性和稳定性。
+
+
+
+### TestNewOSProc0
+
+TestNewOSProc0是一个测试函数，它用于测试runtime包中的NewOSProc函数在不考虑竞态的情况下是否能够正常创建新的OS进程。
+
+具体来说，TestNewOSProc0函数会创建一个新的OS进程，同时也会在该进程中执行一些简单的命令。在创建该进程时，使用了runtime包中的NewOSProc函数来创建新进程。如果NewOSProc函数能够正常创建新进程并执行命令，则该测试函数会通过。
+
+需要注意的是，该测试函数并没有考虑竞态条件。因此，在并发的情况下可能会出现一些问题。为了测试并发情况下的NewOSProc函数，runtime包中还提供了其他的测试函数，如TestNewOSProc1和TestNewOSProcRace。这些函数会在多个goroutine中并发测试NewOSProc函数的性能和正确性。
+
+总的来说，TestNewOSProc0函数的作用是测试NewOSProc函数是否能够正常创建新的OS进程，以便于在不考虑并发的情况下进行简单的测试和验证。
+
+
+

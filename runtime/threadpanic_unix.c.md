@@ -1,0 +1,10 @@
+# File: threadpanic_unix.c
+
+threadpanic_unix.c文件是Go语言的运行时系统中的一个模块，它的作用是处理线程抛出的运行时异常，包括panic和fatal error等。
+
+该文件中的主要函数是x_cgo_notify_runtime_init_done和x_cgo_sys_thread_create。前者在运行时初始化完成后被调用，在x_cgo_sys_thread_create中，Go语言系统将创建的线程封装成了一个结构体，其中包含了线程的栈指针、信号处理器等信息，然后将这个结构体传递给了x_cgo_notify_runtime_init_done函数，表示该线程已经注册完成了。
+
+当某个线程因为发生了运行时异常而需要抛出panic或fatal error时，Go语言的运行时系统会通过x_cgo_notify_runtime_init_done函数向所有的线程发送一个信号，让它们在发现该信号后调用x_cgo_sys_thread_create函数创建一个新的线程，并将该异常信息传递给这个新线程。然后这个新线程会调用Go语言的内置函数recover()来执行一些特定的操作，比如打印错误信息、释放资源等。
+
+总之，threadpanic_unix.c文件中的函数主要是用来处理线程抛出的异常信息，并进行合适的处理，确保Go语言程序正常地运行。
+

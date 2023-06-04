@@ -340,73 +340,336 @@ semrelease1是一个函数，它用于释放锁定的信号量。
 
 ### cansemacquire
 
+在 Go 语言的 runtime 包中的 sema.go 文件中，cansemacquire 函数用于判断是否可以获取信号量。
 
+在 Go 中，信号量是用于协调并发访问共享资源的机制。它可以控制同时访问共享资源的协程数量。在 runtime 包中，cansemacquire 函数被用于协程调度和同步过程中，具体作用如下：
+
+1. 限制并发访问：cansemacquire 函数用于限制并发访问共享资源的数量。它通过检查当前可用的信号量数量来确定是否允许协程获取信号量。如果可用信号量数量大于零，则允许获取；否则，需要等待其他协程释放信号量后才能获取。
+
+2. 阻塞和唤醒：如果 cansemacquire 函数判断当前无法获取信号量（即可用信号量数量为零），则会将当前协程阻塞，使其进入等待状态，直到其他协程释放信号量并唤醒等待的协程。
+
+3. 协程调度：cansemacquire 函数在协程调度过程中发挥重要作用。当一个协程需要获取信号量时，如果无法立即获取，它会暂时释放处理器，让其他协程有机会执行。这种协程的暂停和恢复是通过 cansemacquire 函数来实现的。
+
+总结来说，cansemacquire 函数在 Go 语言的运行时系统中负责控制协程对信号量的获取和释放，通过它实现了并发访问的同步和调度机制，以保证共享资源的正确性和性能。
 
 
 
 ### queue
 
+在 Go 语言的 runtime/sema.go 文件中，queue 函数用于将 goroutine（轻量级线程）添加到信号量等待队列中。下面是该函数的源代码：
 
+```go
+// queue adds the calling goroutine to the semaphore queue.
+// It reports whether the goroutine must block.
+// It must not be called with g.m.p == 0; use acquire instead.
+//
+//go:linkname queue sync.runtime_SemacquireMutex
+func queue(sem *uint32, lifo bool) bool {
+	if *sem > 0 {
+		throw("queue: *sem > 0")
+	}
+	if getg().m.locks != 0 {
+		throw("queue: holding locks")
+	}
+	mp := acquirem() // 获取当前执行的 goroutine 所在的 M（机器线程）
+	semrelease1(*sem, false)
+	// Add ourselves to nwait to disable "easy" wake-up.
+	old := *sem
+	// 由于这里是一些原子操作，具体流程可能会根据 Go 版本和编译器实现略有不同
+	new := old + 1
+	if lifo {
+		// Add to head of queue
+		new = old + 2
+	}
+	for {
+		if atomic.Cas(sem, old, new) {
+			break
+		}
+		old = *sem
+		if lifo {
+			// Add to head of queue
+			new = old + 2
+		}
+		if old&1 != 0 {
+			// sem is actively being acquired by a
+			// different goroutine, so queue ourselves
+			// so that semrelease1 can wake us up.
+			 // 将当前 goroutine 添加到 semaRoot 的等待队列中
+			lock(&semaRoot)
+			gp := getg()
+			gp.schedlink = (*sudog)(unsafe.Pointer(semaRoot.waiting))
+			semaRoot.waiting = uintptr(unsafe.Pointer(gp))
+			unlock(&semaRoot)
+			goparkunlock(&mp.lock, waitReasonSema, traceEvGoBlockSema, 3) // 将当前 goroutine 阻塞
+			lock(&semaRoot)
+			gp = getg()
+			// remove from semaRoot.waiting - it's not
+			// running so it won't get lost.
+			for pp := &semaRoot.waiting; ; pp = &(*sudog)(unsafe.Pointer(pp)).schedlink {
+				sgp := (*sudog)(unsafe.Pointer(*pp))
+				if sgp == gp {
+					*pp = uintptr(unsafe.Pointer(sgp.schedlink))
+					break
+				}
+			}
+			unlock(&semaRoot)
+			return false
+		}
+		new = old + 1
+	}
+	// 能够到达这里，说明当前 goroutine 成功获取了 sema
+	// 执行下面的代码之前，应该先调用 semacquire 记录当前状态
+	mp.mcache.sema++
+	releasem(mp) // 释放当前 goroutine 所在的 M
+	return true
+}
+```
+queue 函数的主要作用是将当前的 goroutine 添加到信号量（semaphore）的等待队列中，并判断当前 goroutine 是否需要阻塞。下面是该函数的详细解释：
+
+1. 首先，函数会检查传入的信号量 sem 的值是否大于 0。如果大于 0，则表示存在问题，因为只有在信号量为 0 时，才需要将 goroutine 添加到等待队列中。
+
+2. 接下来，函数会检查当前 goroutine 是否持有其他锁。如果当前 goroutine 持有锁，则会报错，因为不允许在持有锁的情况下调用 queue 函数。
+
+3. 然后，函数会调用 acquirem 函数获取当前 goroutine 所在的 M（机器线程），并调用 semrelease1 函数对信号量进行释放操作。semrelease1 函数用于释放信号量，并唤醒等待队列中的其他 goroutine。
+
+4. 在将当前 goroutine 添加到等待队列之前，函数会先将当前信号量的值保存在 old 变量中，并计算出新的信号量值 new。如果需要使用 LIFO（后进先出）方式管理等待队列，则 new 的计算会有所不同。
+
+5. 接下来，函数会使用 atomic.Cas 函数尝试原子地将 new 的值赋给信号量 sem。如果赋值成功，表示当前 goroutine 成功将自己添加到了等待队列，并且信号量的值已更新。此时函数会继续执行后续的代码。
+
+6. 如果 atomic.Cas 失败，表示在当前 goroutine 尝试将自己添加到等待队列的过程中，有其他 goroutine 正在活动地获取信号量。这时，当前 goroutine 需要将自己添加到信号量的等待队列中，并阻塞自己。
+
+7. 在添加到等待队列之前，函数会先获取 semaRoot 的锁，然后将当前 goroutine 添加到等待队列的头部。之后，函数会使用 goparkunlock 函数将当前 goroutine 阻塞。阻塞期间，该 goroutine 将不会占用 M，这意味着 M 可以用于执行其他 goroutine。
+
+8. 当其他 goroutine 在释放信号量时，会尝试唤醒等待队列中的 goroutine。被唤醒的 goroutine 会重新获取 semaRoot 的锁，并从等待队列中移除自己。
+
+9. 最后，函数会对获取到信号量的 goroutine 进行一些处理，例如增加其关联的 M 的 sema 值，并释放当前 goroutine 所在的 M。
+
+总结来说，queue 函数的作用是将当前 goroutine 添加到信号量的等待队列中，并根据情况决定是否需要阻塞当前 goroutine。该函数是 Go 运行时中信号量实现的核心部分，用于实现协程之间的同步和互斥操作。
 
 
 
 ### dequeue
 
+在 Go 语言的 runtime 包中，`sema.go` 文件中的 `dequeue` 函数是用于从一个 goroutine 队列中移除并返回队列中的第一个 goroutine。
 
+`dequeue` 函数主要用于实现 Go 语言的调度器中的信号量（sema）机制。信号量机制用于控制并发执行的 goroutine 数量，它可以限制同时执行的 goroutine 数目，以防止资源竞争和过度的并发。
+
+下面是 `dequeue` 函数的主要作用和行为的详细解释：
+
+1. 队列检查：函数首先检查传入的队列是否为空。如果队列为空，表示没有可用的 goroutine，函数将返回 `nil`。
+2. 队首元素移除：如果队列不为空，函数将从队列中移除第一个元素（即第一个 goroutine）。
+3. 队首元素状态检查：在移除队首元素之后，函数会检查该 goroutine 的状态。这是因为在并发环境下，队列中的 goroutine 可能已经被其他部分取消或者从队列中移除。
+4. 队首元素的下一个状态：如果队首元素的状态是 `goSched`，表示该 goroutine 准备就绪并可以执行，函数将返回该 goroutine。
+5. 队首元素的下一个状态：如果队首元素的状态是 `goNil`，表示该 goroutine已经取消或者从队列中移除，函数将继续从队列中寻找下一个可用的 goroutine。
+6. 队首元素的下一个状态：如果队首元素的状态是其他状态（例如 `goSleep`），表示该 goroutine 正在等待某个条件满足，函数将继续从队列中寻找下一个可用的 goroutine。
+
+总之，`dequeue` 函数在 Go 语言的 runtime 调度器中起到了从队列中移除并返回队列中的第一个 goroutine 的作用。它是调度器中的关键部分，用于决定哪个 goroutine 将被执行，并确保并发的合理调度。
 
 
 
 ### rotateLeft
 
+在 Go 语言的 runtime 包中的 sema.go 文件中，rotateLeft 函数用于将无符号整数（uint）按位循环左移（rotate left）指定的位数。让我们更详细地解释一下它的作用和实现原理。
 
+函数签名如下：
+```go
+func rotateLeft(x uint, k uint) uint
+```
+
+rotateLeft 函数将无符号整数 x 按位循环左移 k 位，并返回结果。具体来说，它将 x 的二进制表示向左循环移动 k 位。循环移动意味着超过整数长度的位将从右侧重新进入左侧，保持整数的位数不变。
+
+以下是 rotateLeft 函数的实现原理：
+
+1. 首先，检查 k 是否等于 0。如果是，表示无需移动，直接返回原始值 x。
+2. 接下来，获取 x 的位数（bitSize），通常为 32 或 64 位，取决于运行时环境。
+3. 通过位运算，将 k 的值限制在位数范围内（k %= bitSize）。这是为了避免移位操作超出整数长度的情况。
+4. 使用位运算左移操作符 (<<) 将 x 向左移动 k 位。这会将位从左侧移出并进入右侧。但是，这仍然可能导致超出位数范围的问题。
+5. 使用位运算或操作符（|）将超出位数范围的位从右侧重新进入左侧。这是通过将右侧的位与左侧位进行逻辑或运算实现的。
+6. 返回结果。
+
+rotateLeft 函数的目的是实现一种高效的按位循环左移操作，而不需要借助其他辅助变量或循环。这在一些并发和同步算法中可能会被使用，例如在信号量（semaphore）的实现中。
+
+以下是 rotateLeft 函数的示例代码：
+```go
+func rotateLeft(x uint, k uint) uint {
+	if k == 0 {
+		return x
+	}
+	bitSize := uint(unsafe.Sizeof(x)) * 8
+	k %= bitSize
+	return (x << k) | (x >> (bitSize - k))
+}
+```
+
+请注意，此函数的实现依赖于具体的运行时环境，其中整数的位数可能是 32 位或 64 位。此外，rotateLeft 函数在 runtime 包的内部使用，并不直接暴露给一般的 Go 语言开发者使用。
 
 
 
 ### rotateRight
 
+在 Go 语言的 runtime 包中，sema.go 文件中的 rotateRight 函数用于实现循环右移操作。这个函数的作用是将一个无符号整数（uint）的位向右循环移动指定的位数。
 
+下面是 rotateRight 函数的源代码（截取自 Go 1.17 版本的 runtime/sema.go）：
+
+```go
+// rotateRight returns x rotated right by k bits.
+func rotateRight(x uint, k unsigned) uint {
+    return (x >> k) | (x << (wordSize - k))
+}
+```
+
+这个函数的实现使用了位操作符（bitwise operators）来完成循环右移操作。具体解释如下：
+
+1. 函数接收两个参数：x 为要进行循环右移的无符号整数，k 为循环移动的位数。
+2. 首先，通过右移操作 `(x >> k)`，将 x 的二进制表示向右移动 k 位。这会使原本位于低位的 k 位移到高位，被丢弃的高位空出来。
+3. 然后，通过左移操作 `(x << (wordSize - k))`，将 x 的二进制表示向左移动 wordSize-k 位。这会将被丢弃的高位移动到低位，填补右移操作中空出来的高位。
+4. 最后，使用位或操作符 `(x >> k) | (x << (wordSize - k))`，将两个移位操作的结果合并，得到最终的循环右移结果。
+
+需要注意的是，rotateRight 函数中的 `wordSize` 是一个常量，表示机器字（machine word）的位数。它的值根据不同的操作系统和架构而变化，例如在 64 位系统上为 64。
+
+循环右移操作在某些算法和数据结构中非常有用，例如循环队列、哈希函数等。通过将位从右边循环移动到左边，可以实现循环的效果，使得数据在某个固定大小的空间中循环使用。rotateRight 函数提供了一种方便且高效的方式来执行这种操作。
 
 
 
 ### less
 
 
+在 Go 语言的 `runtime/sema.go` 文件中，`less` 函数是用于计算信号量中的等待者优先级的函数。下面我将详细解释该函数的作用和实现。
 
+首先，为了更好地理解 `less` 函数的作用，让我们回顾一下在 Go 语言中的信号量（Semaphore）的概念。信号量是一种用于协调共享资源访问的同步原语。它维护了一个计数器，该计数器表示可用资源的数量。当一个协程需要访问资源时，它会尝试获取信号量。如果计数器大于零，协程可以获取资源并将计数器减一；否则，协程将被阻塞，直到有可用的资源。
+
+在 Go 语言的 `runtime` 包中，`sema.go` 文件实现了一个非常基础的信号量类型 `sema`，它用于调度协程的执行。`sema` 结构体中有一个 `int64` 类型的计数器字段 `n`，表示可用资源的数量。另外，还有一个保存等待者的双向链表 `waiters`，其中每个等待者都包含一个指向 `g`（goroutine）的指针和一个 `int64` 类型的 `deadline` 字段。
+
+现在我们来看一下 `less` 函数的实现。`less` 函数的定义如下：
+
+```go
+func less(a, b waitlinkptr) bool {
+    // ...
+}
+```
+
+该函数接收两个 `waitlinkptr` 类型的参数 `a` 和 `b`，它们都是等待者链表中的节点。`waitlinkptr` 实际上是一个指向等待者节点的指针。
+
+`less` 函数的作用是比较两个等待者的优先级，以确定它们在链表中的顺序。具体来说，它通过比较 `a` 和 `b` 的 `deadline` 字段的值来判断哪个等待者的优先级更高。较早到期的等待者被认为是优先级更高的，因此应该在链表中处于较前的位置。
+
+函数的实现相对简单，它比较了 `a` 和 `b` 的 `deadline` 字段，并返回一个布尔值，指示是否 `a` 的优先级较高。比较操作符 `==` 和 `<` 在这里起到了关键的作用。
+
+总结起来，`less` 函数在 `runtime/sema.go` 文件中用于确定等待者在信号量链表中的优先级顺序。通过比较等待者的 `deadline` 字段，它决定哪个等待者的优先级更高。这对于协程的调度和资源的分配非常重要。
 
 
 ### notifyListAdd
 
 
+`notifyListAdd` 是 Go 语言中 `sync` 包中的一个函数，位于 `sema.go` 文件中。该函数的作用是向一个通知列表（notify list）中添加一个新的通知项（notification entry）。
 
+在 Go 语言的运行时（runtime）中，`notifyList` 是用于实现同步原语的数据结构之一。它通常用于实现类似于条件变量（condition variable）的功能。
+
+通知列表（notify list）是一个链表，用于保存等待某个特定事件发生的一组 goroutine。每个通知项（notification entry）表示一个等待事件的 goroutine，并包含了与该 goroutine 相关的一些信息。
+
+`notifyListAdd` 函数的具体作用如下：
+
+1. 创建一个新的通知项（notification entry），其中包含了等待事件的 goroutine 和与该 goroutine 相关的一些信息。
+2. 将新的通知项添加到通知列表的末尾，成为最新的等待项。
+
+通常，在并发编程中，当一个或多个 goroutine 需要等待某个条件满足时，它们可以将自己添加到一个通知列表中。当条件满足时，可以使用通知列表来唤醒这些等待的 goroutine，以便它们可以继续执行。
+
+`notifyListAdd` 函数是 `sync` 包中用于管理通知列表的内部函数，它在运行时中起到了管理和组织等待事件 goroutine 的作用，确保它们能够正确地被唤醒和处理。但是，请注意，由于 `notifyList` 是运行时的内部数据结构，因此该函数的具体实现和细节可能会因版本和平台而有所不同。
 
 
 ### notifyListWait
 
 
+在 Go 语言的运行时（runtime）包中，`sema.go` 文件包含了用于实现信号量（Semaphore）的相关代码。其中的 `notifyListWait` 函数用于等待通知列表（notify list）中的通知。
 
+通知列表是一种用于在并发环境中等待通知的数据结构。它通常与条件变量（condition variable）一起使用，用于协调不同的 goroutine（Go 协程）之间的操作。
+
+具体来说，`notifyListWait` 函数的作用是将当前 goroutine 添加到通知列表中，并等待被通知。下面是 `notifyListWait` 函数的详细解释：
+
+1. 首先，它会创建一个 `notifyList` 类型的变量 `l`，该类型是一个双向链表，用于存储等待通知的 goroutine。
+2. 然后，它会将当前的 goroutine 封装在一个 `waitNode` 结构体中，该结构体包含了当前 goroutine 的相关信息。
+3. 接下来，它会将 `waitNode` 添加到 `notifyList` 中，通过调用 `l.add(&wait)` 实现。这样，当前 goroutine 就被添加到了等待通知的列表中。
+4. 接下来，当前 goroutine 会进入休眠状态，等待被通知。它会调用 `runtime.goparkunlock` 函数，将当前 goroutine 进行休眠并解锁当前的互斥锁（如果存在）。
+5. 当其他 goroutine 调用通知列表的通知函数（`notifyListNotify` 或 `notifyListNotifyAll`）时，会遍历通知列表中的所有等待 goroutine，并唤醒它们。
+6. 被唤醒的 goroutine 会从休眠状态返回，并继续执行之前被休眠的代码。
+
+总结来说，`notifyListWait` 函数的作用是将当前 goroutine 添加到通知列表中，并进入休眠状态，等待被其他 goroutine 通知唤醒。它在协调并发操作和实现同步等待的场景中起着重要的作用。
 
 
 ### notifyListNotifyAll
 
 
+在 Go 语言的 runtime 包中，`sema.go` 文件中的 `notifyListNotifyAll` 函数用于通知一个等待列表中的所有等待者（waiter）。让我们详细解释一下该函数的作用。
 
+在 Go 的并发编程中，经常需要使用等待组（wait group）或条件变量（condition variable）来同步协程的执行。`notifyListNotifyAll` 函数实现了一种条件变量的功能，用于通知所有正在等待的协程。
+
+`notifyListNotifyAll` 函数的主要作用是唤醒所有在等待列表中的等待者。等待列表是一个链表，其中包含等待该条件变量的协程。当某个条件满足时，通过调用 `notifyListNotifyAll` 函数，可以同时唤醒所有在等待列表中的协程，使它们继续执行。
+
+以下是 `notifyListNotifyAll` 函数的伪代码表示：
+
+```go
+func notifyListNotifyAll(l *notifyList) {
+    for l.wait != 0 {
+        // 唤醒一个等待者
+        notifyListNotifyOne(l)
+    }
+}
+```
+
+该函数通过循环调用 `notifyListNotifyOne` 函数来逐个唤醒等待列表中的等待者。在每次循环中，会从等待列表中选择一个等待者进行唤醒。这样，所有在等待列表中的等待者都会被唤醒，并可以继续执行它们的任务。
+
+需要注意的是，该函数在内部调用了 `notifyListNotifyOne` 函数，它是 `sema.go` 文件中的另一个函数，用于唤醒单个等待者。
+
+总结起来，`notifyListNotifyAll` 函数用于在 Go 语言的并发编程中实现条件变量的功能，通过唤醒等待列表中的所有等待者来通知它们某个条件已满足，从而使它们可以继续执行。
 
 
 ### notifyListNotifyOne
 
+`sema.go` 文件中的 `notifyListNotifyOne` 函数是 Go 语言中用于通知等待中的 goroutine 的函数之一。它是在 Go 语言的调度器中用于同步和调度 goroutine 的一部分。
 
+在 Go 语言中，`notifyListNotifyOne` 函数用于唤醒等待队列中的一个 goroutine。它的作用是通过通知等待队列中的一个 goroutine，告诉它可以继续执行。该函数的详细解释如下：
+
+1. `notifyListNotifyOne` 函数首先会检查等待队列是否为空。如果等待队列为空，则没有需要唤醒的 goroutine，函数将直接返回。
+
+2. 如果等待队列不为空，函数会选择一个等待中的 goroutine（通常是队列中的第一个）并从等待队列中移除它。
+
+3. 接下来，函数会将该 goroutine 的状态设置为可运行，并将其放入可运行队列中，以便调度器可以在适当的时候执行该 goroutine。
+
+4. 通过上述步骤，`notifyListNotifyOne` 函数成功地唤醒了一个等待中的 goroutine，并使其可以继续执行。
+
+这个函数通常与其他的同步原语（如锁、条件变量等）一起使用，以实现对共享资源的安全访问和协调。当某个条件满足时，等待中的 goroutine 会通过调用 `notifyListNotifyOne` 函数来被唤醒，从而继续执行后续的操作。
+
+需要注意的是，上述解释是基于 Go 语言运行时源代码中 `sema.go` 文件的通用逻辑。具体的使用和含义可能会因为不同的上下文而有所不同。因此，具体的使用方式和含义还需要根据您所查看的具体代码和文档来确定。
 
 
 
 ### notifyListCheck
 
+在 Go 语言的运行时（runtime）包中，`sema.go` 文件定义了 Go 语言中的信号量实现。其中，`notifyListCheck` 函数用于检查并更新一个通知列表（`notifyList`）中等待的 Goroutine（Go 协程）的状态。
 
+下面是 `notifyListCheck` 函数的详细解释：
+
+1. `notifyListCheck` 函数的主要目的是扫描通知列表中等待的 Goroutine，检查它们是否可以继续执行。
+2. 该函数被用于实现 Go 语言中的锁、条件变量等同步原语。它用于确保 Goroutine 在等待特定事件时能够正确地被唤醒和执行。
+3. 当某个事件发生并满足特定条件时，`notifyListCheck` 函数会遍历通知列表，并将满足条件的 Goroutine 的状态更新为可执行状态，以便它们能够继续执行。
+4. 在遍历通知列表期间，函数会检查每个 Goroutine 的状态并根据条件进行更新。具体的更新包括将 Goroutine 的状态从等待状态（waiting）更新为可运行状态（runnable）。
+5. 更新状态后，`notifyListCheck` 函数可能还会执行一些额外的操作，例如将 Goroutine 添加到调度器的运行队列中，以确保它们能够被调度并执行。
+6. 通常情况下，`notifyListCheck` 函数在某个事件发生后由调度器或相关同步原语调用，以唤醒等待的 Goroutine。
+
+总而言之，`notifyListCheck` 函数在 Go 语言的运行时中扮演着关键的角色，负责管理 Goroutine 的状态，并确保它们能够正确地被唤醒和执行。它是实现同步原语的重要组成部分，用于保证并发程序的正确性和可靠性。
 
 
 
 ### sync_nanotime
 
 
+在Go语言的runtime包中的sema.go文件中，sync_nanotime函数是用于获取当前的纳秒级时间戳的函数。这个函数使用了与操作系统相关的底层调用来获取高精度的时间戳。
 
+sync_nanotime函数的作用是提供一个相对可靠的时间源，用于在同步原语（synchronization primitives）中进行时间相关的操作，如超时控制、定时器等。在并发编程中，时间是一种重要的资源，它被用于实现各种同步和调度机制。
+
+具体来说，sync_nanotime函数返回一个int64类型的纳秒级时间戳，表示从某个参考时间点到当前时刻所经过的纳秒数。这个时间戳通常用于计算时间间隔、判断是否超时以及限制某些操作的执行时间。
+
+由于不同的操作系统可能提供不同的时间获取方法，并且不同的架构可能有不同的时间计数器，sync_nanotime函数在实现上会根据操作系统和硬件架构选择最适合的方式来获取时间戳。这确保了在不同的平台上，程序都可以获取到高精度的时间戳。
+
+总结起来，sync_nanotime函数在Go语言的runtime中提供了一个可靠的方法来获取纳秒级时间戳，为同步原语提供了时间相关的操作支持，从而在并发编程中实现超时控制、定时器等功能。
 
 

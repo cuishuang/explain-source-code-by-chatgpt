@@ -1,0 +1,92 @@
+# File: signal_windows_test.go
+
+signal_windows_test.go是Go语言runtime标准库中的一个测试文件，它的作用是测试Windows平台下信号处理相关的功能。
+
+在Windows平台下，Go语言通过Windows API来实现信号处理机制，这包括处理Ctrl+C和Ctrl+Break信号、生成异常、以及注册和处理操作系统级别的信号。signal_windows_test.go文件中包含了多个测试用例，涵盖了Windows平台下常见的信号处理场景，并通过对Windows API的调用实现测试。
+
+具体来说，signal_windows_test.go文件中的测试用例包括：
+
+1. TestCtrlBreakHandler：测试Ctrl+Break信号的处理，包括注册Ctrl+Break信号处理函数和发送Ctrl+Break信号的操作。
+
+2. TestCtrlCHandler：测试Ctrl+C信号的处理，包括注册Ctrl+C信号处理函数和发送Ctrl+C信号的操作。
+
+3. TestIgnoreSIGHUP：测试如何忽略SIGHUP信号。
+
+4. TestUnexpectedException：测试在协程中使用panic导致未处理的异常时，是否生成了Windows异常。
+
+5. TestWindowsHandlers：测试在Windows平台下注册和处理操作系统级别的信号。
+
+6. TestCrashHandlers：测试在应用程序崩溃时是否能够正确地生成崩溃报告。
+
+总的来说，signal_windows_test.go文件是Go语言为Windows平台下信号处理相关功能编写的一组测试用例，通过这些测试用例，可以确保runtime在Windows平台下实现了正确、可靠的信号处理机制。
+
+## Functions:
+
+### TestVectoredHandlerExceptionInNonGoThread
+
+TestVectoredHandlerExceptionInNonGoThread是一个针对Windows平台的测试函数，它的作用是测试 Windows 下的 Vectored Exception 处理机制。
+
+Vectored Exception 是一种 Windows 操作系统提供的异常处理机制，可以让开发者对异常事件进行更加精细的控制。当系统产生异常时，会自动调用注册的异常处理函数，而不是通过传统的异常处理机制跳转到相应的异常处理函数中。在这个测试函数中，首先会创建一个非 Go 线程，然后在这个线程中抛出一个异常，观察异常处理函数是否正确被调用。
+
+由于 Windows 下的 Vectored Exception 是一种操作系统级别的异常处理机制，与 Go 语言整体设计和运行原理不太相关，因此这个测试函数的主要作用在于验证 Go 语言的运行时是否正确地支持 Windows 平台下的 Vectored Exception 机制，以保证在 Go 语言程序中使用 Windows 系统提供的其他功能时能够正确地使用这种异常处理机制。
+
+
+
+### TestVectoredHandlerDontCrashOnLibrary
+
+TestVectoredHandlerDontCrashOnLibrary函数的作用是测试在Windows系统中使用vectored exception handling处理信号时，不会因为信号处理函数内使用了外部库而导致程序崩溃。
+
+在Windows中，vectored exception handling是一种异常处理机制，当发生异常时可以注册多个处理函数来处理。在对信号进行处理的过程中，可能会调用一些外部库的函数，如果这些函数不是线程安全的或者是有缺陷的，就可能导致程序崩溃。
+
+TestVectoredHandlerDontCrashOnLibrary函数通过向vectored exception handler注册一个处理函数，该函数调用了一个外部库函数，并对处理结果进行断言，以验证在处理信号时使用外部库函数不会导致程序崩溃。
+
+
+
+### sendCtrlBreak
+
+sendCtrlBreak函数位于signal_windows_test.go文件中，它主要用于模拟发送Ctrl + Break信号。
+
+具体来说，sendCtrlBreak函数设置一个控制台处理程序，该程序将在控制台关闭时自动运行。然后，它使用GenerateConsoleCtrlEvent函数向控制台进程发送Ctrl + Break信号。此函数可以终止正在运行的进程，类似于Ctrl + C信号的作用。
+
+通常，Ctrl + Break信号是通过按下Ctrl + Break键来发送的。但是，在测试或模拟环境中，我们需要一种方式来模拟这个信号。因此，sendCtrlBreak函数提供了一种可靠的方法来触发这个信号，以便测试相关代码的行为和反应。
+
+在编写Windows平台下的应用程序时，处理信号是非常重要的，sendCtrlBreak函数提供了一种简单并有效的方法来测试Windows平台下的信号处理代码。
+
+
+
+### TestCtrlHandler
+
+TestCtrlHandler是一个测试函数，用于测试Windows平台的信号处理。具体作用如下：
+
+1. 设置全局的ctrlHandler，当用户按下CTRL-C时，ctrlHandler会被调用。
+
+2. 等待用户输入，直到用户按下CTRL-C为止。
+
+3. 当用户按下CTRL-C时，ctrlHandler会被调用，执行testCtrlHandler函数。
+
+4. testCtrlHandler函数会将收到的信号类型和执行次数打印出来，检验信号处理是否正确。
+
+该函数的正确执行，能够保证在Windows平台下，信号处理器正常工作。
+
+
+
+### TestLibraryCtrlHandler
+
+TestLibraryCtrlHandler是一个测试用例函数，用于测试在Windows操作系统下的信号处理函数。具体来说，它测试在Go语言运行时在Windows下注册的LibraryCtrlHandler是否能够正确地处理一些Windows系统发送的信号，如CTRL_C_EVENT和CTRL_BREAK_EVENT。
+
+在Windows操作系统下，信号处理函数被称为控制台事件处理函数，可以处理一些特定的系统事件。在Go语言中，通过调用SetConsoleCtrlHandler函数为程序注册一个控制台事件处理函数，然后Go语言运行时会在程序启动时自动注册一个默认的信号处理函数，将系统指定的信号转换为对应的控制台事件。
+
+TestLibraryCtrlHandler函数的作用是模拟这些系统信号，并将它们发送给已注册的信号处理函数进行处理。在测试中，首先调用registerCtrlHandler函数注册一个测试用的控制台事件处理函数，然后通过发送CTRL_C_EVENT和CTRL_BREAK_EVENT信号模拟用户按下Ctrl+C和Ctrl+Break组合键。最后，通过调用unregisterCtrlHandler函数取消注册测试用的控制台事件处理函数，保证测试时对Go语言运行时不会有影响。
+
+通过对TestLibraryCtrlHandler函数的测试，可以确保Go语言运行时在Windows操作系统下注册的信号处理函数能够正确地处理系统指定的信号，保证程序在运行时能够正常响应用户的操作。
+
+
+
+### TestIssue59213
+
+TestIssue59213函数是用来测试在Windows系统上发生信号处理程序调用后是否存在内存泄露的问题。具体来说，它测试了在设置了sigsegvHandler信号处理程序后是否能够正确处理由于空指针解引用而导致的段错误。在该函数中，我们首先模拟了一个段错误并确保sigsegvHandler函数被正确调用，然后执行了一系列的GC操作，以确保内存被正确回收。最后，我们使用堆检测器（heap profiler）检查了是否有任何残留的内存泄漏。
+
+这个函数的主要目的是确保runtime在Windows系统上的信号处理与内存管理的稳定性。因为信号处理涉及到了多次跳转和异常处理，所以在处理信号时可能会导致一些内存泄漏。这个测试函数通过模拟内存泄漏的情况，然后进行一系列的内存回收操作，以确保程序能够正确处理信号并恰当地释放内存。
+
+
+

@@ -1,0 +1,10 @@
+# File: memmove_mipsx.s
+
+memmove_mipsx.s是Go语言标准库中运行时系统的一个汇编文件，其主要作用是执行在MIPS架构下的内存拷贝操作。具体来说，memmove_mipsx.s中实现了一个memmove函数，该函数用于将一个内存块的数据复制到另一个内存块中，可以处理源地址和目的地址重叠和不重叠的情况。
+
+该文件的具体实现方式是使用MIPS汇编语言编写的，通过调用MIPS架构的指令实现内存拷贝。由于MIPS架构的指令集中没有类似于x86架构的REP MOVS指令，因此memmove_mipsx.s文件中的实现相对复杂，需要使用多个MIPS指令实现内存拷贝。
+
+除了memmove函数外，memmove_mipsx.s文件中还实现了其他一些相关的函数和宏定义，如memcpy、bcopy、memclr、memset等。这些函数和宏定义的作用与memmove函数类似，也是用于实现内存复制和清零等操作。
+
+总之，memmove_mipsx.s是Go语言标准库中运行时系统的一个重要组成部分，通过实现内存拷贝相关的函数和宏定义，为Go语言程序在MIPS架构下提供了高效可靠的内存操作支持。
+

@@ -1,0 +1,52 @@
+# File: sigqueue_note.go
+
+在Go语言的运行时中，信号是一个非常重要的机制。当系统接收到一个信号时，它会打断正在运行的程序，然后调用一个预定义的处理函数来处理这个信号。在Go语言中，信号处理程序通常由操作系统提供。
+
+而sigqueue_note.go这个文件的作用就是定义了一个用于向操作系统发信号的函数sigqueue。在Go语言中，想要向操作系统发送信号，可以使用syscall包中的kill函数或者raise函数。但是，这两个函数只能向当前进程发送信号，而不能向其他进程发送信号。如果想要向其他进程发送信号的话，可以使用sigqueue函数。
+
+sigqueue函数的定义如下：
+
+```go
+func sigqueue(pid int, sig os.Signal, value interface{}) error
+```
+
+其中，pid参数指定了要向哪个进程发送信号；sig参数指定了要发送的信号类型；value参数指定了信号附带的值。
+
+从代码实现来看，sigqueue函数主要是调用了libc库中的syscall.Syscall函数，具体的实现细节可以查看sigqueue_note.go文件中的代码。
+
+总的来说，sigqueue_note.go文件的作用是扩展Go语言的运行时库，提供了一个向其他进程发送信号的函数sigqueue，方便了程序员在需要时使用信号机制。
+
+## Functions:
+
+### sigNoteSetup
+
+sigNoteSetup是一个用于注册sigqueue中的信号处理函数的函数。在Go运行时系统中，sigqueue是用于将信号发送到Go协程的队列。
+
+sigNoteSetup函数会先通过调用sigaction函数，为每种信号注册一个信号处理函数。然后它会将所有注册成功的信号添加到一个信号集合（sigset）中，用于之后的sigprocmask调用。
+
+接下来，它会创建一个通知（notification）文件描述符，并将其设置为非阻塞模式。这个文件描述符用于接收通知，当一个新的信号加入到sigqueue中时，会有一个epoll事件被触发，并且通知文件描述符可读。在文件描述符可读时，sigNoteNext函数会被调用，将sigqueue中的信号从通知文件描述符中读取出来，并将其发送到对应的协程中进行处理。
+
+因此，sigNoteSetup的作用是注册sigqueue中的信号处理函数，并为它们创建通知文件描述符，以便后续将信号从sigqueue中取出并发送给对应的协程。
+
+
+
+### sigNoteSleep
+
+sigNoteSleep函数是在Go语言中用于等待由操作系统发送的信号的函数之一。它主要是负责监听操作系统发送的信号，当有信号到达时，它会如期合理的处理该信号。
+
+在函数开始的时候，它会获取一个runtimeFreeOSThreadsID的变量用于区分不同的goroutine，在信号到来时可以确定信号是由哪个goroutine触发的，然后会将该goroutine的信息存储到一个sigNote结构体中。接着，它会将该结构体添加到全局的等待队列runtimeSigNoteQueue中，并且将当前goroutine阻塞，让出CPU。直到有信号到来或者其他goroutine向该goroutine发送一个信号，此时该goroutine会重新运行，此时可以进行信号的处理。
+
+此外，如果这个函数超时或者被取消，则会将该goroutine从等待队列中移除，并将其重新加入到可运行队列中，以等待下一次被调度执行。这个函数的作用就是为了协同处理操作系统发送的信号，是保障程序运行安全和高效的重要一环。
+
+
+
+### sigNoteWakeup
+
+sigNoteWakeup函数是在Go语言运行时中的sigqueue_note.go文件中定义的。它的作用是唤醒一个处于休眠状态的goroutine。当操作系统向Go程序发送一个信号时，Go运行时会将信号存储在一个队列中。这个队列中的每个信号都与一个处于休眠状态的goroutine关联着，这个goroutine会负责处理这个信号。
+
+当信号队列中有一个信号时，sigNoteWakeup函数会检查该信号是否与任何已休眠的goroutine关联。如果是，它会唤醒这些goroutine中的任意一个，以便它们可以处理该信号。如果没有任何goroutine与这个信号关联，sigNoteWakeup函数会简单地丢弃该信号。
+
+sigNoteWakeup函数的实现利用了Go语言中的select语句，通过在通道上发送一个信号来唤醒处于休眠状态的goroutine。这个函数非常重要，因为它确保了信号能够被正确地处理，并保证了信号与对应goroutine之间的正确关联。
+
+
+

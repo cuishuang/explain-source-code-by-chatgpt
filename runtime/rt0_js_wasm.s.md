@@ -1,0 +1,18 @@
+# File: rt0_js_wasm.s
+
+rt0_js_wasm.s是Go语言的运行时环境中的一个文件，用于实现WebAssembly平台下的Go程序启动和初始化。
+
+WebAssembly是一种可移植的二进制代码格式，可以在不同的编程语言和不同的平台上运行，因此Go语言也可以在WebAssembly上进行编译和运行。而rt0_js_wasm.s则是为了支持在WebAssembly上运行的Go程序而创建的。
+
+rt0_js_wasm.s文件的主要作用是完成Go程序的启动和初始化过程，包括以下几个方面：
+
+1. 设置内存空间：WebAssembly内存由JavaScript提供，因此需要调用相关函数将Go语言中的内存空间映射到JavaScript中的WebAssembly内存空间。
+
+2. 初始化全局变量：类似于其他平台，Go程序在WebAssembly上也需要初始化一些全局变量。同时，还需要初始化一些WebAssembly独有的变量，例如对于WebAssembly的线程模型，需要初始化gcprocs等变量。
+
+3. 加载GC插件库：Go语言的垃圾回收功能是通过GC插件库实现的，因此需要调用相关函数将GC插件库加载到WebAssembly中。而这个过程需要依赖WebAssembly特有的功能，例如动态库加载等。
+
+4. 调用main函数：最后，需要调用Go程序入口函数main，开始执行Go程序的逻辑。
+
+总之，rt0_js_wasm.s文件是Go语言在WebAssembly平台下启动和初始化的关键文件，为Go语言在WebAssembly上的运行提供了必要的底层支持。
+

@@ -485,6 +485,7 @@ bulkBarrierPreWrite函数在执行操作之前调用，它会根据当前机器�
 
 
 
+
 ### bulkBarrierPreWriteSrcOnly
 
 bulkBarrierPreWriteSrcOnly函数是Go语言的运行时(runtime)中mbitmap.go文件中的一个函数，它的作用是在批量修改标记位对象时防止多线程之间的竞争和冲突。这在Go语言的垃圾回收机制中起着重要的作用。
