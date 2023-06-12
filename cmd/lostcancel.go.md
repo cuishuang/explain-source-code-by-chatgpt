@@ -1,0 +1,12 @@
+# File: lostcancel.go
+
+lostcancel.go是Go语言标准库中cmd包下的一个源代码文件，它的作用是展示在使用channel进行通信时，如果不正确地处理goroutine的退出情况可能导致的问题，并提供了一种优雅的处理方法。
+
+具体来说，这个源代码文件包含了一个示例程序，其中包括两个goroutine，一个是生产者(generate)，另一个是消费者(consume)。生产者会不停地往一个channel中发送数据，而消费者则会反复地从该channel中接收数据，并对接收到的每个数据执行一些工作。
+
+然而，这个程序本身是有问题的，因为生产者goroutine不会像应该那样正确退出，导致消费者在生产者退出后依然在等待接收数据。为了修复这个问题，源代码文件提供了一个优雅的解决方案，即使用select语句在channel的发送和接收操作中加入一个额外的done channel，用于控制goroutine的退出。
+
+当生产者需要退出时，它会向done channel发送信号，告知消费者它的退出状态，并在退出前关闭channel。而消费者在等待接收数据时，也需要不断监听done channel，以便在生产者退出时及时退出。
+
+总的来说，lostcancel.go的作用是向开发者展示如何正确地使用channel和goroutine，以避免在程序退出时出现类似资源泄露的问题。
+

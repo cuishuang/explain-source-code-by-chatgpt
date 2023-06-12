@@ -1,0 +1,10 @@
+# File: build_read.go
+
+build_read.go这个文件是Go语言标准库中的一个源代码文件，它的作用是解析Go源代码文件并构建抽象语法树（AST）以便后续编译器使用。
+
+具体来说，这个文件实现了一个函数readImports，该函数负责读取Go源代码文件中的import语句，并将它们转换成字符串切片格式。readImports函数将会被build.go中的函数buildPackage调用，在构建一个包的过程中提取该包依赖的所有其他包。
+
+此外，build_read.go中还实现了一个类型为parser.Mode的常量值parser.ParseComments，该常量表示Go解析器解析代码时要保留注释信息。在读取Go代码文件时，如果想要保留注释信息，则可以将该常量传递给解析器。
+
+总之，build_read.go这个文件的作用非常重要，它为Go语言的编译器提供了必要的源代码解析功能，为构建Go程序打下了坚实的基础。
+
