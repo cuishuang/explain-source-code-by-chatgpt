@@ -1,0 +1,8 @@
+# File: zsysnum_linux_arm.go
+
+zsysnum_linux_arm.go文件的作用是定义了Linux ARM体系结构上系统调用的编号和参数类型，以及与之对应的Go函数的实现方式。
+
+具体来说，zsysnum_linux_arm.go文件包含了一个包级别不可见的类型zsysnum，该类型定义了Linux ARM体系结构上系统调用的名称、编号和参数类型，并且使用const关键字定义了每个系统调用的编号；此外，该文件还定义了一组私有函数，这些私有函数与zsysnum类型中的每个系统调用对应，实现了Go语言中对于每个系统调用的具体实现方法。
+
+因此，zsysnum_linux_arm.go文件是系统调用和Go函数之间的桥梁，通过该文件的定义实现了Linux ARM体系结构上的系统调用与Go函数之间的映射，使得开发人员在使用Go编写Linux ARM程序时，可以方便地调用系统调用，从而获得更好的系统资源支持。
+

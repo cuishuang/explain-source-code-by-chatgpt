@@ -1,0 +1,10 @@
+# File: zsysnum_netbsd_arm.go
+
+zsysnum_netbsd_arm.go是Go语言标准库中的一个文件，主要作用是定义NetBSD操作系统上ARM平台的系统调用号(sysnum)。系统调用号是操作系统内核提供给用户空间程序调用内核服务的标识符，每个系统调用都有一个唯一的系统调用号码，称为sysnum。
+
+在NetBSD操作系统上，系统调用号是固定的，并且由内核保持一致。因此，为了让Go语言可以在NetBSD操作系统上进行编程，需要在zsysnum_netbsd_arm.go中列出NetBSD操作系统上ARM平台的所有系统调用号(sysnum)及相应的函数名称。这使得Go语言可以在NetBSD操作系统上使用系统调用接口，通过内核提供的服务来执行特定的操作。
+
+该文件中包含了各种系统调用号，例如open、close、write、read等，以及相应的常量定义。这些调用可以应用于文件和套接字操作、进程控制、内存管理、文件系统、网络等领域。
+
+总之，zsysnum_netbsd_arm.go文件是Go语言支持NetBSD操作系统上ARM平台的系统调用接口的关键之一。
+

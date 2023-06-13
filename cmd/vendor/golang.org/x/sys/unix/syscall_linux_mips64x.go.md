@@ -1,0 +1,8 @@
+# File: syscall_linux_mips64x.go
+
+syscall_linux_mips64x.go是Go语言中用于管理系统调用的文件之一，它定义了MIPS64X架构下的系统调用函数及其参数。在Linux操作系统下，系统调用是用户空间和内核空间之间的一道桥梁，它允许应用程序访问操作系统提供的底层服务，如文件操作、进程管理、网络通信等。
+
+该文件中定义了一系列函数，如syscall.Syscall、syscall.Syscall6、syscall.RawSyscall和syscall.RawSyscall6，这些函数封装了Linux系统调用的底层实现，可以帮助开发者在Go语言中轻松地调用系统调用。
+
+syscall_linux_mips64x.go文件还分别为每个系统调用指定了一个唯一的数字标识符（syscall number），这些数字标识符是用于向内核发出调用请求的重要参数。因此，该文件的作用是为MIPS64X架构下的系统调用提供了Go语言中的实现，并为开发者提供了方便的接口，使得他们可以更加轻松地调用系统调用。
+

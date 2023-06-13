@@ -1,0 +1,16 @@
+# File: sockcmsg_unix_other.go
+
+sockcmsg_unix_other.go文件是Go语言标准库中cmd包下的一个文件，其作用是实现Unix或类Unix系统下的socket控制消息的处理。
+
+在Unix或类Unix系统中，socket控制消息用于在用户空间和内核空间之间传递控制信息。该文件中的函数实现了对这些消息的解析和封装。
+
+具体而言，sockcmsg_unix_other.go文件中定义了如下几个重要的函数：
+
+1. parseSocketControlMessage：该函数用于解析收到的socket控制消息。它接受一个socket控制消息的字节数组作为输入，并返回该消息中包含的文件描述符以及其他控制信息。
+
+2. sendSocketControlMessage：该函数用于封装socket控制消息，并将其发送给指定的socket。它接受一个socket控制消息的类型（比如SCM_RIGHTS）以及需要传递的文件描述符等参数作为输入，并将它们封装成一个socket控制消息，最后发送给socket。
+
+3. setSocketFlags：该函数用于设置socket的一些控制标志。它接受一个socket连接对象以及需要设置的标志位作为输入，并将这些标志位设置到socket上。
+
+总体而言，sockcmsg_unix_other.go文件中的函数提供了对Unix或类Unix系统下socket控制消息的处理，方便在用户空间和内核空间之间传递信息和控制流程。
+

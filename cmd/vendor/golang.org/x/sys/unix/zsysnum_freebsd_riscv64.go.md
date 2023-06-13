@@ -1,0 +1,12 @@
+# File: zsysnum_freebsd_riscv64.go
+
+zsysnum_freebsd_riscv64.go是Go语言标准库中cmd包下的一个文件，在FreeBSD操作系统上实现了RISC-V架构中系统调用的常量定义和转换。
+
+在操作系统中，应用程序可以通过系统调用来请求服务，如打开文件、读写网络数据等。不同的操作系统和架构下，系统调用的编号和参数传递方式都有所不同。因此，针对不同的操作系统和架构，需要定义对应的系统调用编号常量和参数传递方式，方便应用程序进行系统调用。
+
+zsysnum_freebsd_riscv64.go文件中定义了多个常量，如SYSCALL、SYS_read、SYS_write等，分别对应RISC-V架构中的系统调用函数编号。例如，SYSCALL常量的值为0x67，代表了RISC-V上的系统调用指令。
+
+该文件还定义了多个类型，如PtraceRegs、PtraceIoDesc等，这些类型用于在RISC-V上执行系统调用时传递参数和获取结果。
+
+总之，zsysnum_freebsd_riscv64.go文件的作用是为开发人员提供了方便的接口，使得Go语言程序可以在FreeBSD操作系统上使用RISC-V架构中的系统调用。
+

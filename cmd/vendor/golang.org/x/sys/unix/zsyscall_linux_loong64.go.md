@@ -1,0 +1,10 @@
+# File: zsyscall_linux_loong64.go
+
+zsyscall_linux_loong64.go文件是Go语言中syscalls包的一部分，它包含了Linux系统在LoongArch64架构上的系统调用号和底层实现的函数。这些函数通过调用Linux内核提供的系统调用接口来执行各种操作，如文件读写、进程管理、网络通信等。
+
+该文件定义了LoongArch64架构上的系统调用号和参数，以及与系统调用相关的函数的签名和实现。通过这个文件，Go语言可以在LoongArch64架构上直接调用Linux系统提供的系统调用，实现了Go语言与底层操作系统的紧密结合。
+
+在Go语言运行时和标准库中也用到了该文件中定义的系统调用，比如在os包中的一些函数，如Open、Create、Read、Write等，都是通过调用zsyscall_linux_loong64.go中定义的系统调用函数实现的。
+
+总之，zsyscall_linux_loong64.go文件是Go语言在LoongArch64架构下实现系统调用的重要文件，为Go语言提供了与底层操作系统高效交互的能力。
+

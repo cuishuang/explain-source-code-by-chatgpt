@@ -1,0 +1,10 @@
+# File: stat_windows.go
+
+stat_windows.go文件是Go标准库中cmd包下的一个文件，它主要实现了Windows系统上获取文件、目录状态的相关函数。
+
+在Windows系统中，文件状态包括文件大小、修改时间、访问时间等。这个文件提供了os.Stat和os.Lstat两个函数的实现，它们都是用于获取文件状态信息的函数。os.Stat函数将返回一个包含文件状态信息的os.FileInfo类型值，而os.Lstat函数则返回一个包含符号链接状态信息的os.FileInfo类型值。此外，还实现了os.SameFile函数，用于判断两个文件路径是否指向同一个文件。
+
+这个文件的实现主要依赖于Windows系统的API函数，如GetFileAttributesEx和GetFileInformationByHandle函数等。通过调用这些函数获取文件状态信息，并封装成os.FileInfo类型值返回给调用方。
+
+总的来说，stat_windows.go文件是Go标准库中获取Windows系统上文件状态信息的一个重要实现文件。
+

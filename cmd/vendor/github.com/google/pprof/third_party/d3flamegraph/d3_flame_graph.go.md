@@ -1,0 +1,10 @@
+# File: d3_flame_graph.go
+
+d3_flame_graph.go是Go语言的标准库中，cmd子包中的一个文件，其作用是生成Flame Graph。
+
+Flame Graph是一种用于可视化CPU使用情况的图表，它可以帮助开发人员定位程序中的性能瓶颈。Flame Graph可用于查看CPU中所有线程/进程的时间分布情况，用颜色和深度表示时间。深度越深，颜色越深，表示函数调用的嵌套层次越多，消耗的时间也越长。
+
+d3_flame_graph.go文件实现了将Go程序的运行信息转换为Flame Graph可读取的格式，并生成Flame Graph图表。它利用Go语言标准库中的runtime包中的函数提供的堆栈跟踪信息来确定函数调用路径和时间。在生成Flame Graph时，d3_flame_graph.go利用D3.js库中的函数将生成的数据转换为可视化的Flame Graph图表。
+
+用户可以使用d3_flame_graph.go文件中提供的命令行参数来指定需要生成Flame Graph的程序，并可以自定义Flame Graph的样式和输出格式。因此，d3_flame_graph.go在Go语言的性能分析和优化中具有重要的作用。
+

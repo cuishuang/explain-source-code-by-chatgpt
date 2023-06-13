@@ -1,0 +1,8 @@
+# File: outbuf_nofallocate.go
+
+outbuf_nofallocate.go文件是Go语言中标准库cmd包中的一个文件，主要用于定义一种输出缓冲区类型Outbuf_nofallocate。这种输出缓冲区与标准输出缓冲区Outbuf相比，不进行预先分配内存，而是在需要输出数据时动态分配内存，从而节省空间。
+
+Outbuf_nofallocate定义了一个结构体类型，其中包含了一个bytes.Buffer类型的成员变量b。通过Write、WriteString等方法，可以将数据写入到该成员变量b中。由于没有预先分配内存，当数据超出缓冲区大小时，会动态地扩展缓冲区大小，从而避免数据丢失。
+
+该输出缓冲区类型主要在编译器的输出命令中使用，例如在编译器输出错误信息时。由于编译器输出的错误信息可能较长，如果使用标准输出缓冲区Outbuf，预先分配内存可能会浪费大量空间，因此Outbuf_nofallocate提供了一种更加高效的解决方案。
+

@@ -1,0 +1,10 @@
+# File: sockcmsg_linux.go
+
+sockcmsg_linux.go是Go语言中的一个文件，位于go/src/cmd目录下，主要功能是实现在Linux上使用Control Messages来指示套接字操作。Control Messages是与数据一起发送到套接字的元数据，通常用于指示网络协议的功能或控制套接字的操作。
+
+该文件实现了一个名为sendFd的函数，可以将一个文件描述符发送给另一个进程。此函数使用Control Messages来传递文件描述符，通常用于在不同进程之间共享文件描述符，以便在进程之间传递打开的文件或管道等资源。
+
+此外，该文件还实现了一个recvFd函数，它可以接收一个文件描述符。这个函数在从另一个进程接收文件描述符时非常有用。
+
+总之，sockcmsg_linux.go实现了在Linux上使用Control Messages来实现套接字操作，主要用于在进程之间共享文件描述符和管道等资源。
+

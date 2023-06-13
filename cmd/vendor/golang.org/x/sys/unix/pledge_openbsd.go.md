@@ -1,0 +1,10 @@
+# File: pledge_openbsd.go
+
+pledge_openbsd.go是一个Go语言文件，位于Go语言的标准库中的cmd目录下。它实现了OpenBSD的pledge系统调用，用于增强进程的安全性。
+
+pledge是一个在OpenBSD系统中被广泛使用的安全机制，它可以限制一个进程可以访问的系统资源和操作，减少了进程对系统的攻击面，增加了系统的安全性。通过pledge机制，进程只能访问所需的系统资源，并且不能加载任何动态库，执行任何系统调用等。
+
+在Go语言中，pledge_openbsd.go文件定义了一组封装pledge系统调用的函数，使得Go程序也可以使用pledge机制增强安全性。例如，可以在一个Go程序中调用pledge函数，限制程序只能访问指定的文件和网络资源，从而增加应用程序的安全性。
+
+需要说明的是，pledge_openbsd.go文件只能在OpenBSD系统上使用，其他操作系统并不支持pledge系统调用。
+
