@@ -1,0 +1,22 @@
+# File: sockcmsg_unix_other.go
+
+sockcmsg_unix_other.go文件是系统调用syscall中的一个组件，主要用于socket间进程间通信时传递控制信息（control message）。在Linux系统中，控制信息是可以和数据信息一起传输的一种机制，它允许应用程序在传输数据的同时发送一些控制信息来指示接收方如何处理数据。控制信息通常包含一些协议相关的信息，例如IP头部选项、TCP首部选项、进程ID、文件描述符等。
+
+sockcmsg_unix_other.go文件实现了unixOtherControlMessage函数，该函数用于处理一些不常用的控制信息类型，例如SOL_SOCKET、IPPROTO_IP、IPPROTO_IPV6等协议的选项信息。它会检查控制信息的类型，并根据不同类型的控制信息进行相应的解析和处理。
+
+通过sockcmsg_unix_other.go文件，开发者可以方便地使用socket间通信时发送控制信息，充分利用Linux系统中的控制信息机制，提高应用程序的灵活性和可扩展性。
+
+## Functions:
+
+### cmsgAlignOf
+
+cmsgAlignOf是一个函数，用于计算在Unix域socket中，控制消息所需的字节对齐参数，以便将控制消息正确地传送给对方进程。
+
+在Unix域socket中，消息传递是通过sendmsg和recvmsg函数来完成的。sendmsg函数将服务端发送的数据和控制信息封装为一个msghdr结构体进行传输。而控制信息需要以cmsghdr结构的形式出现，并且可能包含多个cmsghdr结构体。
+
+由于Unix域socket中，不同的平台可能对控制信息的字节对齐方式有所不同，因此需要使用cmsgAlignOf函数来计算字节对齐参数。在函数实现中，如果平台支持64位字节对齐，则返回8，否则返回4。这个字节对齐参数可以在控制消息传输时用于确保控制信息的正确传输。
+
+总之，cmsgAlignOf函数的作用是在Unix域socket中计算控制消息所需的字节对齐参数，以确保控制信息正确传输。
+
+
+

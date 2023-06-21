@@ -1,0 +1,12 @@
+# File: zsysnum_linux_riscv64.go
+
+zsysnum_linux_riscv64.go是Go语言中syscall库的一个文件，主要负责定义Linux平台下RISC-V64架构的系统调用号。
+
+系统调用是操作系统提供的一组接口，用于访问底层的硬件资源或提供一些高级服务。这个文件中定义了一系列常量，每一个常量对应一个系统调用号，程序员可以使用这些常量来调用相应的系统调用。
+
+在Linux下，不同的平台架构可能有不同的系统调用号。因此，Go语言的syscall库会根据不同的平台架构，在不同的文件中定义相应的系统调用号常量。zsysnum_linux_riscv64.go这个文件就是定义了在RISC-V64架构下Linux平台的系统调用号常量。
+
+通过这个文件中定义的常量，程序员可以直接使用Go语言的syscall库，来调用底层的系统调用。例如，通过常量SYS_READ调用read系统调用，通过常量SYS_WRITE调用write系统调用等等。
+
+总之，zsysnum_linux_riscv64.go这个文件的作用就是为Linux平台下RISC-V64架构的程序员提供了一个访问底层系统调用的接口。
+

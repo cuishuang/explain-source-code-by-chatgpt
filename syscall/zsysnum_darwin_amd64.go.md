@@ -1,0 +1,10 @@
+# File: zsysnum_darwin_amd64.go
+
+zsysnum_darwin_amd64.go文件是syscall包在Darwin（即macOS）平台上处理系统调用时用到的一个文件。该文件定义了一个syscall.SyscallNoError函数，该函数允许使用汇编编写的系统调用函数避免返回错误值。在macOS平台上，系统调用的返回值存储在rax寄存器中，而错误值存储在rcx寄存器中。
+
+该文件中的主要函数SyscallNoError允许我们省略rcx寄存器中的错误值，只需要关心rax寄存器中的返回值。这使得syscall包在处理Darwin平台上的系统调用时更方便，也更符合习惯。
+
+具体来说，SyscallNoError函数定义了一个回调函数，该回调函数在执行系统调用后负责检查rcx寄存器中的错误值。如果发生了错误，回调函数会使用os.NewSyscallError函数将错误值转换为错误对象并返回。否则，回调函数会返回rax寄存器中的返回值。
+
+总的来说，zsysnum_darwin_amd64.go文件定义了一些系统调用函数处理逻辑，在处理Darwin平台上的系统调用时提供了更方便、更符合习惯的方式。
+

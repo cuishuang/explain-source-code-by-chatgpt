@@ -1,0 +1,12 @@
+# File: zsysnum_linux_mipsle.go
+
+zsysnum_linux_mipsle.go是Go语言中的syscall包中的一个文件，用于将系统调用的常量值和对应的字符串名称相关联。该文件是针对使用MIPS架构的Linux系统进行编写的。
+
+在Linux系统中，系统调用是指用户空间程序通过中断机制或特殊指令，请求内核提供操作系统服务的一种方法。每个系统调用都有一个唯一的整数值来标识它，这个整数值在Linux系统中被称为系统调用号。
+
+在Go语言中，使用系统调用需要使用syscall包提供的函数和常量。zsysnum_linux_mipsle.go这个文件就是用来存储MIPS架构下Linux系统的系统调用常量值和对应字符串名称的映射关系。
+
+该文件中定义了一个名为syscalls_linux_mipsle的数组，该数组包含了Linux系统下MIPS架构可用的所有系统调用，每个系统调用对应一个常量值和一个字符串名称。通过访问这个数组，Go程序可以使用syscall包提供的系统调用函数访问Linux系统提供的各种操作系统服务。
+
+总之，zsysnum_linux_mipsle.go是Go语言syscall包中用于实现MIPS架构下Linux系统调用和字符串名称映射的重要文件。
+

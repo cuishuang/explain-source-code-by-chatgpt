@@ -1,0 +1,10 @@
+# File: zsysnum_openbsd_amd64.go
+
+zsysnum_openbsd_amd64.go是Go语言中syscall包中的一个文件，用于在OpenBSD平台的AMD64架构上定义系统调用号。
+
+该文件内部包含了一个名为syscalls的结构体，该结构体中列出了所有OpenBSD平台上AMD64架构的系统调用号。每个系统调用号都对应了一个唯一的标识符，用于在Go语言中进行系统调用。
+
+这个文件的作用是让Go语言能够在OpenBSD平台上的AMD64架构中调用系统调用。它实现了Go语言中syscall包中的接口，为Go语言程序员提供了一种简单、统一的方式来访问OpenBSD系统调用的功能。
+
+在编写OpenBSD平台下的AMD64架构的Go程序时，程序员可以使用syscall包中的相关函数和定义，并且可以利用该文件中定义的系统调用号进行系统调用。这使得程序的编写和维护更加简单和方便。
+

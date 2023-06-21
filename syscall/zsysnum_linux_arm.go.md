@@ -1,0 +1,12 @@
+# File: zsysnum_linux_arm.go
+
+zsysnum_linux_arm.go是Go语言中syscall包内的一个文件，主要负责定义Linux系统下ARM架构的系统调用号。
+
+在Linux系统下，与内核交互的方式是通过系统调用来实现的，这种交互可以让用户级别的程序调用内核级别的功能。为了使用户级别的程序可以调用系统调用，需要知道系统调用号，也就是系统调用的标识符。
+
+针对不同的系统架构和系统版本，系统调用号会有所不同。zsysnum_linux_arm.go文件中就定义了针对Linux系统下ARM架构的系统调用号。
+
+具体来说，zsysnum_linux_arm.go文件中定义了一个名为Sysno的枚举类型，其中包含了Linux系统下ARM架构的所有系统调用号。在程序中直接使用这个枚举类型即可获取对应的系统调用号。
+
+zsysnum_linux_arm.go文件的作用是为Go语言中syscall包提供针对ARM架构的系统调用号的定义，使得程序能够在ARM架构上正常执行系统调用。
+

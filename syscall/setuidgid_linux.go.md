@@ -1,0 +1,12 @@
+# File: setuidgid_linux.go
+
+setuidgid_linux.go这个文件是用来设置当前进程的用户ID和组ID的，它是Golang标准库中syscall包的一部分，该文件实现了Linux平台上设置用户ID和组ID的相关函数。
+
+在 Linux 系统中，每个进程都有一个实际用户ID和实际组ID，这些 ID 决定了该进程拥有的权限和对其访问的权限。这个文件中的函数可以让用户程序在运行时动态地改变进程的用户ID和组ID。
+
+其中，setuid函数可以将实际用户ID设置为指定的UID，setgid函数可以将实际组ID设置为指定的GID。对于root用户来说，setuid和setgid函数的调用是没有限制的；对于普通用户来说，只能将其实际用户ID或实际组ID设置为自己或所属组的ID。
+
+此外，此文件还实现了getuid、geteuid、getgid和getegid等函数，可以用于查询当前进程的用户ID和组ID。这些函数对于程序在运行时判断其具体权限非常有用。
+
+总的来说，setuidgid_linux.go这个文件的作用是提供了Linux平台上设置用户ID和组ID以及查询当前进程用户ID和组ID的相关函数，使得程序可以以不同的身份运行，实现更多的操作权限和功能。
+

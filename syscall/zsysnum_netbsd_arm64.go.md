@@ -1,0 +1,10 @@
+# File: zsysnum_netbsd_arm64.go
+
+zsysnum_netbsd_arm64.go是Go语言标准库syscall包中的一个文件，其作用是定义了NetBSD操作系统上ARM64架构的系统调用号。
+
+在操作系统中，系统调用是指应用程序通过调用操作系统提供的API访问系统资源和执行特权操作的一种方式。每个系统调用都有一个唯一的系统调用号，操作系统通过系统调用号来识别应用程序需要执行的具体操作。
+
+zsysnum_netbsd_arm64.go文件中，定义了NetBSD操作系统上ARM64架构的系统调用号，包括常见的文件、进程、网络等系统调用。这些系统调用号被用于Go语言中的syscall包，允许开发者在Go语言中访问和操作NetBSD操作系统的资源。
+
+因此，zsysnum_netbsd_arm64.go文件的作用是提供了将Go语言与NetBSD操作系统的ARM64架构下的系统调用接口连接起来的关键信息，并为Go语言开发人员提供了一种在NetBSD上编写应用程序的方式。
+

@@ -1,0 +1,12 @@
+# File: zsysnum_linux_loong64.go
+
+zsysnum_linux_loong64.go是Go语言标准库中syscall包的一个文件，在Linux Loongson 64位架构下定义了系统调用号。
+
+Linux Loongson 64位架构是龙芯公司开发的64位处理器架构，这个架构在一些高性能嵌入式系统和服务器中应用广泛。因为这个架构不同于x86等常见架构，所以需要单独定义系统调用号。
+
+zsysnum_linux_loong64.go文件中定义了一些常量，每个常量对应一个系统调用号，这些常量在代码中可以用来代替实际的系统调用号，方便开发者使用系统调用。
+
+这个文件实现了syscall.Syscall和syscall.Syscall6函数，可以用来调用Linux Loongson 64位架构下的系统调用。同时，这个文件还定义了一些结构体和类型，用来方便处理Linux Loongson 64位架构下的系统调用。
+
+总之，zsysnum_linux_loong64.go文件为开发者提供了在Linux Loongson 64位架构下使用系统调用的便利，是Go语言标准库syscall包中必不可少的一部分。
+

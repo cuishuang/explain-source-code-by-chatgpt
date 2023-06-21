@@ -1,0 +1,10 @@
+# File: zsysnum_solaris_amd64.go
+
+zsysnum_solaris_amd64.go文件是Go语言的syscall包中的一个文件，它主要用于定义Solaris上x86-64架构的系统调用编号。
+
+在Unix操作系统中，系统调用是操作系统提供给用户程序的一组API函数，用于进行各种系统级别的操作，如文件读写、进程管理、网络通信等等。每个系统调用都有一个唯一的编号，用于标识这个系统调用。在Go语言中，可以使用syscall包来调用底层操作系统的系统调用。
+
+zsysnum_solaris_amd64.go文件中包含了在Solaris上x86-64架构下的所有系统调用编号。这些系统调用编号是从Solaris的系统头文件中提取出来的，并按照Go语言的规范进行了命名。这个文件的作用就是让Go语言的syscall包可以根据这些系统调用编号来调用Solaris系统的底层API函数。
+
+总之，zsysnum_solaris_amd64.go文件是Go语言的syscall包中的重要文件，它定义了Solaris上x86-64架构下所有系统调用的编号，方便Go程序员使用syscall包来调用这些系统调用。
+

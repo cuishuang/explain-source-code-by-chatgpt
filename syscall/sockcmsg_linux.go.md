@@ -1,0 +1,44 @@
+# File: sockcmsg_linux.go
+
+sockcmsg_linux.go文件位于go/src/syscall目录下，是Go语言中使用系统调用syscall库实现Linux套接字函数的部分文件之一。该文件主要负责Linux套接字控制消息的处理。
+
+Linux套接字控制消息使用Unix域套接字向进程发送特定的控制信息，这些信息包含了如文件描述符、用户ID、进程ID等数据。sockcmsg_linux.go文件中主要实现了相关的Linux套接字控制消息相关函数，包括：
+
+1. SyscallUnixRights：将多个文件描述符打包成一个控制消息通过Unix域套接字发送给另外一个进程。
+
+2. ParseUnixRights：从收到的Unix域套接字控制消息中解析出其中的文件描述符。
+
+3. UnixCredentials：将当前进程的进程ID和用户ID打包成一个控制消息通过Unix域套接字发送给另外一个进程。
+
+4. ParseUnixCredentials：从收到的Unix域套接字控制消息中解析出其中的进程ID和用户ID。
+
+这些函数的实现，能够使Go语言程序通过Unix域套接字在进程之间传递文件描述符和进程ID/用户ID等重要信息，实现更加高效和方便的进程通信。该文件的存在与实现，使得Go语言程序能够更加便捷地使用Linux套接字，提高了程序的效率和性能。
+
+## Functions:
+
+### UnixCredentials
+
+UnixCredentials这个func的作用是将UNIX domain socket的凭证信息进行打包，用于在进程间传递信息。它封装了UnixCredential结构体，该结构体包含了发送和接收SOCK_STREAM或SOCK_SEQPACKET类型UNIX socket时使用的凭据信息。
+
+具体来说，UnixCredentials函数的实现会创建一个cmsghdr头，并填充它的cmsg_type和cmsg_len字段。然后，它会在cmsghdr头中存储UnixCredential结构体，并返回cmsghdr头和UnixCredential结构体的字节数组。这样，这个字节数组就可以作为控制消息来发送或接收UNIX domain socket的凭证信息了。
+
+一般情况下，该函数用于设置SO_PASSCRED选项。SO_PASSCRED选项是指在UNIX domain socket中，如果打开该选项，则每个接收的消息都会附带上一个UnixCredential类型的控制消息，该消息中包含了发送者的UID、GID和进程ID等信息。这样，接收方就可以通过UnixCredentials函数解析出发送方的身份信息，并且进行相应的认证和授权操作。
+
+总的来说，UnixCredentials函数是在UNIX domain socket中传递凭证信息的重要函数之一。它通过封装UnixCredential结构体，打包凭证信息，并且返回一个控制消息，从而实现发送和接收方之间的身份认证和授权功能。
+
+
+
+### ParseUnixCredentials
+
+ParseUnixCredentials函数的作用是将Unix域套接字控制消息中的用户凭证解析为unix.Credential类型。
+
+在Unix域套接字通信中，套接字控制消息用于在进程之间传递辅助信息。其中，Unix域套接字控制消息可以携带用户凭证信息，以此来完成进程之间的身份验证。
+
+ParseUnixCredentials函数通过解析Unix域套接字控制消息中的用户凭证信息，将其转换为unix.Credential类型，以便进一步处理。
+
+具体来说，ParseUnixCredentials函数会检查控制消息的类型是否为SCM_CREDENTIALS，以及是否包含正确长度的用户凭证信息。然后，它会从控制消息中提取用户凭证，并将其转换为unix.Credential类型，其中包括用户ID、组ID以及附加组ID等信息。
+
+该函数的调用方通常是syscall.ReadMsg函数，用于读取Unix域套接字传输的控制消息。
+
+
+

@@ -1,0 +1,120 @@
+# File: benchmark_test.go
+
+go/src/context/benchmark_test.go文件是用于对Go语言标准库中的context包进行性能测试的测试文件，其目的是评估context包的性能以及与其他类似包的比较。
+
+该测试文件中定义了多个测试函数，包括基准测试函数BenchmarkBackground和BenchmarkWithValue，以及若干带子测试的函数。这些函数用于测试context包在各种环境下的性能表现，例如测试在多种goroutine数量下的性能表现，测试在单个goroutine中并发调用context方法的性能表现等等。
+
+通过运行这些测试函数，可以获得context包在不同情况下的性能指标，例如吞吐量、延迟等等，以便开发人员根据具体需求选择合适的包和可变的参数。
+
+总之，go/src/context/benchmark_test.go文件的作用是评估Go语言标准库中的context包的性能指标，以帮助开发人员选择合适的包和参数。
+
+## Functions:
+
+### BenchmarkCommonParentCancel
+
+BenchmarkCommonParentCancel是对context包中的CommonParent方法进行性能测试的函数。
+
+CommonParent方法用于将多个context.Context类型的实例合并为一个共同的context.Context类型的实例，以便用于协调和控制多个goroutine之间的协作。该方法返回的context实例有一个done通道，它将关闭在所有传入的context实例的done通道都关闭时，或者当其中一个实例的done通道关闭时。
+
+在BenchmarkCommonParentCancel函数中，针对CommonParent方法的性能进行了测试。这个函数使用了testing包中的B对象，可以向外部展示函数的性能指标。该测试函数首先创建了10个带有cancel函数的context实例，并使用CommonParent方法将它们合并为一个共同的context实例。然后对于这个共同的context实例，测试函数调用cancel函数来取消context实例。在测试期间，测试程序会循环调用CommonParent加上cancel的context实例，直到测试集中干净地完成。
+
+这个测试函数可以用来评估CommonParent方法在耗费时间和内存使用方面的性能。代码的修改可以通过测试函数来衡量性能的变化，以确保代码优化对性能的提升。
+
+
+
+### BenchmarkWithTimeout
+
+BenchmarkWithTimeout是一个基准测试函数，用于测试context.WithTimeout方法的性能。
+
+在测试中，该函数会对context.WithTimeout方法进行多次调用，并记录下每次调用所需要的时间。同时，函数还会使用time.After方法创建一个定时器，如果context.WithTimeout方法在规定时间内仍未返回结果，就会终止函数的执行，以避免无限等待。
+
+通过对多次调用context.WithTimeout方法的时间进行统计和分析，可以得出该方法的平均响应时间、最大响应时间等性能指标，从而帮助开发人员找出性能瓶颈，并进行优化。
+
+
+
+### benchmarkWithTimeout
+
+函数名称: benchmarkWithTimeout
+
+作用：
+
+该函数是用于测试context包中WithTimeout函数的性能，并比较几种不同方式调用WithTimeout函数的性能差异。benchmarkWithTimeout函数使用Go的testing包中的Benchmark函数进行性能测试，以评估函数的性能和效率。
+
+该函数使用两个for循环来测试几种不同的调用方式，第一个for循环在numChildren的范围内迭代，模拟创建多个goroutines的情况。第二个for循环运行benchmark，当所有goroutine完成时，内部执行time。Sleep(milliseconds)以观察goroutine在超时之前，是否能够正常退出。如果所有的goroutine都在超时前退出，则测试被认为是成功的，否则测试就被认为是失败的。
+
+对于WithTimeout的调用方式，benchmarkWithTimeout函数测试了四种不同的方式，并比较其性能差异：使用context.WithTimeout（）创建context对象，使用context.WithDeadline（）创建context对象，直接使用context.Background（）创建context对象，以及不使用context对象。
+
+总体来说，benchmarkWithTimeout函数对于测试WithTimeout函数的性能和有效性以及比较不同实现方式的性能差异非常有用。
+
+
+
+### BenchmarkCancelTree
+
+BenchmarkCancelTree是一个基准测试函数，用于测量在根节点及其所有子节点上调用取消函数所需的时间。在上下文包中，当调用cancel方法时，它会遍历所有子上下文并取消它们，这个操作的时间可能会随着子上下文数量的增加而增加，因此需要进行基准测试来评估该操作的性能。
+
+该函数的实现首先创建了一个深度为N的上下文树，其中树的根节点被传递给一个匿名函数，在该函数中调用cancel方法，以便取消所有子上下文。接下来，函数使用Go的计时器开始测量操作的时间，并等待异步取消操作完成。最后，该函数结束计时器并输出操作完成所需的时间。
+
+该函数的结果提供了一个用于评估上下文包中取消操作的性能基准，从而帮助开发人员优化操作以满足应用程序需求。
+
+
+
+### buildContextTree
+
+BuildContextTree函数的作用是构建一个用于测试的context树。context树是一个由不同层级的context对象构成的树状结构，每个节点都有一个key-value对，其中key是字符串类型，value可以是任何类型。
+
+具体地说，BuildContextTree函数会构建一个rootContext对象，并将其作为根节点。然后，它会向根节点添加一些子节点，并递归地向这些子节点添加更多的子节点，最终形成一棵context树。这个过程中，每个节点的key都是一个递增的数字字符串，value是一个包含随机字符串和数字的结构体，用于测试。
+
+这个函数的主要作用是提供一个用于测试context相关函数和方法的数据结构，以便开发人员可以测试它们的正确性和性能。
+
+
+
+### BenchmarkCheckCanceled
+
+BenchmarkCheckCanceled函数是一个基准测试函数，它用于测试在已取消的上下文中调用"context.Context"的CancelFunc方法的性能。
+
+具体而言，该函数首先创建一个已取消的上下文，然后在循环中多次调用CancelFunc方法，并使用"for"循环避免编译器过度优化。接下来，通过调用"b.ResetTimer()"和"b.StopTimer()"方法来开始和停止基准测试计时器，并调用CancelFunc方法的总次数。
+
+"BenchmarkCheckCanceled"函数的作用是帮助开发人员确定在已取消的上下文中调用CancelFunc方法的性能，并检查"CancelFunc"方法是否合理地应对了取消操作。通过这个函数的基准测试结果，开发人员可以优化代码，确保其具有更好的性能和正确性。
+
+
+
+### BenchmarkContextCancelDone
+
+BenchmarkContextCancelDone 是 Go 语言中 context 包中的一个基准测试函数，其目的是测试当使用 context.CancelFunc 函数取消一个 goroutine 时，另一个 goroutine 对 context.Done() 的响应速度。
+
+具体来说，该函数的逻辑是：首先创建一个 context.Background()，并使用 context.WithCancel 函数创建一个可取消的 context 对象，同时在主函数中启动一个 goroutine，该 goroutine 会一直等待直到 context.Done() 返回值，然后在一秒钟后退出。在另一个 goroutine 中，通过调用 context.CancelFunc 函数取消上述 goroutine，然后使用计时器测量 context.Done() 之后的响应时间。
+
+通过该基准测试函数，我们可以了解到 context 包在取消 goroutine 时的性能表现和速度，并且可以方便地对比不同环境下的结果差异。同时，这也是一个典型的使用场景，可以帮助我们更好地理解和学习 context 包的相关知识。
+
+
+
+### BenchmarkDeepValueNewGoRoutine
+
+BenchmarkDeepValueNewGoRoutine这个函数是用来测试在不同的goroutine数量下，创建值深度为n的结构体所需的时间。具体来说，它的作用如下：
+
+1. 首先，它定义了一个结构体类型DeepStruct，该结构体包含一个深度为d的嵌套结构体DeepStruct或一个整数值int，其嵌套深度递减，直到嵌套深度为1。
+
+2. 接下来，该函数定义了一个参数r，表示goroutine的数量。它还定义了一个管道ch，用于在所有goroutine完成创建DeepStruct实例后，通知主线程。
+
+3. 然后，在一个循环中创建r个goroutine。其中，每个goroutine都异步地创建一个DeepStruct实例并将其发送到管道ch中。
+
+4. 最后，主线程等待通过管道ch接收到r个DeepStruct实例后结束测试，并记录总测试时间和每个goroutine所需的平均时间来创建一个DeepStruct实例。
+
+通过这个函数，我们可以测试并比较不同goroutine数量下创建相同数据结构的速度，以便我们更好地了解并行程序的性能和并发控制。
+
+
+
+### BenchmarkDeepValueSameGoRoutine
+
+BenchmarkDeepValueSameGoRoutine是context包中的一个基准测试函数，主要用于测试在同一个goroutine中使用相同的值深层次地传递上下文的性能。该函数的作用包括：
+
+1. 测试性能：该函数通过在同一个goroutine中传递一个深度为10的上下文树并获取其值来测试在同一个goroutine中使用相同的值深层次地传递上下文的性能。通过该函数可以评估context包在这种情况下的性能表现。
+
+2. 比较不同的传递方式：该函数中还包括了与BenchmarkDeepValueCopyGoRoutine和BenchmarkValueCopyGoRoutine两个基准测试函数的对比分析，用于比较在不同情况下上下文传递的不同方式的性能表现。
+
+3. 提供参考：作为context包的一部分，该函数还可以作为其他开发人员在类似情况下评估性能表现的参考，并帮助他们了解context包的使用方法和性能特性。
+
+总之，BenchmarkDeepValueSameGoRoutine函数主要用于测试同一个goroutine中使用相同的值深层次地传递上下文的性能，并提供参考和对比分析。
+
+
+

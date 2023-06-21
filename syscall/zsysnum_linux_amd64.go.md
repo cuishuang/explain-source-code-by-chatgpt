@@ -1,0 +1,12 @@
+# File: zsysnum_linux_amd64.go
+
+zsysnum_linux_amd64.go文件位于go/src/syscall/目录下，其作用是定义了系统调用号码和名称之间的映射关系，用于在Linux AMD64系统上执行系统调用时进行参数传递和结果处理。
+
+在Linux Kernel中，每个系统调用都被分配了唯一的号码，该号码称为系统调用号。系统调用号与各个系统调用名称之间的映射关系是由Linux Kernel的头文件定义的。
+
+在Go语言中，为了与Linux Kernel进行交互，需要使用系统调用来进行操作。zsysnum_linux_amd64.go文件中定义了Linux AMD64平台上支持的系统调用号码和名称之间的映射关系，包括文件系统、进程管理、网络通信、IPC和系统信息等多个方面的系统调用。
+
+在使用zsysnum_linux_amd64.go文件中定义的系统调用时，使用者只需向对应的系统调用号填充所需的参数，并使用syscall.Syscall()函数执行相应的系统调用即可完成相应的功能。
+
+因为Linux Kernel对系统调用号码和名称之间的映射关系根据版本的不同会产生改变，而zsysnum_linux_amd64.go文件能够动态地获取Linux Kernel头文件中的定义，使得Go语言开发者可以方便地使用最新的系统调用。
+
