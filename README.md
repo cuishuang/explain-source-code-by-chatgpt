@@ -3,7 +3,7 @@
 <br>
 
 
-- 利用chatgpt，讲解Go语言及Go生态著名项目如K8s,etcd等项目的源码
+- 利用chatgpt，讲解Go语言及Go生态著名项目如[K8s](https://github.com/cuishuang/explain-source-code-by-chatgpt/tree/main/Kubernetes),[etcd]()等项目的源码
 
 - 内容由chatgpt生成，仅供参考，不作为面试依据；内容必然存在大量错误，如果尽信，指定得被带到沟里..欢迎指出&提issue探讨,提pr勘误👏🏻
 
