@@ -1,0 +1,16 @@
+# File: pkg/controller/statefulset/stateful_set_status_updater.go
+
+pkg/controller/statefulset/stateful_set_status_updater.go文件是Kubernetes StatefulSet控制器的一部分，它的主要作用是更新StatefulSet的状态。
+
+_这些变量通常代表一个占位符，它们没有特定的意义或用途，只是用于忽略或丢弃需要的变量。
+
+StatefulSetStatusUpdaterInterface是一个接口，它定义了StatefulSet状态更新器的功能。它有两个方法：UpdateStatefulSetStatus和DeleteStatefulSetStatus。
+
+realStatefulSetStatusUpdater是一个结构体，实现StatefulSetStatusUpdaterInterface接口。它负责实际更新StatefulSet的状态信息。
+
+NewRealStatefulSetStatusUpdater是一个方法，用于创建realStatefulSetStatusUpdater实例。
+
+UpdateStatefulSetStatus是一个方法，用于更新StatefulSet的状态信息。它会从StatefulSet对象中读取相关信息，并将其更新到Kubernetes API服务器上。它还处理一些错误和异常情况，以确保状态更新过程顺利完成。
+
+总之，stateful_set_status_updater.go文件的作用是更新StatefulSet的状态，并实现了相关的接口和方法。它通过调用Kubernetes API服务器提供的接口来修改StatefulSet对象的状态信息，从而保证容器应用的可靠性和稳定性。
+

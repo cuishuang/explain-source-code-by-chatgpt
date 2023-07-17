@@ -1,0 +1,20 @@
+# File: cmd/kubeadm/app/cmd/phases/join/controlplaneprepare.go
+
+controlplaneprepare.go文件的作用是在节点加入Kubernetes控制平面之前准备控制平面的相关配置和证书。
+
+其中，controlPlanePrepareExample是一组控制平面准备的示例配置。它包括了控制平面证书的路径、Master节点的名称、各组件的镜像版本信息等。
+
+- NewControlPlanePreparePhase函数返回一个新的ControlPlanePreparePhase对象，代表一个控制平面准备阶段。
+- getControlPlanePreparePhaseFlags函数返回控制平面准备阶段所需的命令行参数。
+- newControlPlanePrepareDownloadCertsSubphase函数返回一个新的下载证书阶段对象。
+- newControlPlanePrepareCertsSubphase函数返回一个新的证书准备阶段对象。
+- newControlPlanePrepareKubeconfigSubphase函数返回一个新的kubeconfig准备阶段对象。
+- newControlPlanePrepareControlPlaneSubphase函数返回一个新的控制平面准备阶段对象。
+- runControlPlanePrepareControlPlaneSubphase函数运行控制平面准备阶段的操作。
+- runControlPlanePrepareDownloadCertsPhaseLocal函数运行下载证书阶段的操作。
+- runControlPlanePrepareCertsPhaseLocal函数运行证书准备阶段的操作。
+- runControlPlanePrepareKubeconfigPhaseLocal函数运行kubeconfig准备阶段的操作。
+- bootstrapClient函数返回一个新的Clientset对象，用于与Kubernetes API进行交互。
+
+这些函数共同完成了节点加入控制平面前的必要配置准备，包括下载证书、生成证书、准备kubeconfig以及控制平面的其他准备工作。
+

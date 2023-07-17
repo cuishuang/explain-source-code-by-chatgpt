@@ -1,0 +1,27 @@
+# File: pkg/kubelet/pluginmanager/operationexecutor/operation_executor.go
+
+在Kubernetes项目中，pkg/kubelet/pluginmanager/operationexecutor/operation_executor.go文件的作用是定义和实现操作执行器。
+
+该文件使用OperationExecutor接口来定义操作执行器的功能。OperationExecutor是一个接口类型，它定义了以下几个方法：
+
+1. IsOperationPending(pluginName string) (bool, error)：检查给定插件名称的操作是否仍在执行中。
+2. RegisterPlugin(pluginName string) error：将给定插件名称注册到操作执行器中。
+3. UnregisterPlugin(pluginName string) error：从操作执行器中注销给定插件名称。
+4. NewOperationExecutor(actualStateOfWorldUpdater ActualStateOfWorldUpdater, syncTimeout time.Duration) (OperationExecutor, error)：创建新的操作执行器实例。
+
+其中_变量通常用于表示不关心的返回值。
+
+ActualStateOfWorldUpdater是一个接口类型，用于定义插件操作执行过程中对世界状态的更新。
+
+operationExecutor是实现了OperationExecutor接口的结构体。它有一个成员变量actualStateOfWorldUpdater，用于进行实际状态的更新。operationExecutor实现了IsOperationPending、RegisterPlugin、UnregisterPlugin等方法，并使用mutex来确保并发安全性。
+
+NewOperationExecutor函数返回一个OperationExecutor接口，并使用给定的ActualStateOfWorldUpdater和同步超时时间创建一个操作执行器实例。
+
+IsOperationPending方法检查给定插件名称的操作是否仍在执行中，返回一个bool值表示操作是否挂起。
+
+RegisterPlugin方法用于将给定插件名称注册到操作执行器中，以便在执行操作时调度该插件。
+
+UnregisterPlugin方法用于从操作执行器中注销给定插件名称，以停止调度该插件。
+
+总而言之，该文件定义了操作执行器的接口、结构体和相关方法，用于管理插件的操作执行，并提供了对操作执行器的创建、操作状态的检查和插件注册/注销的功能。
+

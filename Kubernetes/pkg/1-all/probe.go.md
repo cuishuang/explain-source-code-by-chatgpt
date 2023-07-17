@@ -1,0 +1,16 @@
+# File: pkg/probe/probe.go
+
+在Kubernetes项目中，pkg/probe/probe.go文件是负责定义和执行健康检查探针的功能。健康检查是Kubernetes中一种用于监测和维护应用程序可靠性的机制，通过检查应用程序的健康状态，能够及时发现和处理故障。
+
+在probe.go文件中，主要定义了三个结构体：ExecProbe、TCPSocketProbe和HTTPGetProbe，它们分别对应不同类型的探针。
+
+1. ExecProbe结构体：该结构体是用于执行一个命令，并根据命令的返回值来判断探针的结果。它包含了要执行的命令列表和相关的配置参数，如超时时间、重试策略等。ExecProbe结构体实现了Probe接口中的方法，可以执行探针命令并返回探针结果。
+
+2. TCPSocketProbe结构体：该结构体用于对指定的IP和端口执行TCP连接。它包含了目标IP和端口，以及一些额外的配置参数。TCPSocketProbe结构体实现了Probe接口中的方法，可以通过建立TCP连接并检查连接是否成功来判断探针的结果。
+
+3. HTTPGetProbe结构体：该结构体是用于执行HTTP GET请求来检测应用程序的健康状态。它包含了要请求的URL、期望的HTTP状态码、请求头信息等配置参数。HTTPGetProbe结构体实现了Probe接口中的方法，可以发起HTTP GET请求并根据返回的状态码和内容来判断探针的结果。
+
+除了以上的结构体，probe.go文件还定义了一个Result结构体。该结构体用于保存探针执行的结果，包括探针的类型、执行结果、错误信息等。Result结构体还实现了String方法，能够方便打印和输出探针结果。
+
+总而言之，pkg/probe/probe.go文件中的ExecProbe、TCPSocketProbe和HTTPGetProbe结构体以及Result结构体，提供了Kubernetes中健康检查探针的定义和执行功能。它们通过不同的方式对应用程序进行健康检查，并返回相应的探针结果。这些功能在Kubernetes中起到了保障应用程序可靠性和故障处理的重要作用。
+

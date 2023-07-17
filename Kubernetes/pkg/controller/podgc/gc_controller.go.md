@@ -1,0 +1,21 @@
+# File: pkg/controlplane/controller/apiserverleasegc/gc_controller.go
+
+pkg/controlplane/controller/apiserverleasegc/gc_controller.go这个文件的作用是负责按照指定的规则对过期的api-server lease对象进行回收，避免过多的失效的lease对象造成系统负荷。
+
+该文件中利用kubernetes的controller框架实现了APIServerLeaseGCController结构体，并通过如下几个函数实现了对过期lease对象的回收：
+
+1. NewAPIServerLeaseGC：用于初始化APIServerLeaseGCController对象；
+2. Run：用于启动APIServerLeaseGCController；
+3. gc：用于精确定位，判断一个lease是否过期，如果过期则将其回收；
+4. isLeaseExpired：用于判断一个lease是否过期，如果当前时间已经超过了lease的过期时间，则称该lease为已过期。
+
+其中，Controller这几个结构体的作用是定义对过期lease对象进行回收的Controller，包括：APIServerLeaseGCController、APIServerLeaseGCControllerConfig等。
+
+NewAPIServerLeaseGC函数用于构造一个APIServerLeaseGCController对象，并返回对应的controller_iface。
+
+Run函数用于启动APIServerLeaseGCController，使用器context控制其生命周期，循环遍历api-server lease对象的缓存 map，判断每一个lease对象是否已经失效，如果已经失效，则进行回收。
+
+gc函数主要作用是对每一个api-server lease对象进行回收，先获取lease的过期时间，然后判断其是否过期，如果已过期，则从缓存中移除，并进行回收。如果未过期，则执行下一轮循环。
+
+isLeaseExpired函数主要作用是判断一个lease是否已经过期。为此，该函数首先尝试从lease对象的annotation中获取lease过期时间，如果获取失败，则认为该lease未过期。如果成功获取，在判断当前时间是否超过了lease过期时间，如果已经超过，则称该lease为已过期。
+

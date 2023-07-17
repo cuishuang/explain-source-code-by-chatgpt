@@ -1,0 +1,18 @@
+# File: pkg/controller/podautoscaler/rate_limiters.go
+
+pkg/controller/podautoscaler/rate_limiters.go是Kubernetes项目中控制Pod自动伸缩的速率限制器文件。这个文件中定义了一些结构和函数，用来设置Pod自动伸缩的速率限制策略。
+
+_这些变量是占位符，表示不关心该变量的值或不需要该变量。
+
+FixedItemIntervalRateLimiter是一个结构体，用于实现固定间隔的速率限制器，其中变量interval用于表示间隔时间，变量itemsPerInterval用于表示每个间隔时间内允许处理的最大事件数。
+
+NewFixedItemIntervalRateLimiter是FixedItemIntervalRateLimiter的一个构造函数。用于创建一个FixedItemIntervalRateLimiter结构体。
+
+When是一个内置函数，用于返回当前时间。
+
+NumRequeues是一个函数变量，用于返回在过去一段时间内重新排队的事件数。
+
+Forget是一个函数变量，用于重置计数器，使用该计数器可以跟踪在一段时间内重新排队的事件数。
+
+NewDefaultHPARateLimiter是一个函数，用于创建一个默认的Pod自动伸缩速率限制器。它使用FixedItemIntervalRateLimiter作为底层速率限制器，通过固定间隔控制Pod自动伸缩的速度。
+

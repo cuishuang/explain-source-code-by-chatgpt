@@ -1,0 +1,14 @@
+# File: cmd/kubeadm/app/phases/bootstraptoken/node/token.go
+
+在Kubernetes项目的kubeadm应用程序的cmd/kubeadm/app/phases/bootstraptoken/node/token.go文件中，包含了与引导令牌相关的功能。引导令牌是用于授权新节点加入Kubernetes集群的一种机制。
+
+具体而言，该文件中的CreateNewTokens函数用于生成新的引导令牌（bootstrap token），而UpdateOrCreateTokens函数则用于更新或创建引导令牌。
+
+引导令牌包含两个重要的组成部分：TokenID和TokenSecret。TokenID是一个唯一的标识符，用于识别引导令牌，而TokenSecret则是一个随机的密钥，用于身份验证和安全性。
+
+CreateNewTokens函数的作用是生成新的引导令牌。它首先调用generateTokenID函数生成一个唯一的TokenID。然后，它使用generateTokenSecret函数生成一个随机的TokenSecret，并将TokenID和TokenSecret保存到指定的secret对象中。
+
+UpdateOrCreateTokens函数的作用是更新或创建引导令牌。它首先尝试从指定的secret对象中获取现有的引导令牌。如果没有找到现有的引导令牌，则调用CreateNewTokens函数创建一个新的引导令牌。否则，它将使用generateTokenSecret函数生成一个新的TokenSecret，并将TokenSecret保存到指定的secret对象中，此操作相当于更新令牌。
+
+这些引导令牌会在节点加入集群过程中被使用。节点需要使用TokenID和TokenSecret来通过kubeadm join命令进行身份验证，以获取访问控制以及与集群的通信权限。通过更新或创建引导令牌，管理员可以轻松地添加或更新节点，并确保节点之间的安全通信。
+

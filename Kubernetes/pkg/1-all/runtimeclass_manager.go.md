@@ -1,0 +1,23 @@
+# File: pkg/kubelet/runtimeclass/runtimeclass_manager.go
+
+pkg/kubelet/runtimeclass/runtimeclass_manager.go是Kubernetes项目中的一个文件，它的作用是定义和管理运行时类别（runtime class）。
+
+在Kubernetes中，运行时类别是一种描述容器运行时的机制。它可以帮助用户在同一集群中同时使用多种容器运行时，例如Docker、containerd等。runtimeclass_manager.go文件定义了用于管理运行时类别的Manager结构体及其相关方法。
+
+Manager结构体是runtimeclass_manager.go文件中的重要结构体之一。它是一个运行时类别的管理器，负责维护运行时类别的状态、缓存和处理函数。主要的Manager结构体字段和方法包括：
+
+- runtimeCache：用于缓存运行时类别对象的缓存。它存储了运行时类别的名称和对应的RuntimeClass对象。
+- runtimeDefaulter：运行时类别缺省器，默认定义了使用名为“docker”的运行时类别。
+- informerFactory：用于创建RuntimeClass对象的Informer工厂。
+- runtimeClassHandlerCache：用于处理运行时类别的处理函数的缓存。它存储了运行时类别名称和对应的处理函数。
+
+NewManager函数用于创建一个新的Manager对象。它会初始化runtimeCache、runtimeDefaulter、informerFactory和runtimeClassHandlerCache等字段。
+
+Start函数用于启动Manager对象的运行。它主要启动runtimeCache和informers的数据同步，并且创建runtimeClassHandlerCache。
+
+WaitForCacheSync函数用于等待运行时类别缓存和informers的数据同步完成。一旦同步完成，该函数将返回。这可以确保在Manager启动服务之前，相关的数据已经准备就绪。
+
+LookupRuntimeHandler函数用于查找指定运行时类别的处理函数。给定一个运行时类别名称，该函数会从runtimeClassHandlerCache中查找对应的处理函数，并返回给调用者。
+
+总之，pkg/kubelet/runtimeclass/runtimeclass_manager.go文件定义了运行时类别管理器Manager结构体及其相关方法，用于管理运行时类别的状态、缓存和处理函数。
+

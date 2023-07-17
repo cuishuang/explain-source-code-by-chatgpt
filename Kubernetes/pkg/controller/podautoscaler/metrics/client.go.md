@@ -1,0 +1,8 @@
+# File: pkg/controller/podautoscaler/metrics/client.go
+
+pkg/controller/podautoscaler/metrics/client.go文件是kubernetes中自动扩展器模块使用的metrics客户端代码。该文件中定义了用于获取不同类型指标的客户端方法。
+
+restMetricsClient、resourceMetricsClient、customMetricsClient、externalMetricsClient结构体分别用于不同类型的metrics客户端：REST、资源、自定义、外部。
+
+NewRESTMetricsClient方法是用于创建REST类型的metrics客户端，GetResourceMetric方法可以获取资源的度量标准，getContainerMetrics方法用于从kubelet获取容器的度量标准，getPodMetrics方法用于获取Pod的度量标准，GetRawMetric方法可以获取原始度量标准，GetObjectMetric方法可以获取对象的度量标准，GetExternalMetric可以获取外部的度量标准。这几个function分别用于获取不同类型的度量标准，以支持kubernetes自动扩展的业务需求。
+

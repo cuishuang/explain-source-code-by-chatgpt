@@ -1,0 +1,14 @@
+# File: pkg/kubelet/cm/pod_container_manager_unsupported.go
+
+在Kubernetes项目中，pkg/kubelet/cm/pod_container_manager_unsupported.go文件的作用是实现不支持的Pod容器管理器接口。
+
+首先，文件中的"_"变量通常用于丢弃未使用的导入包或变量，以避免编译错误。在这个文件中，使用"_"来导入相关的包，标识这些包在该文件中没有被直接使用，但是由于它们是必需的，所以需要被导入。
+
+该文件中定义了一个"unsupportedPodContainerManager"结构体和一个"unsupportedPodContainerManagerFactory"结构体，分别用于实现"PodContainerManager"和"PodContainerManagerFactory"接口。这些结构体的作用是提供不支持的Pod容器管理器的实现，用于当Kubernetes集群中没有安装或配置任何支持的容器管理器时使用。
+
+具体来说，"unsupportedPodContainerManager"结构体实现了"PodContainerManager"接口的所有方法，但是这些方法实际上只是返回错误信息，表示不支持相关操作。例如，"GetPodContainerStatuses"方法返回一个错误，指示当前的Pod容器管理器不支持获取Pod容器的状态。
+
+"unsupportedPodContainerManagerFactory"结构体实现了"PodContainerManagerFactory"接口的所有方法，但是这些方法实际上只是返回不支持的Pod容器管理器实例。例如，"NewPodContainerManager"方法返回一个"unsupportedPodContainerManager"实例，表示不支持创建Pod容器管理器。
+
+总而言之，pkg/kubelet/cm/pod_container_manager_unsupported.go文件的作用是提供了一个不支持的Pod容器管理器的实现，用于在Kubernetes集群中没有安装或配置任何支持的容器管理器时作为后备选择。
+

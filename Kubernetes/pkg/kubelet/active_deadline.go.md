@@ -1,0 +1,16 @@
+# File: pkg/kubelet/active_deadline.go
+
+pkg/kubelet/active_deadline.go文件的作用是处理Pod的活动期限（active deadline），并根据活动期限的状态采取相应的操作。
+
+activeDeadlineHandler结构体定义了处理活动期限的方法和状态信息，包括一个podStatusMap用于存储Pod的活动期限状态。
+
+newActiveDeadlineHandler函数用于创建一个activeDeadlineHandler对象，初始化podStatusMap。
+
+ShouldSync函数用于判断是否需要同步Pod的活动期限状态。根据是否存在已经被删除的Pod或者活动期限已过期的Pod来判断是否需要同步。
+
+ShouldEvict函数用于判断是否需要驱逐某个Pod。根据Pod的活动期限状态以及其他一些判断条件来决定是否需要驱逐。
+
+pastActiveDeadline函数用于判断Pod的活动期限是否已过期。根据Pod的开始时间、生命周期以及当前时间来计算活动期限是否已过。
+
+这些方法和函数的作用是根据Pod的活动期限状态来判断是否需要同步、驱逐或处理活动期限已过期的Pod。
+

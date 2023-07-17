@@ -1,0 +1,14 @@
+# File: pkg/auth/authorizer/abac/abac.go
+
+pkg/auth/authorizer/abac/abac.go文件是Kubernetes项目中实现了基于属性的访问控制（ABAC）的策略实现。ABAC是一种定义了针对主体的一组属性和一组对象的属性规则，以允许或拒绝一组操作的访问控制模型。
+
+policyLoadError是一个用于记录加载策略文件时的错误信息的结构体。PolicyList是Kubernetes中一个用于表示策略列表的结构体，其中包含ABAC策略的详细信息。
+
+Error是一个用于包装错误信息并将其返回给调用方的函数。NewFromFile用于从文件加载ABAC策略。matches用于在给定的规则和属性列表之间匹配，并决定是否接受某个请求。
+
+subjectMatches、verbMatches、nonResourceMatches和resourceMatches分别用于检查主题、动词、非资源路径和资源路径规则是否匹配。Authorize函数用于确定是否授权某个请求。
+
+RulesFor函数会返回一个规则列表，这个规则与主题匹配。getVerbs函数用于获取与给定主题和资源相关联的允许或拒绝指定资源的操作。
+
+总之，pkg/auth/authorizer/abac/abac.go文件中的结构体和函数都是用于实现Kubernetes中ABAC策略的加密、匹配和授权。
+

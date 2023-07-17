@@ -1,0 +1,14 @@
+# File: pkg/volume/flexvolume/expander.go
+
+在Kubernetes项目中，pkg/volume/flexvolume/expander.go文件的作用是实现Flexvolume插件的扩展功能。
+
+Flexvolume是一种用于Kubernetes存储系统的插件，允许用户为自定义存储提供单独的卷插件。expander.go文件中的功能旨在提供对Flexvolume插件的卷扩展操作的支持。
+
+具体而言，其中包含了两个函数：
+
+1. ExpandVolumeDevice：这个函数用于扩展Flexvolume插件中的卷设备。当用户在Kubernetes中请求扩展卷设备时，Kubernetes将调用这个函数。它接受两个参数：volumeSpec和expandSize。volumeSpec包含有关要扩展的卷设备的信息，expandSize指定了要扩展的大小。在函数内部，它会调用Flexvolume插件的ExpandVolumeDevice函数来执行实际的卷设备扩展操作。
+
+2. NodeExpand：这个函数用于在节点上执行扩展Flexvolume插件中的卷设备操作。当用户在Kubernetes中请求在节点上扩展卷设备时，Kubernetes将调用这个函数。它接受一个参数：volumeSpec，其中包含有关要扩展的卷设备的信息。在函数内部，它会调用Flexvolume插件的NodeExpand函数来执行实际的卷设备扩展操作。
+
+这两个函数通过调用Flexvolume插件的相关方法来实现卷设备的扩展功能。它们提供了对Flexvolume插件的接口封装，使其可以与Kubernetes存储系统紧密集成，并支持对卷设备的动态扩展。这对于满足不断增长的存储需求非常重要，提供了灵活和可扩展的存储解决方案。
+

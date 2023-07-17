@@ -1,0 +1,14 @@
+# File: pkg/util/async/bounded_frequency_runner.go
+
+在Kubernetes项目中，pkg/util/async/bounded_frequency_runner.go文件的作用是实现一个有界频率运行器，用于控制某个任务的运行频率。
+
+在该文件中，_是一个特殊的匿名变量，用于占位，以避免编译器报错。
+
+BoundedFrequencyRunner结构体用于表示一个有界频率运行器，它包含了一个限速器(rateLimiter)、一个无动作限制器(nullLimiter)、一个定时器(timer)、一个真实定时器(realTimer)以及其他一些字段和方法。有界频率运行器的主要作用是控制一个任务在给定的频率内运行。
+
+rateLimiter结构体表示一个限速器，用于限制任务运行的频率。nullLimiter结构体表示一个无动作限制器，用于表示没有任何频率限制的情况。timer结构体表示一个定时器，用于测量过去的时间片长度。realTimer结构体表示一个真实定时器，用于真实计时。
+
+TryAccept方法用于尝试接受一个任务运行请求，返回是否接受该任务运行请求。Stop方法用于停止任务的运行。C方法返回任务的限速器。Reset方法用于重设任务的运行状态。Now方法返回当前的时间。Remaining方法返回任务下一次可以运行的剩余时间。Since方法返回任务上一次运行以来经过的时间。Sleep方法用于暂停一段时间。NewBoundedFrequencyRunner方法用于创建一个新的有界频率运行器。construct方法用于构建有界频率运行器的实例。Loop方法用于在有界频率运行器上运行任务。Run方法用于运行任务。RetryAfter方法用于在给定的时间后重试任务。stop方法用于停止任务的运行以及清理任务。doRetry方法用于重试任务。tryRun方法用于尝试运行任务。
+
+通过这些函数和结构体的组合和调用，可以实现对任务运行频率的控制，确保任务在给定的频率内运行。
+

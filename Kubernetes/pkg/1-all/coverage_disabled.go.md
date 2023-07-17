@@ -1,0 +1,10 @@
+# File: pkg/util/coverage/coverage_disabled.go
+
+在Kubernetes项目中，pkg/util/coverage/coverage_disabled.go文件是一个实用程序文件，其作用是禁用代码覆盖率报告。具体来说，该文件包含了一些函数和方法，用于在Kubernetes代码库中禁用代码覆盖率。
+
+1. InitCoverage函数：这个函数在kubernetes运行时初始化时被调用，它初始化了代码覆盖率相关的变量。在coverage_disabled.go文件中，这个函数的实现不执行任何操作，因为代码覆盖率已被禁用。
+
+2. FlushCoverage函数：这个函数在kubernetes运行时结束时被调用，它可以用来刷新并输出代码覆盖率报告。在coverage_disabled.go文件中，这个函数的实现也不执行任何操作，因为代码覆盖率已被禁用。 
+
+总而言之，coverage_disabled.go文件及其内部的InitCoverage和FlushCoverage函数用于禁用Kubernetes代码覆盖率报告功能。由于代码覆盖率对于项目的质量和安全性至关重要，禁用此功能可能会在某些特定情况下有特殊的需求。
+

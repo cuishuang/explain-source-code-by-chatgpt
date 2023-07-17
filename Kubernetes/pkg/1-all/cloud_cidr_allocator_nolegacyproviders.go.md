@@ -1,0 +1,12 @@
+# File: pkg/controller/nodeipam/ipam/cloud_cidr_allocator_nolegacyproviders.go
+
+pkg/controller/nodeipam/ipam/cloud_cidr_allocator_nolegacyproviders.go文件在Kubernetes项目中是IP地址管理（IPAM）控制器的一部分，用于为Kubernetes集群中的节点分配CIDR块。它是用于云平台的CIDR块分配器，用于管理在云上启动的Kubernetes节点的IP地址。
+
+文件中的NewCloudCIDRAllocator函数用于创建一个云平台CIDR块分配器，它基于云平台提供商的不同实现，以处理不同的网络配置和CIDR块分配需求。 
+
+具体来说，NewCloudCIDRAllocator函数通过接受一些参数（包括云提供商、VPC ID、网络名称和IP范围），构建并返回一个云平台CIDR块分配器。在此过程中，它会使用云提供商的API进行网络资源的查询和获取。
+
+分配器可以为Kubernetes集群中的每个节点自动分配CIDR地址块，这是必需的，以便网络流量可以正确路由到相应的节点。云提供商的CIDR块分配器会在对应云平台上进行级联操作，会考虑节点数量、网络设置和IP地址的利用率等因素，从而确保分配合适的CIDR块。 
+
+总之，pkg/controller/nodeipam/ipam/cloud_cidr_allocator_nolegacyproviders.go文件的作用是向Kubernetes集群中的节点分配合适的CIDR地址块，以确保网络流量的准确路由，同时NewCloudCIDRAllocator函数则提供了一种统一且灵活的方式来构建和管理云平台CIDR块分配器。
+

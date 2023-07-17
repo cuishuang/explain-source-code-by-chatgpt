@@ -1,0 +1,16 @@
+# File: pkg/registry/admissionregistration/rest/storage_apiserver.go
+
+在Kubernetes项目中，pkg/registry/admissionregistration/rest/storage_apiserver.go文件的作用是为准入注册资源提供REST API的存储实现。它定义了RESTStorageProvider结构体和一些函数，用于创建和管理针对准入注册资源的REST存储。
+
+RESTStorageProvider是一个接口，定义了为不同版本的准入注册资源提供REST存储的方法。它有三个具体的实现结构体：NewRESTStorage、v1Storage和v1alpha1Storage。
+
+- NewRESTStorage是RESTStorageProvider接口的一个实现，用于创建适用于准入注册API v1版本的REST存储。它提供了对准入注册CRD（Custom Resource Definition）对象的创建、更新、删除和查询的方法。
+
+- v1Storage是RESTStorageProvider接口的另一个实现，用于创建适用于准入注册API v1beta1版本的REST存储。它提供了对准入注册对象的创建、更新、删除和查询的方法。
+
+- v1alpha1Storage是RESTStorageProvider接口的第三个实现，用于创建适用于准入注册API v1alpha1版本的REST存储。它提供了对准入注册对象的创建、更新、删除和查询的方法。
+
+这些函数和结构体的作用是为不同版本的准入注册资源定义和管理REST存储。NewRESTStorage函数根据给定的版本选择相应的RESTStorageProvider实现，并创建适用于该版本的REST存储。v1Storage和v1alpha1Storage函数分别返回适用于准入注册API v1和v1alpha1版本的REST存储对象。GroupName函数返回准入注册资源的分组名称。
+
+总之，pkg/registry/admissionregistration/rest/storage_apiserver.go文件中的函数和结构体提供了针对准入注册资源的REST API的存储实现，并根据不同版本的准入注册资源选择相应的存储操作方式。
+

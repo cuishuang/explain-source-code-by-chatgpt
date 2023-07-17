@@ -1,0 +1,14 @@
+# File: cmd/kubeadm/app/features/features.go
+
+在kubernetes项目中，cmd/kubeadm/app/features/features.go文件的作用是定义并管理kubeadm的功能开关。它为kubeadm提供了一种机制，以决定要开启或关闭哪些特定的功能。
+
+在该文件中，有一个名为InitFeatureGates的变量，它是FeatureGate类型的实例，用于存储kubeadm的功能开关。特别地，InitFeatureGates包含了一组布尔型变量，每个变量对应一个功能开关。通过设置这些变量的值，可以启用或禁用相应的特性。
+
+Feature是一个字符串类型，用于定义每个功能的名称。而FeatureList是一个定义了多个Feature的切片，用于存储所有支持的功能。
+
+ValidateVersion函数用于验证当前kubeadm的版本，确保其兼容所支持的功能开关。Enabled函数用于判断某个特定的功能开关是否已被启用。Supports函数检查给定的功能名称是否在FeatureList中，即是否为支持的功能。KnownFeatures函数返回所有已知的功能。
+
+NewFeatureGate函数用于创建一个新的空FeatureGate实例，即创建一个新的功能开关集合。CheckDeprecatedFlags函数用于检查是否存在已废弃的命令行标志，以便发出警告信息。
+
+通过使用这些功能和数据结构，features.go文件管理kubeadm的功能开关，允许用户自定义和配置所需的特性，从而对kubernetes集群的行为进行细粒度的控制。
+

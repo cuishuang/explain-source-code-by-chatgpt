@@ -1,0 +1,14 @@
+# File: pkg/kubelet/volumemanager/reconciler/reconciler_new.go
+
+在Kubernetes项目中，pkg/kubelet/volumemanager/reconciler/reconciler_new.go文件的作用是实现Kubelet节点上的容器卷管理器（Volume Manager）的重新协调器（Reconciler）。
+
+容器卷管理器负责管理Kubernetes节点上的所有卷，包括创建、删除和挂载卷等操作。而重新协调器是容器卷管理器的一部分，它负责监视集群中Pod和卷的变化，然后根据变化调整容器卷的状态，确保容器卷与Pod的定义相匹配。
+
+在pkg/kubelet/volumemanager/reconciler/reconciler_new.go文件中，有两个核心的函数：runNew和reconcileNew。
+
+- runNew函数的作用是启动重新协调器的循环，它会不断地调用reconcileNew函数，确保容器卷的状态与Pod的定义保持一致。runNew函数会先初始化一些必要的参数和数据结构，然后进入一个无限循环。在每次循环中，它会调用reconcileNew函数来重新协调所有的卷，并根据实际情况执行相应的操作。
+
+- reconcileNew函数的作用是重新协调所有的卷，确保它们的状态与Pod的定义一致。具体来说，reconcileNew函数会根据clusterTopology（集群拓扑）和所有Pod的定义，逐个检查每个容器卷的状态，并根据需要执行一系列操作，如创建或删除卷，更新卷的属性，以及挂载或卸载卷等。它还会处理一些异常情况，如卷的状态与Pod的定义不匹配或卷的操作超时等。
+
+总的来说，pkg/kubelet/volumemanager/reconciler/reconciler_new.go文件中的runNew和reconcileNew函数实现了Kubelet节点上容器卷管理器的重新协调器，负责监视并调整卷的状态，确保其与Pod的定义相匹配。通过这两个函数，容器卷管理器能够自动处理集群中Pod和卷的变化，保证卷的可用性和一致性。
+

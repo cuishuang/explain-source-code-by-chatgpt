@@ -1,0 +1,14 @@
+# File: pkg/kubelet/nodeshutdown/nodeshutdown_manager.go
+
+pkg/kubelet/nodeshutdown/nodeshutdown_manager.go文件是Kubernetes项目中kubelet的节点关机管理器的实现。它负责协调和处理节点的关机和重启操作。
+
+Manager结构体是节点关机管理器的主要实现，它维护了管理相关的状态和配置信息。Config结构体用于存储节点关机管理器的配置选项。managerStub结构体是一个接口，定义了节点关机管理器的操作函数。
+
+Admit函数用于检查并决定是否允许关机或重启操作，默认情况下，该函数总是允许节点关机或重启。可以通过在节点关机管理器的配置中设置Admit配置项来更改此行为，以便根据自定义逻辑来确定是否允许关机或重启。
+
+Start函数用于启动节点关机管理器。它初始化配置，创建状态监控器，启动状态轮询并处理节点关机和重启操作。
+
+ShutdownStatus函数用于获取节点关机或重启操作的状态。它返回当前的操作状态，例如是否处于关机或重启中，是否已经完成等。
+
+总之，pkg/kubelet/nodeshutdown/nodeshutdown_manager.go文件中的结构体和函数提供了对节点关机和重启操作的管理和控制能力，确保在进行这些操作时的安全性和正确性。
+

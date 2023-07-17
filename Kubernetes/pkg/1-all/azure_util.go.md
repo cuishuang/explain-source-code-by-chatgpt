@@ -1,0 +1,18 @@
+# File: pkg/volume/azure_file/azure_util.go
+
+pkg/volume/azure_file/azure_util.go文件是Kubernetes项目中用于Azure文件存储卷的工具文件之一。这个文件提供了用于与Azure存储服务进行交互的功能和辅助函数。
+
+azureUtil结构体是一个工具类，它提供了一些静态方法（函数）来处理Azure文件卷的相关操作。azureSvc结构体是Azure文件存储服务的客户端，用于与实际的Azure存储服务进行通信。
+
+以下是每个函数的作用：
+
+- GetAzureCredentials: 这个函数用于获取Azure存储服务的访问凭证。它会从给定的密钥文件中读取凭证信息，并返回访问Azure存储服务所需的凭证对象。
+
+- SetAzureCredentials: 这个函数用于设置Azure存储服务的访问凭证。它会接收一个凭证对象，并将其保存到给定的密钥文件中。
+
+- appendDefaultMountOptions: 这个函数用于在挂载Azure文件卷时追加默认的挂载选项。它会接收一组挂载选项，并返回添加了默认选项的新选项。
+
+这些函数都是通过调用azureSvc结构体中的方法来实现的。azureSvc结构体中的方法负责与Azure存储服务进行实际的交互，例如获取和设置凭证信息，以及执行挂载和卸载操作。
+
+总体而言，azure_util.go文件提供了与Azure文件存储卷交互所需的一些功能和辅助函数，方便Kubernetes在Azure环境中使用和管理文件存储卷。
+

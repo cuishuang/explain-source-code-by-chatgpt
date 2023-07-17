@@ -1,0 +1,12 @@
+# File: cmd/kubelet/app/options/container_runtime.go
+
+在Kubernetes项目中，`cmd/kubelet/app/options/container_runtime.go`文件的作用是定义kubelet程序的容器运行时选项。该文件中定义了容器运行时的相关配置参数和函数，用于解析命令行参数和配置文件中的容器运行时选项。
+
+`defaultPodSandboxImage`是一个默认的PodSandbox镜像的变量。PodSandbox镜像是用于创建Pod级别的隔离环境的容器镜像。该变量的作用是定义默认的PodSandbox镜像名称，如果未指定其他配置，则使用该默认镜像。
+
+`NewContainerRuntimeOptions`是一个函数，用于创建并返回一个`ContainerRuntimeOptions`对象。该函数通过解析命令行参数和配置文件中的容器运行时选项，将其填充到`ContainerRuntimeOptions`中。`ContainerRuntimeOptions`是一个结构体，包含了kubelet程序在与容器运行时交互时所需的各种选项和参数。
+
+`NewContainerRuntimeOptions`函数中的几个小函数，如`func containerSocketPathForSocket`, `func containerSocketPathForPid`等，用于根据给定的Socket路径或进程ID来生成容器运行时的Socket路径。这些Socket路径用于kubelet与容器运行时进程进行通信。
+
+总结起来，`cmd/kubelet/app/options/container_runtime.go`文件定义了kubelet程序的容器运行时选项，包括默认的PodSandbox镜像和相关的配置参数。同时，提供了函数来解析和生成与容器运行时相关的选项和参数。
+

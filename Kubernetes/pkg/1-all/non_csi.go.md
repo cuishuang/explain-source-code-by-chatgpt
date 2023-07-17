@@ -1,0 +1,30 @@
+# File: pkg/scheduler/framework/plugins/nodevolumelimits/non_csi.go
+
+在kubernetes的scheduler框架中，pkg/scheduler/framework/plugins/nodevolumelimits/non_csi.go是一个文件，它的作用是提供对非CSI（Container Storage Interface）存储卷的限制和过滤功能。
+
+该文件中的变量ebsVolumeFilter、gcePDVolumeFilter、azureDiskVolumeFilter和cinderVolumeFilter分别用于过滤EBS（Amazon Elastic Block Store）、GCEPD（Google Compute Engine Persistent Disk）、Azure Disk和Cinder存储卷。这些变量是存储卷过滤器函数，用于在调度过程中过滤掉不符合要求的存储卷。
+
+nonCSILimits结构体用于存储非CSI存储卷的限制信息，VolumeFilter结构体用于存储过滤器函数和过滤器函数的扩展。
+
+NewAzureDisk、NewCinder、NewEBS和NewGCEPD函数分别用于创建Azure Disk、Cinder、EBS和GCEPD存储卷的过滤器函数。
+
+newNonCSILimitsWithInformerFactory函数用于创建非CSI存储卷的限制，并返回一个InformerFactory对象。
+
+newNonCSILimits函数用于创建非CSI存储卷的限制。
+
+Name变量用于表示非CSI存储卷限制的名称。
+
+EventsToRegister变量用于定义在存储卷限制过程中需要注册的事件类型。
+
+PreFilter和PreFilterExtensions函数分别用于在预过滤器阶段执行预过滤器和扩展的操作。
+
+Filter函数用于在过滤器阶段执行过滤器操作。
+
+filterVolumes函数用于过滤存储卷。
+
+matchProvisioner函数用于匹配存储供应商。
+
+getMaxVolLimitFromEnv函数用于从环境变量中获取最大存储卷限制。
+
+getMaxVolumeFunc、getMaxEBSVolume函数用于获取最大的存储卷限制。
+

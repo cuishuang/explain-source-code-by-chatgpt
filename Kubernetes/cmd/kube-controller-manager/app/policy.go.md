@@ -1,0 +1,14 @@
+# File: cmd/kubeadm/app/phases/upgrade/policy.go
+
+在kubernetes项目中，`cmd/kubeadm/app/phases/upgrade/policy.go`文件的作用是定义升级过程中的策略和检查。该文件主要用于确保在进行升级操作时，集群中的各个组件和节点满足一定的版本要求和策略。
+
+该文件定义了几个重要的结构体，其中`VersionSkewPolicyErrors`用于描述不兼容的版本策略错误。其包含多个字段用于标记特定的错误，例如`TooOldControlPlaneErr`表示控制平面太旧的错误，`TooNewControlPlaneErr`表示控制平面太新的错误等。这些错误会在策略检查过程中用于提示用户升级操作存在的不兼容性。
+
+`EnforceVersionPolicies`函数是一个策略检查函数，通过比较版本信息和判断条件，判断集群的各个组件和节点是否满足升级的策略要求。该函数会检查的内容包括控制平面组件的版本、节点的kubelet版本、APIServer版本等。通过运行该函数，可以确保进行升级操作的集群满足版本和策略要求。
+
+`detectUnstableVersionError`函数用于检测不稳定的版本错误，主要是检查集群控制平面组件的版本是否合规。如果发现控制平面组件的版本已经处于不稳定的状态，该函数会返回相应的错误。
+
+`detectTooOldKubelets`函数用于检查集群中节点的kubelet版本是否过旧，过旧的kubelet版本可能导致升级失败或不可预料的问题。该函数会返回一个错误提示，如果发现任何一个节点的kubelet版本过旧。
+
+综上所述，`policy.go`文件中的这些函数和结构体用于定义和检查升级过程中的版本策略，确保升级操作的安全性和稳定性。这样可以避免不兼容的版本组件导致的问题，保证集群的正常运行和升级的顺利进行。
+

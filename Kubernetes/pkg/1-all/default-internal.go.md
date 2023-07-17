@@ -1,0 +1,14 @@
+# File: pkg/apis/flowcontrol/internalbootstrap/default-internal.go
+
+pkg/apis/flowcontrol/internalbootstrap/default-internal.go文件是 Kubernetes 中的一个组件，旨在为流量控制系统提供默认配置。
+
+该文件中的MandatoryFlowSchemas和MandatoryPriorityLevelConfigurations变量是必需的流控模式和优先级级别配置列表，存储在一个map中。这些列表指定了必须存在的流控模式和优先级级别的默认配置。如果默认配置不足，则可能会影响Kubernetes的整体性能和安全性。
+
+NewAPFScheme函数用于生成一个新的APFScheme，该Scheme用于注册流控制自定义资源定义（CRD）。这些CRD定义在pkg/apis/flowcontrol/v1beta1/目录下，包括FlowSchema和PriorityLevelConfiguration。
+
+internalizeFSes函数用于内部映射流控制的流控模式。该函数检查存储卷中对于FlowSchema的存在与否，如果存在，则为每个存在的FlowSchema分配唯一的ID。在映射之后，这些被分配的ID就可以用于匹配请求了。
+
+internalizePLs函数用于内部映射优先级级别配置。该函数遍历存储卷中的优先级级别配置，检查PriorityLevelConfiguration是否存在于存储卷中。如果存在，则生成一个新的ID并将其分配给每个存在的PriorityLevelConfiguration。
+
+这些函数的作用是为流控制系统建立默认的基础配置。这些默认的配置对于Kubernetes的整体运行非常重要，因为流控制机制对于Kubernetes的核心角色——如Pod和Controller——的正常运行非常重要。默认配置确保了Kubernetes的安全性和健壮性，以及良好的性能表现。
+

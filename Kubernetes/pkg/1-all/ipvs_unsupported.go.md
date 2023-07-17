@@ -1,0 +1,34 @@
+# File: pkg/proxy/ipvs/util/ipvs_unsupported.go
+
+在kubernetes项目中，pkg/proxy/ipvs/util/ipvs_unsupported.go文件的作用是提供对IPVS（IP Virtual Server）的不支持的功能的封装和实现。IPVS是Linux内核中的一个模块，用于实现负载均衡。该文件提供了一些函数和结构体，用于与IPVS进行交互。
+
+_是一个匿名变量，它用于表示一个不需要使用的值。在这个文件中，_经常用于表示返回值中不需要的部分，或者表示不需要使用的参数。
+
+runner结构体是用于管理IPVS命令的执行的。它包含一个名为cmds的通道，可以传递IPVS命令。在这个文件中，runner用于启动一个goroutine从cmds通道中接收命令，并通过执行命令来与IPVS进行交互。
+
+New函数用于创建一个新的runner结构体，并启动一个goroutine来执行cmds通道中的命令。
+
+Flush函数用于清空IPVS中的所有配置。
+
+AddVirtualServer函数用于向IPVS添加一个虚拟服务器。
+
+UpdateVirtualServer函数用于更新IPVS中的一个虚拟服务器的配置。
+
+DeleteVirtualServer函数用于从IPVS中删除一个虚拟服务器。
+
+GetVirtualServer函数用于获取IPVS中一个虚拟服务器的配置信息。
+
+GetVirtualServers函数用于获取IPVS中所有虚拟服务器的配置信息。
+
+AddRealServer函数用于向IPVS中的一个虚拟服务器添加一个真实服务器。
+
+GetRealServers函数用于获取IPVS中一个虚拟服务器的所有真实服务器的配置信息。
+
+DeleteRealServer函数用于从IPVS中的一个虚拟服务器删除一个真实服务器。
+
+UpdateRealServer函数用于更新IPVS中的一个虚拟服务器的一个真实服务器的配置。
+
+ConfigureTimeouts函数用于配置IPVS中的超时时间。
+
+这些函数提供了对IPVS的各种操作，包括添加、删除、更新和获取虚拟服务器和真实服务器的配置信息。通过这些函数，可以方便地管理和控制IPVS的负载均衡配置。
+

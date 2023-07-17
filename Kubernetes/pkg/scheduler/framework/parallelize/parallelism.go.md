@@ -1,0 +1,16 @@
+# File: pkg/scheduler/framework/parallelize/parallelism.go
+
+pkg/scheduler/framework/parallelize/parallelism.go文件在Kubernetes项目中的作用是实现并行化调度的相关功能。
+
+该文件中定义了一个Parallelizer接口和两个实现该接口的结构体——ChunkParallelizer和CountParallelizer。
+
+Parallelizer接口定义了并行化调度的基本操作，包括计算分块大小、遍历分块以及创建goroutine来执行任务。
+
+ChunkParallelizer结构体实现了Parallelizer接口，其功能是将一个任务切分为多个小块，然后创建多个goroutine并行执行这些小块。切分方法由chunkSizeFor函数实现，直到遍历完所有小块为止。
+
+CountParallelizer结构体也实现了Parallelizer接口，其功能是将一个任务切分为多个小块，并通过计数器控制并行执行这些小块的goroutine数量。切分方法由Until函数实现，根据任务的总数和调度的goroutine数量，计算出每个goroutine要执行的任务数量。
+
+NewParallelizer函数用于根据输入的参数创建并返回一个Parallelizer实例，根据参数不同，可以创建ChunkParallelizer或CountParallelizer实例。
+
+总结来说，pkg/scheduler/framework/parallelize/parallelism.go文件中的功能是实现了并行化调度的相关逻辑，包括将任务切分为小块、并行执行任务的goroutine管理等操作。
+

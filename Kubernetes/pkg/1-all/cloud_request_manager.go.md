@@ -1,0 +1,15 @@
+# File: pkg/kubelet/cloudresource/cloud_request_manager.go
+
+在Kubernetes项目中，pkg/kubelet/cloudresource/cloud_request_manager.go文件的作用是管理云资源请求。该文件中定义了一个名为CloudRequestManager的结构体，用于处理云资源请求的同步管理。
+
+该文件中的变量_主要用于忽略对应位置的返回值，表示不关心该值。
+
+SyncManager是一个接口类型，定义了同步管理器的方法，用于管理云提供商相关的资源请求。cloudResourceSyncManager是SyncManager接口的具体实现，用于实现云资源的同步管理。
+
+NewSyncManager函数用于创建一个新的云资源同步管理器。NodeAddresses函数用于获取主机节点的地址信息，包括主机名、IP地址等。getNodeAddresses函数是NodeAddresses函数的具体实现，用于从kubelet的地址管理器中获取主机地址信息。
+
+syncNodeAddresses函数用于同步主机节点的地址信息，并将结果保存在主机节点的注释中。Run函数是云请求管理器的主要功能接口，用于定期执行同步主机节点地址信息的操作。
+
+总结：
+cloud_request_manager.go文件定义了一个用于管理云资源请求的云请求管理器CloudRequestManager。其中通过SyncManager接口和cloudResourceSyncManager结构体实现了云资源的同步管理。文件中的一些函数用于创建云资源同步管理器、获取主机节点地址信息等。通过Run函数定期执行同步主机节点地址信息的操作。
+

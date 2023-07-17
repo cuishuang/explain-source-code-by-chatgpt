@@ -1,0 +1,14 @@
+# File: pkg/scheduler/testing/workload_prep.go
+
+在kubernetes项目中，pkg/scheduler/testing/workload_prep.go文件的作用是为测试容量调度器提供测试数据和帮助函数。
+
+该文件包含了一系列用于创建测试用的节点（Nodes）和Pod（Pods）的函数，以供测试使用。在容量调度器测试中，需要模拟集群环境，并创建一些节点和Pod的组合来测试调度算法的行为和性能。
+
+该文件中定义的keyVal结构体是一个简单的键值对结构，用于在节点或Pod的标签（labels）中存储和管理键值对信息。这个结构体通常被用来设置节点的资源信息、Pod的需求等。
+
+MakeNodesAndPodsForEvenPodsSpread是一个用于创建满足“EvenPodsSpread”策略的测试数据的函数。在Kubernetes的调度器中，EvenPodsSpread策略旨在确保一个命名空间中的Pod在多个节点上均匀分布，以实现更好的负载平衡。这个函数会创建一定数量的节点和Pod，并为它们设置标签和资源需求，以满足EvenPodsSpread策略的要求。
+
+另外，还有其他几个类似于MakeNodesAndPodsForEvenPodsSpread的函数，比如MakeNodesAndPodsForEvenPodsBlockSpread、MakeNodesAndPodsForEvenPodsMax为空等，它们分别用于创建指定调度策略的测试数据，以满足特定的测试需求。这些函数会根据不同的策略要求，创建不同的节点和Pod，并为它们设置标签和资源需求，以模拟真实的调度场景。
+
+通过提供这些帮助函数和测试数据生成函数，pkg/scheduler/testing/workload_prep.go文件简化了测试容量调度器的过程，提高了测试效率和可靠性。
+

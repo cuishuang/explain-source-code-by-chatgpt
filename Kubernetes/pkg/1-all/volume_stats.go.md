@@ -1,0 +1,28 @@
+# File: pkg/kubelet/metrics/collectors/volume_stats.go
+
+pkg/kubelet/metrics/collectors/volume_stats.go文件的作用是收集和暴露Kubernetes节点上的卷（Volume）统计指标。
+
+该文件中定义的变量包括：
+
+- volumeStatsCapacityBytesDesc：卷的容量大小的描述符
+- volumeStatsAvailableBytesDesc：卷的可用容量大小的描述符
+- volumeStatsUsedBytesDesc：卷的已使用容量大小的描述符
+- volumeStatsInodesDesc：卷的inode数的描述符
+- volumeStatsInodesFreeDesc：卷的可用inode数的描述符
+- volumeStatsInodesUsedDesc：卷的已使用inode数的描述符
+- volumeStatsHealthAbnormalDesc：卷的健康状态异常的描述符
+
+这些变量定义了卷统计指标的描述，用于暴露给Prometheus等监控系统。
+
+volumeStatsCollector结构体是一个实现了Collector接口的类型，用于收集卷统计指标。它包含一个指向kubelet对象的引用，可以通过kubelet获取卷信息。
+
+NewVolumeStatsCollector是一个构造函数，用于创建volumeStatsCollector对象。
+
+DescribeWithStability函数用于返回描述指标的元数据。
+
+CollectWithStability函数用于收集卷统计指标数据。
+
+convertBoolToFloat64函数用于将布尔类型的值转换为float64类型的值。
+
+通过使用这些函数和结构体，可以实现卷统计指标的收集和暴露功能。
+

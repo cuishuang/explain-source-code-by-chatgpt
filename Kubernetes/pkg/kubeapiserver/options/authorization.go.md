@@ -1,0 +1,24 @@
+# File: pkg/kubeapiserver/options/authorization.go
+
+在Kubernetes项目中，pkg/kubeapiserver/options/authorization.go文件的作用是定义了用于配置鉴权（authorization）的选项。该文件中包含了BuiltInAuthorizationOptions结构体和一些相关的函数。
+
+BuiltInAuthorizationOptions是一个结构体，用于存储鉴权选项的配置信息。它包含了以下几个字段：
+
+1. AlwaysAllow: 一个布尔类型的字段，表示是否启用AlwaysAllow授权模式。如果设置为true，将允许对所有API请求执行任何操作。
+
+2. AlwaysDeny: 一个布尔类型的字段，表示是否启用AlwaysDeny授权模式。如果设置为true，将拒绝对所有API请求的任何操作。
+
+3. ABACOptions: ABAC（Attribute-Based Access Control）选项的配置信息。ABAC是一种鉴权模式，通过使用静态的策略文件进行授权。
+
+4. RBACOptions: RBAC（Role-Based Access Control）选项的配置信息。RBAC是一种基于角色的访问控制模型，通过使用角色和角色绑定来授权。
+
+NewBuiltInAuthorizationOptions是一个函数，用于创建一个默认的BuiltInAuthorizationOptions对象。它为AlwaysAllow和AlwaysDeny字段设置了默认值，并返回创建的对象。
+
+Validate是一个函数，用于验证BuiltInAuthorizationOptions对象的配置是否合法。它检查字段的值是否设置正确，并返回相应的错误信息。
+
+AddFlags是一个函数，用于为BuiltInAuthorizationOptions对象添加命令行标志。当命令行启动kube-apiserver时，可以通过命令行参数设置鉴权选项的配置信息。
+
+ToAuthorizationConfig是一个函数，用于将BuiltInAuthorizationOptions对象转换为kubernetes认证配置（authorization.Config）。kubernetes认证配置是一种用于描述鉴权选项的数据结构，它包含了上述提到的几种鉴权模式的配置信息。
+
+总而言之，pkg/kubeapiserver/options/authorization.go文件中的结构体和函数提供了一种配置Kubernetes API服务器鉴权选项的方式。通过这些选项，可以选择不同的鉴权模式，并设置相应的配置信息，以满足具体的鉴权需求。
+

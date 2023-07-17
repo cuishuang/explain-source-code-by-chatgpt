@@ -1,0 +1,74 @@
+# File: pkg/kubelet/stats/cri_stats_provider.go
+
+pkg/kubelet/stats/cri_stats_provider.go是Kubernetes项目中的一个文件，其作用是为kubelet提供容器运行时（Container Runtime Interface，CRI）的统计数据。
+
+defaultCachePeriod是一个默认的缓存周期常量，用于指定缓存的时间段。
+
+cpuUsageRecord是一个结构体，用于记录CPU使用量的统计数据。
+
+criStatsProvider是一个结构体，用于提供CRI统计数据的方法。
+
+newCRIStatsProvider是一个函数，用于创建并返回新的CRI统计数据提供者。
+
+ListPodStats是一个方法，用于获取当前所有Pod的统计数据。
+
+ListPodStatsAndUpdateCPUNanoCoreUsage是一个方法，用于获取当前所有Pod的统计数据并更新CPU的核心使用量。
+
+listPodStats是一个私有方法，用于获取当前所有Pod的统计数据。
+
+listPodStatsPartiallyFromCRI是一个私有方法，用于从CRI部分获取Pod的统计数据。
+
+listPodStatsStrictlyFromCRI是一个私有方法，用于从CRI完全获取Pod的统计数据。
+
+ListPodCPUAndMemoryStats是一个方法，用于获取当前所有Pod的CPU和内存统计数据。
+
+getPodAndContainerMaps是一个方法，用于获取当前所有Pod和容器的映射。
+
+ImageFsStats是一个结构体，用于记录镜像文件系统的统计数据。
+
+ImageFsDevice是一个结构体，用于记录镜像文件系统设备的统计数据。
+
+getFsInfo是一个方法，用于获取文件系统的信息。
+
+buildPodStats是一个方法，用于构建Pod的统计数据。
+
+addPodNetworkStats是一个方法，用于添加Pod的网络统计数据。
+
+addPodCPUMemoryStats是一个方法，用于添加Pod的CPU和内存统计数据。
+
+addProcessStats是一个方法，用于添加进程的统计数据。
+
+makeContainerStats是一个方法，用于构建容器的统计数据。
+
+makeContainerCPUAndMemoryStats是一个方法，用于构建容器的CPU和内存统计数据。
+
+getContainerUsageNanoCores是一个方法，用于获取容器的CPU使用量。
+
+getAndUpdateContainerUsageNanoCores是一个方法，用于获取并更新容器的CPU使用量。
+
+cleanupOutdatedCaches是一个方法，用于清理过期的缓存。
+
+removeTerminatedPods是一个方法，用于移除已终止的Pod。
+
+removeTerminatedContainers是一个方法，用于移除已终止的容器。
+
+addCadvisorContainerStats是一个方法，用于添加容器的cAdvisor统计数据。
+
+addCadvisorContainerCPUAndMemoryStats是一个方法，用于添加容器的cAdvisor的CPU和内存统计数据。
+
+getCRICadvisorStats是一个方法，用于获取CRI容器的cAdvisor统计数据。
+
+extractIDFromCgroupPath是一个方法，用于从cgroup路径中提取ID。
+
+addCRIPodNetworkStats是一个方法，用于添加CRI Pod的网络统计数据。
+
+criInterfaceToSummary是一个方法，用于将CRI接口转换为摘要。
+
+addCRIPodCPUStats是一个方法，用于添加CRI Pod的CPU统计数据。
+
+addCRIPodMemoryStats是一个方法，用于添加CRI Pod的内存统计数据。
+
+addCRIPodProcessStats是一个方法，用于添加CRI Pod的进程统计数据。
+
+valueOfUInt64Value是一个辅助函数，用于将UInt64Value转换为uint64类型的值。
+

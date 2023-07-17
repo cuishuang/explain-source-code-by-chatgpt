@@ -1,0 +1,12 @@
+# File: pkg/controller/nodeipam/ipam/timeout.go
+
+pkg/controller/nodeipam/ipam/timeout.go文件是Kubernetes中的一个IP地址管理控制器，旨在管理node节点的IP地址分配，该文件负责实现IP地址分配中的超时等待逻辑。
+
+在该文件中，Timeout结构体用于表示IP地址分配中的超时时间。具体来说，Timeout结构体包含两个成员变量：update和next，分别表示下次更新超时时间和下一个超时时间。其中，update是一个function类型，用于更新下次的超时时间；next是一个time.Time类型，表示下一个超时的时间点。
+
+Update函数的作用是更新下次的超时时间，它会在上次超时时间到达之后调用。具体来说，Update函数首先会计算出下次超时时间，然后更新Timeout结构体的next和update成员变量。在计算超时时间时，它会基于上一次超时操作时的时间以及超时阈值计算出下次的超时时间点。如果下次的超时时间点已经过期，则直接设置下一次超时时间为当前时间。
+
+Next函数的作用是获取下一个超时时间点，它会返回Timeout结构体的next成员变量，表示下一个超时的时间点。
+
+总体来说，这个文件用于管理IP地址分配的超时等待逻辑，确保节点能够及时恢复IP地址以确保集群的正常运行。
+

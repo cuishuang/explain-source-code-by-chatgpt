@@ -1,0 +1,14 @@
+# File: pkg/util/oom/oom_fake.go
+
+在Kubernetes项目中，pkg/util/oom/oom_fake.go文件的作用是模拟OOM（Out of Memory）的调整器，用于测试和模拟调整OOM的行为。
+
+FakeOOMAdjuster是一个实现了OOMAdjuster接口的结构体。它用于模拟OOM的调整行为，并记录调整过程中传递的参数和调用次数。
+
+NewFakeOOMAdjuster函数用于创建一个FakeOOMAdjuster对象。它会返回一个指针，指向创建的FakeOOMAdjuster实例。
+
+fakeApplyOOMScoreAdj是FakeOOMAdjuster的一个方法，用于模拟应用OOM调整分数（OOM score adjustment）的过程。它接收一个参数podUID，表示要调整OOM分数的Pod的唯一标识符。在此函数中，我们可以记录该方法被调用的次数以及传递的参数。
+
+fakeApplyOOMScoreAdjContainer是FakeOOMAdjuster的另一个方法，用于模拟应用OOM调整分数的过程，但是只调整单个容器的分数。它接收两个参数，podUID表示要调整OOM分数的容器所属的Pod的唯一标识符，containerName表示要调整OOM分数的容器的名称。
+
+这些函数的作用是，通过FakeOOMAdjuster结构体和对应的方法，模拟和记录OOM分数的调整过程。在测试中，我们可以使用这些函数来验证Kubernetes在调整OOM分数时的行为是否符合预期，并记录调用次数和传递参数来进行断言。
+

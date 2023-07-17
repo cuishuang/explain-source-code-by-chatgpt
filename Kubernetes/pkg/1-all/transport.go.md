@@ -1,0 +1,12 @@
+# File: pkg/kubelet/certificate/transport.go
+
+文件pkg/kubelet/certificate/transport.go的主要作用是定义和管理kubelet与kube-apiserver之间的认证和安全传输。它提供了一些函数和方法，用于更新和维护传输层的证书配置，并实现了证书轮换功能。
+
+1. UpdateTransport函数：该函数用于更新kubelet与kube-apiserver之间传输层的证书和TLS配置。在主节点更换证书或更新TLS配置时，kubelet会调用该函数来更新自身的证书和配置。
+
+2. updateTransport方法：该方法用于实际更新传输层的证书和TLS配置。它会更新kubelet的认证和传输层配置，并重新建立与kube-apiserver的连接。在业务节点中，该方法一般会通过UpdateTransport函数被调用。
+
+3. addCertRotation方法：该方法用于添加证书轮换功能。证书轮换是为了实现证书的定期更换，以增加系统的安全性。该方法会创建一个带有定时器的goroutine，定期检查证书是否需要轮换，并在需要时调用updateTransport方法来更新证书配置。
+
+此外，transport.go文件还包含其他一些辅助函数和结构体，用于处理证书和TLS配置的管理、生成和加载。整个文件的目标是保证kubelet与kube-apiserver之间的通信是安全可信的，并及时更新证书配置以保证节点的安全性。
+

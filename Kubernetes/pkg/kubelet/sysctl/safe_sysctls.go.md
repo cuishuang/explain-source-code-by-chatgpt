@@ -1,0 +1,19 @@
+# File: pkg/kubelet/sysctl/safe_sysctls.go
+
+pkg/kubelet/sysctl/safe_sysctls.go文件的作用是实现安全的系统参数（sysctl）的管理和控制。
+
+其中，safeSysctls和safeSysctlsIncludeReservedPorts是两个变量，用于定义允许的安全系统参数列表和包含保留端口的安全系统参数列表。
+
+- safeSysctls是一个字符串数组，包含了一组允许的安全系统参数。这些参数将被用于创建容器时的sysctl设置。
+- safeSysctlsIncludeReservedPorts也是一个字符串数组，包含了一组允许的包含保留端口的安全系统参数。这些参数将被用于创建容器时的sysctl设置，并且会将保留的端口添加到安全系统参数阻止列表（对于非特权容器）中。
+
+SafeSysctlAllowlist提供了一些函数，用于判断给定的sysctl参数是否在安全白名单内，并提供简化的接口与其他相关组件进行交互。SafeSysctlAllowlist还支持对/sys/proc/sys/kernel/osrelease的主机节点进行访问，并返回内核版本信息的函数。
+
+- IsSafeSysctl函数用于判断给定的sysctl参数是否在安全白名单内。
+- IsSafeSysctlGetValue函数用于判断给定的sysctl参数是否在安全白名单内，并返回该参数的值。
+- IsSafeSysctlKey函数用于判断给定的sysctl参数是否为安全白名单中的键。
+- ReadHostKernelVersion函数用于读取主机的内核版本信息。
+- GetKernelVersion函数用于获取内核版本信息。
+
+总的来说，pkg/kubelet/sysctl/safe_sysctls.go文件负责定义允许的安全系统参数列表，并提供相关函数来判断给定的sysctl参数是否在白名单内，以及读取主机的内核版本等功能。
+

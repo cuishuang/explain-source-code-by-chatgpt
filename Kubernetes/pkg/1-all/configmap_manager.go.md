@@ -1,0 +1,22 @@
+# File: pkg/kubelet/configmap/configmap_manager.go
+
+在Kubernetes项目中，pkg/kubelet/configmap/configmap_manager.go文件的作用是管理和处理kubelet的ConfigMap资源。
+
+简单介绍一下这几个结构体的作用：
+
+- Manager：是ConfigMap管理器的接口，定义了一些操作ConfigMap资源的方法。
+- simpleConfigMapManager：实现了Manager接口的简单ConfigMap管理器。它处理ConfigMap的获取、更新和删除操作。
+- configMapManager：集成simpleConfigMapManager并扩展了功能的ConfigMap管理器。它提供了从etcd中获取ConfigMap的能力。
+
+下面是这几个函数的详细介绍：
+
+- NewSimpleConfigMapManager：用于创建一个简单的ConfigMap管理器。它接收一个kubeclient.Interface对象和一个configmap.EndpointProvider对象作为参数，并返回一个实现了Manager接口的simpleConfigMapManager。
+- GetConfigMap：用于通过ConfigMap名字和命名空间获取一个ConfigMap对象。它使用Manager接口的方法来获取ConfigMap，具体的实现会根据具体的管理器而变化。
+- RegisterPod：用于将一个Pod注册到ConfigMap管理器中。它接收一个Pod对象作为参数，并将其加入到管理器的Pod列表中。
+- UnregisterPod：用于将一个Pod从ConfigMap管理器中注销。它接收一个Pod对象作为参数，并将其从管理器的Pod列表中移除。
+- getConfigMapNames：用于从Pod对象中获取ConfigMap的名称。它接收一个Pod对象作为参数，并返回Pod所引用的ConfigMap的名称列表。
+- NewCachingConfigMapManager：用于创建一个具备缓存功能的ConfigMap管理器。它接收一个kubeclient.Interface对象和一个configmap.EndpointProvider对象作为参数，并返回一个实现了Manager接口的CachingConfigMapManager。
+- NewWatchingConfigMapManager：用于创建一个具备监视和监听功能的ConfigMap管理器。它接收一个kubeclient.Interface对象和一个configmap.EndpointProvider对象作为参数，并返回一个实现了Manager接口的WatchingConfigMapManager。
+
+这些函数主要用于创建和管理ConfigMap资源，包括获取、更新、删除ConfigMap资源，注册和注销Pod对象，以及获取Pod所引用的ConfigMap的名称列表等操作。其中，CachingConfigMapManager和WatchingConfigMapManager是对simpleConfigMapManager的扩展，增加了缓存和监视功能，提高了性能和可靠性。
+

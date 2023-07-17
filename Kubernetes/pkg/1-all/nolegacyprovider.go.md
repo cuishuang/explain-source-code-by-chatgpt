@@ -1,0 +1,14 @@
+# File: pkg/controller/nodeipam/nolegacyprovider.go
+
+pkg/controller/nodeipam/nolegacyprovider.go文件是Kubernetes的Node IPAM控制器实现的一部分，它的作用是负责管理节点IP地址分配。通常，当Pod运行在一个节点上时，它需要一个IP地址来进行通信，nolegacyprovider.go文件确保每个Pod都能获得唯一的IP地址。
+
+fakeController是一个结构体，用于创建虚拟的IPAM控制器系统，以便进行单元测试。它包含了一个queues通道和一个fakeSyncHandler函数，用于测试控制器的同步事件。
+
+fakeNodeStore和fakeIPPoolStore结构体的作用是为该控制器提供虚假的节点和IP池信息。它们包含相关的方法，如Add和Get，用于模拟添加和获取节点或IP池的行为。
+
+Run函数是该控制器的入口点，负责启动IPAM控制器的同步事件。当该函数被调用时，它会创建一个IP池监视器，以便与kube-apiserver交互，获取IP池的更新信息，并在节点加入或删除时触发相应的操作。
+
+createLegacyIPAM函数将节点分配到IP池中的IP地址。它首先检查该节点是否已经在IP池中，如果是，则不做任何操作。否则，它会将节点添加到IP池中，并为该节点分配一个唯一的IP地址。
+
+总的来说，nolegacyprovider.go文件的作用是管理Kubernetes节点的IP地址分配，确保每个Pod都能获得唯一的IP地址，并提供测试基础设施以便进行单元测试。
+

@@ -1,0 +1,14 @@
+# File: pkg/volume/util/nested_volumes.go
+
+在Kubernetes项目中，pkg/volume/util/nested_volumes.go文件的作用是为了处理嵌套卷（Nested Volumes）的相关功能。嵌套卷是指将一个卷（Volume）嵌套在另一个卷中，这样可以在一个容器中使用多个卷以满足不同的存储需求。
+
+具体来说，nested_volumes.go文件提供了一些函数，包括getNestedMountpoints和MakeNestedMountpoints。
+
+- getNestedMountpoints函数的作用是获取嵌套卷的挂载路径。它接受一个卷列表作为输入，并返回一个map，其中包含各个嵌套卷的挂载路径。在获取挂载路径时，会检查卷的类型，如果是嵌套卷类型，则递归地获取其子卷的挂载路径，并将其添加到map中。
+
+- MakeNestedMountpoints函数的作用是创建嵌套卷的挂载点。它接受一个卷列表和挂载目录作为输入，并在指定的挂载目录下递归地创建各个嵌套卷的挂载点。在创建挂载点时，会检查卷的类型，如果是嵌套卷类型，则递归地创建其子卷的挂载点。
+
+这些函数的目的是方便用户管理和使用嵌套卷。通过getNestedMountpoints函数，用户可以获取嵌套卷的挂载路径，从而可以在容器中正确地访问这些卷。而通过MakeNestedMountpoints函数，用户可以在容器的挂载目录下创建嵌套卷的挂载点，以便将这些卷正确地挂载到容器中。
+
+总之，pkg/volume/util/nested_volumes.go文件中的getNestedMountpoints和MakeNestedMountpoints函数提供了处理嵌套卷的功能，使得用户能够方便地管理和使用这些嵌套卷。
+

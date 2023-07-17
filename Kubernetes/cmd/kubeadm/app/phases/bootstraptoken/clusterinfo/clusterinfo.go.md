@@ -1,0 +1,10 @@
+# File: cmd/kubeadm/app/phases/bootstraptoken/clusterinfo/clusterinfo.go
+
+在Kubernetes项目中，文件cmd/kubeadm/app/phases/bootstraptoken/clusterinfo/clusterinfo.go的作用是在启动Kubernetes的群集时创建与群集相关的配置信息。
+
+该文件中的函数"CreateBootstrapConfigMapIfNotExists"的作用是创建如果不存在的话，启动Kubernetes的引导配置Map。引导配置Map中包含了一些引导令牌和相关的集群信息。
+
+函数"CreateClusterInfoRBACRules"的作用是创建与集群信息相关的RBAC（Role-Based Access Control）规则。RBAC规则用于控制用户和服务账号的权限，以限制对Kubernetes群集的访问和操作。
+
+这两个函数的主要目的是在启动过程中确保群集的相关配置和权限规则被正确地创建和配置。这些配置和规则对于群集的安全性和有效性非常重要。
+

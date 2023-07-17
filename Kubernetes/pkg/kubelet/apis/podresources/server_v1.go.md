@@ -1,0 +1,26 @@
+# File: pkg/kubelet/apis/podresources/server_v1.go
+
+在Kubernetes项目中，pkg/kubelet/apis/podresources/server_v1.go文件的作用是实现PodResourcesServer的接口定义和相关函数的具体实现，用于处理与Pod资源相关的请求。
+
+v1PodResourcesServer是一个结构体，作为PodResourcesServer接口的实现，可以处理客户端发起的与Pod资源相关的请求。
+
+- NewV1PodResourcesServer函数用于创建v1PodResourcesServer的实例，该实例实现了PodResourcesServer接口，并负责处理与Pod资源相关的请求。
+
+- List函数用于获取集群中所有节点的资源信息，包括每个节点上运行的Pod及其资源使用情况。
+
+- GetAllocatableResources函数用于获取某个节点的资源可用情况，即该节点上未被Pod占用的资源。
+
+- Get函数用于获取某个节点上特定Pod的资源使用情况。
+
+这些函数的具体作用如下：
+
+- NewV1PodResourcesServer函数是创建v1PodResourcesServer的实例，并返回对应的PodResourcesServer接口。这个函数主要用于初始化Pod资源服务器的实例，以便可以处理客户端发起的请求。
+
+- List函数用于获取集群中所有节点的资源情况，并返回一个包含节点资源信息的列表。这个函数主要用于提供集群整体资源使用情况的查询功能。
+
+- GetAllocatableResources函数用于获取某个节点上资源的可用量，即该节点上未被Pod占用的资源。这个函数主要用于提供节点资源可用情况的查询功能。
+
+- Get函数用于获取某个节点上特定Pod的资源使用情况，返回该Pod使用的资源信息。这个函数主要用于提供Pod资源使用情况的查询功能。
+
+这些函数在PodResourcesServer接口的实现中，通过与底层的资源提供者进行交互，获取节点和Pod的资源使用情况，并返回给客户端。它们主要用于提供与Pod资源相关的查询功能，以方便用户了解集群和节点的资源使用情况。
+

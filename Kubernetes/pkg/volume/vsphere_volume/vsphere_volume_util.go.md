@@ -1,0 +1,24 @@
+# File: pkg/volume/vsphere_volume/vsphere_volume_util.go
+
+pkg/volume/vsphere_volume/vsphere_volume_util.go文件是Kubernetes项目中实现vSphere存储卷的工具函数和一些相关结构体的定义。它提供了用于创建、删除和操作vSphere存储卷的函数和工具。
+
+在这个文件中，ErrProbeVolume是一个错误变量，用于指示探测vSphere存储卷失败的错误。
+
+VsphereDiskUtil是一个结构体，定义了一些用于操作vSphere存储卷磁盘的工具函数。它封装了与vSphere存储卷相关的磁盘操作，如获取磁盘路径、获取磁盘容量等。
+
+VolumeSpec是一个结构体，用于存储vSphere存储卷的具体规格和配置。它包含一些字段，如vSphere数据存储名称、vSphere虚拟机名称、vSphere存储卷类型等。
+
+CreateVolume函数是用于创建vSphere存储卷的函数。它接受一个VolumeSpec参数，根据指定的规格和配置创建对应的vSphere存储卷。
+
+DeleteVolume函数是用于删除vSphere存储卷的函数。它接受一个VolumeSpec参数，根据指定的规格和配置删除对应的vSphere存储卷。
+
+getVolPathfromVolumeName函数是用于从存储卷名称中获取存储路径的函数。它接受一个存储卷名称作为参数，并返回存储路径。
+
+getCloudProvider函数是用于获取vSphere云提供者的函数。它用于获取与vSphere存储卷相关的云提供者实例。
+
+validateVSANCapability函数是用于验证vSphere存储卷的能力是否支持的函数。它接受一个VolumeSpec参数，并检查指定的vSphere存储卷是否支持VSAN能力。
+
+verifyCapabilityValueIsInteger函数是用于验证能力值是否为整数的函数。它接受一个字符串参数，并检查该字符串是否代表一个整数值。
+
+这些函数和结构体的存在，使得Kubernetes项目能够通过调用它们来实现对vSphere存储卷的创建、删除和操作。它们提供了一些常用的功能和工具，方便开发人员在Kubernetes中管理和使用vSphere存储卷。
+

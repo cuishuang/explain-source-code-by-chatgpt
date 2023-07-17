@@ -1,0 +1,12 @@
+# File: pkg/controller/volume/persistentvolume/index.go
+
+pkg/controller/volume/persistentvolume/index.go文件是kubernetes持久化卷index的实现，主要用于根据访问模式、声明等方式对持久化卷进行索引，以便方便地查找和匹配卷。
+
+persistentVolumeOrderedIndex是一个可排序的数据结构，用于存储持久化卷。byAccessModes结构体是一个map，用于将访问模式作为键来存储持久化卷。这些结构体的作用是使得持久化卷可以被方便地索引和查找，同时还可以根据访问模式等属性进行排序。
+
+newPersistentVolumeOrderedIndex函数用于创建一个新的持久化卷索引，accessModesIndexFunc函数用于生成访问模式索引的函数。listByAccessModes函数用于按照访问模式列表返回持久化卷，findByClaim函数用于根据声明查找并返回持久化卷，findBestMatchForClaim函数用于查找具有最佳访问模式的持久化卷，allPossibleMatchingAccessModes函数用于寻找最佳访问模式列表。
+
+Less, Swap和Len函数是支持持久化卷排序的辅助函数。claimToClaimKey函数将声明转换为声明索引键，claimrefToClaimKey函数将声明引用转换为声明索引键。
+
+总之，pkg/controller/volume/persistentvolume/index.go文件的主要作用是提供持久化卷索引和访问方法的实现，并且实现了具有访问模式属性的持久化卷的排序和查找。这些功能有助于提高持久化卷的管理效率和可靠性。
+

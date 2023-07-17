@@ -1,0 +1,16 @@
+# File: pkg/registry/core/service/storage/transaction.go
+
+在Kubernetes项目中，pkg/registry/core/service/storage/transaction.go文件的作用是实现存储操作的事务处理。它定义了一个Transaction接口，以及三个实现该接口的结构体：transaction、metaTransaction和callbackTransaction。
+
+Transaction结构体是最基本的事务处理方式，它通过对存储的增删改操作进行缓冲，直到事务被提交或回滚。它的核心方法包括Begin、Set、Delete、Commit和Revert。
+
+metaTransaction结构体是Transaction的一种特殊形式，它提供了在存储层面创建和删除对象的功能，同时可以在写入后对其进行处理。它的核心方法包括Set、Delete、Commit和Revert。
+
+callbackTransaction结构体是Transaction的另一种特殊形式，它提供了在读取和写入存储时执行回调函数的功能。通过定义回调函数，可以在操作存储对象之前或之后进行一些额外的处理。它的核心方法包括Set、Delete、Commit和Revert。
+
+Commit函数用于提交当前事务并将所有缓冲的操作应用到存储中，保证数据的持久化。它会将所有的增删改操作一次性应用到底层的存储引擎。
+
+Revert函数用于回滚当前事务，即取消之前缓冲的操作。它会将所有缓冲的操作恢复到事务开始之前的状态。
+
+总结来说，transaction.go文件中的结构体和函数提供了对存储操作的事务支持，包括基本事务处理、在存储层面创建和删除对象以及执行回调函数。这样可以确保在对存储进行操作时的数据一致性和事务性。
+

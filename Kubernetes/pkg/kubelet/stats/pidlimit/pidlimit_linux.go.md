@@ -1,0 +1,10 @@
+# File: pkg/kubelet/stats/pidlimit/pidlimit_linux.go
+
+在Kubernetes项目中，pkg/kubelet/stats/pidlimit/pidlimit_linux.go文件的作用是实现与PID限制相关的统计功能。
+
+该文件中的Stats函数是用于获取PID限制的统计信息。在Linux上，PID限制可通过/proc/sys/kernel/pid_max文件获取。Stats函数读取该文件并返回PID限制的最大数量。另外，Stats函数还会读取/proc/sys/kernel/pid_current文件获取当前系统中分配的PID数量，并将其返回。
+
+runningTaskCount函数用于获取正在运行的任务数量。该函数通过读取/proc目录下的每个进程目录来统计正在运行的任务数量。
+
+这两个函数的作用是提供给kubelet以获取关于PID限制的统计信息和正在运行的任务数量信息。这些信息对于kubelet来说非常重要，因为它需要了解PID限制以确定系统的资源使用情况，并根据实际情况调整Pod的调度和管理。
+

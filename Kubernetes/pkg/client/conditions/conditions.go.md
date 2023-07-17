@@ -1,0 +1,10 @@
+# File: pkg/client/conditions/conditions.go
+
+pkg/client/conditions/conditions.go文件的作用是定义Kubernetes中关于各种资源的状态（conditions）的类型和相关代码。它是Kubernetes客户端库中的一小部分，用于处理条件类型的增量更新操作。
+
+ErrPodCompleted这几个变量表示Pod的完成状态。ErrPodCompleted是一个类型为error的变量，它表示Pod已经完成，不能进行任何进一步的操作。如果Pod已经达到了Completed状态，客户端库使用这个变量告知用户无法执行操作。 
+
+PodRunning和PodCompleted这两个函数用于快速检查Pod的运行状态。PodRunning函数返回一个类型为bool的值，表示一个Pod是否在运行状态。PodCompleted函数则返回一个类型为bool的值，表示一个Pod是否已经完成。这两个函数主要用于在用户代码中快速检查Pod的状态，从而进行相应的操作。 
+
+总之，pkg/client/conditions/conditions.go文件扮演了一个非常重要的角色，它定义了Kubernetes中关于各种资源的状态（conditions）类型和相关代码，方便用户在使用Kubernetes时进行相关状态的操作和检查。
+

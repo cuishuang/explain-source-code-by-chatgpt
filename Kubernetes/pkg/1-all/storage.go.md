@@ -1,0 +1,28 @@
+# File: pkg/registry/storage/volumeattachment/storage/storage.go
+
+在Kubernetes项目中，pkg/registry/storage/volumeattachment/storage/storage.go文件的作用是实现Kubernetes卷挂载存储的持久化存储功能。该文件定义了VolumeAttachmentStorage接口以及对应的实现，提供了卷挂载存储的增删改查等操作。
+
+在这个文件中，_是一个空标识符，用于忽略某个变量或导入包时忽略这个包。
+
+VolumeAttachmentStorage结构体是一个接口，表示卷挂载存储的接口定义。它定义了一系列方法用于对卷挂载存储进行增删改查等操作。
+
+REST结构体表示对卷挂载存储的Restful API接口的定义。它包含了卷挂载存储操作的具体实现，比如创建、删除、查询等操作。
+
+StatusREST结构体用于表示卷挂载存储状态的Restful API接口的定义。它定义了获取和更新卷挂载存储状态的操作。
+
+NewStorage函数用于创建一个新的VolumeAttachmentStorage对象，返回一个实现了VolumeAttachmentStorage接口的对象。
+
+New函数用于创建一个新的存储对象，返回一个使用指定持久化存储实例的VolumeAttachmentStorage对象。
+
+Destroy函数用于销毁指定的卷挂载存储。
+
+Get函数用于根据给定的名称获取指定的卷挂载存储。
+
+Update函数用于更新指定卷挂载存储的信息。
+
+GetResetFields函数用于获取重置字段。
+
+ConvertToTable函数用于将卷挂载存储对象转换为表格形式，方便展示和输出。
+
+综上所述，pkg/registry/storage/volumeattachment/storage/storage.go文件中定义了卷挂载存储的接口和实现，提供了对卷挂载存储进行持久化存储和操作的功能。
+

@@ -1,0 +1,20 @@
+# File: cmd/kube-controller-manager/app/options/statefulsetcontroller.go
+
+文件`statefulsetcontroller.go`定义了StatefulSet控制器的选项。StatefulSet控制器用于管理Kubernetes中的StatefulSet资源，该资源为有状态应用提供了唯一的网络标识和稳定的存储。
+
+StatefulSetControllerOptions结构体定义了StatefulSet控制器的所有选项。它包含以下字段：
+
+- `ReconcileTimeout`：用于设置StatefulSet控制器的调谐超时时间。
+- `ResourceName`：用于设置StatefulSet控制器的资源名称。
+- `DefaultStatefulSetUpdateTimeout`：用于设置StatefulSet控制器默认的StatefulSet更新超时时间。
+- `StatefulSetSyncPeriod`：用于设置StatefulSet控制器StatefulSet同步的时间间隔。
+- `PVProvisionerBindTimeout`：用于设置StatefulSet控制器的PV提供者绑定超时时间。
+
+AddFlags函数用于向命令行工具添加可以配置StatefulSet控制器的选项。它通过调用flag包的方法，将对应的选项和值绑定在一起，使得可以通过命令行参数来配置StatefulSet控制器。
+
+ApplyTo函数用于将StatefulSetControllerOptions应用到ControllerManager的配置中。它会设置ControllerManager的对应选项的值，确保StatefulSet控制器的选项生效。
+
+Validate函数用于验证StatefulSetControllerOptions的值是否合法。它会检查每个选项的取值范围是否满足要求，并返回错误信息。
+
+这些函数共同作用于StatefulSet控制器的选项，用于配置、应用和验证控制器的行为，以实现对StatefulSet资源的管理。
+

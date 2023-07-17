@@ -1,0 +1,19 @@
+# File: pkg/controlplane/controller.go
+
+pkg/controlplane/controller.go是Kubernetes项目中控制平面API Server的主要代码文件之一，其中包含了实现控制平面API Server的相关结构体和方法。
+
+Controller这几个结构体分别有什么作用？
+
+- Controller: 控制平面API Server的控制器，是控制平面API Server的核心控制器。
+- BootstrapController: 在Kubernetes API Server启动时执行的控制器。
+- PostStartHook: 构建控制器的钩子。在控制器构建完成后执行。
+- PreShutdownHook: 关闭控制器的钩子。在控制器准备关闭之前执行。
+
+NewBootstrapController方法用于创建BootstrapController对象，该对象在Kubernetes API Server启动时启动。PostStartHook方法和PreShutdownHook方法分别用于在API Server启动和关闭时执行相关的初始化或清理操作。
+
+Start方法和Stop方法分别用于启动和停止控制平面API Server的控制器的工作。RunKubernetesService方法用于启动Kubernetes Service，并将Service的令牌和IP地址绑定到节点。UpdateKubernetesService方法用于更新Kubernetes Service的配置信息。createPortAndServiceSpec方法用于创建Kubernetes Service的端口和配置项，createEndpointPortSpec方法用于创建Endpoint和端口的配置项。
+
+CreateOrUpdateMasterServiceIfNeeded方法用于创建或更新Master Service，以便在集群中的Kubernetes API Server之间进行通信。getMasterServiceUpdateIfNeeded方法用于获取Master Service的更新请求。checkServiceFormat方法用于检查并格式化Service的配置信息。
+
+综上所述，pkg/controlplane/controller.go文件是Kubernetes项目中控制平面API Server的关键文件，实现了控制器和相关方法的定义和实现，为Kubernetes集群的稳定和可靠运行提供了重要保障。
+

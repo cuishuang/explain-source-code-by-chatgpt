@@ -1,0 +1,24 @@
+# File: pkg/scheduler/framework/plugins/nodename/node_name.go
+
+在Kubernetes项目中，pkg/scheduler/framework/plugins/nodename/node_name.go文件的作用是实现Kubernetes调度器中的节点名称插件。
+
+该文件实现了一个用于根据节点名称筛选和评判节点的插件。在Kubernetes中，调度器负责根据资源需求和节点条件将Pod分配到合适的节点上运行。节点名称插件则提供了一种策略，即根据节点名称来选择节点。
+
+_这几个变量在Go语言中表示匿名变量，用于忽略函数返回值，表示该返回值并不被使用。
+
+NodeName这几个结构体分别有以下作用：
+1. NodeName：实现了scheduler的FilterPlugin接口，并定义了节点名称插件的行为和功能。该结构体有一个Filter函数用于筛选满足节点名称的节点，以及一个函数用于返回插件的名称。
+2. PreFilterNodeName：实现了scheduler的PreFilterPlugin接口，用于执行PreFilter的策略。该结构体使用了匿名变量NodeName，即继承了NodeName结构体的行为。
+3. FilterNodeName：实现了scheduler的FilterPlugin接口，用于执行Filter的策略。该结构体使用了匿名变量NodeName，即继承了NodeName结构体的行为。
+4. PostFilterNodeName：实现了scheduler的PostFilterPlugin接口，用于执行PostFilter的策略。该结构体使用了匿名变量NodeName，即继承了NodeName结构体的行为。
+
+EventsToRegister函数用于返回插件关心的事件类型，以便调度器在相应事件发生时通知插件进行处理。
+
+Name函数返回插件的名称。
+
+Filter函数根据节点名称筛选出满足条件的节点，并返回被筛选的节点列表。
+
+Fits函数用于判断Pod是否适配某个节点，即判断节点是否满足Pod的资源需求。
+
+New函数用于创建一个插件实例。
+

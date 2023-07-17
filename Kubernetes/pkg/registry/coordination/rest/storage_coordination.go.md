@@ -1,0 +1,14 @@
+# File: pkg/registry/coordination/rest/storage_coordination.go
+
+pkg/registry/coordination/rest/storage_coordination.go文件的作用是提供一些协调机制的存储功能。在Kubernetes项目中，协调机制用于协调多个Kubernetes组件之间的操作，以确保它们之间的一致性和并发控制。
+
+该文件中定义了一些结构体和函数，包括：
+
+1. RESTStorageProvider结构体：这是一个接口，定义了一些用于创建和管理REST存储的方法。
+2. EtcdRESTStorageProvider结构体：实现了RESTStorageProvider接口，并使用Etcd作为底层存储。
+3. NewRESTStorage函数：根据给定的RESTStorageProvider创建一个新的RESTStorage对象。RESTStorage对象是一个实现了RESTStorage接口的结构体，用于对资源的增删改查等操作。
+4. v1Storage函数：根据给定的RESTStorageProvider创建一个新的v1.Storage对象。v1.Storage是一个实现了storage.Interface接口的结构体，用于管理v1版本的资源对象。
+5. GroupName函数：返回与给定资源对象的Group相对应的APIGroup的名称。
+
+综上所述，pkg/registry/coordination/rest/storage_coordination.go文件中定义了用于创建和管理存储的接口、结构体和函数，为Kubernetes项目的协调机制提供了支持。
+

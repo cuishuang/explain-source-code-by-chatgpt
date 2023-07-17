@@ -1,0 +1,20 @@
+# File: pkg/scheduler/testing/framework_helpers.go
+
+pkg/scheduler/testing/framework_helpers.go是Kubernetes项目中用于测试调度器的辅助文件。该文件中包含了用于构建测试调度器所需的各种辅助函数和数据结构。
+
+configDecoder是一个用于解码调度器配置的函数，用于解析调度器相关的配置参数。
+
+RegisterPluginFunc是一个用于注册插件的函数类型。它接受一个插件名和插件函数作为参数，并将插件注册到调度器中。
+
+在该文件中，有一组结构体，每个结构体都代表一个插件的注册函数。这些结构体对应不同的插件，如队列排序插件(RegisterQueueSortPlugin)、前置筛选插件(RegisterPreFilterPlugin)、筛选插件(RegisterFilterPlugin)等。通过调用这些结构体的注册函数，可以将对应的插件注册到调度器中。
+
+NewFramework函数用于创建一个测试调度器的实例，用于进行调度器的单元测试。
+
+RegisterQueueSortPlugin、RegisterPreFilterPlugin、RegisterFilterPlugin、RegisterReservePlugin、RegisterPermitPlugin、RegisterPreBindPlugin、RegisterScorePlugin、RegisterPreScorePlugin、RegisterBindPlugin这些函数分别用于注册不同类型的插件到调度器中。每个函数接受插件注册函数作为参数，将对应类型的插件注册到调度器中。
+
+RegisterPluginAsExtensions函数和RegisterPluginAsExtensionsWithWeight函数用于注册插件作为调度器的扩展点。它们接受插件注册函数作为参数，将插件注册到调度器的扩展点中。
+
+getPluginSetByExtension函数用于获取调度器某个扩展点上的插件。
+
+这些函数和结构体的作用是为了方便在调度器的单元测试中注册插件，以便进行各种场景的测试。插件可以在调度过程中进行不同的处理和干预，以满足特定的需求和测试要求。
+

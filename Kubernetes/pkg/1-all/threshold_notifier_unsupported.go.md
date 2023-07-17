@@ -1,0 +1,24 @@
+# File: pkg/kubelet/eviction/threshold_notifier_unsupported.go
+
+在Kubernetes项目中，pkg/kubelet/eviction/threshold_notifier_unsupported.go文件的作用是提供一个不支持阈值通知功能的实现。
+
+在Kubernetes中，kubelet组件监测节点上的资源使用情况，并根据配置的阈值来进行驱逐（eviction）操作，以确保节点资源的合理利用。而阈值通知功能则是实时地向kubelet提供资源使用情况的变化情况，以便kubelet能够更精确地进行驱逐操作。
+
+不过，在一些不支持阈值通知的环境中，kubelet无法接收到实时的资源使用情况变化通知。这时，pkg/kubelet/eviction/threshold_notifier_unsupported.go文件中的unsupportedThresholdNotifier结构体及相关函数就是提供这种环境下的实现。
+
+具体来说，unsupportedThresholdNotifier结构体是一个无操作（no-op）的实现，它不会产生实际的通知事件。该结构体的定义如下：
+
+```go
+type unsupportedThresholdNotifier struct{}
+```
+
+该结构体实现了ThresholdNotifier接口，但它的方法都是空实现，不做任何操作。
+
+NewCgroupNotifier函数是用来创建一个新的Cgroup资源通知器（notifier）。在这个文件中，该函数会返回unsupportedThresholdNotifier实例。
+
+Start函数用于启动通知器，但在这个文件中，该函数不做任何实际操作。
+
+Stop函数用于停止通知器，同样在这个文件中，该函数不做任何实际操作。
+
+总结来说，这个文件中的unsupportedThresholdNotifier结构体及相关函数提供了一个在不支持阈值通知的环境中的实现，虽然它不会产生实际的通知事件，但在这种环境下，kubelet将不会收到资源使用情况的变化通知，因此无法做到实时的驱逐操作。
+

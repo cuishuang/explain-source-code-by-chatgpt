@@ -1,0 +1,21 @@
+# File: pkg/registry/autoscaling/rest/storage_autoscaling.go
+
+在Kubernetes项目中，pkg/registry/autoscaling/rest/storage_autoscaling.go文件定义了自动缩放相关的REST API存储实现。该文件提供了用于处理自动缩放相关请求的RESTStorageProvider结构体以及一些辅助函数。
+
+RESTStorageProvider结构体的作用是为自动缩放相关的资源提供REST存储实现。它包括以下几个子结构体：
+- VerticalPodAutoscalerProvider：用于处理垂直Pod自动缩放相关请求的REST存储实现；
+- HorizontalPodAutoscalerProvider：用于处理水平Pod自动缩放相关请求的REST存储实现；
+- PodsProvider：用于处理Pod自动缩放相关请求的REST存储实现。
+
+这些结构体负责处理与自动缩放相关的资源的增删改查等操作，并与底层存储系统进行交互。
+
+NewRESTStorage函数是一个工厂方法，用于创建一个新的RESTStorageProvider实例。根据传入的版本号（version），它将返回不同的自动缩放RESTStorageProvider实现。
+
+v1Storage函数返回一个用于处理v1版本自动缩放相关资源的RESTStorage接口实例。
+
+v2Storage函数返回一个用于处理v2版本自动缩放相关资源的RESTStorage接口实例。
+
+GroupName函数返回一个字符串，用于标识自动缩放相关资源的API组。
+
+这些函数的作用是提供了一些公共的接口和实现，使得其他部分可以直接调用这些接口来处理自动缩放相关的请求逻辑，实现了自动缩放的存储和管理功能。
+

@@ -1,0 +1,10 @@
+# File: pkg/controller/nodeipam/node_ipam_controller.go
+
+pkg/controller/nodeipam/node_ipam_controller.go文件是Kubernetes项目中负责管理节点IP地址的控制器代码，其主要作用是为每个节点分配一个唯一的IP地址。具体来说，它会监听Kubernetes API服务器上节点和Pod的事件，根据事件的类型和数据来为新的节点分配IP地址或者追踪已经存在的节点。
+
+在这个文件中，定义了两个结构体：ipamController和Controller。其中ipamController是Controller的子类，用于配置和管理节点IP地址的控制器。这个文件中的其他函数则是针对这两个结构体进行操作的。
+
+具体来说，NewNodeIpamController函数用于创建一个新的ipamController对象并返回。该函数接收一个指向所有节点的clientset对象。Run函数用于以非阻塞方式启动ipamController的主要运行循环。此循环失败时将自动重试，同时任何错误将记录在记录器中并忽略。最后，RunWithMetrics函数是在Run函数基础上增加度量指标的扩展版本。
+
+总体来说，这个文件提供了对Kubernetes集群的节点IP地址分配和管理功能的支持，以确保不同的节点可以有不同的IP地址以防止冲突。
+

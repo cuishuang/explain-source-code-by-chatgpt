@@ -1,0 +1,12 @@
+# File: pkg/kubelet/kubelet_node_status_windows.go
+
+在Kubernetes项目中，`pkg/kubelet/kubelet_node_status_windows.go`文件的作用是为Windows操作系统提供节点状态的信息。该文件包含了一些用于获取节点状态的函数和方法。
+
+`getOSSpecificLabels`是其中一个函数，它的作用是获取Windows操作系统专用的节点标签。这些标签可以用于标识节点的特殊属性和功能。在该函数中，它会通过查询Windows注册表获取一些主机信息，例如构建编号、操作系统版本等，并将这些信息作为节点标签返回。
+
+另外一个函数叫做`getOSVersion`，它用于获取Windows操作系统的版本号。在该函数中，它会调用Windows API获取操作系统的相关信息，并解析出版本号。
+
+还有一个函数`recordOSVersionMetrics`用于记录操作系统版本的度量指标。它会根据获取到的操作系统版本信息，将相关度量指标写入到Prometheus的metrics中，以便后续监控和分析。
+
+总之，`kubelet_node_status_windows.go`文件是Kubernetes项目中负责获取Windows节点状态信息的文件，而`getOSSpecificLabels`等函数是其实现的一部分，用于获取和处理Windows操作系统的相关信息。
+

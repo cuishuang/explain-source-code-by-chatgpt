@@ -1,0 +1,20 @@
+# File: pkg/kubelet/stats/cri_stats_provider_others.go
+
+在Kubernetes项目中，pkg/kubelet/stats/cri_stats_provider_others.go文件的作用是实现了CRIStatsProvider接口的其他CRI stats提供者。
+
+详细介绍如下：
+
+该文件定义了一个CRIStatsProviderOthers结构，实现了CRIStatsProvider接口。这个结构提供了一些额外的CRI stats信息，包括NetworkStats和SunRPCStats。
+
+在CRIStatsProviderOthers结构中，有两个主要的方法：ListContainerNetworkStats和ListContainerSunRPCStats。
+
+1. ListContainerNetworkStats 函数的作用是获取容器的网络统计信息。它接收一个容器ID作为参数，并返回一个包含了容器网络统计信息的列表。
+
+   这个函数会调用CRI的RuntimeService接口的ListContainerStats方法来获取容器的统计信息，然后从返回结果中筛选出网络统计信息，并通过解析CRI资源描述符中的数据来包装成相应的网络统计结构，最后返回这个列表。
+
+2. ListContainerSunRPCStats 函数的作用是获取容器的SunRPC统计信息。它接收一个容器ID作为参数，并返回一个包含了容器SunRPC统计信息的列表。
+
+   这个函数会调用CRI的RuntimeService接口的ListContainerStats方法来获取容器的统计信息，然后从返回结果中筛选出SunRPC统计信息，并通过解析CRI资源描述符中的数据来包装成相应的SunRPC统计结构，最后返回这个列表。
+
+这些函数实现了CRIStatsProvider接口定义的方法，通过调用CRI的接口获取容器的统计信息，并将其包装成对应的数据结构返回。这样，可以在Kubernetes中获取到更多的容器统计信息，包括网络和SunRPC的统计数据，以便进行性能监控和调优等相关操作。
+

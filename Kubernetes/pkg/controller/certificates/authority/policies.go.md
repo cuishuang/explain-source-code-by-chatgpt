@@ -1,0 +1,22 @@
+# File: pkg/controller/certificates/authority/policies.go
+
+pkg/controller/certificates/authority/policies.go文件是Kubernetes中证书授权相关的控制器的一个源代码文件。主要功能是定义Kubernetes证书授权模块的签名策略，并实现对不同类型证书授权的管理。
+
+keyUsageDict是一个map类型的变量，用于存储不同的Key Usage值，它的值用于指示数字证书可以用于哪些目的。
+
+extKeyUsageDict是一个map类型的变量，用于存储不同的Extended Key Usage值，它的值用于指示证书可以用于哪些扩展目的。
+
+SigningPolicy是一个结构体，用于定义要签署的证书类型和应用于这些证书的策略。
+
+PermissiveSigningPolicy是一个结构体，它是SigningPolicy结构体的子集，用于定义默认的签名策略。
+
+sortedExtKeyUsage是一个定义在SigningPolicy结构体内的函数，用于对证书中的扩展关键字使用顺序进行排序。
+
+apply是一个定义在SigningPolicy结构体内的函数，用于将所定义的策略应用于特定的证书请求。
+
+keyUsagesFromStrings是一个定义在SigningPolicy结构体内的函数，用于将keyUsage的字符串表示转换为对应的整数。
+
+Len, Swap, Less是定义在sortedExtKeyUsage结构体内的三个函数，用于对扩展关键字进行排序。
+
+总体来说，这个文件的作用是帮助Kubernetes授权管理模块，更好地控制证书的发行。通过定义签名策略、key usage和extended key usage等，可以限制数字证书的使用方式，从而提高集群的安全性。
+

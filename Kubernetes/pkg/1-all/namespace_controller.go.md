@@ -1,0 +1,18 @@
+# File: pkg/controller/namespace/namespace_controller.go
+
+pkg/controller/namespace/namespace_controller.go是Kubernetes中用来控制命名空间的控制器代码。它的主要作用是确保所有的命名空间处于正常的状态，并且维护命名空间相关的资源。
+
+NamespaceController中包含了三个结构体：NamespaceController、namespaceController和namespaceDeleter。其中，NamespaceController是整个控制器的主要结构体，namespaceController主要用于实现NamespaceController接口，而namespaceDeleter用于处理删除命名空间的逻辑。
+
+NewNamespaceController是用来创建NamespaceController结构体的函数。具体来说，它会创建一个新的NamespaceController，并且初始化相关的参数。
+
+nsControllerRateLimiter用来控制NamespaceController处理命名空间消息的速率，以避免产生过多的负荷。
+
+enqueueNamespace用来将一个命名空间加入到待处理队列中。待处理队列中的命名空间将会在后续进行处理。
+
+worker是NamespaceController的主要逻辑。它会从待处理队列中取出一个命名空间并进行处理。具体来说，worker会获取命名空间的状态，并修改相关的资源。
+
+syncNamespaceFromKey用来从消息队列中获取要处理的命名空间。
+
+Run是NamespaceController的运行函数。它会启动一个goroutine来定期触发worker，并且处理错误信息。具体来说，Run会持续调用worker，并打印错误信息或尝试重新连接Kubernetes API的客户端。
+

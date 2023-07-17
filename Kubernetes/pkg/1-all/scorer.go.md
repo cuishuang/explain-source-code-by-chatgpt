@@ -1,0 +1,20 @@
+# File: pkg/scheduler/framework/plugins/volumebinding/scorer.go
+
+在Kubernetes项目中，pkg/scheduler/framework/plugins/volumebinding/scorer.go文件的作用是实现Kubernetes调度器框架中卷绑定的评分器。该评分器用于评估节点绑定卷的权重，从而决定在调度过程中应该选择哪个节点来绑定卷。
+
+以下是classResourceMap、volumeCapacityScorer这些结构体的作用：
+
+1. classResourceMap：该结构体用于保存类名和资源需求之间的映射关系。在Kubernetes中，卷绑定是根据类和资源数量来决定的。classResourceMap结构体为每个卷的类别维护一个资源需求的映射。
+
+2. volumeCapacityScorer：该结构体用于评分卷绑定节点的能力。它根据节点资源使用情况（例如节点上已绑定的卷数量）和预期的资源需求来计算节点的绑定权重。volumeCapacityScorer结构体会根据节点上已绑定卷的数量和节点剩余资源数量来计算评分。
+
+buildScorerFunction中的几个函数的作用如下：
+
+1. buildNameScorerFunction：构建用于评估节点的名称的评分函数。该函数返回一个根据节点名称进行评分的匿名函数。
+
+2. buildClassScorerFunction：构建用于评估节点的类别的评分函数。该函数返回一个根据节点类别进行评分的匿名函数。
+
+3. buildVolumeScorerFunction：构建用于评估节点卷绑定情况的评分函数。该函数返回一个根据节点上已绑定卷的数量进行评分的匿名函数。
+
+这些函数在卷绑定过程中，用于根据不同的评分维度构建不同的评分函数。这些评分函数将会被调度器框架使用，以确定节点的评分，并最终选择得分最高的节点来绑定卷。
+

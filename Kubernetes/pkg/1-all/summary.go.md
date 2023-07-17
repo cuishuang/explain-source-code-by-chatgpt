@@ -1,0 +1,18 @@
+# File: pkg/kubelet/server/stats/summary.go
+
+文件pkg/kubelet/server/stats/summary.go的作用是提供关于kubelet节点的汇总统计数据。
+
+具体而言，该文件定义了SummaryProvider接口和summaryProviderImpl结构体，以及相关的函数。SummaryProvider接口定义了获取节点汇总统计数据的方法，而summaryProviderImpl则实现了该接口。
+
+下划线(_)是一个特殊的标识符，用于忽略某个变量或函数的返回值。在summary.go文件中，下划线用于忽略summaryProviderImpl结构体的方法的接收者(receiver)。
+
+SummaryProvider结构体是一个接口，它定义了获取节点汇总统计数据的方法。summaryProviderImpl结构体是SummaryProvider接口的具体实现，其中包含了一些字段和方法，用于获取和更新汇总统计数据。
+
+NewSummaryProvider函数是用于创建一个summaryProviderImpl结构体实例的工厂函数。
+
+Get函数是SummaryProvider接口中定义的方法，它用于获取节点汇总统计数据。该函数会调用summaryProviderImpl结构体的fetchSummary方法，从kubelet节点中获取汇总统计数据。
+
+GetCPUAndMemoryStats函数是用于获取CPU和内存统计数据的辅助函数，它接收一个节点名参数，并使用kubelet的statsProvider接口来获取该节点的CPU和内存统计数据。
+
+总结而言，pkg/kubelet/server/stats/summary.go文件的主要作用是定义和实现获取kubelet节点汇总统计数据的功能，包括创建summaryProviderImpl实例、获取节点汇总统计数据，并辅助获取CPU和内存统计数据。
+

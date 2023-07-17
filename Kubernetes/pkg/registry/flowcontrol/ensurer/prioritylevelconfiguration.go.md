@@ -1,0 +1,12 @@
+# File: pkg/registry/flowcontrol/ensurer/prioritylevelconfiguration.go
+
+在Kubernetes项目中，pkg/registry/flowcontrol/ensurer/prioritylevelconfiguration.go文件的作用是管理优先级级别配置。这个文件实现了一些功能函数，包括NewPriorityLevelConfigurationOps、plcReplaceSpec和plcSpecEqual。
+
+1. NewPriorityLevelConfigurationOps函数：这个函数返回一个实现了registry.flowcontrol.PriorityLevelConfigurationOperations接口的优先级级别配置管理器。它用于创建、更新和删除优先级级别配置。该函数接受一个存储器接口参数，用于与优先级级别配置的持久化存储进行交互。
+
+2. plcReplaceSpec函数：这个函数用于替换给定优先级级别配置的规格（spec）。它接受旧的优先级级别配置对象和新的优先级级别配置规格，并更新旧对象的数据。具体而言，plcReplaceSpec函数处理规格中所有字段的更改和更新。如果规格中的任何字段都不同于旧对象中的对应字段，则调用者有责任将结果提交到存储系统以进行持久化。
+
+3. plcSpecEqual函数：这个函数用于检查两个优先级级别配置的规格（spec）是否相等。它接受两个优先级级别配置对象作为参数，并比较它们的规格字段。如果规格的字段都相等，则返回true，否则返回false。这个函数主要用于比较两个优先级级别配置对象的规格是否发生了变化。
+
+通过这些函数，pkg/registry/flowcontrol/ensurer/prioritylevelconfiguration.go文件提供了管理优先级级别配置的功能，包括创建、更新和删除优先级级别配置，并提供了一些辅助函数用于处理和比较优先级级别配置的规格。这些功能对于控制Kubernetes集群中不同资源的访问和调度非常重要。
+

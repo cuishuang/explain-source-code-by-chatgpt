@@ -1,0 +1,16 @@
+# File: pkg/scheduler/internal/cache/debugger/comparer.go
+
+文件pkg/scheduler/internal/cache/debugger/comparer.go的作用是提供了一组用于比较调试调度缓存的函数和结构体。
+
+CacheComparer是一个结构体，用于存储两个缓存对象之间的比较结果。它包含四个字段：DeltaNodes、DeltaPods、DeltaPodVolumes和DeltaStrings，分别表示节点、Pod、Pod Volume和字符串的差异。
+
+Compare是一个函数，用于比较两个缓存对象之间的差异，并返回一个CacheComparer对象。它会通过调用CompareNodes、ComparePods和compareStrings等函数来比较不同类型的缓存对象。
+
+CompareNodes是一个函数，用于比较两个节点缓存对象之间的差异，并返回一个DeltaNodes对象。它会检查新增的节点、被删除的节点以及更新的节点，并将结果保存在DeltaNodes对象中。
+
+ComparePods是一个函数，用于比较两个Pod缓存对象之间的差异，并返回一个DeltaPods对象。它会检查新增的Pod、被删除的Pod以及更新的Pod，并将结果保存在DeltaPods对象中。还会为每个Pod比较其volumes的差异，并将结果保存在DeltaPodVolumes对象中。
+
+compareStrings是一个函数，用于比较两个字符串切片之间的差异，并返回结果字符串。它会检查新增的字符串、被删除的字符串以及更新的字符串，并将结果拼接成一个字符串返回。
+
+这些函数和结构体的作用是用于比较不同类型的缓存对象之间的差异，并将结果保存在相应的结构体中，方便调试和排查问题。这对于开发人员来说非常有用，因为它可以帮助他们快速定位和理解缓存对象的变化情况。
+

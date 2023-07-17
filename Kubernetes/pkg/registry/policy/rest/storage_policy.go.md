@@ -1,0 +1,18 @@
+# File: pkg/registry/policy/rest/storage_policy.go
+
+在Kubernetes项目中，pkg/registry/policy/rest/storage_policy.go文件的作用是定义了存储策略的REST API。它提供了用于管理存储策略的REST API的实现。
+
+现在来详细介绍一下该文件中的各部分：
+
+1. RESTStorageProvider结构体：这个结构体定义了一个接口，包含了获取存储策略的REST API的方法。它有三个方法，分别是GetRESTStorageForV1beta1、GetRESTStorageForV1、和GetGroupName。这些方法将在下面的函数中实现。
+
+2. NewRESTStorage函数：这个函数是一个工厂函数，用于创建一个新的存储策略RESTStorageProvider结构体实例。它接收一个存储策略的REST存储接口（这个接口定义了用于操作存储策略的方法），并返回一个新的RESTStorageProvider实例。这个函数将实例化三个RESTStorageProvider实现（v1beta1Storage、v1Storage和GroupName），并将它们组合在一起。
+
+3. v1beta1Storage函数：这个函数是一个RESTStorageProvider的实现，用于管理v1beta1版本的存储策略。它实现了在REST存储接口上定义的一系列操作方法，用于增删改查存储策略。
+
+4. v1Storage函数：这个函数是一个RESTStorageProvider的实现，用于管理v1版本的存储策略。它也实现了在REST存储接口上定义的一系列操作方法，用于增删改查存储策略。
+
+5. GroupName函数：这个函数返回存储策略的分组名（policy），用于将存储策略进行分类和组织。
+
+总结一下，pkg/registry/policy/rest/storage_policy.go文件中的RESTStorageProvider结构体和相关函数提供了用于管理存储策略的REST API的实现。它定义了一系列方法，用于对存储策略进行增删改查操作。这些方法分别用于v1beta1版本和v1版本的存储策略，并将存储策略按照分组进行分类和组织。
+

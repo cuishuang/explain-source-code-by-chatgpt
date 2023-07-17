@@ -1,0 +1,12 @@
+# File: pkg/kubelet/pluginmanager/pluginwatcher/plugin_watcher_others.go
+
+在Kubernetes项目中，pkg/kubelet/pluginmanager/pluginwatcher/plugin_watcher_others.go文件的作用是监视Kubernetes中的插件，并维护插件的状态。
+
+此文件中的getStat函数用于获取指定插件文件在文件系统中的状态。它接受插件文件的路径作为输入，并返回该文件的相关信息，如文件的大小、修改时间等。这个函数常用于检查插件文件是否存在或发生了变化。
+
+getSocketPath函数用于获取指定插件文件的Unix域套接字路径。它接受插件文件的路径作为输入，并返回该插件的Unix域套接字路径。插件可以使用Unix域套接字进行与kubelet进行通信。因此，该函数用于获取插件的通信路径，以便kubelet能够与插件进行交互。
+
+在plugin_watcher_others.go文件中，还有其他函数用于处理插件的启动、删除、修改等操作。这些函数通过监视插件的目录或文件变化，并相应地更新插件的状态信息，例如，通过调用getStat函数检查插件文件的状态，并通过调用getSocketPath函数获取插件的通信路径。这些功能一起提供了一个机制，以确保插件能够被及时发现、管理和与kubelet进行通信。
+
+通过这些功能，plugin_watcher_others.go文件在Kubernetes的插件管理器中扮演着重要的角色，帮助kubelet监视和管理插件，并保证插件的正常运行。
+

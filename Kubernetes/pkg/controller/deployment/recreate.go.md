@@ -1,0 +1,16 @@
+# File: pkg/controller/deployment/recreate.go
+
+pkg/controller/deployment/recreate.go文件的作用是实现Deployment的Recreate策略，即先删除旧的Pods，再创建新的Pods。
+
+具体来说，这个文件中的主要函数包括：
+
+1. rolloutRecreate：这个函数实现了Recreate策略的主要逻辑。它首先通过更新deployment.Status中的信息，标记当前处于正在更新状态，然后调用scaleDownOldReplicaSetsForRecreate函数来缩减旧的副本集，等待旧的Pods被删除后，调用scaleUpNewReplicaSetForRecreate函数来创建新的副本集并扩展Pods。当新的副本集包含的Pods数量等于期望数量时，将更新deployment.Status的信息，标记当前更新已完成。
+
+2. scaleDownOldReplicaSetsForRecreate：这个函数实现了缩减旧的副本集的逻辑。它首先找到所有旧的副本集，并更新它们的Replicas字段为0，以便Kubernetes删除它们中的所有Pods。然后，它等待所有Pods被删除后，将旧的副本集全部删除。
+
+3. oldPodsRunning：这个函数判断旧的Pods是否完全停止运行。它通过遍历deployment的所有副本集和Pods，检查它们是否已被标记为"terminating"状态，如果还有未被标记为"terminating"的Pods，则返回true。
+
+4. scaleUpNewReplicaSetForRecreate：这个函数实现了创建新的副本集和扩展Pods的逻辑。它首先创建一个新的副本集，并将它的Replicas字段设置为deployment定义的期望数量。然后，它等待所有的Pods启动并处于"running"状态后，将更新deployment.Status中的信息。当新的副本集包含的Pods数量等于期望数量时，该函数将返回。
+
+总的来说，这几个函数的作用是实现了Deployment的Recreate策略。它们通过在旧副本集上进行缩减和删除操作，然后在新副本集上进行创建和扩展操作，来实现pod的更新和升级。同时，它们还负责更新deployment的Status信息，并确保新旧Pod的状态同步。
+

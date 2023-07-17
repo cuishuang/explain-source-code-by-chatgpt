@@ -1,0 +1,23 @@
+# File: pkg/kubelet/logs/container_log_manager_stub.go
+
+在Kubernetes项目中，pkg/kubelet/logs/container_log_manager_stub.go文件的作用是实现一个容器日志管理存根（stub）。
+
+该文件中定义了一个名为containerLogManagerStub的结构体。containerLogManagerStub结构体实现了kubelet/logs.ContainerLogManager接口，并使用容器的名称和命名空间来管理其日志。
+
+containerLogManagerStub结构体有三个字段：
+- logger：用来记录日志的Logger接口；
+- pods：以Pod名称为键，存储容器日志的map；
+- lock：用于对pods字段进行互斥操作的读写锁。
+
+Start函数被调用时，它会创建一个containerLogManagerStub实例，并返回一个新的ContainerLogManager接口。该接口用于启动和停止容器日志管理器。
+
+Clean函数被调用时，它会清空所有容器日志。
+
+NewStubContainerLogManager函数用于创建一个新的containerLogManagerStub实例。它将一个Logger实例传入containerLogManagerStub，并返回一个新的ContainerLogManager接口。
+
+总结：
+- containerLogManagerStub定义了一个容器日志管理存根，实现了kubelet/logs.ContainerLogManager接口；
+- Start函数用于启动容器日志管理器，并返回一个ContainerLogManager接口；
+- Clean函数用于清空所有容器日志；
+- NewStubContainerLogManager函数用于创建一个新的containerLogManagerStub实例，并返回一个ContainerLogManager接口。
+

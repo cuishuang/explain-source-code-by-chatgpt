@@ -1,0 +1,8 @@
+# File: pkg/controller/podautoscaler/metrics/interfaces.go
+
+pkg/controller/podautoscaler/metrics/interfaces.go是kubernetes中PodAutoscaler的指标变更监听器，它负责获取Pod的指标，并将这些指标提供给PodAutoscaler进行分析和调整。
+
+PodMetric结构体是指标的数据结构，用于保存Pod的指标信息，包括CPU、内存、磁盘、网络等。PodMetricsInfo结构体用于保存多个Pod的指标信息，它包含了PodMetric结构体的数组，以及每个Pod的唯一标识符。MetricsClient结构体是kubernetes中访问指标的客户端，在PodAutoscaler中，可以通过MetricsClient结构体获取PodMetricsInfo结构体的指标信息。
+
+总之，在PodAutoscaler中，interfaces.go文件的作用主要是为PodAutoscaler提供指标信息，以让它能够监控和调节Pod的资源使用情况，从而实现集群的自适应性。
+

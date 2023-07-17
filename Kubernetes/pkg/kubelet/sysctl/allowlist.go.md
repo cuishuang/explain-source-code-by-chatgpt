@@ -1,0 +1,18 @@
+# File: pkg/kubelet/sysctl/allowlist.go
+
+pkg/kubelet/sysctl/allowlist.go文件的作用是为kubelet提供一个sysctl参数的白名单（allowlist）。sysctl是Linux内核运行时的调整参数，kubelet需要对这些参数进行验证和限制，以确保容器的安全性和稳定性。
+
+在allowlist.go文件中，定义了以下几个重要的变量和函数：
+
+1. 变量名为_的变量：这些变量是使用“_”作为占位符，表示忽略该变量，通常是为了避免未使用变量导致的编译错误。
+
+2. patternAllowlist结构体：这是一个用于定义sysctl参数的白名单的结构体。它包含两个字段：Pattern和Desc。Pattern是正则表达式模式，用于匹配sysctl参数名；Desc是该参数的描述信息。
+
+3. NewAllowlist函数：这个函数用于创建新的allowlist。它接收一个patternAllowlist类型的切片作为参数，返回一个allowlist对象。allowlist对象保存了sysctl参数的白名单信息，以供后续的验证和筛选。
+
+4. validateSysctl函数：这个函数用于验证给定的sysctl参数是否在allowlist中。它接收一个sysctl参数名作为参数，并返回一个布尔值，表示该参数是否在allowlist中。
+
+5. Admit函数：这个函数是一个WebHook的准入控制器的主要逻辑。它接收一个准入请求对象作为参数，并返回一个准入响应对象。在这个函数中，会调用validateSysctl函数对请求中的sysctl参数进行验证，如果参数不在allowlist中，会返回一个准入响应对象，拒绝该请求。
+
+总结起来，pkg/kubelet/sysctl/allowlist.go文件主要负责定义和管理kubelet的sysctl参数白名单。其中的变量和结构体用于保存sysctl参数的名字和描述信息，NewAllowlist函数创建一个allowlist对象用于后续的验证和筛选，validateSysctl函数用于判断给定的sysctl参数是否在allowlist中，Admit函数则是一个WebHook的准入控制器，用于对请求中的sysctl参数进行验证和拒绝。
+

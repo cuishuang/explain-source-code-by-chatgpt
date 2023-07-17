@@ -1,0 +1,10 @@
+# File: pkg/controller/endpointslice/topologycache/sliceinfo.go
+
+pkg/controller/endpointslice/topologycache/sliceinfo.go文件的作用是实现了Endpointslice资源的缓存机制，提供一种以zone为基础的拓扑缓存策略，可以更高效地处理Endpoints的负载均衡工作。
+
+SliceInfo是一个数据结构，其中包含三个子结构体：EndpointHintsSlice、ServiceBackingSlice和ZoneHints，用于存储Endpoints和Service的信息以及zone的映射关系。
+
+getTotalReadyEndpoints函数的作用是返回所有EndpointHintsSlice中Ready状态的Endpoint的数量。
+
+getAllocatedHintsByZone函数的作用是根据zone的名称返回对应的ZoneHints信息。ZoneHints存储了Endpointslice中所有Ready的 EndpointHintsSlice 的信息，可用于执行负载均衡操作。
+

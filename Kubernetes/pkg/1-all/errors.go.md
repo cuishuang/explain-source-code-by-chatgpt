@@ -1,0 +1,14 @@
+# File: pkg/controller/util/endpointslice/errors.go
+
+这个文件的作用是定义了一些错误类型和处理方法，用于在Kubernetes中管理EndpointSlice资源的控制器中处理与缓存相关的错误。
+
+StaleInformerCache是一个结构体，用于表示缓存中的过时信息。它有一个字段LastUpdateTime表示数据的最后更新时间，另一个字段IsStale表示缓存数据是否已经过时。EndpointSliceCache和ServiceCache则是StaleInformerCache的具体实现，分别维护了EndpointSlice和Service的缓存信息。
+
+NewStaleInformerCache是一个工厂函数，用于创建指定类型的StaleInformerCache实例。它接受两个参数：一个是具体实现的类型(ServiceCache或EndpointSliceCache)，另一个是过时时间。它返回一个StaleInformerCache实例。
+
+Error是一个结构体，用于封装错误信息。它有两个字段：一个是错误类型，另一个是错误信息。它实现了错误接口，可以直接用于返回错误结果。
+
+IsStaleInformerCacheErr是一个函数，用于判断是否是指定类型的错误。它接受两个参数：一个是错误对象，另一个是指定的错误类型。如果错误类型匹配，返回true，否则返回false。
+
+总的来说，这个文件中定义的类型和函数主要用于处理缓存相关的错误。StaleInformerCache用于表示缓存信息，NewStaleInformerCache用于创建指定类型的缓存实例，Error用于封装错误信息，IsStaleInformerCacheErr用于判断错误类型。这些类型和函数都是Kubernetes控制器中处理缓存相关错误的基础。
+

@@ -1,0 +1,39 @@
+# File: pkg/controller/endpointslicemirroring/endpointslicemirroring_controller.go
+
+pkg/controller/endpointslicemirroring/endpointslicemirroring_controller.go是Kubernetes中负责管理EndpointSlice镜像的控制器。
+
+EndpointSlice是Kubernetes用于管理服务终端的一个资源对象，它包含了服务的终端地址、端口与相关的元数据信息。EndpointSlice镜像则是在多集群部署环境中，为一个服务在多个集群之间同步Endpoint信息的解决方案。
+
+该Controller中用到的结构体包括：
+
+* EndpointSliceMirroringController：控制器的主体结构体；
+* EndpointSliceQueue：维护需要更新的EndpointSlice的队列；
+* MirroredEndpointSlice：用于判断Service对应的EndpointSlice是否需要镜像；
+* MirroredEndpointSliceMap：保存所有已经镜像过的EndpointSlice的信息，用于更快的判断该EndpointSlice是否需要更新；
+* EndpointSliceCache：缓存当前所有EndpointSlice的信息，避免频繁到apiserver查询。
+
+该Controller中用到的主要方法包括：
+
+* NewController：初始化一个新的EndpointSliceMirroringController对象。
+* Run：开始运行EndpointSlice Mirroring服务。
+* worker：一个无限循环的函数，不断从队列中取出Service，进行EndpointSlice镜像的处理工作。
+* processNextWorkItem：从队列中取出下一个工作项。
+* handleErr：使用logging库将错误记录下来。
+* syncEndpoints：将新的Endpoints切片和已有的Endpoints切片进行对比，更新需要被同步的Endpoints切片。
+* queueEndpoints：将Endpoints加入到需要更新的队列中。
+* shouldMirror：判断该Service是否需要在多集群环境中同步Endpoint信息。
+* onServiceAdd：当Service在apiserver上新增时被调用，用于对该Service加入EndpointSlice镜像队列。
+* onServiceUpdate：当Service在apiserver上有更新时被调用，用于对该Service加入EndpointSlice镜像队列。
+* onServiceDelete：当Service在apiserver上被删除时被调用，用于清理该Service所对应的EndpointSlice。
+* onEndpointsAdd：当Endpoints在apiserver上新增时被调用，用于将该Endpoints所对应的Service加入EndpointSlice镜像队列。
+* onEndpointsUpdate：当Endpoints在apiserver上有更新时被调用，用于更新EndpointSlice中的Endpoints信息。
+* onEndpointsDelete：当Endpoints在apiserver上被删除时被调用，用于更新EndpointSlice中的Endpoints信息。
+* onEndpointSliceAdd：当EndpointSlice在apiserver上被新增时被调用，用于将该EndpointSlice所对应的Service加入EndpointSlice镜像队列。
+* onEndpointSliceUpdate：当EndpointSlice在apiserver上有更新时被调用，用于更新EndpointSlice中的Endpoints信息。
+* onEndpointSliceDelete：当EndpointSlice在apiserver上被删除时被调用，用于更新EndpointSlice中的Endpoints信息。
+* queueEndpointsForEndpointSlice：将EndpointSlice所对应的Service加入EndpointSlice镜像队列。
+* deleteMirroredSlices：当服务被删除时，删除该服务相关的EndpointSlice.
+* endpointSlicesMirroredForService：获取该Service所关联的所有EndpointSlice的镜像状态。
+
+通过这些方法和结构体的组合，EndpointSliceMirroringController可以完成EndpointSlice的镜像更新，以保证多集群环境下的服务都能够及时同步到其他集群中。
+

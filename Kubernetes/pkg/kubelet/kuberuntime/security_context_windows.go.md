@@ -1,0 +1,12 @@
+# File: pkg/kubelet/kuberuntime/security_context_windows.go
+
+在Kubernetes项目中，pkg/kubelet/kuberuntime/security_context_windows.go文件的作用是实现Windows上容器的安全上下文功能。
+
+WindowsRootUserName变量是一个字符串，用于表示在Windows上运行容器时的特权用户名称。
+
+verifyRunAsNonRoot是一个函数，用于验证容器是否以非root用户身份运行。该函数接收容器的安全上下文信息作为参数，并返回一个布尔值，表示容器是否以非root用户运行。此函数会检查容器的安全上下文中的RunAsUser字段，并判断该字段的值是否为空或为0，来决定容器是否以非root用户运行。
+
+verifyRunAsNonRootWithUserProfile也是一个函数，用于验证容器以非root用户运行，并根据容器的安全上下文信息中的UserName字段与WindowsRootUserName进行比较。
+
+这些函数的作用是在Windows平台上执行容器运行时的安全性检查，以确保容器在安全的非特权用户身份下运行。这是为了提高容器的安全性和隔离性，减少潜在的安全风险。
+

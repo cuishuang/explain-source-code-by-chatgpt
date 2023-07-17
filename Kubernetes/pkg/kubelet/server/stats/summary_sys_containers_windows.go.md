@@ -1,0 +1,11 @@
+# File: pkg/kubelet/server/stats/summary_sys_containers_windows.go
+
+在Kubernetes项目中，pkg/kubelet/server/stats/summary_sys_containers_windows.go文件的作用是收集和汇总关于Windows节点上的系统容器的统计信息。
+
+该文件中的函数主要有以下作用：
+1. GetSystemContainersStats函数：该函数用于获取系统容器的统计信息，包括CPU利用率、内存使用量等，并将这些信息汇总到一个结构体中返回。
+2. GetSystemContainersCPUAndMemoryStats函数：该函数用于获取系统容器的CPU和内存使用量的统计信息，并将其返回。
+3. getSystemPodsCPUAndMemoryStats函数：该函数用于获取系统容器中的Pod的CPU和内存使用量的统计信息，并将其返回。
+
+这些函数的作用是收集和返回关于Windows节点上的系统容器、CPU和内存的统计信息，这些信息可以用于监控和管理Windows节点的资源利用情况，以及评估节点的健康状况。
+

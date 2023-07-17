@@ -1,0 +1,12 @@
+# File: pkg/controller/volume/persistentvolume/pv_controller.go
+
+pkg/controller/volume/persistentvolume/pv_controller.go文件是Kubernetes中负责处理PersistentVolume(持久卷)控制器的主文件。该文件包括了CSINameTranslator, CSIMigratedPluginManager, PersistentVolumeController三个结构体，这三个结构体主要用于持久卷控制器的初始化、管理和维护。
+
+CSINameTranslator的作用是用于CSI插件的名称和驱动程序名称之间的转换。CSIMigratedPluginManager用于管理CSI迁移插件。PersistentVolumeController则是持久卷控制器的主要管理结构体，用于处理持久卷的创建、删除、绑定等操作。
+
+此外，pv_controller.go文件中还有很多其他功能函数，例如syncClaim()，checkVolumeSatisfyClaim()，emitEventForUnboundDelayBindingClaim()等，这些函数的作用主要是用于持久卷控制器的实际操作。其中，syncClaim()函数用于同步PV和PVC之间的关联关系，checkVolumeSatisfyClaim()函数用于检查PV是否满足PVC的请求，emitEventForUnboundDelayBindingClaim()函数用于为未绑定DelayBinding Claim事件发出通知。
+
+其他函数如bindVolumeToClaim()、updateClaimStatus()、updateVolumePhase()则用于处理卷的绑定，更新状态等操作。assignDefaultStorageClass()函数用于为没有指定storageClassName的PVC分配默认存储类。除此之外，文件中还包括一些与清理和管理持久卷有关的函数，例如reclaimVolume()、recycleVolumeOperation()、doDeleteVolume()等。
+
+总体而言，pkg/controller/volume/persistentvolume/pv_controller.go文件中的结构体和函数都是用于管理和维护Kubernetes中持久卷控制器的运行。它们对于持久卷的创建、绑定、删除、状态更新等操作都起着至关重要的作用。
+

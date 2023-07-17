@@ -1,0 +1,14 @@
+# File: pkg/util/removeall/removeall.go
+
+在Kubernetes项目中，pkg/util/removeall/removeall.go文件的作用是提供了一些用于递归删除文件或目录的帮助函数。
+
+这个文件中的主要函数包括：
+
+1. RemoveAllOneFilesystemCommon：这个函数是一个通用的递归删除函数，它使用给定的路径进行递归删除。它会删除目录以及该目录下的所有文件和子目录。
+
+2. RemoveAllOneFilesystem：这个函数是RemoveAllOneFilesystemCommon函数的封装，它会检查给定的路径是否在同一个文件系统下，如果是，则直接调用RemoveAllOneFilesystemCommon函数进行删除。如果不是同一个文件系统，则会使用遍历和删除的方式来删除目录。这个函数通常用于在不同的挂载点上执行删除操作。
+
+3. RemoveDirsOneFilesystem：这个函数是RemoveAllOneFilesystem函数的封装，它在删除目录之前会先删除目录中的所有文件和子目录。这个函数主要用于在删除目录时需要先清空目录内容的场景。
+
+这些函数在Kubernetes项目中的使用场景相对较为多样，例如在清理临时文件或删除旧的数据、删除Pod、删除节点等场景中都会用到。这些函数通过递归删除目录和文件，帮助开发者实现了对文件系统上的目录和文件的快速、高效、安全的删除操作。
+

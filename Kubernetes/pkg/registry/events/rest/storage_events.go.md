@@ -1,0 +1,15 @@
+# File: pkg/registry/events/rest/storage_events.go
+
+在kubernetes项目中，pkg/registry/events/rest/storage_events.go文件的作用是提供与事件存储相关的REST API实现。
+
+该文件中定义了一个名为StorageEvents的结构体，它实现了ResourceEventHandler接口，用于处理事件存储相关的操作。在Kubernetes中，事件存储用于记录集群中发生的事件，例如Pod的创建、删除等。StorageEvents结构体通过与底层存储的交互，实现事件的增删改查等操作。
+
+文件中还定义了一个名为RESTStorageProvider的接口和它的几个实现，包括DefaultRESTStorageProvider、DisabledRESTStorageProvider和RESTStorageProviderWithTags。这些结构体用于提供事件存储的REST API实现，并将其注册到Kubernetes的API服务器中。
+
+接下来是一些函数的介绍：
+- NewRESTStorage函数用于创建一个新的事件存储REST API实现。它接收一个StorageEvents对象作为参数，并返回一个实现了rest.Storage接口的对象。这个对象用于处理事件存储相关的HTTP请求。
+- v1Storage函数返回一个实现了v1.Storage接口的对象。v1.Storage接口定义了对事件存储进行增删改查操作的方法。
+- GroupName函数返回事件存储的资源组名，用于在API注册时指定资源组的名称。资源组名用于在URL中标识资源类型。
+
+总而言之，pkg/registry/events/rest/storage_events.go文件定义了事件存储的REST API实现，包括事件的增删改查操作，并提供了相应的接口和函数用于创建和注册事件存储的API服务器。
+

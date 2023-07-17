@@ -1,0 +1,14 @@
+# File: pkg/scheduler/framework/plugins/helper/shape_score.go
+
+pkg/scheduler/framework/plugins/helper/shape_score.go文件是Kubernetes项目中调度器插件的辅助文件。它定义了一些用于计算资源形状得分的函数和结构体。
+
+该文件中的FunctionShape结构体表示一个函数的形状，它包含了最大值(Maximum)、最小值(Minimum)和函数曲线上的两个点(Points)。FunctionShapePoint结构体表示函数曲线上一个点，包含了x轴和y轴的值。
+
+BuildBrokenLinearFunction是一个辅助函数，用于构建一个线性函数的形状。它传入最大值和最小值，并根据这两个值来构建一个函数形状，该函数形状是一个线性函数，但在某个点处断裂成另一个线性函数。
+
+具体来说，BuildBrokenLinearFunction函数首先创建一个FunctionShape结构体，并将传入的最大值和最小值设置为Maximum和Minimum的值。然后，根据传入的点集合，构建函数曲线上的点。这些点用于表示函数的断裂点，当函数取特定的x轴值时，曲线将断裂成另一个线性函数。
+
+通过使用FunctionShape结构体和BuildBrokenLinearFunction函数，可以灵活地定义和计算不同函数形状的资源得分。这些函数形状可以在调度器插件中使用，用于评估节点上的资源使用情况，并决定是否将Pod调度到该节点上。
+
+总而言之，pkg/scheduler/framework/plugins/helper/shape_score.go文件中的结构体和函数用于定义和计算资源形状得分，以帮助Kubernetes调度器插件进行节点资源的评估和决策。
+

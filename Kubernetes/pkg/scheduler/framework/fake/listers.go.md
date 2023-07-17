@@ -1,0 +1,12 @@
+# File: pkg/scheduler/framework/listers.go
+
+在Kubernetes项目中，pkg/scheduler/framework/listers.go是一个文件，它的作用是为调度器框架提供访问对象列表的能力。具体来说，它定义了一些结构体和接口，以及它们的方法，用于对资源信息进行查询和操作。
+
+NodeInfoLister是一个接口，用于获取节点信息的列表。它定义了GetNodeInfo方法，该方法用于根据节点名称获取对应的NodeInfo对象。NodeInfo对象包含了有关节点的各种信息，例如节点的名称、IP地址等。
+
+StorageInfoLister也是一个接口，用于获取存储信息的列表。它定义了GetStorageInfo方法，该方法用于根据存储名称获取对应的StorageInfo对象。StorageInfo对象包含了有关存储的各种信息，例如存储的名称、类型等。
+
+SharedLister是一个接口，用于获取共享对象的列表。它定义了List方法，该方法返回一个共享对象的列表。这些共享对象可以是任何类型的资源对象，例如Pod、Service等。
+
+这些结构体提供了一种机制，使调度器框架能够从集群中获取节点信息、存储信息以及其他共享对象的列表。通过访问这些列表，调度器可以做出更好的决策，选择最适合的节点和存储来调度任务，并根据集群中的资源情况进行合理的调度策略。
+

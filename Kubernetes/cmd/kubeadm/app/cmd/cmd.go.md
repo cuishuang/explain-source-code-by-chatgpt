@@ -1,0 +1,16 @@
+# File: cmd/kubeadm/app/cmd/cmd.go
+
+在kubernetes项目中，cmd/kubeadm/app/cmd/cmd.go文件是kubeadm命令行工具的入口文件，它定义了kubeadm命令行工具的根命令和子命令。
+
+该文件中的NewKubeadmCommand函数是用于创建kubeadm命令的根命令。它首先创建一个cobra.Command对象，代表kubeadm命令，然后设置命令的名称、用法、描述等属性。接着，它调用bindPersistentFlags函数，为命令绑定持久性的命令行标志。
+
+NewKubeadmCommand还会调用addKubeadmCommands函数，向kubeadm命令中添加各种子命令。添加的子命令有：init、config、token、join和upgrade。
+
+- init命令用于初始化一个新的Kubernetes控制平面。它会在Master节点上创建和设置所有必需的资源和组件。
+- config命令用于生成和查看kubeadm配置文件。该命令可以生成初始配置文件并打印其内容，也可以从输出中读取并验证配置文件。
+- token命令用于管理kubeadm join时使用的token，可以创建或列举token。
+- join命令用于将一个节点加入到Kubernetes集群中。它通过与指定的Master节点通信，获取加入集群所需的信息，并自动完成节点的加入过程。
+- upgrade命令用于升级一个已经存在的Kubernetes集群。它会自动升级Master节点和Worker节点的二进制文件，并确保集群各个组件版本的一致性。
+
+通过NewKubeadmCommand函数，我们可以创建一个完整的kubeadm命令行工具，其中包含根命令和所有子命令。这样用户就可以使用kubeadm工具来管理和操作Kubernetes集群。
+

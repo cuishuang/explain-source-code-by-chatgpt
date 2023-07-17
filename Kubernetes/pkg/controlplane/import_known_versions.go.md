@@ -1,0 +1,12 @@
+# File: pkg/controlplane/import_known_versions.go
+
+pkg/controlplane/import_known_versions.go是Kubernetes控制平面包的一部分，负责导入已知的版本信息和协议，包括API版本、API分组、API资源等。其主要作用包括：
+
+1. 支持Kubernetes API版本的升级：在Kubernetes项目的演化过程中，会不断引入新的API版本，为了实现版本的平滑升级，import_known_versions.go文件定义了已知的API版本、分组和资源，方便Kubernetes运行时环境检测到新的API版本并进行相应的处理。
+
+2. 维护API资源的映射关系：Kubernetes内部实现了一种机制，即CRD（Custom Resource Definitions），即开发者可以自定义API资源，但是需要在系统中注册和定义相应的映射关系。import_known_versions.go文件中定义了这些映射关系，同时支持开发者自定义添加新的资源映射关系。
+
+3. 简化控制平面的开发：import_known_versions.go文件为开发者提供了一个简化控制平面开发的接口，可以方便地使用Kubernetes内部定义的API版本和资源，降低开发成本和难度。
+
+总之，pkg/controlplane/import_known_versions.go文件在Kubernetes控制平面包中具有很重要的作用，主要负责定义和实现已知的API版本和API资源，方便Kubernetes运行时环境的检测和升级，并为开发者提供一个方便的接口，可以快速地开发和集成自定义的API资源。
+

@@ -1,0 +1,12 @@
+# File: cmd/kubeadm/app/cmd/phases/init/bootstraptoken.go
+
+在Kubernetes项目中，cmd/kubeadm/app/cmd/phases/init/bootstraptoken.go文件的作用是为初始化集群提供生成启动令牌的功能。
+
+具体来说，该文件中的bootstrapTokenLongDesc是一个字符串变量，描述了生成启动令牌的具体步骤和用途。bootstrapTokenExamples也是一个字符串变量，用于展示生成启动令牌的示例。
+
+NewBootstrapTokenPhase函数是一个构造函数，用于创建一个初始化启动令牌阶段的实例。该函数负责设置阶段的名称、描述和版本信息，并返回该实例。
+
+runBootstrapToken函数是实际执行生成启动令牌的操作。它首先通过调用BootstrapToken()函数生成一个随机启动令牌，并调用StoreBootstrapToken()函数将令牌保存到文件系统中。然后，它根据命令行参数决定是否需要打印令牌，最后返回一个状态代码表示操作的成功或失败。
+
+因此，在kubeadm工具中，这些函数和变量实现了生成启动令牌并保存到文件系统的功能，用于在初始化Kubernetes集群时为新节点提供访问权限。
+

@@ -1,0 +1,22 @@
+# File: pkg/util/goroutinemap/exponentialbackoff/exponential_backoff.go
+
+pkg/util/goroutinemap/exponentialbackoff/exponential_backoff.go文件是Kubernetes项目中的一个实现指数退避算法的工具文件。指数退避算法是一种用于在访问网络资源时进行重试的策略，当发生错误时，会以指数增加的时间间隔进行重试。
+
+_变量是一个空标识符，用于忽略某个返回值。
+
+ExponentialBackoff结构体是指数退避算法的实现，它包含了重试的相关参数。exponentialBackoffError结构体是一个用于包装错误信息的结构体。
+
+SafeToRetry函数判断指数退避算法是否安全重试，通过比较错误和重试策略中预定义的错误列表，判断是否允许安全重试。
+
+Update函数根据当前时间以及重试策略中的最大退避时间、最大重试次数等参数，更新下一次重试的间隔时间。
+
+GenerateNoRetriesPermittedMsg函数生成一条错误消息，表示不允许进行重试。
+
+NewExponentialBackoffError函数创建一个新的exponentialBackoffError实例，用于包装错误信息。
+
+IsExponentialBackoff函数判断给定的错误是否是一个exponentialBackoffError实例。
+
+Error方法用于获取exponentialBackoffError结构体中的错误信息。
+
+这些函数共同实现了指数退避算法的重试逻辑，并提供了错误信息的包装和判断功能，用于在Kubernetes项目中进行重试操作。
+

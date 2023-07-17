@@ -1,0 +1,18 @@
+# File: pkg/controller/cronjob/injection.go
+
+pkg/controller/cronjob/injection.go文件是Kubernetes项目中负责注入控制器的代码文件，通过对该文件进行观察和分析，我们可以了解到该文件的作用有以下几个方面：
+
+1. 注入CronJob和Job控制器的实现持久化接口
+
+在该文件中，使用了dependency injection的技术，对CronJob和Job控制器实现持久化接口进行了注入。具体来说，通过注入CronJobControlInterface和JobControlInterface两个接口，将其实现类注入到cjControlInterface和jobControlInterface中，从而实现与APIServer操作的解耦。_变量在此处表示占位符，不会被使用。
+
+2. 定义了CronJob和Job控制器的真实实现和模拟实现
+
+为了保证代码的可测试性，该文件中还定义了CronJob和Job控制器的真实实现类和模拟实现类。真实实现类用来与APIServer进行交互，而模拟实现类则用来在本地进行单元测试。
+
+3. 定义了CronJob和Job控制器的操作接口
+
+该文件中还定义了一系列操作接口，包括GetCronJob、UpdateStatus、GetJob、UpdateJob、PatchJob、CreateJob、DeleteJob和Clear，他们分别用来获取CronJob实例、更新CronJob的状态、获取Job实例、更新Job实例、更新Job的Patch、创建Job实例、删除Job实例和清除过时的Job实例。这些操作接口为CronJob和Job的操作提供了统一的API。
+
+总之，该文件是Kubernetes项目中的一个重要组成部分，其作用是将CronJob和Job控制器实现持久化接口进行注入，并定义了CronJob和Job控制器的操作接口，以及真实实现类和模拟实现类。这些代码结构可以帮助开发者更好地使用和测试CronJob和Job控制器。
+

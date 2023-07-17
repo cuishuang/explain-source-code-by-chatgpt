@@ -1,0 +1,28 @@
+# File: cmd/genkubedocs/gen_kube_docs.go
+
+在kubernetes项目中，cmd/genkubedocs/gen_kube_docs.go文件的作用是生成用于文档生成的Kubernetes API文档。
+
+该文件中的main函数是该文件的入口函数，用于初始化生成器并调度生成API文档的过程。它调用genDocs函数，该函数负责生成Kubernetes API文档。
+
+genDocs函数首先会解析命令行参数，从命令行参数中获取指定的Kubernetes源代码目录、文档输出目录以及其他参数配置。
+
+接下来，genDocs函数会初始化文档生成器。文档生成器是通过调用cmd/genkubedocs/docs.NewGenerator函数来创建的。该函数会创建一个新的生成器实例，读取并解析存储在指定目录下的Swagger规范文件。
+
+生成器初始化完成后，genDocs函数会调用生成器的GenerateDocs函数，该函数会遍历Kubernetes源代码目录中的每个API组，并针对每个API组生成相应的API文档。
+
+在GenerateDocs函数中，首先会调用生成器的ExtractAPISpecs函数，该函数用于从Kubernetes源代码目录中的Swagger规范文件中提取API规范信息。
+
+接着，GenerateDocs函数会调用生成器的GenerateAPIDocs函数，该函数会根据提取到的API规范信息生成相应的API文档。这个过程中，生成器会对每个API版本、资源、操作等进行解析和处理，并生成对应的Markdown文件。
+
+最后，生成器会调用其ownTemplates.Generate函数，该函数会使用生成的API文档模板来渲染并生成最终的API文档页面。
+
+在main函数中，除了调用genDocs函数外，还定义了其他一些辅助函数。
+
+- initDefaultFlags函数：用于初始化默认的命令行参数值和帮助信息。
+- setFlagsFromEnvironment函数：用于根据环境变量设置命令行参数值。
+- resolveFlags函数：用于解析命令行参数，将命令行参数绑定到相应的变量上。
+
+这些函数主要用于命令行参数的解析和初始化工作，以及与环境变量的交互。
+
+总之，gen_kube_docs.go文件中的main函数和genDocs函数是Kubernetes项目中用于生成API文档的关键部分，它们通过解析Kubernetes源代码目录中的Swagger规范文件，遍历Kubernetes API并生成相应的API文档，从而帮助开发者更好地理解和使用Kubernetes。
+

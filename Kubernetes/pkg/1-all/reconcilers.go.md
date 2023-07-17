@@ -1,0 +1,12 @@
+# File: pkg/controlplane/reconcilers/reconcilers.go
+
+pkg/controlplane/reconcilers/reconcilers.go是kubernetes项目中的一个包，其作用是提供用于控制平面的各种reconciler，用于自动化容器编排的过程，确保系统在运行时的状态和所期望的状态一致。reconciler是一种用于协调系统状态的工具，其通过不断比较“期望状态”与“实际状态”，并采取一些措施来实现这两种状态的一致性。
+
+AllTypes是一个包含所有资源类型的列表，包括了应该被reconciler处理的大部分的资源类型，它是一个字符串类型的数组
+
+EndpointReconciler是一个结构体，代表着对endpoint对象的管理。Type是一个string类型的字段，表示此reconciler处理的资源类型。Types是一个字符串类型的数组，表示这个reconciler所支持的资源类型。
+
+Names是一组function，用于将一个object的kind和name 组合成一个string类型的namespacedName。
+
+在kubernetes系统中，Names的主要作用是将object的名称和类型组合生成一个字符串，这个字符串被用作map中的key进行查找和比对。同时，Names也可以将一个对象拼成一个标准的object reference用于打log和输出debug信息。
+

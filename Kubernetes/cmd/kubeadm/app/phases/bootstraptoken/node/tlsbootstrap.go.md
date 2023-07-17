@@ -1,0 +1,14 @@
+# File: cmd/kubeadm/app/phases/bootstraptoken/node/tlsbootstrap.go
+
+在Kubernetes项目中，cmd/kubeadm/app/phases/bootstraptoken/node/tlsbootstrap.go文件的作用是处理与TLS引导令牌相关的操作。它包含了一些函数和方法，用于处理TLS引导令牌的许可和自动批准。
+
+1. AllowBootstrapTokensToPostCSRs函数：该函数用于授予TLS引导令牌权限，允许它们提交证书签名请求（CSRs）。这个函数检查TLS引导令牌的有效性，验证其权限，并决定是否允许该令牌提交CSRs。
+
+2. AllowBoostrapTokensToGetNodes函数：该函数用于授予TLS引导令牌权限，允许它们获取节点信息。它检查TLS引导令牌的有效性和权限，并确定是否允许该令牌获取节点信息。
+
+3. AutoApproveNodeBootstrapTokens函数：该函数用于自动批准节点引导令牌。当启用该功能时，Kubernetes将自动批准使用TLS引导令牌进行节点引导的请求。
+
+4. AutoApproveNodeCertificateRotation函数：该函数用于自动批准节点证书轮换请求。启用该功能后，Kubernetes将自动批准节点证书到期或即将到期的轮换请求。
+
+这些函数和方法的作用是配置和管理TLS引导令牌的权限和自动批准策略，以确保安全性和便捷性。它们是Kubernetes引导过程中关键的一部分，用于简化和管理集群节点的TLS证书和引导令牌的使用。
+

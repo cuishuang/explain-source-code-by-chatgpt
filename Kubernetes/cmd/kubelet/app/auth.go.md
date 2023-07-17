@@ -1,0 +1,14 @@
+# File: cmd/kubelet/app/auth.go
+
+在Kubernetes项目中，cmd/kubelet/app/auth.go文件的作用是实现kubelet组件的身份验证和授权逻辑。该文件中定义了与身份验证、认证和授权相关的函数。下面详细介绍一下函数的作用：
+
+1. BuildAuth函数：该函数负责构建kubelet身份验证和授权功能的主要组件。它首先会创建和设置认证器和授权器对象，然后基于指定的认证选项进行身份验证配置，最后返回一个Authenticator对象。
+
+2. BuildAuthn函数：该函数负责构建kubelet的身份验证组件。它使用指定的认证选项和配置参数创建和设置认证器对象，并返回一个Authenticator对象。
+
+3. BuildAuthz函数：该函数负责构建kubelet的授权组件。它使用指定的授权选项和配置参数创建和设置授权器对象，并返回一个Authorizer对象。
+
+这些函数在kubelet启动过程中被调用，用于配置kubelet的身份验证和授权功能。通过调用这些函数，可以配置kubelet以与Kubernetes控制平面进行通信，并仅允许经过身份验证和授权的请求访问kubelet API。身份验证确保请求来自可信的实体，并且实体具有适当的权限才能访问kubelet，而授权确定请求是否被授予执行操作的权限。
+
+总之，cmd/kubelet/app/auth.go文件中的函数用于构建和配置kubelet的身份验证和授权功能，并确保只有经过认证和授权的请求才能访问kubelet API。
+

@@ -1,0 +1,17 @@
+# File: pkg/controlplane/controller/systemnamespaces/system_namespaces_controller.go
+
+pkg/controlplane/controller/systemnamespaces/system_namespaces_controller.go文件的作用是管理Kubernetes中的系统命名空间。这些命名空间是Kubernetes内部使用的，例如kube-system、kube-public和kube-node-lease。通过SystemNamespacesController，可以确保这些命名空间的创建、更新和删除是以正确的方式进行的。
+
+文件中定义了以下Controller结构体：
+
+- SystemNamespacesController：这是控制器的核心结构体，用于管理系统命名空间。
+- SystemNamespace：表示要管理的系统命名空间的元数据。
+
+NewController函数初始化了一个SystemNamespacesController结构体，用于创建、更新和删除系统命名空间。Run函数开始控制器的工作，它会遍历预定义的系统命名空间列表，并尝试在集群中创建它们。如果命名空间已经存在，它将更新该命名空间的元数据。如果操作失败，控制器将进行重试。
+
+sync函数根据需要创建、更新或删除系统命名空间。如果在执行这些操作时遇到任何错误，控制器将进行重试。该函数还会确保系统命名空间包含正确的标签和注释。
+
+createNamespaceIfNeeded函数是一个辅助函数，当需要创建系统命名空间时，它将调用apiClient创建命名空间。它还负责设置命名空间的标签和注释。
+
+总结来说，该文件实现了SystemNamespacesController结构体，用于确保Kubernetes系统命名空间的正确创建、更新和删除。该控制器的实现依赖于apiClient进行与Kubernetes API的交互，确保系统命名空间的创建是稳定和正确的。
+

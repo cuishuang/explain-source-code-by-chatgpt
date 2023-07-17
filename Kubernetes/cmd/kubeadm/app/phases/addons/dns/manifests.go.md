@@ -1,0 +1,26 @@
+# File: cmd/kubeadm/app/phases/controlplane/manifests.go
+
+文件cmd/kubeadm/app/phases/controlplane/manifests.go是Kubernetes项目中的一个文件，它包含了一些用于控制平面的静态Pod清单文件生成和相关命令生成的函数。
+
+具体函数的作用如下：
+
+1. CreateInitStaticPodManifestFiles：该函数用于创建初始化时的静态Pod清单文件。静态Pod是由kubelet管理的Pod，通常用于启动控制平面组件。此函数根据参数生成每个控制平面组件的初始化Pod清单文件，如kube-apiserver、kube-controller-manager和kube-scheduler。
+
+2. GetStaticPodSpecs：该函数用于获取控制平面组件的静态Pod清单文件的Spec部分。静态Pod的Spec定义了Pod的元数据和规范，如镜像、命令行参数、环境变量等。此函数根据控制平面组件的名称，返回对应的静态Pod清单文件的Spec。
+
+3. CreateStaticPodFiles：该函数用于创建控制平面组件的静态Pod清单文件。静态Pod清单文件必须存放在kubelet配置的静态Pod目录中才能被kubelet发现和管理。此函数调用GetStaticPodSpecs函数获取控制平面组件的Spec，并将其写入静态Pod清单文件。
+
+4. getAPIServerCommand：该函数用于获取kube-apiserver组件的命令行参数。kube-apiserver是Kubernetes API服务器，负责提供API接口以供客户端发送请求和执行操作。此函数根据传入的参数，返回kube-apiserver的命令行参数。
+
+5. getAuthzModes：该函数用于获取授权模式列表。授权模式定义了API服务器对API请求的权限验证方式。此函数返回一个字符串切片，包含了可用的授权模式。
+
+6. compareAuthzModes：该函数用于比较两个授权模式切片是否相等。此函数会检查两个授权模式切片中的元素是否相同，顺序可以不一致。
+
+7. isValidAuthzMode：该函数用于验证某个授权模式是否有效。此函数会检查传入的授权模式是否是预定义的有效模式之一。
+
+8. getControllerManagerCommand：该函数用于获取kube-controller-manager组件的命令行参数。kube-controller-manager是Kubernetes控制器管理器，负责控制器的运行和管理。此函数根据传入的参数，返回kube-controller-manager的命令行参数。
+
+9. getSchedulerCommand：该函数用于获取kube-scheduler组件的命令行参数。kube-scheduler是Kubernetes调度器，负责根据Pod的资源需求和调度策略，将Pod调度到合适的节点上执行。此函数根据传入的参数，返回kube-scheduler的命令行参数。
+
+这些函数组合在一起，用于控制平面组件的初始化、生成静态Pod清单文件和命令行参数，以及验证和处理授权模式等相关功能。它们在Kubernetes项目中的kubeadm工具中起到关键作用，用于初始化和部署控制平面组件。
+

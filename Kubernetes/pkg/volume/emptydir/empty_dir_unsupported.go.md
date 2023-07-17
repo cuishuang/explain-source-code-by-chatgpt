@@ -1,0 +1,14 @@
+# File: pkg/volume/emptydir/empty_dir_unsupported.go
+
+在Kubernetes项目中，pkg/volume/emptydir/empty_dir_unsupported.go文件的作用是处理不支持空目录卷类型的情况。
+
+当使用Kubernetes时，Pod可以挂载各种类型的存储卷，其中一种类型是空目录卷（emptyDir volume）。空目录卷在每个Pod周期开始时创建，并在Pod上运行时间内持久存在。它提供了临时的、可共享的存储空间，适用于容器间传递数据。
+
+然而，在某些情况下，操作系统或底层存储系统不支持空目录卷。针对这种情况，Kubernetes提供了empty_dir_unsupported.go文件，其中定义了一些相关结构体和函数。
+
+realMountDetector结构体是一个检测挂载点是否真正存在的检测器。它通过检查挂载点的文件系统类型和特定文件是否存在来判断挂载点是否有效。在空目录卷不受支持的环境中，该结构体被用于检测卷的挂载情况。
+
+GetMountMedium函数是用于获取挂载点的介质类型的函数。它根据挂载点是否使用tmpfs文件系统来确定介质类型。如果使用tmpfs文件系统，意味着临时性的内存存储；否则，通过检查挂载点所在设备的类型来确定介质类型。
+
+这些函数和结构体的作用是处理空目录卷不受支持的情况，以提供一些错误检测和介质类型的判断能力，从而确保Kubernetes在不同环境中的兼容性和稳定性。
+

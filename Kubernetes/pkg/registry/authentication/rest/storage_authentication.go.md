@@ -1,0 +1,14 @@
+# File: pkg/registry/authentication/rest/storage_authentication.go
+
+在Kubernetes项目中，pkg/registry/authentication/rest/storage_authentication.go文件的作用是提供认证相关的存储实现。这个文件主要包含了一些结构体和函数，用于管理不同版本的存储实例，以及对认证配置进行管理和操作。
+
+RESTStorageProvider是一个接口，定义了一组函数用于返回认证存储的不同版本实例对象。只要一个结构体实现了该接口的函数，就可以作为存储的提供者。
+
+NewRESTStorage函数是用于创建一个新的REST存储实例的工厂函数。它接收一个RESTOptions类型的参数，用于配置存储实例的连接和认证信息，并返回一个新的存储实例。
+
+v1Storage、v1alpha1Storage和v1beta1Storage是RESTStorageProvider接口的具体实现。每个结构体定义了一组函数，用于返回对应版本的存储实例对象。
+
+GroupName函数是一个用于返回当前认证存储实例的组名称的函数。这个名称通常是用于标识认证存储实例的版本和类型，以便于在代码中进行区分和调用。
+
+综上所述，pkg/registry/authentication/rest/storage_authentication.go文件是Kubernetes中认证存储相关功能的实现文件。其中的RESTStorageProvider结构体和函数用于管理不同版本的存储实例，NewRESTStorage函数用于创建新的存储实例，GroupName函数用于返回存储实例的组名称。这些功能能够帮助用户对认证存储进行配置和操作。
+

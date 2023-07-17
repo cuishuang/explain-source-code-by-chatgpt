@@ -1,0 +1,10 @@
+# File: pkg/apis/policy/helper.go
+
+pkg/apis/policy/helper.go文件是Kubernetes中的策略API辅助函数库，其中包含了各种常量、工具函数和类型定义，可以帮助开发人员轻松创建和处理策略对象。
+
+NonV1beta1MatchAllSelector、NonV1beta1MatchNoneSelector、V1beta1MatchNoneSelector和V1beta1MatchAllSelector是常量变量，用于表示策略容器与Pod标签选择器之间的匹配逻辑。具体来说，MatchAllSelector表示Pod标签选择器的任何标签都必须匹配策略容器标签，而MatchNoneSelector表示不需要匹配任何标签。这些常量变量可以帮助开发人员编写更好的策略代码，方便了开发人员的工作。
+
+StripPDBV1beta1Label是一个函数，用于移除Kubernetes中的策略定义对象(PDB)中的V1beta1标签。这个标签是由Kubernetes早期版本留下来的，没有实际用途，只是为了向后兼容。这个函数帮助开发人员移除这个标签，提高代码的可读性和可维护性。
+
+总之，pkg/apis/policy/helper.go文件中包含了各种工具函数和类型定义，可以帮助Kubernetes开发人员轻松创建和处理策略对象，提高代码的可读性和可维护性。
+

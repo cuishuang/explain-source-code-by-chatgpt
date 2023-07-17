@@ -1,0 +1,21 @@
+# File: pkg/kubelet/metrics/collectors/log_metrics.go
+
+pkg/kubelet/metrics/collectors/log_metrics.go文件是Kubernetes项目中的一个日志指标收集器。其目的是收集并记录kubelet节点上的日志相关指标信息。
+
+在该文件中，descLogSize是一个描述符变量，用来描述日志大小指标。_ 是一个特定的占位符，可以忽略该变量。
+
+logMetricsCollector是一个结构体类型，表示日志指标的收集器。该结构体包含了需要收集的各项日志指标。
+
+- DescLogSize是一个Metric描述符，用于描述日志大小指标。
+- kubeletStats是用来记录kubelet节点的统计信息。
+- filesystems是一个记录文件系统相关信息的监控对象。
+- logFiles是用来记录日志文件相关信息的监控对象。
+
+NewLogMetricsCollector是一个函数，用于创建并初始化一个logMetricsCollector结构体。该函数会创建并返回一个新的logMetricsCollector对象。
+
+DescribeWithStability是一个函数，用于返回描述这个logMetricsCollector收集器收集的日志指标的信息。其中包括描述符以及每个指标对应的标签和值的描述。
+
+CollectWithStability是一个函数，用于收集并返回logMetricsCollector收集器所关注的日志指标的值。具体来说，该函数会调用collect方法，获取指标值，并根据指标的类型和名称进行记录。
+
+以上这些函数和结构体的作用是为了实现对kubelet节点上的日志指标进行收集、描述和记录，从而帮助相关人员监控和分析系统日志的状态和变化。
+

@@ -1,0 +1,22 @@
+# File: cmd/kubeadm/app/cmd/phases/reset/unmount_linux.go
+
+文件unmount_linux.go是kubeadm项目中的一个Go语言文件，用于实现在Kubernetes集群中执行reset操作时卸载Linux相关的设置和目录。该文件主要包含了unmountKubeletDirectory函数的实现。
+
+unmountKubeletDirectory函数的作用是卸载kubelet目录。在执行reset操作时，需要清除kubelet相关的设置和目录。该函数的具体步骤包括：
+1. 构建目标kubelet目录的路径。
+2. 使用osutil包的Unmount函数卸载kubelet目录。
+
+除了unmountKubeletDirectory函数，unmount_linux.go文件还包含了另外两个辅助函数：unmountKubeletBaseDirectory和unmountKubeletPrivateDirectory。
+
+unmountKubeletBaseDirectory函数的作用是卸载kubelet的base目录。该函数的具体步骤包括：
+1. 判断是否需要卸载kubelet的base目录。
+2. 构建目标kubelet的base目录路径。
+3. 使用osutil包的Unmount函数卸载kubelet的base目录。
+
+unmountKubeletPrivateDirectory函数的作用是卸载kubelet的private目录。该函数的具体步骤包括：
+1. 判断是否需要卸载kubelet的private目录。
+2. 构建目标kubelet的private目录路径。
+3. 使用osutil包的Unmount函数卸载kubelet的private目录。
+
+这三个函数共同完成了卸载kubelet目录相关的操作。它们通过使用osutil包提供的Unmount函数来实际卸载目录，确保在执行reset操作后，相关的kubelet设置和目录被正确清理。
+

@@ -1,0 +1,52 @@
+# File: pkg/kubelet/volumemanager/volume_manager.go
+
+pkg/kubelet/volumemanager/volume_manager.go文件的作用是实现Kubernetes的卷管理器。该文件中定义了VolumeManager结构体，负责管理Pod的卷相关操作。
+
+VolumeManager结构体是Kubernetes卷管理器的核心，其中包含了PodManager、PodStateProvider和VolumeManager等三个结构体。它们的作用如下：
+
+1. PodManager用于管理Pod的状态和信息。它存储了Pod的运行状态、卷的挂载状态等信息，并提供了一系列方法来查找和管理Pod。
+
+2. PodStateProvider是Pod状态提供者，负责提供Pod的状态信息。它会从apiserver获取Pod的最新状态信息，并更新到PodManager中。
+
+3. VolumeManager是卷管理器，它通过监听Pod的状态变化来管理卷的挂载和卸载等操作。它会根据Pod的状态来判断卷是否需要挂载、卸载或重新挂载，并触发相应的操作。
+
+NewVolumeManager方法用于创建一个新的VolumeManager对象。它会初始化PodManager和PodStateProvider，并启动goroutine来监听Pod状态的变化。
+
+Run方法是VolumeManager的主要执行逻辑。它会启动卷管理器的核心循环，并持续监听Pod状态的变化。
+
+GetMountedVolumesForPod方法根据Pod的UID，获取已挂载的卷列表。
+
+GetPossiblyMountedVolumesForPod方法根据Pod的UID，获取可能已挂载的卷列表。
+
+GetExtraSupplementalGroupsForPod方法根据Pod的UID，获取附加的辅助组列表。
+
+GetVolumesInUse方法获取当前正在使用的卷列表。
+
+ReconcilerStatesHasBeenSynced方法用于判断卷管理器的调谐器状态是否已同步。
+
+VolumeIsAttached方法用于判断某个卷是否已经被挂载。
+
+MarkVolumesAsReportedInUse方法将已使用的卷标记为已报告使用。
+
+WaitForAttachAndMount方法用于等待卷挂载完成。
+
+WaitForUnmount方法用于等待卷卸载完成。
+
+getVolumesNotInDSW方法获取不在已安排分配的卷列表中的卷。
+
+getUnattachedVolumes方法获取未附加的卷列表。
+
+verifyVolumesMountedFunc方法用于验证卷是否已挂载。
+
+verifyVolumesUnmountedFunc方法用于验证卷是否已卸载。
+
+getUnmountedVolumes方法获取未卸载的卷列表。
+
+filterUnmountedVolumes方法过滤出未卸载的卷。
+
+getExpectedVolumes方法获取预期的卷列表。
+
+getExtraSupplementalGid方法获取附加的辅助组ID列表。
+
+这些函数和方法在卷管理器中用于处理卷的挂载、卸载、状态验证等操作，实现了Kubernetes对卷的完整管理逻辑。
+

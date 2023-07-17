@@ -1,0 +1,12 @@
+# File: pkg/kubelet/envvars/envvars.go
+
+在Kubernetes项目中，pkg/kubelet/envvars/envvars.go文件的作用是定义了一些与环境变量相关的函数和常量，用于Kubelet组件的配置和设置。
+
+1. FromServices函数：它是一个工具函数，用于从Kubernetes服务列表中获取指定服务的环境变量。它接收一个services参数，表示Kubernetes服务列表，以及一个namespace参数，表示服务所在的命名空间。该函数会遍历服务列表，找到名称与指定服务一致的服务，并返回该服务的环境变量。
+
+2. makeEnvVariableName函数：该函数根据给定的服务名和环境变量名生成最终的环境变量名称。它接收serviceName和envName两个参数，分别表示服务名和环境变量名。该函数会根据一些规则，如使用下划线分隔等，将两个参数拼接起来，并进行一些格式化处理，生成最终的环境变量名称。
+
+3. makeLinkVariables函数：该函数用于生成与Pod网络连接相关的环境变量。它接收一个Pod的UID参数，表示Pod的唯一标识。该函数会根据Pod的UID生成相关的环境变量，如`KUBERNETES_PORT_9200_TCP_ADDR`、`KUBERNETES_PORT_9200_TCP_PORT`等。这些环境变量用于帮助容器与Pod内的其他容器或服务进行网络通信。
+
+这些函数的作用是为Kubelet组件提供环境变量相关的功能支持，用于构建和管理容器的运行环境。它们可以帮助Kubelet获取和设置相关的环境变量，从而实现容器与Kubernetes集群其他组件之间的通信和协作。
+

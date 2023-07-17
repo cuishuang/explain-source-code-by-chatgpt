@@ -1,0 +1,16 @@
+# File: plugin/pkg/auth/authorizer/node/metrics.go
+
+文件路径：plugin/pkg/auth/authorizer/node/metrics.go
+
+该文件实现了用于节点权限认证的度量指标（metrics）。它提供了一组度量指标，用于监控节点上的权限认证操作的持续时间。
+
+具体来说，该文件定义了以下几个变量和函数：
+
+1. graphActionsDuration：该变量是一个度量指标，用于记录节点权限认证操作的持续时间。它使用Prometheus库提供的Histogram类型进行度量。Histogram是用于度量持续时间分布的一种指标类型，可以统计和计算操作执行的时间范围、数量以及分布。
+
+2. registerMetrics()：这是一个用于注册度量指标的函数。它通过Prometheus库提供的方法创建并注册节点权限认证的度量指标。在该函数中，会创建用于记录权限认证持续时间的Histogram指标，并将其注册到Prometheus的默认注册器中。
+
+3. exposeMetricsEndpoint()：这是一个用于向节点暴露度量指标的函数。它通过Prometheus库提供的HTTPHandler方法创建一个HTTP服务，用于暴露度量指标的API endpoint，并指定该服务的路径和端口。通过访问该API endpoint，可以获取当前节点上的权限认证持续时间的度量指标信息。
+
+总的来说，该文件为节点权限认证操作提供了度量指标，可帮助系统管理员监控和分析节点的权限认证性能。graphActionsDuration变量用于记录权限认证操作的持续时间，registerMetrics函数用于创建和注册度量指标，exposeMetricsEndpoint函数用于暴露度量指标的API endpoint，以便获取度量指标信息。
+

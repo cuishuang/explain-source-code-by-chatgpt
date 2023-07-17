@@ -1,0 +1,28 @@
+# File: pkg/registry/core/pod/storage/eviction.go
+
+在Kubernetes项目中，pkg/registry/core/pod/storage/eviction.go文件的作用是提供Pod驱逐存储的功能。驱逐是一种处理资源紧张的情况的方法，通过删除某些Pod来释放资源。
+
+变量EvictionsRetry用于定义驱逐操作的重试次数。
+变量v1Eviction是一个类型，表示使用API版本v1的驱逐。
+变量EvictionREST定义了Pod驱逐的REST API。
+
+结构体EvictionREST包含用于Pod驱逐的REST API的相关方法和属性。
+结构体newEvictionStorage是一个实现了rest.RESTStorage接口的结构体，用于处理Pod驱逐的存储操作。
+结构体GroupVersionKind表示资源的群组、版本和类型。
+结构体AcceptsGroupVersion可以用于检查一个RESTStorage是否接受某个群组版本。
+函数New用于创建新的Pod驱逐存储。
+函数Destroy用于销毁Pod驱逐存储。
+函数propagateDryRun用于在请求中传播干扰运行参数。
+函数Create用于创建Pod的驱逐。
+函数addConditionAndDeletePod用于添加条件并删除Pod。
+函数getPod用于获取指定的Pod。
+函数setPreconditionsResourceVersion用于设置资源版本的前提条件。
+函数canIgnorePDB用于判断是否可以忽略PodDisruptionBudget（Pod中断预算）。
+函数shouldEnforceResourceVersion用于判断是否应该强制使用资源版本。
+函数resourceVersionIsUnset用于检查资源版本是否未设置。
+函数createTooManyRequestsError用于创建“太多请求”错误。
+函数checkAndDecrement用于检查并递减Pod的计数。
+函数getPodDisruptionBudgets用于获取PodDisruptionBudget的列表。
+
+这些函数和变量的组合提供了Pod驱逐的完整功能，包括创建、更新、删除等操作，以及与其他相关对象的交互。
+

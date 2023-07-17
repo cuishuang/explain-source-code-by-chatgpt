@@ -1,0 +1,14 @@
+# File: pkg/volume/util/fs/fs_windows.go
+
+在Kubernetes项目中，pkg/volume/util/fs/fs_windows.go文件的作用是提供用于操作Windows文件系统的工具函数。
+
+该文件中的modkernel32和procGetDiskFreeSpaceEx变量用于导入Windows系统的kernel32库和GetDiskFreeSpaceEx函数。modkernel32用于加载kernel32库，而procGetDiskFreeSpaceEx则是GetDiskFreeSpaceEx函数的一个句柄，用于调用该函数。
+
+UsageInfo结构体用于保存磁盘使用情况的相关信息，包括总空间大小(Total), 可用空间大小(Available), 已使用空间大小(Used)，以及使用百分比(UsedPercent)。
+
+Info函数是获取指定路径上的磁盘使用情况的入口函数。它接受一个路径参数，并返回一个UsageInfo结构体指针。
+
+DiskUsage函数是用于获取磁盘使用情况的核心函数。它接受一个路径参数，并返回一个UsageInfo结构体。该函数首先通过调用GetDiskFreeSpaceEx函数获取磁盘的总空间大小和可用空间大小，然后计算已使用空间大小和使用百分比，最后返回一个UsageInfo结构体。
+
+diskUsage是使用指定路径的实际大小的函数。它接受一个路径参数，并返回该路径所对应的目录或文件的大小。
+

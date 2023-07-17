@@ -1,0 +1,17 @@
+# File: pkg/registry/authorization/rest/storage_authorization.go
+
+在Kubernetes项目中，pkg/registry/authorization/rest/storage_authorization.go文件的作用是为REST API存储提供授权功能。它定义了一些接口和结构体，用于处理与REST API存储相关的授权逻辑。
+
+RESTStorageProvider是一个接口，它定义了获取RESTStorage对象的方法。RESTStorage对象是表示REST风格的存储对象，用于处理对资源的增删改查等操作。它有以下几个常用的实现：
+
+1. APIRESTStorageProvider：用于提供API资源的RESTStorage对象。
+2. RESTCompositeStorageProvider：用于提供多个RESTStorage对象组合的RESTStorage对象。
+
+NewRESTStorage是一个函数，用于创建RESTStorage对象，并将其与授权逻辑进行关联。它接收一个RESTStorageProvider对象和一个Authorizer对象作为参数，用于创建具有授权功能的RESTStorage对象。
+
+v1Storage是一个函数，用于创建与给定Group、Version和资源类型相关的RESTStorage对象。
+
+GroupName是一个函数，用于获取存储的资源组名称。
+
+总之，这些函数和结构体的作用是为REST API存储提供授权功能，并实现与存储资源相关的逻辑。它们通过组织和管理RESTStorage对象，使其能够与授权逻辑协同工作。
+

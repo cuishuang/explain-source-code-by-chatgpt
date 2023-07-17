@@ -1,0 +1,18 @@
+# File: pkg/kubelet/server/auth.go
+
+pkg/kubelet/server/auth.go文件的作用是实现kubelet服务端的认证功能。它定义了KubeletAuth和NodeAuthorizerAttributesGetter两个结构体以及相关的方法。
+
+1. KubeletAuth结构体用于表示kubelet服务端的认证配置信息。它包含了认证相关的选项，如认证模式、客户端证书、客户端证书颁发机构、认证客户端CIDR等配置。
+
+2. NodeAuthorizerAttributesGetter结构体用于获取节点认证的属性，主要包括节点名称和节点组标签。
+
+NewKubeletAuth是一个构造函数，用于创建KubeletAuth结构体的实例。它从kubelet配置中获取认证相关的选项并进行初始化。
+
+NewNodeAuthorizerAttributesGetter也是一个构造函数，用于创建NodeAuthorizerAttributesGetter结构体的实例。
+
+isSubpath函数用于判断请求路径是否为给定路径的子路径。
+
+GetRequestAttributes函数用于从HTTP请求中获取认证相关的属性，主要包括请求路径、请求方法、请求头等信息。
+
+这些方法的作用是为kubelet服务端提供认证所需的配置和属性信息，以便进行认证操作。通过使用这些方法和结构体，kubelet可以按照指定的配置进行认证，并获取请求的相关属性，以便进行进一步的处理。
+

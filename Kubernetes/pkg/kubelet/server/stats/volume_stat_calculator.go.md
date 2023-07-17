@@ -1,0 +1,19 @@
+# File: pkg/kubelet/server/stats/volume_stat_calculator.go
+
+在Kubernetes项目中，pkg/kubelet/server/stats/volume_stat_calculator.go文件的作用是计算并跟踪容器卷的统计信息。该文件中定义了volumeStatCalculator结构体和PodVolumeStats结构体，以及与其相关的函数。
+
+volumeStatCalculator结构体用于计算和存储容器卷的统计信息。它包含了一个volumeStats字段，该字段是一个以Pod和容器卷名称为键，PodVolumeStats结构体为值的映射。volumeStatCalculator还包含了一个用于控制并发访问的锁。
+
+PodVolumeStats结构体用于存储单个容器卷的统计信息。它包含了多个字段，包括统计信息的标识符，如Pod、容器名称和容器卷名称，以及统计数据，如读写次数、字节数等。
+
+以下是文件中的一些关键函数及其作用：
+
+- newVolumeStatCalculator：创建并返回一个新的volumeStatCalculator实例。
+- StartOnce：开始计算容器卷的统计信息。该函数在volumeStatCalculator的某个实例上只能执行一次。
+- StopOnce：停止计算容器卷的统计信息。该函数在volumeStatCalculator的某个实例上只能执行一次。
+- GetLatest：获取最新的容器卷统计信息。
+- calcAndStoreStats：计算并存储容器卷的统计信息。该函数在容器运行时周期性地调用。
+- parsePodVolumeStats：解析容器卷的统计信息。该函数将容器运行时返回的原始统计数据转换为PodVolumeStats结构体。
+
+通过这些函数和结构体，volume_stat_calculator.go文件实现了容器卷统计信息的计算、存储和获取功能，以方便用户对容器卷的使用情况进行监控和分析。
+

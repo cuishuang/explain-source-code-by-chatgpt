@@ -1,0 +1,12 @@
+# File: pkg/kubelet/kubelet_network_linux.go
+
+pkg/kubelet/kubelet_network_linux.go文件是Kubernetes中kubelet网络相关功能的实现。
+
+该文件中的函数主要有：
+
+1. initNetworkUtil：初始化networkUtil，该函数会在kubelet启动时被调用。networkUtil在kubelet网络相关操作中被使用，比如获取网络接口、IP地址等信息。
+
+2. syncIPTablesRules和syncIPTablesRulesDeprecated：这两个函数负责同步iptables规则。由于kube-proxy通过iptables实现了服务代理和负载均衡的功能，所以这个函数用于确保iptables规则与集群中的服务和Pod状态保持一致。syncIPTablesRules根据iptables的新版数据模型（iptables-save命令导出的模型）同步规则，而syncIPTablesRulesDeprecated则根据旧版数据模型同步规则。这是因为在新版本的iptables中，数据模型发生了变化，而有些集群可能还在使用旧版的iptables。
+
+3. getIPTablesMark：该函数用于获取iptables mark值，该值在kube-proxy中用于标识流量属于哪个Service。
+

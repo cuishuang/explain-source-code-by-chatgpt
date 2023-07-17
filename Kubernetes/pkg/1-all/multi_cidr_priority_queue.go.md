@@ -1,0 +1,16 @@
+# File: pkg/controller/nodeipam/ipam/multi_cidr_priority_queue.go
+
+该文件实现的内容是多CIDR优先队列，主要用于Kubernetes集群中为节点分配IP地址。
+
+在Kubernetes集群中，每个节点都有一个CIDR，表示该节点可以使用的IP地址范围。如果一个节点上的IP地址用尽了，可以将这些IP地址释放并交给其他节点使用。而在释放IP地址时，需要考虑优先分配已有IP地址少的节点，在节点之间进行均衡的IP地址使用。这就需要使用多CIDR优先队列来完成节点IP地址的分配工作。
+
+PriorityQueueItem结构体表示IP地址范围，其中startIP和endIP表示IP地址范围的起始地址和结束地址，nodeIndex表示该IP地址范围所属的节点在集群中的索引。
+
+PriorityQueue结构体表示多CIDR优先队列，其中items表示所有IP地址范围，queueIndex表示正在使用的IP地址范围在队列中的位置。
+
+Len函数用于返回IP地址范围数量；Less函数用于比较两个IP地址范围的大小，以便为其排序；Swap函数用于交换两个IP地址范围的位置；Push函数用于将一个IP地址范围加入优先队列；Pop函数用于从优先队列中弹出一个IP地址范围。
+
+maxAllocatable函数计算该节点中可用的最大IP地址数量；nodeMaskSize函数计算一个节点CIDR中掩码的大小；cidrLabel函数生成节点CIDR的标签。
+
+综上，这个文件实现了为Kubernetes集群中的节点分配IP地址的功能，具体实现使用了多CIDR优先队列。
+

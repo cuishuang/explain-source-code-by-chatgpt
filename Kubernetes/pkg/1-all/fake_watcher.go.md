@@ -1,0 +1,22 @@
+# File: pkg/volume/flexvolume/fake_watcher.go
+
+pkg/volume/flexvolume/fake_watcher.go文件在Kubernetes项目中的作用是模拟一个假的Watcher来监听文件系统的变化。该文件的主要作用是提供一个用于测试的虚拟Watcher，以便在没有实际文件系统的情况下进行单元测试。
+
+在该文件中，_是一个空标识符，用于忽略不需要使用的变量。这样做是为了在代码中避免未使用变量的错误。
+
+fakeWatcher结构体代表一个假的Watcher对象。它具有以下属性：
+- stopCh：一个用于停止Watcher的通道。
+- events：一个存储Watcher触发的事件的通道。
+
+newFakeWatcher函数用于创建一个新的假Watcher对象。它返回一个fakeWatcher的指针。
+
+Init函数用于初始化fakeWatcher对象。它会创建一个用于停止Watcher的通道。
+
+Run函数在一个单独的goroutine中运行fakeWatcher对象。该函数模拟了一个无限循环，监听stopCh通道是否被关闭，并处理相应的事件。
+
+AddWatch函数用于添加一个文件或目录的监听。它是一个空函数，不执行任何操作。
+
+TriggerEvent函数用于触发一个文件或目录事件。它会将事件发送到events通道供监听者消费。
+
+总结起来，fake_watcher.go文件提供了一个用于测试的假Watcher对象，可以模拟文件系统事件的触发和处理。这些函数和结构体的主要目的是为了在没有实际文件系统的情况下，测试Volume的相关功能和逻辑。
+

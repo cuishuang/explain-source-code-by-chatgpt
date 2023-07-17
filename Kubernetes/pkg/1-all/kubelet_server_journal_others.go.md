@@ -1,0 +1,12 @@
+# File: pkg/kubelet/kubelet_server_journal_others.go
+
+在Kubernetes项目中，pkg/kubelet/kubelet_server_journal_others.go文件的作用是定义了Kubelet服务器的事件日志系统的实现，该实现主要基于Linux系统的journalctl工具。
+
+下面对该文件中的getLoggingCmd、checkForNativeLogger这几个函数进行详细介绍：
+
+1. getLoggingCmd函数：该函数作用是根据集群配置返回一个命令，用于获取容器的日志。该函数首先检查集群配置中是否启用了NativeLogger（Kubelet的本地日志记录器），如果启用了，则返回一个日志记录器命令，否则返回journalctl命令，用于从系统的日志记录中获取容器的日志。
+
+2. checkForNativeLogger函数：该函数作用是检查集群配置中是否启用了NativeLogger。它会根据kubeletConfig参数中的配置信息，判断是否启用了本地日志记录器。如果启用了，则返回true，否则返回false。本地日志记录器是一种在Kubelet主机上运行的日志记录器，用于记录容器的日志。
+
+总体上，pkg/kubelet/kubelet_server_journal_others.go文件的作用是为Kubelet服务器提供了基于Linux系统journalctl工具的事件日志系统实现。getLoggingCmd函数用于获取容器日志的命令，checkForNativeLogger函数用于检查是否启用了本地日志记录器。这些函数的目标是为Kubernetes集群提供高效、可靠的日志记录和管理功能。
+

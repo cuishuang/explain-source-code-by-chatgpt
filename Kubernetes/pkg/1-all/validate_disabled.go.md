@@ -1,0 +1,16 @@
+# File: pkg/security/apparmor/validate_disabled.go
+
+在Kubernetes项目中，pkg/security/apparmor/validate_disabled.go文件的作用是提供函数来验证AppArmor是否被禁用。
+
+AppArmor是一种Linux内核安全模块，用于限制进程的访问权限，可以帮助确保容器只能执行其预期的操作。但是，有些环境可能会禁用AppArmor，因此Kubernetes需要检查AppArmor是否被禁用。
+
+validate_disabled.go文件中的init函数主要用于注册验证AppArmor禁用状态的函数，以便在Kubernetes初始化过程中能正确地检查AppArmor的状态。init函数会在程序启动时自动执行，确保验证函数被注册并能被调用。
+
+在validate_disabled.go中，定义了两个函数：
+
+1. validateAppArmorDisabled()函数用于验证AppArmor是否被禁用。它通过读取系统文件"/sys/kernel/security/apparmor/profiles"来判断AppArmor是否被启用。如果该文件存在，则说明AppArmor是启用的，如果不存在，则说明AppArmor被禁用。
+
+2. AppArmorDisabled()函数用于判断AppArmor是否被禁用，并返回bool类型的结果。它调用validateAppArmorDisabled()函数来获取AppArmor状态，并将结果缓存在一个全局变量中，以便其他地方可以直接访问该变量判断AppArmor是否禁用。
+
+通过这样的设计，Kubernetes可以保证在运行时能够准确地检查AppArmor的状态，并根据需要采取相应的措施。
+

@@ -1,0 +1,20 @@
+# File: pkg/kubeapiserver/default_storage_factory_builder.go
+
+pkg/kubeapiserver/default_storage_factory_builder.go文件的作用是构建默认的存储工厂（Storage Factory）配置。存储工厂是用于创建和管理API对象资源的组件。
+
+SpecialDefaultResourcePrefixes变量是一个定义了一些特殊资源的前缀的字符串切片。这些特殊资源在创建默认的存储工厂时需要进行特殊处理。
+
+StorageFactoryConfig结构体定义了存储工厂的配置信息，包括资源类型和存储版本的映射关系。
+
+completedStorageFactoryConfig结构体是StorageFactoryConfig的补充结构体，它包含了补充的默认值，用于构建完整的存储工厂配置。
+
+DefaultWatchCacheSizes是一个定义了默认的观察缓存大小的映射关系。
+
+NewStorageFactoryConfig函数用于创建一个新的存储工厂配置实例。
+
+Complete函数用于将StorageFactoryConfig配置实例补充完整，添加默认的值和处理特殊资源。
+
+New函数用于创建一个新的存储工厂实例，将存储工厂配置传递给存储工厂构造函数。
+
+以上是对pkg/kubeapiserver/default_storage_factory_builder.go文件和其中相关变量和函数的详细介绍。
+

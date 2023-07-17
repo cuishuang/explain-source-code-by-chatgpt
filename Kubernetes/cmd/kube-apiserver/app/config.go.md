@@ -1,0 +1,18 @@
+# File: cmd/kubeadm/app/phases/kubelet/config.go
+
+cmd/kubeadm/app/phases/kubelet/config.go文件是Kubernetes项目中的kubeadm命令的一个子命令kubelet的配置阶段的实现。它负责为kubelet配置生成和写入相关文件，同时创建ConfigMap和RBAC规则以供kubelet在集群中使用。
+
+具体来说，该文件定义了以下几个函数：
+
+1. WriteConfigToDisk: 这个函数的作用是将kubelet的配置写入磁盘文件。它首先根据给定的kubelet配置生成kubelet的配置文件，然后将配置文件写入指定的路径。
+
+2. CreateConfigMap: 这个函数的作用是创建一个ConfigMap对象，用于将kubelet配置传递给集群中的其他组件。
+
+3. createConfigMapRBACRules: 这个函数的作用是创建与kubelet配置相关的RBAC规则。它定义了一组授权规则，授予kubelet获取ConfigMap的权限，以便可以加载和使用配置。
+
+4. writeConfigBytesToDisk: 这个函数的作用是将kubelet的配置字节写入磁盘文件。与WriteConfigToDisk函数类似，但它直接将字节写入文件，而不是先生成配置文件再写入。
+
+5. applyKubeletConfigPatches: 这个函数的作用是将kubelet的配置补丁应用到集群中的kubelet配置。它根据给定的补丁文件，将补丁应用到kubelet配置的特定部分，以实现对kubelet配置的修改。
+
+综上所述，这些函数配合完成了kubelet配置文件的生成和写入，同时创建ConfigMap和RBAC规则，为kubelet在集群中正确加载和使用配置提供支持。
+

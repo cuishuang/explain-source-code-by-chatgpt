@@ -1,0 +1,21 @@
+# File: pkg/volume/gcepd/gce_util.go
+
+pkg/volume/gcepd/gce_util.go文件是Kubernetes项目中的一个文件，它主要提供了一些与Google云平台(Google Compute Engine)相关的磁盘操作的实用函数和结构体。
+
+这个文件中的errorSleepDuration变量是一个时间间隔，表示当出现错误时需要休眠的时间。scsiRegex变量是一个正则表达式，用于匹配SCSI设备ID。
+
+GCEDiskUtil是一个结构体，它用于提供处理GCE磁盘的工具和方法。其中包含了多个函数，如DeleteVolume、CreateVolume、verifyDevicePath、getScsiSerial、parseScsiSerial、getDiskByIDPaths、getCloudProvider、udevadmChangeToNewDrives、udevadmChangeToDrive和isRegionalPD。
+
+- DeleteVolume函数用于删除指定的GCE磁盘。
+- CreateVolume函数用于创建一个新的GCE磁盘。
+- verifyDevicePath函数用于验证设备路径是否存在。
+- getScsiSerial函数用于获取SCSI设备的序列号。
+- parseScsiSerial函数用于从SCSI序列号中提取磁盘ID。
+- getDiskByIDPaths函数用于获取指定磁盘ID对应的设备路径。
+- getCloudProvider函数用于获取云平台提供商的标识符。
+- udevadmChangeToNewDrives函数用于更改udev规则以加载新磁盘驱动器。
+- udevadmChangeToDrive函数用于更改udev规则以加载磁盘驱动器。
+- isRegionalPD函数用于判断一个磁盘是否为区域性永久磁盘。
+
+这些函数的作用是提供了在Kubernetes中操作GCE磁盘的一些基本功能，包括创建和删除磁盘、验证设备路径、获取磁盘信息等。同时，还提供了一些与udev规则相关的函数，用于配置和加载磁盘驱动器。这些函数的实现可以帮助Kubernetes在Google云平台上与磁盘进行交互和管理。
+

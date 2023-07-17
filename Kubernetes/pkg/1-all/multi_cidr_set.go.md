@@ -1,0 +1,10 @@
+# File: pkg/controller/nodeipam/ipam/multicidrset/multi_cidr_set.go
+
+pkg/controller/nodeipam/ipam/multicidrset/multi_cidr_set.go是Kubernetes中负责分配ClusterCIDR的模块之一。该模块旨在保证每个节点都具有唯一但重叠的CIDR块来代表其IP地址范围，以便节点之间能够互相通信。
+
+MultiCIDRSet结构体表示一组CIDR地址范围，ClusterCIDR结构体表示唯一的IP地址范围，CIDRRangeNoCIDRsRemainingErr表示地址范围中没有更多可用的CIDR块，CIDRSetSubNetTooBigErr表示CIDR地址范围太大。
+
+Error函数用于报告发生了错误，在这种情况下，它返回一个空字符串； NewMultiCIDRSet函数用于创建一个新CIDR地址范围的集合； indexToCIDRBlock函数用于将已知的整数索引转换为CIDR块； NextCandidate函数用于查找下一个可用的CIDR块； getBeginningAndEndIndices函数用于获取给定CIDR块的起始和结束索引； Release函数用于释放使用完毕的CIDR块； Occupy函数用于占用给定的CIDR块； getIndexForIP函数用于根据IP地址查找索引位置； UpdateEvaluatedCount函数用于计算已经评估的CIDR块数量； getMaxCIDRs函数用于获取最大有用的CIDR块数量。
+
+以上函数结合使用，可以处理和管理多个CIDR地址范围，确保节点都能够正常通信。
+

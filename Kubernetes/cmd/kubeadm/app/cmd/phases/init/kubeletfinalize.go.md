@@ -1,0 +1,12 @@
+# File: cmd/kubeadm/app/cmd/phases/init/kubeletfinalize.go
+
+在Kubernetes项目中，cmd/kubeadm/app/cmd/phases/init/kubeletfinalize.go文件是kubeadm初始化过程中关于kubelet的最后一阶段的实现。它包含了一些重要的功能，用于完成kubelet的初始化工作。
+
+该文件中的kubeletFinalizePhaseExample变量是一个示例，用于展示如何使用kubeletFinalize阶段的不同功能。它展示了如何使用NewKubeletFinalizePhase和runKubeletFinalizeCertRotation函数。
+
+- kubeletFinalizePhaseExample示例变量的作用是展示使用kubeletFinalize阶段的不同功能的示例。
+- NewKubeletFinalizePhase函数用于创建KubeletFinalize阶段的实例，对kubelet进行初始化和配置。它负责加载kubelet的配置文件，验证kubelet配置并更新kubelet的配置信息。
+- runKubeletFinalizeCertRotation函数用于运行kubelet的证书轮换操作。它检查是否需要进行证书轮换，如果需要则执行相应的操作。证书轮换是为了更好地保护kubelet与kube-apiserver之间的通信安全。
+
+总的来说，kubeletfinalize.go文件中的功能是在kubeadm初始化过程的最后阶段完成kubelet的初始化和配置，并执行kubelet的证书轮换操作。它确保kubelet的配置和证书的有效性，以便kubelet可以顺利地与其他组件进行通信。
+

@@ -1,0 +1,29 @@
+# File: pkg/controller/endpoint/endpoints_controller.go
+
+pkg/controller/endpoint/endpoints_controller.go是Kubernetes项目中的一个控制器，它的作用是实时监控Kubernetes集群中Endpoints的变化，并与相应的Service对象进行同步。Endpoints是与Service对象相关联的IP地址和端口的集合，它们表示可用于访问Service的实际后端Pods。EndpointsController会自动管理Endpoints对象并与Service对象保持同步，以确保Service对象正在指向活动的Pods。
+
+为了实现这一功能，EndpointsController包含了多个结构体和函数。其中包括以下几个：
+
+- Controller：这个结构体定义了EndpointsController的基本行为，包括开始和停止控制器的运行，以及添加、更新和删除Pods的功能。
+- NewEndpointController：该函数用于创建一个新的EndpointsController对象，它接受必要的参数来初始化控制器。例如，该函数可以指定需要监视的Service和Endpoint对象。
+- Run：这个函数启动EndpointsController并进入事件循环，处理添加、更新和删除Pods的请求。
+- addPod：该函数添加一个新的Pod到EndpointsController的监视列表中。
+- podToEndpointAddressForService：该函数将一个Pod的IP地址和端口映射到Service的Endpoint对象上。
+- updatePod：该函数更新EndpointsController监视列表中的一个Pod对象。
+- deletePod：该函数删除EndpointsController监视列表中的一个Pod对象。
+- onServiceUpdate：该函数在Service对象更新时处理对EndpointsController的影响。
+- onServiceDelete：该函数在Service对象被删除时处理对EndpointsController的影响。
+- onEndpointsDelete：该函数在Endpoints对象被删除时处理对EndpointsController的影响。
+- worker：这个结构体定义了控制器中的工作者，它们实际上会处理添加、更新和删除Pods的请求。
+- processNextWorkItem：该函数从工作者队列中获取下一个工作项，并开始处理它。
+- handleErr：该函数定义了如何处理控制器中出现的错误。
+- syncService：该函数确保Service对象与Endpoints对象保持同步。
+- checkLeftoverEndpoints：该函数用于检查是否存在未使用的Endpoint。
+- addEndpointSubset：该函数将新的EndpointSubset添加到Endpoints对象中。
+- endpointPortFromServicePort：该函数将Service的端口转换为Endpoint的端口。
+- capacityAnnotationSetCorrectly：该函数检查Annotations标记以确保Endpoint对象容量设置正确。
+- truncateEndpoints：该函数截断Endpoints对象中的过时信息。
+- addressSubset：该函数返回给定EndpointSubset中的地址集合。
+
+总之，EndpointsController是Kubernetes集群中重要的组件之一，它负责管理Endpoints对象并与Service对象保持同步。在这个过程中，Controller和工作者结构体处理添加、更新和删除Pods的请求，并将它们映射到Endpoints对象中。函数集合中的每个函数都有明确的功能，以实现EndpointsController的整体功能。
+

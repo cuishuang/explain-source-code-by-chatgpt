@@ -1,0 +1,10 @@
+# File: pkg/kubelet/apis/config/validation/validation_reserved_memory.go
+
+在Kubernetes项目中，pkg/kubelet/apis/config/validation/validation_reserved_memory.go文件的作用是提供针对kubelet的保留内存配置的验证逻辑和相关函数。
+
+函数validateReservedMemoryConfiguration用于验证kubelet的保留内存配置。在Kubernetes中，kubelet是负责管理节点上容器生命周期的组件之一，而保留内存是指为了保证系统性能和稳定性而不对外分配给容器的一部分内存。该函数会检查kubelet配置中的保留内存字段值是否有效，包括数值是否合法、是否超过最大限制等。
+
+函数reservedMemorySupportedLimit会返回一个最大的保留内存值，表示该kubelet节点上支持的最大保留内存。这个值会被用于验证kubelet配置中的保留内存字段。
+
+这些函数的作用是保证kubelet的保留内存配置的合法性，通过验证配置中的保留内存字段值是否有效，确保kubelet正确分配和使用内存资源。这能够帮助系统管理员和开发人员更好地配置和管理Kubernetes节点，确保系统运行的稳定性和性能。
+

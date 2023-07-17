@@ -1,0 +1,10 @@
+# File: pkg/controller/certificates/cleaner/cleaner.go
+
+pkg/controller/certificates/cleaner/cleaner.go是Kubernetes项目中的一个控制器，负责清理证书签署请求（Certificate Signing Request，CSR）。它主要的作用是清理已经过期、拒绝、失败或超时的请求，从而防止无用的请求占用过多的资源，并且提高系统的安全性。
+
+在这个文件中，定义了一个名为CSRCleanerController的结构体，它包括了处理清理请求的一系列函数。NewCSRCleanerController函数用于创建一个新的控制器实例，Run函数用于启动控制器，worker函数是真正执行清理操作的函数，handle函数则是处理每个CSR清理请求的函数。除此之外，还有一系列用于检查CSR请求状态的函数，如isIssuedExpired、isPendingPastDeadline、isDeniedPastDeadline等。
+
+其中，isIssuedExpired函数用于检查CSR是否已过期，isPendingPastDeadline函数则用于检查CSR是否已经超时等待审核，isDeniedPastDeadline函数则用于检查审核已经被拒绝但是CSR还未清理的情况，isFailedPastDeadline函数用于检查CSR审核失败但是还未被清理的情况，isIssuedPastDeadline函数则用于检查已签发的证书是否超时，isOlderThan函数用于检查CSR是否比给定的时间旧，isIssued函数用于检查某个CSR是否已经签发了，isExpired则用于检查证书是否已过期。
+
+总之，pkg/controller/certificates/cleaner/cleaner.go是一个非常重要的控制器文件，它在保证系统安全性的基础上，对资源管理也有着非常重要的作用。
+

@@ -1,0 +1,32 @@
+# File: pkg/controller/daemon/update.go
+
+pkg/controller/daemon/update.go这个文件是用来实现DaemonSet的更新功能的，因为在实际使用中，我们可能需要更新容器镜像、环境变量等信息。该文件主要实现了一个rolling update的操作，确保只有一个节点在任何时候处于更新状态，这避免了群集因为同时更新所有节点而导致的系统崩溃风险。
+
+historiesByRevision结构体是一个map，用于存储历史版本的记录信息，其中每个记录包含一个历史版本的NodeName和RevisionNum。
+
+rollingUpdate函数是实现rolling update的核心函数。它首先获取当前DaemonSet的所有运行节点的Revision和容器镜像信息，然后判断哪些节点需要更新，并且将这些节点的相关信息存储在historiesByRevision中。在rollingUpdate函数遍历完所有的节点后，通过getPatch函数生成更新它们的Patch，并通过Kubernetes API Server将Patch发送到每个节点。这样每个节点就会根据更新后的Patch更新容器镜像、环境变量等信息。
+
+findUpdatedPodsOnNode函数是用来查找更新后的Pods的节点信息的。它通过比较当前DaemonSet的PodTemplate信息和历史版本的信息，找到需要更新的Pods所在的节点。
+
+constructHistory函数是用来构建历史版本信息的。当DaemonSet更新完成后，它会把更新的信息添加到historiesByRevision中，这样就可以跟踪每个节点的更新历史。
+
+cleanupHistory函数用于清理未使用的历史版本信息。遍历历史版本信息，将历史版本中不再使用的记录删除。
+
+maxRevision函数用于获取节点中最大的Revision版本号。
+
+dedupCurHistories函数用于过滤掉当前节点的历史版本信息，确保不重复记录当前节点的信息。
+
+controlledHistories函数用于过滤掉不属于DaemonSet控制的历史版本信息，以确保所有的历史版本信息都可以被正确的跟踪和管理。
+
+Match函数用于比较两个Pod的NodeName和RevisionNum信息，判断它们是否一致。
+
+getPatch函数用于生成更新Pods所在节点的Patch，通过Kubernetes API Server将其发送到节点。
+
+snapshot函数用于获取所有运行中的DaemonSet的Pods信息。
+
+updatedDesiredNodeCounts函数用于更新需要更新的节点计数器updNodes和maxRevNodes中的值。
+
+Len、Swap、Less这几个function是用于排序节点的历史版本信息的辅助函数。
+
+总的来说，pkg/controller/daemon/update.go这个文件实现了DaemonSet的rolling update的功能，保证了群集的可靠性，避免了同时更新所有节点而导致的系统风险。
+

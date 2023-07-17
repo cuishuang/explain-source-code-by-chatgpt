@@ -1,0 +1,12 @@
+# File: cmd/kubelet/app/server_linux.go
+
+在Kubernetes项目中，cmd/kubelet/app/server_linux.go文件的作用是定义和实现kubelet服务器的启动、初始化以及运行时逻辑。该文件中包含了一系列函数和方法，用于处理运行在Linux操作系统上的kubelet服务器。
+
+具体来说，该文件定义了一个名为`kubeletServer`的结构体，该结构体拥有一些成员变量和方法，用于管理kubelet节点的各个方面。以下是该文件中一些重要函数和方法的作用：
+
+1. `watchForLockfileContention()`函数：此函数负责检查并等待锁文件的争用。在Kubernetes集群中，kubelet使用锁文件来确保只有一个kubelet实例可以在单个节点上运行。如果多个kubelet尝试在同一节点上启动，会检查锁文件的内容是否与当前目标的PID相同，并等待锁文件的所有权释放。
+
+2. `isCgroup2UnifiedMode()`函数：该函数用于检查Linux操作系统的cgroup版本是否为2，并且它是否是统一的模式。cgroup是Linux内核提供的一种资源限制和管理机制。在Kubernetes中，kubelet使用cgroup来进行容器资源管理。此函数会返回一个布尔值，指示系统是否使用cgroup v2的统一模式。
+
+这些函数和方法的作用是为kubelet服务器的启动和运行提供一些额外的功能和逻辑处理。watchForLockfileContention函数负责确保kubelet在节点上的唯一性和互斥性，而isCgroup2UnifiedMode函数用于检测cgroup版本，并根据不同版本的cgroup进行相应的处理。它们都是为了确保kubelet在Linux系统上的正确运行和安全性。
+

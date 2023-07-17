@@ -1,0 +1,14 @@
+# File: pkg/kubelet/server/stats/resource_analyzer.go
+
+pkg/kubelet/server/stats/resource_analyzer.go文件位于Kubernetes项目中，它的主要作用是分析节点上容器的资源使用情况。下面对该文件中的相关变量和结构体进行详细介绍：
+
+_变量：在Go语言中，_（下划线）用于忽略某个变量的值。在这个文件中，_变量通常用于忽略某个函数的返回值。
+
+ResourceAnalyzer结构体：该结构体用于统计节点上容器的资源使用情况，并为kubelet提供资源分析功能。它包含了kubelet的metrics client、主机资源状态接口、kubelet的配置以及取消函数等字段。
+
+resourceAnalyzer结构体：resourceAnalyzer是ResourceAnalyzer结构体的实例，用于在资源分析器上进行操作。
+
+NewResourceAnalyzer函数：该函数用于创建一个新的ResourceAnalyzer实例。它接收kubelet的metrics client、主机资源状态接口、kubelet的配置和取消函数等参数，并返回创建的ResourceAnalyzer实例。
+
+Start函数：该函数用于启动资源分析器。它接收一个停止通道（stop channel）作为参数，并在一个新的goroutine中开始循环监视容器的资源使用情况。
+

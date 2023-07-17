@@ -1,0 +1,32 @@
+# File: pkg/kubelet/prober/prober_manager.go
+
+pkg/kubelet/prober/prober_manager.go是Kubernetes项目中的一个文件，它的作用是管理和调度各种探测器（Prober）来进行容器的健康检查。
+
+在Kubernetes中，每个容器都会有对应的探测器来监测其健康状态，包括存活探测器（liveness probe）和启动探测器（startup probe）。而ProberManager就是用来管理这些探测器的。
+
+ProberResults和ProberDuration是用于记录探测器的执行结果和耗时的变量。ProberResults是一个映射，用来存放探测器的执行结果。ProberDuration是一个映射，用来存放探测器的执行耗时。
+
+Manager结构体是ProberManager的主要结构，它包含了用于管理和调度探测器的各种方法和变量。manager是一个Manager结构体的实例。probeKey是用来唯一标识某个探测器的字符串。probeType是用来表示探测器的类型的字符串。
+
+NewManager是一个用来创建Manager结构体实例的方法。它会初始化一些必要的变量，并创建一个新的Manager对象。
+
+String是一个Manager结构体的方法，用于返回与该Manager对象关联的字符串。
+
+AddPod是一个Manager结构体的方法，用于将一个Pod添加到Manager的管理列表中，并为其创建对应的探测器。
+
+StopLivenessAndStartup是一个Manager结构体的方法，用于停止某个Pod上正在执行的存活探测器和启动探测器。
+
+RemovePod是一个Manager结构体的方法，用于从Manager的管理列表中移除某个Pod及其对应的探测器。
+
+CleanupPods是一个Manager结构体的方法，用于清理已经被删除的Pod的探测器。
+
+UpdatePodStatus是一个Manager结构体的方法，用于更新某个Pod的健康状态。
+
+getWorker是一个Manager结构体的方法，用于获取或创建一个用于执行任务的worker。
+
+removeWorker是一个Manager结构体的方法，用于移除一个worker。
+
+workerCount是一个Manager结构体的变量，表示当前worker的数量。
+
+这些方法和变量的组合使得ProberManager能够高效地管理和调度各种探测器，确保容器的健康状态得到及时监测和处理。
+

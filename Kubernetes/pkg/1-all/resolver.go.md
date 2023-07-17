@@ -1,0 +1,22 @@
+# File: pkg/registry/admissionregistration/resolver/resolver.go
+
+在Kubernetes项目中，pkg/registry/admissionregistration/resolver/resolver.go文件主要提供了一些用于解析和获取资源的方法和结构体。
+
+该文件中定义了三个结构体：ResourceResolver、discoveryResourceResolver和ResourceResolverFunc。
+
+1. ResourceResolver结构体用于解析和获取资源。它拥有一个Resolve方法和一个InjectCache方法。
+    - Resolve方法用于解析资源字符串，返回对应的GroupKind和GroupResource。它首先会根据配置文件的映射关系（scopeMappings）对资源字符串进行查找，如果找到则返回对应的GroupKind和GroupResource，否则返回错误。
+    - InjectCache方法用于将资源的映射关系注入到缓存中。
+
+2. discoveryResourceResolver结构体是ResourceResolver的一种实现，用于从Discovery API解析和获取资源。它实现了ResourceResolver接口，并拥有一个DiscoveryClient字段。该结构体通过访问Discovery API来获取所有可用的GroupKind和GroupResource映射关系，并将其保存在缓存中供后续使用。
+
+3. ResourceResolverFunc是一个函数类型，它定义了一个带有两个参数（string和DiscoveryClient）和返回值（GroupKind和GroupResource）的函数签名。这个函数类型可以用于自定义的资源解析器。
+
+此外，该文件还定义了两个函数：
+
+1. Resolve函数是一个在ResourceResolver接口上的辅助方法，它接受一个资源解析器对象和一个资源字符串作为参数，并返回对应的GroupKind和GroupResource。它首先检查传入的解析器是否为空，如果为空则返回错误。否则，它会调用解析器的Resolve方法来获取资源。
+
+2. NewDiscoveryResourceResolver函数是一个辅助函数，用于创建一个基于Discovery API的资源解析器。它接受一个DiscoveryClient对象作为参数，并返回一个新的discoveryResourceResolver对象。
+
+总结起来，pkg/registry/admissionregistration/resolver/resolver.go文件中的结构体和函数提供了一种机制来解析和获取Kubernetes资源的GroupKind和GroupResource，同时还提供了一个基于Discovery API的资源解析器实现。
+

@@ -1,0 +1,10 @@
+# File: pkg/util/iptables/save_restore.go
+
+在Kubernetes项目中，`pkg/util/iptables/save_restore.go`文件的作用是实现对iptables规则的保存和恢复操作。该文件中定义了一些函数来帮助保存和恢复iptables规则。
+
+1. `MakeChainLine`函数的作用是创建iptables规则链的字符串表示。它接收链名、默认策略和规则列表作为参数，并返回表示该链的字符串。该函数会拼接iptables命令的参数来创建规则链。
+
+2. `GetChainsFromTable`函数的作用是获取指定表中的所有规则链。它接收表名作为参数，并返回该表中所有规则链的列表。该函数会执行iptables命令来获取指定表中的所有规则链，并将其解析成规则链的字符串列表。
+
+这些函数在`pkg/util/iptables/save_restore.go`文件中的主要作用是帮助保存和恢复iptables规则。它们通过执行iptables命令、解析命令的输出和生成iptables命令的参数来实现对iptables规则的保存和恢复操作。这对于在Kubernetes中管理网络规则非常重要，因为它允许Kubernetes在容器和节点之间设置正确的网络配置并确保网络的正常运行。
+

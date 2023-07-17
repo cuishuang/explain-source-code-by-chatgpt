@@ -1,0 +1,21 @@
+# File: pkg/proxy/util/nodeport_addresses.go
+
+pkg/proxy/util/nodeport_addresses.go这个文件是Kubernetes项目中的一个包，它提供了一些工具函数用于处理NodePort类型的服务的地址。
+
+在Kubernetes中，NodePort是一种服务类型，它将服务绑定到每个节点的特定端口，使得外部可以通过节点的IP地址和该端口访问服务。pkg/proxy/util/nodeport_addresses.go这个文件的作用就是提供了一些工具函数，用于获取和操作NodePort服务的地址信息。
+
+具体来说，文件中定义了一个叫做NodePortAddresses的结构体，它包含了三个字段：Protocol、String和MatchAll。Protocol字段表示该NodePort地址的协议类型（TCP或UDP），String字段表示该地址对应的字符串形式，MatchAll字段表示是否匹配所有IP地址。
+
+文件中还定义了一个叫做NewNodePortAddresses的函数，用于根据给定的协议类型、字符串形式的地址和匹配所有IP地址的标志，创建一个NodePortAddresses结构体。
+
+另外，文件中还定义了几个工具函数：String、MatchAll、GetNodeIPs和ContainsIPv4Loopback。
+
+- String函数用于将NodePortAddresses结构体转换为对应的字符串形式的地址。
+- MatchAll函数用于判断给定的NodePort地址是否匹配所有IP地址。
+- GetNodeIPs函数用于获取当前节点的IP地址列表。
+- ContainsIPv4Loopback函数用于判断给定的IP地址是否为IPv4的环回地址。
+
+最后，文件中还定义了一个常量ipv4LoopbackStart，它表示IPv4的环回地址的起始地址。
+
+总结起来，pkg/proxy/util/nodeport_addresses.go这个文件的作用是提供了一些用于处理NodePort类型服务地址的工具函数和数据结构，用于获取地址、判断地址匹配性等操作。ipv4LoopbackStart常量表示IPv4的环回地址的起始地址。NodePortAddresses结构体用于表示NodePort地址的相关信息。NewNodePortAddresses、String、MatchAll、GetNodeIPs和ContainsIPv4Loopback等函数则用于具体的操作和判断。
+
