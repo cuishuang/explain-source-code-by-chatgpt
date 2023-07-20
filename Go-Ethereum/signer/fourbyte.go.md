@@ -1,0 +1,14 @@
+# File: signer/fourbyte/fourbyte.go
+
+在go-ethereum项目中，signer/fourbyte/fourbyte.go文件的作用是为Ethereum的ABI（Application Binary Interface）进行编码和解码提供支持。ABI是用于合约间通信和数据序列化的协议。
+
+在该文件中，embeddedJSON是一个常量，它包含了预定义的ABI方法签名和方法选择器。它们被用于将方法名称和参数列表编码成唯一的四字节方法选择器。
+
+Database是一个在内存中保存方法签名和方法选择器的数据结构。它是用来加速ABI编码和解码过程的缓存。
+
+newEmpty函数用于创建一个空的Database实例。New函数接受一个metadata参数，根据参数创建一个新的Database实例。NewFromFile函数从文件中读取metadata，并使用它来创建一个新的Database实例。NewWithFile函数是NewFromFile的别名。
+
+Size函数返回Database中的方法选择器数量。Selector函数根据方法签名返回方法选择器。AddSelector函数用于向Database中添加一个方法签名和方法选择器的映射关系。
+
+这些功能的作用是将方法签名和方法选择器进行编码和解码。方法选择器可以用作合约中函数的唯一标识，用于在以太坊网络中进行函数调用。通过使用这些功能，开发人员可以方便地对合约进行ABI编码和解码，以与其他合约进行交互。
+

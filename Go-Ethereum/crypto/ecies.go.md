@@ -1,0 +1,16 @@
+# File: crypto/ecies/ecies.go
+
+在go-ethereum项目中，crypto/ecies/ecies.go文件的作用是实现椭圆曲线秘钥加密标准（Elliptic Curve Integrated Encryption Scheme，ECIES）。ECIES是一种非对称加密算法，它使用椭圆曲线加密算法（Elliptic Curve Cryptography，ECC）实现公钥加密和私钥解密的功能。
+
+该文件中的ErrImport,ErrInvalidCurve,ErrInvalidPublicKey,ErrSharedKeyIsPointAtInfinity,ErrSharedKeyTooBig,ErrSharedTooLong,ErrInvalidMessage等变量是用来定义ECIES的一些错误信息，用于在进行加密解密过程中对错误情况进行处理。
+
+PublicKey结构体表示一个ECIES的公钥，它包含椭圆曲线参数和公钥点。PrivateKey结构体表示一个ECIES的私钥，它包含椭圆曲线参数、私钥点和公钥点。
+
+ExportECDSA函数用于将一个ECDSA私钥导出为字节切片。ImportECDSAPublic函数用于将一个ECDSA公钥字节切片导入为PublicKey结构体。ImportECDSA函数用于将一个ECDSA私钥字节切片导入为PrivateKey结构体。GenerateKey函数用于生成一个新的ECIES密钥对。
+
+MaxSharedKeyLength函数返回允许的共享密钥长度的最大值。GenerateShared函数用于生成共享密钥。concatKDF函数用于生成密钥派生函数（KDF）的输入。roundup函数用于将输入向上取整为指定大小的倍数。deriveKeys函数用于从共享密钥派生对称密钥和初始向量（IV）等。
+
+messageTag函数用于生成密文的标签。generateIV函数用于生成初始向量。symEncrypt函数用于对称加密明文。symDecrypt函数用于对称解密密文。Encrypt函数用于使用ECIES算法加密明文。Decrypt函数用于使用ECIES算法解密密文。
+
+上述这些函数和变量的作用是支持ECIES算法的关键步骤，包括生成密钥、密钥派生、加密和解密等。
+

@@ -1,0 +1,12 @@
+# File: common/mclock/simclock.go
+
+在go-ethereum项目中，common/mclock/simclock.go文件的作用是提供一个模拟时钟的实现，用于测试和模拟各种时间相关的操作。
+
+该文件中的Simulated结构体是模拟时钟的主要结构体，它包含了一个模拟的当前时间以及管理模拟定时器的数据结构。simTimer和simTimerHeap则分别是模拟定时器和定时器堆的结构体。
+
+init函数主要用于初始化模拟时钟的当前时间和定时器堆。Run函数是模拟时钟的主循环，它会不断地处理定时器事件，直到没有未过期的定时器。ActiveTimers函数返回当前活跃的定时器数量。WaitForTimers函数会等待直到定时器堆中的最早定时器过期或被Stop函数停止。Now函数会返回当前的模拟时间。Sleep函数则会暂停一段指定的时间。
+
+NewTimer函数用于创建一个新的定时器。After函数返回一个通道，等待一段指定的时间后会接收到一个时间对象。AfterFunc函数类似于After，但是可以指定一个回调函数，在定时器过期时执行。schedule函数用于将定时器插入到定时器堆中的正确位置。Stop函数会停止一个定时器。Reset函数会重置一个定时器的过期时间。C函数用于获取一个定时器的通道。Len函数会返回定时器堆中的定时器数量。Less函数用于比较两个定时器的过期时间。Swap、Push和Pop函数则用于操作定时器堆的内部数据结构。
+
+通过上述的Simulated、simTimer和simTimerHeap这些结构体以及相关的方法，common/mclock/simclock.go文件提供了对时间的模拟和管理，使得开发者可以方便地进行时间相关的测试和模拟。
+

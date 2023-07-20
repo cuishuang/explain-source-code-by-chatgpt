@@ -1,0 +1,20 @@
+# File: crypto/kzg4844/kzg4844_ckzg_cgo.go
+
+在go-ethereum项目中，crypto/kzg4844/kzg4844_ckzg_cgo.go文件的作用是实现KZG(Keccak Zero-Knowledge Graph)算法的相关功能。
+
+ckzgIniter变量用于返回指向KZG初始化方法的函数指针。它主要负责初始化KZG算法所需的参数，并存储在ckzgContext结构体中。
+
+ckzgInit函数用于初始化KZG算法的上下文。它接受一个输入参数，用于生成KZG算法中的乘法树。在初始化过程中，它会根据输入参数计算并生成乘法树所需的一些常量。
+
+ckzgBlobToCommitment函数用于将输入的数据块转换为一个承诺(commitment)。承诺是KZG算法的核心概念之一，它表示将数据块与KZG乘法树进行绑定的结果。
+
+ckzgComputeProof函数用于计算KZG算法生成的证明。它接受传入的索引和数据，通过计算生成一个证明，证明了这个数据和乘法树中的某个节点之间的关系。
+
+ckzgVerifyProof函数用于验证KZG算法生成的证明。它接受传入的索引、数据和证明，通过验证证明的有效性，判断数据和乘法树中的某个节点之间的关系是否正确。
+
+ckzgComputeBlobProof函数用于计算KZG算法生成的数据块证明。它接受传入的数据块和相关参数，通过计算生成一个证明，证明此数据块和KZG乘法树之间的关系。
+
+ckzgVerifyBlobProof函数用于验证KZG算法生成的数据块证明。它接受传入的数据块、证明和相关参数，通过验证证明的有效性，判断数据块和KZG乘法树之间的关系是否正确。
+
+这些函数提供了KZG算法在go-ethereum项目中的实现，用于生成和验证证明，以及将数据与乘法树进行绑定，确保数据的完整性和安全性。
+

@@ -1,0 +1,14 @@
+# File: metrics/opentsdb.go
+
+在go-ethereum项目中，metrics/opentsdb.go文件的作用是提供与OpenTSDB的连接和指标数据发送功能。OpenTSDB是一个可伸缩的时间序列数据库，用于存储和分析大规模的度量数据。
+
+在该文件中，shortHostName这几个变量用于存储主机的短主机名（去除域名的部分），这是用于标识度量数据的一部分。
+
+OpenTSDBConfig这几个结构体用于配置与OpenTSDB的连接和数据发送参数。其中包含了OpenTSDB的地址、端口、连接超时时间等信息。
+
+OpenTSDB函数用于创建一个使用默认配置的OpenTSDB发送器，并返回一个实例。OpenTSDBWithConfig函数用于创建一个使用给定配置的OpenTSDB发送器，并返回一个实例。
+
+getShortHostname函数用于获取主机的短主机名。openTSDB函数读取全局配置，如果未配置OpenTSDB，则返回nil；否则，使用默认配置创建一个OpenTSDB发送器并返回。
+
+总结来说，metrics/opentsdb.go文件中的函数和结构体提供了与OpenTSDB的连接和指标数据发送功能，以便将度量数据存储到OpenTSDB中进行后续的分析和处理。
+

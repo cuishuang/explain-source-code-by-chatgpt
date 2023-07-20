@@ -1,0 +1,13 @@
+# File: eth/tracers/native/gen_flatcallresult_json.go
+
+在Go-Ethereum项目中，eth/tracers/native/gen_flatcallresult_json.go文件的作用是为了生成与以太坊的原生调用跟踪结果相关的JSON文件。
+
+该文件中使用了空白标识符"_"来表示匿名变量，用于忽略某个值的赋值或操作，主要是在导入包或调用函数时，有时只需要包的副作用而不需要包的某个值，使用"_"即可表示忽略该值。
+
+MarshalJSON和UnmarshalJSON是JSON编码和解码的函数。它们用于对结构体进行序列化和反序列化处理。
+
+- MarshalJSON是将结构体转化为JSON数据的函数。它在该文件中的作用是将原生调用跟踪结果转化为JSON格式的数据。
+- UnmarshalJSON是将JSON数据转化为结构体的函数。它在该文件中的作用是将JSON格式的数据解析为原生调用跟踪结果的结构体。
+
+这两个函数在该文件中的具体实现可能会涉及到结构体的字段的转化、赋值等操作，以便将数据正确地转换为JSON格式或从JSON格式中解析出来。
+

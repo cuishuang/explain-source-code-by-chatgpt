@@ -1,0 +1,15 @@
+# File: metrics/prometheus/prometheus.go
+
+在go-ethereum项目中，metrics/prometheus/prometheus.go文件的作用是提供将go-ethereum节点的运行指标导出到Prometheus监控系统的功能。Prometheus是一种开源的度量监控和警报工具，它可以收集来自不同服务的指标数据，并提供强大的查询和可视化功能。
+
+prometheus.go文件中的Handler函数是一个HTTP处理器，用于处理基于HTTP的指标数据抓取请求。它包含了下面几个函数：
+
+1. RegisterPrometheusEndpoint：用于注册将节点指标数据导出的HTTP路由。
+2. Gatherer：用于收集节点指标数据，并将其转换为Prometheus指标对象。
+3. formatMetricsText：将指标对象的值以文本格式进行格式化，以便可以通过HTTP响应返回给Prometheus。
+4. ServeHTTP：处理接收到的HTTP请求，根据请求类型和路径来执行相应的处理逻辑。
+
+当节点启动时，RegisterPrometheusEndpoint函数会被调用来注册一个HTTP路由，该路由用于处理Prometheus的指标数据抓取请求。一旦启动，节点的指标数据将会被收集，并通过formatMetricsText函数以文本格式进行格式化。最后，通过HTTP响应将格式化后的指标数据返回给Prometheus。
+
+通过该文件，go-ethereum项目可以方便地将节点的运行指标导出到Prometheus监控系统，实现对节点运行状态的实时监控和可视化。
+

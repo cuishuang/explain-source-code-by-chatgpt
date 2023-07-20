@@ -1,0 +1,21 @@
+# File: metrics/gauge_float64.go
+
+在go-ethereum项目的metrics/gauge_float64.go文件中，定义了一些与浮点数度量相关的结构体和函数。
+
+1. GaugeFloat64结构体表示一个浮点数类型的度量指标，它可以用于记录某个值的状态。
+2. GaugeFloat64Snapshot结构体表示GaugeFloat64的快照，它可以用于获取GaugeFloat64的当前值。
+3. NilGaugeFloat64是一个空的GaugeFloat64实现，它不记录任何值。
+4. StandardGaugeFloat64是GaugeFloat64的默认实现，它记录一个浮点数值，并且提供了相应的操作函数。
+5. FunctionalGaugeFloat64是一个功能型的GaugeFloat64实现，它可以在每次获取值时执行一个函数并返回结果。
+
+以下是这些结构体和函数的作用：
+
+- GetOrRegisterGaugeFloat64用于获取或注册一个浮点数类型的Gauge指标。
+- NewGaugeFloat64用于创建一个新的GaugeFloat64实例。
+- NewRegisteredGaugeFloat64用于创建一个新的已注册的GaugeFloat64实例，同时注册到默认的度量器Registry。
+- NewFunctionalGaugeFloat64用于创建一个功能型的GaugeFloat64实例。
+- NewRegisteredFunctionalGaugeFloat64用于创建一个已注册的功能型GaugeFloat64实例，同时注册到默认的度量器Registry。
+- Snapshot用于获取GaugeFloat64的当前快照。
+- Update用于更新GaugeFloat64的值。
+- Value用于获取GaugeFloat64的当前值。
+

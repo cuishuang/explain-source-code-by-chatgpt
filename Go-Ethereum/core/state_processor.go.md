@@ -1,0 +1,16 @@
+# File: core/state_processor.go
+
+在go-ethereum项目中，core/state_processor.go文件负责处理区块链状态的更新和交易的执行。它是以太坊核心代码的一部分，其中定义了多个结构体和函数。
+
+StateProcessor结构体是用于封装状态处理相关的数据和方法的结构体。它包含了三个重要的成员变量：database、trie和journal。其中，database用于持久化存储区块链状态，trie是用于实现状态树数据结构的Patricia Trie，journal用于记录状态的变化。
+
+NewStateProcessor函数是用来创建StateProcessor结构体的实例。它初始化了数据库、trie和journal，并返回一个可用的StateProcessor结构体实例。
+
+Process函数是StateProcessor结构体的核心方法。它接收一个区块的Transactions信息，并依次对其中的每个交易进行验证和执行。过程中会调用applyTransaction函数来应用单个交易，对状态进行更新，并记录状态变化到journal中。
+
+applyTransaction函数是核心的交易处理方法。它接收一个交易作为输入，并根据交易的类型执行相应的操作。这些操作可能包括账户创建、转账、合约调用等。applyTransaction函数负责根据交易的内容，更新区块链上的状态。
+
+ApplyTransaction函数是一个便捷的函数，用于在不创建StateProcessor实例的情况下直接执行单个交易。它内部实际上是创建了一个StateProcessor实例，并调用了Process方法来处理单个交易。
+
+总而言之，StateProcessor结构体及相关函数在go-ethereum项目中扮演了关键的角色，负责处理区块链状态的更新和执行交易的操作。它们通过调用数据库、trie和journal等功能，实现了以太坊区块链状态的维护和更新。
+

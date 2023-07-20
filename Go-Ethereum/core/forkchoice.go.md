@@ -1,0 +1,14 @@
+# File: core/forkchoice.go
+
+core/forkchoice.go文件在go-ethereum项目中的作用是实现了以太坊的分叉选择逻辑。它定义了ChainReader、ForkChoice等结构体和相应的函数，用于处理链的选择、分叉检测和更新。
+
+ChainReader结构体用于读取和查询链的相关信息，包含了一系列的方法，如GetHeader、GetHeaderByNumber、GetCanonicalHash等，用于获取链的头信息和相关查询操作。
+
+ForkChoice结构体是分叉选择的核心逻辑，它包含了一些重要的字段和方法，用于管理分叉选择的状态和执行相关操作。ForkChoice结构体中的字段包括链的读取器（ChainReader）、最佳链指针（best链）、最终化指针（finalized链）、不可逆指针（irreversible链）和分叉选择的配置选项。
+
+NewForkChoice函数用于创建一个ForkChoice结构体实例，它接收一个ChainReader作为参数，用于初始化链的读取器。这个函数会创建一个新的ForkChoice实例，然后根据配置选项从链中读取必要的信息，进行初始化。
+
+ReorgNeeded函数用于检测是否存在分叉，并确定是否需要进行重组（reorg）。当两个或多个块具有相同的父块，但不具有相同的最终化状态时，就会发生分叉。ReorgNeeded函数会根据已知和最新的区块头信息，通过分叉选择逻辑判断是否需要进行重组操作。如果需要重组，函数将返回true，否则返回false。
+
+这些结构体和函数的作用是为了处理以太坊区块链上的分叉选择和重组操作。通过ForkChoice结构体以及相关函数，可以确定选择哪个链作为最佳链，以及何时需要进行重组操作。这对于确保链的一致性和稳定性非常重要。
+

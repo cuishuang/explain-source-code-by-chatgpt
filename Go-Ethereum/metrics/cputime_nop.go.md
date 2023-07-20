@@ -1,0 +1,10 @@
+# File: metrics/cputime_nop.go
+
+在go-ethereum项目中，metrics/cputime_nop.go文件的作用是提供一个空实现的计算进程CPU时间的度量器。
+
+度量器(metrics)是用于收集和记录系统或应用程序运行时的各种指标和性能数据的工具。在这个特定的文件中，cputime_nop.go提供了一个度量器的实现，用于度量进程的CPU时间。该文件中的代码实现了一个名为nopCPUInterval的结构体，该结构体实现了获取CPU时间的方法。
+
+`getProcessCPUTime`是`nopCPUInterval`结构体的方法，它用于获取进程的CPU时间。具体而言，`getProcessCPUTime`函数通过调用标准库的`cpu.Percent`方法来获取进程的CPU使用率以及使用的CPU核心数量。然后，它通过计算当前的时间戳和上一次采样时间戳之间的差异以及CPU使用率和CPU核心数量的乘积，来估算进程的CPU时间。
+
+通过这种方式，我们可以度量并记录进程的CPU时间，以便在性能分析和优化时提供有用的数据。但是，由于cputime_nop.go文件是提供一个空实现的文件，因此getProcessCPUTime方法并不会返回实际的CPU时间数据，而是仅仅返回0或错误。这意味着在metrics/cputime_nop.go文件中，进程的CPU时间度量器被设置为一个无操作的空实现。
+

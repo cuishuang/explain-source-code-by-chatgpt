@@ -1,0 +1,12 @@
+# File: internal/jsre/deps/deps.go
+
+在go-ethereum项目中，internal/jsre/deps/deps.go文件的作用是实现Go语言与JavaScript之间的互操作性。该文件定义了一些JavaScript的库和对象，这些库和对象可以在Go代码中被调用和使用。
+
+该文件中定义了几个变量，其中Web3JS和BigNumberJS是两个重要的变量。
+
+1. Web3JS：Web3JS是以太坊的JavaScript API库。它提供了一组函数和方法，用于与以太坊区块链网络进行交互。Go-ethereum项目使用Web3JS变量来调用Web3JS库中的方法，例如与以太坊节点通信，发送交易，查询账户余额等。
+
+2. BigNumberJS：BigNumberJS是一个用于处理大数的JavaScript库。以太坊中的数字经常很大，因此常规的JavaScript数字类型无法处理这些大数。BigNumberJS提供了一套方法和函数，用于处理大数运算，例如加法、减法、乘法和除法等。Go-ethereum项目使用BigNumberJS变量来调用BigNumberJS库中的方法，以便在Go代码中处理以太坊的大数。
+
+这些变量的作用是通过将Go语言与JavaScript库进行绑定，使得Go代码可以使用JavaScript库中定义的功能，从而实现在Go代码中调用和处理以太坊相关的功能和数据。由于以太坊生态系统中有很多重要的JavaScript库和对象，通过将它们绑定到Go代码中，可以更方便地使用和开发以太坊应用程序。
+

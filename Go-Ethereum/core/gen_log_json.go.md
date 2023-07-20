@@ -1,0 +1,16 @@
+# File: core/types/gen_log_json.go
+
+在go-ethereum项目中，core/types/gen_log_json.go文件的作用是定义了区块链中智能合约事件日志的JSON编解码方式。
+
+该文件中定义了一个名为Log的结构体，用于表示智能合约事件日志。Log结构体中的字段包括了事件的各种信息，如合约地址、事件签名、日志数据等。该文件还定义了一个LogJSON结构体，用于对Log结构体进行JSON编解码。
+
+下划线（_）这几个变量的作用是用于占位符，表示在JSON编解码中忽略该字段。
+
+MarshalJSON函数用于将Log结构体的实例编码为JSON格式的字节流。该函数会根据LogJSON结构体的定义来生成对应的JSON字符串。
+
+UnmarshalJSON函数用于将JSON格式的字节流解码为Log结构体的实例。该函数会根据LogJSON结构体的定义，将JSON字符串中的数据解析到相应的Log字段中。
+
+在该文件中还定义了一些辅助函数，如UnmarshalLogJSON和UnmarshalLogJSONWithTxHash，用于将JSON字符串解码为Log结构体的实例，并返回解码结果。
+
+总之，gen_log_json.go文件的作用是定义并实现了智能合约事件日志数据的JSON编解码方式，以方便对区块链中的智能合约事件进行处理和存储。
+

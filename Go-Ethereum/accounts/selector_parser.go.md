@@ -1,0 +1,24 @@
+# File: accounts/abi/selector_parser.go
+
+在go-ethereum项目中，accounts/abi/selector_parser.go文件的作用是解析和处理Solidity的函数选择器。
+
+该文件中的SelectorMarshaling结构体定义了一系列用于选择器组装和解析的方法和字段。其中，SelectorMarshaling方法的作用是提供与实现自定义ABI编解码过程的接口，并在函数调用和事件解码期间使用。
+
+isDigit、isAlpha和isIdentifierSymbol方法是用来检查给定字符是否为数字、字母和有效的Solidity标识符符号的方法。
+
+parseToken方法用于解析给定选择器字符串中的下一个Token。
+
+parseIdentifier方法用于解析标识符。
+
+parseElementaryType方法用于解析基本类型。
+
+parseCompositeType方法用于解析复合类型。
+
+parseType方法用于解析给定选择器的参数类型。
+
+assembleArgs方法用于组装参数。
+
+ParseSelector方法用于解析给定的函数选择器，并返回函数名称和参数类型。
+
+总结起来，selector_parser.go文件中的代码用于解析和处理Solidity的函数选择器，提供了与自定义ABI编解码过程的接口，并提供了一系列方法来处理标识符、类型和参数。
+

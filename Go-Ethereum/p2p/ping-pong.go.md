@@ -1,0 +1,24 @@
+# File: p2p/simulations/examples/ping-pong.go
+
+在go-ethereum项目中，p2p/simulations/examples/ping-pong.go文件的作用是提供一个简单的示例程序，用于演示通过P2P网络发送ping-pong消息。
+
+该文件中的adapterType变量是用于选择用于模拟网络的适配器类型的。它可以是"inmem"、"udp"或"tcp"，分别表示在内存、UDP或TCP上模拟网络。
+
+pingPongService结构体是一个简单的服务，它包含了与ping-pong相关的状态和操作。它有两个字段：pingCount和pongCount，分别用于计算收到的ping和pong消息的数量。
+
+main函数是程序入口点，它初始化了一个新的pingPongService，并调用Start函数启动该服务。然后，它会通过调用Protocols函数向p2p模拟器注册协议，并通过调用Run函数来实际运行模拟器。
+
+newPingPongService函数是用于创建一个新的pingPongService实例的辅助函数。它返回一个指向pingPongService的指针，并初始化pingCount和pongCount为零。
+
+Protocols函数返回一系列协议，用于在网络上传输ping和pong消息。
+
+Start函数是用于启动pingPongService的函数。它为服务的每个注册协议创建一个侦听器，并在后台运行一个goroutine来接受和处理传入的消息。
+
+Stop函数是用于停止pingPongService的函数。它关闭服务的所有侦听器，并终止后台goroutine。
+
+Info函数返回关于服务状态的一些信息，如收到的ping和pong消息的数量。
+
+Run函数是模拟器的主循环函数。它基于时间触发ping和pong消息的发送，并处理模拟器中到达的消息。
+
+通过运行该示例程序，可以模拟一个简单的P2P网络，其中节点之间可以相互发送ping和pong消息。
+

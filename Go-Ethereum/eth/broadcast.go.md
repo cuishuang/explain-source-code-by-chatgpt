@@ -1,0 +1,18 @@
+# File: eth/protocols/eth/broadcast.go
+
+在go-ethereum项目中，eth/protocols/eth/broadcast.go文件的作用是处理以太坊区块和交易的广播功能。该文件实现了将区块和交易广播到网络中的逻辑。
+
+blockPropagation包含了一些结构体，具体如下：
+- blockQueue：用于存储待广播的区块，按照高度进行排序。
+- blockAnnounce：用于存储已经广播的区块的集合。
+- blockAnnounceNodes：用于存储已经广播但还未接收确认的区块的节点集合。
+- blockMutex：用于控制并发访问blockAnnounce和blockAnnounceNodes的锁。
+
+broadcastBlocks函数实现了将新的区块广播到网络的逻辑。当有新的区块生成时，广播会将其加入到blockQueue中，并将待广播的区块按照高度排序。然后，通过协程的方式，将区块广播给连接的节点。如果一个节点确认接收到了区块，它会将其从blockAnnounceNodes中移除。同时，如果一个区块在广播过程中被新的区块所替代，它会从blockAnnounce和blockAnnounceNodes中移除。
+
+broadcastTransactions函数实现了将交易广播到网络的逻辑。它会获取待广播的交易列表，并将其广播给连接的节点。类似于广播区块的逻辑，如果一个节点确认接收到了交易，它会将其从待广播的列表中移除。
+
+announceTransactions函数用于通知已连接节点一个新的交易的到达。这个函数会遍历已连接节点的集合，并将新到达的交易发送给这些节点。
+
+这些函数的作用是确保新生成的区块和交易能够快速地传播到整个网络中，以保持区块链网络的同步和一致性。
+

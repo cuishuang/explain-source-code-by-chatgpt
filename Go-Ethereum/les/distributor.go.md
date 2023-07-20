@@ -1,0 +1,12 @@
+# File: les/distributor.go
+
+在go-ethereum项目中，les/distributor.go文件的作用是实现了Light Ethereum Subprotocol (LES)的数据块分发功能。它是一个分发者（distributor）模块，负责根据节点的请求和网络情况，将合适的数据块分发给对应的节点。
+
+distMaxWait是一个分发者等待的最大时间，表示在没有节点连接时，分发者最多等待多长时间。waitForPeers是一个计数信号量，表示在没有节点连接时，分发者需要等待的节点数量。
+
+requestDistributor结构体表示一个请求分发者，distPeer结构体表示一个请求节点，distReq结构体表示一个请求，selectPeerItem结构体表示一个选择节点的结果。
+
+newRequestDistributor是一个创建请求分发者的函数，用于初始化一个请求分发者对象。registerPeer用于注册一个请求节点，unregisterPeer用于注销一个请求节点，registerTestPeer用于注册一个测试节点。loop是一个分发者的主循环，执行一系列的分发操作。selectPeerWeight根据权重选择一个节点，nextRequest为请求分发者选择下一个请求，queue用于将请求添加到分发者的队列，cancel用于取消一个已发送的请求，remove用于从分发者的队列中移除一个请求，close用于关闭请求分发者。
+
+以上这些函数和结构体的作用是为了实现分发者模块的各个功能，比如初始化分发者、注册、注销和选择节点、将请求添加到队列、取消和移除请求等。通过这些功能，distributor可以对LES协议的数据块请求进行处理和分发。
+

@@ -1,0 +1,12 @@
+# File: crypto/signify/signify.go
+
+在go-ethereum项目中，crypto/signify/signify.go文件的作用是为Go-Ethereum提供OpenBSD's Signify工具的功能，以便进行文件签名和验证。
+
+该文件中的errInvalidKeyHeader和errInvalidKeyLength变量用于定义错误信息并在解析私钥时进行验证。errInvalidKeyHeader表示私钥文件的文件头错误，errInvalidKeyLength表示私钥文件的长度错误。这些错误变量用于在验证私钥时检查错误情况。
+
+parsePrivateKey函数用于解析Signify工具生成的私钥文件。它接受一个文件路径作为输入，并返回私钥的字节表示形式。在函数内部，它读取私钥文件的内容，并根据特定格式解析其关键字段。
+
+SignFile函数用于对文件进行签名。它接受一个私钥字节表示形式、要签名的文件路径和要输出的签名文件路径作为输入。在函数内部，它使用私钥对文件进行签名，并将签名结果写入指定的签名文件中。
+
+这两个函数结合起来，可以实现使用私钥对文件进行签名和验证签名的功能。
+

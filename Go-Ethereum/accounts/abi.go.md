@@ -1,0 +1,10 @@
+# File: accounts/abi/abi.go
+
+在go-ethereum项目中，accounts/abi/abi.go文件的作用是定义了与以太坊智能合约交互的ABI（Application Binary Interface）编解码器。ABI是一种定义合约函数的参数类型和返回类型以及事件的编码规范，它能够帮助我们在使用以太坊智能合约时正确地进行参数的编码和解码。
+
+在abi.go文件中，revertSelector是一个常量字符串，在智能合约出现异常时，用于解析出合约函数的错误消息。
+
+ABI结构体用于存储智能合约的ABI信息，其中包括了合约的函数、事件和错误等。JSON、Pack、getArguments、Unpack、UnpackIntoInterface、UnpackIntoMap、UnmarshalJSON、MethodById、EventByID、ErrorByID、HasFallback、HasReceive、UnpackRevert等函数是ABI结构体的方法，分别用于解析编码合约函数和事件的参数、将参数打包成字节流、解码字节流为参数、解码字节流为接口、解码字节流为map、从JSON字符串解码为ABI结构体、通过函数ID和事件ID查找对应的函数和事件信息、通过错误ID查找对应的错误信息、判断合约是否有fallback函数和receive函数以及解析合约函数revert错误。
+
+通过abi.go文件中的这些方法，我们可以方便地进行智能合约的编解码操作，从而实现与以太坊智能合约的交互。
+

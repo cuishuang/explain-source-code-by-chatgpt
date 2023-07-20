@@ -1,0 +1,14 @@
+# File: les/flowcontrol/control.go
+
+在go-ethereum项目中，les/flowcontrol/control.go文件的作用是实现流量控制机制，用于控制服务器和客户端之间的数据传输速度，防止因数据传输过快导致服务器过载或者网络拥塞。
+
+ServerParams结构体用于存储服务器端的参数，包括可用流量、最大流量、最小流量等信息。scheduledUpdate是一个函数类型，表示要更新服务器参数的操作。
+
+ClientNode结构体表示客户端的节点，存储了节点的状态、连接信息、已发送和已接收数据的大小等信息。ServerNode结构体表示服务器端的节点，存储了节点的状态、连接信息等。
+
+NewClientNode是一个函数，用于创建一个新的客户端节点。Disconnect函数用于断开客户端和服务器的连接。BufferStatus函数用于获取客户端缓冲区的状态信息。OneTimeCost函数用于计算一次数据传输的代价。Freeze函数用于冻结节点，即停止发送数据。Update函数用于更新服务器参数。
+
+recalcBV函数用于重新计算节点的"BandwidthValue"。UpdateParams函数用于更新服务器参数。updateParams函数用于更新服务器参数。AcceptRequest函数用于接受客户端发来的请求。RequestProcessed函数表示一个请求已处理。NewServerNode函数用于创建一个新的服务器节点。
+
+recalcBLE函数用于重新计算节点的"BandwidthLimitExcess"。CanSend函数用于检查节点是否可以发送数据。QueuedRequest函数表示一个请求已排队等待处理。ReceivedReply函数表示已接收到一个回复。ResumeFreeze函数用于恢复节点的发送数据。DumpLogs函数用于记录日志信息。
+

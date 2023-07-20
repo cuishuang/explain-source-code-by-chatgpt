@@ -1,0 +1,16 @@
+# File: accounts/usbwallet/trezor/messages-ethereum.pb.go
+
+在go-ethereum项目中，accounts/usbwallet/trezor/messages-ethereum.pb.go文件是与Trezor硬件钱包交互的消息定义文件。该文件定义了与Trezor钱包通信所需的数据结构和函数。
+
+在文件中，每个以"xxx_messageInfo_"开头的变量是用于消息的元信息，包括消息的名称、字段结构和大小。这些元信息在运行时处理和序列化消息时使用。
+
+每个以"Ethereum"开头的结构体定义了一个具体的消息类型，用于与Trezor钱包进行通信。其中，EthereumGetPublicKey消息用于请求获取公钥，EthereumPublicKey消息用于存储公钥，EthereumGetAddress消息用于请求获取地址，EthereumAddress消息用于存储地址，EthereumSignTx消息用于请求签名交易，EthereumTxRequest消息用于交易请求信息，EthereumTxAck消息用于传输已签名的交易，EthereumSignMessage消息用于请求签名消息，EthereumMessageSignature消息用于存储签名消息的签名结果，EthereumVerifyMessage消息用于验证消息的签名。
+
+Reset函数用于重置一个消息结构的字段值。String函数用于获取消息结构的字符串表示。ProtoMessage接口定义了消息结构体必须实现的方法，包括序列化和反序列化。Descriptor函数返回消息结构体的描述信息。XXX_Unmarshal、XXX_Marshal、XXX_Merge、XXX_Size、XXX_DiscardUnknown等函数是与消息的序列化和反序列化相关的方法。
+
+GetAddressN、GetShowDisplay、GetNode、GetXpub、GetAddressBin、GetAddressHex、GetNonce、GetGasPrice、GetGasLimit、GetToBin、GetToHex、GetValue、GetDataInitialChunk、GetDataLength、GetChainId、GetTxType、GetSignatureV、GetSignatureR、GetSignatureS、GetDataChunk、GetMessage、GetSignature等函数是获取消息中具体字段的方法。
+
+init函数是在包被导入时自动执行的初始化函数，一般用于初始化相关的数据或运行时的配置。
+
+总之，accounts/usbwallet/trezor/messages-ethereum.pb.go文件定义了与Trezor硬件钱包通信所需的消息结构体和相关方法，实现了请求获取公钥、地址、签名交易和消息等操作。
+

@@ -1,0 +1,12 @@
+# File: crypto/secp256k1/scalar_mult_cgo.go
+
+在go-ethereum项目中，crypto/secp256k1/scalar_mult_cgo.go文件是用于实现椭圆曲线加密算法中的标量乘法（Scalar Multiplication）操作的。这些操作是针对secp256k1椭圆曲线上的点进行的。
+
+该文件中的函数ScalarMult函数用于将一个点与一个标量相乘，返回相乘结果得到的新的点。具体来说，该函数有两个参数：point和scalar。point是一个椭圆曲线上的点，而scalar是一个标量（即一个整数）。函数通过对point进行多次循环进行加法操作，实现了将point与标量scalar相乘的功能。
+
+ScalarBaseMult函数用于将一个预定义的基点与一个标量相乘，返回相乘结果得到的新的点。这个函数类似于ScalarMult函数，但它使用的是椭圆曲线中的一个预定义的基点，而不是自定义的点。
+
+在加密和密码学中，标量乘法是椭圆曲线上的一种基本操作，用于生成公钥、进行加密和签名验证等。它是基于离散对数难题的数学原理，能够生成与密钥相关的点，提供了一种安全的加密和签名机制。
+
+总之，crypto/secp256k1/scalar_mult_cgo.go文件中的ScalarMult和ScalarBaseMult函数提供了椭圆曲线加密算法中标量乘法的实现，用于生成公钥和进行加密、签名验证等操作。这些函数是实现加密和密码学功能的核心部分。
+

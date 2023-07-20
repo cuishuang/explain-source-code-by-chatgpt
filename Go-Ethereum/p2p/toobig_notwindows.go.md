@@ -1,0 +1,18 @@
+# File: p2p/netutil/toobig_notwindows.go
+
+在go-ethereum项目中，p2p/netutil/toobig_notwindows.go文件的作用是实现了一些函数来判断网络消息是否过大。
+
+该文件的核心是isPacketTooBig函数，它用于检查网络消息是否超过了操作系统的限制大小。isPacketTooBig函数调用了一系列辅助函数来判断消息的大小。
+
+详细来说，isPacketTooBig函数首先获取操作系统对消息大小的限制值，然后根据消息的类型检查其大小是否超过该限制。根据不同的消息类型，isPacketTooBig函数调用了以下几个辅助函数：
+
+1. isPacketTooBigIPv4：用于检查IPv4消息的大小是否超过限制。
+2. isPacketTooBigIPv6：用于检查IPv6消息的大小是否超过限制。
+3. isPacketTooBigLocal：用于检查本地消息的大小是否超过限制。
+
+这些辅助函数根据操作系统的不同，调用了不同的系统函数来获取消息的最大限制大小。例如，在Linux系统下，它们可能会调用syscall包中的GetsockoptInt函数来获取SO_{RCV,TX}BUF选项的大小。
+
+通过这些辅助函数的协同工作，isPacketTooBig函数可以准确地判断出网络消息是否过大。
+
+总结起来，p2p/netutil/toobig_notwindows.go文件的作用是在go-ethereum项目中实现了一些函数，用于判断网络消息是否过大。这些函数包括isPacketTooBig和它的辅助函数，通过检查消息的大小和操作系统的限制来确定消息是否过大。
+

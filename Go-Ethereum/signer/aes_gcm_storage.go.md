@@ -1,0 +1,12 @@
+# File: signer/storage/aes_gcm_storage.go
+
+在go-ethereum项目中，signer/storage/aes_gcm_storage.go文件的作用是提供加密的存储机制，用于存储账户的凭证信息，包括私钥、公钥和其他相关的加密数据。
+
+storedCredential结构体是用于表示一个存储的凭证信息，包括加密后的私钥和其他相关数据。AESEncryptedStorage结构体是一个实现了存储接口的加密存储类，它使用AES-GCM模式进行加密和解密。
+
+NewAESEncryptedStorage函数用于创建一个新的AESEncryptedStorage对象，需要提供存储的目录和加密密钥。Put函数可以用来将一个凭证信息存储在AESEncryptedStorage中，它接收一个地址和凭证信息作为参数，将凭证信息加密后存储在指定的地址。Get函数用于从AESEncryptedStorage中获取指定地址的凭证信息，它返回一个storedCredential对象。Del函数则可以删除指定地址的凭证信息。
+
+readEncryptedStorage和writeEncryptedStorage函数是用来读取和写入AESEncryptedStorage数据文件的辅助函数。encrypt和decrypt函数分别用于加密和解密数据，它们基于AES-GCM模式进行加密和解密操作。
+
+总体而言，这些函数和结构体的组合提供了一个加密的存储机制，可以安全地存储和获取账户的凭证信息。
+

@@ -1,0 +1,14 @@
+# File: metrics/registry.go
+
+在go-ethereum项目中，metrics/registry.go文件的作用是提供一个注册表，用于管理和跟踪指标数据。
+
+DefaultRegistry是默认的注册表，用于存储和访问全局的指标数据。EphemeralRegistry是临时注册表，用于存储不需要持久化的指标数据。AccountingRegistry是一个会计注册表，用于记录指标的增量变化。
+
+DuplicateMetric是一个错误类型，表示注册了重复的指标。Registry是一个接口，定义了注册表的基本操作，例如注册、注销、获取指标等。StandardRegistry是一个实现了Registry接口的标准注册表。
+
+Stoppable是一个接口，定义了可停止的注册表操作。PrefixedRegistry是一个前缀注册表，用于存储在指定前缀下的指标数据。
+
+Error是一个错误类型，用于表示注册表操作的错误。NewRegistry是用于创建新的注册表实例的函数。Each函数用于迭代注册表中的指标。Get函数用于获取指定名称的指标。GetOrRegister函数用于获取或注册指定名称的指标。Register函数用于注册新的指标。RunHealthchecks函数用于运行注册表中的健康检查。GetAll函数用于获取注册表中所有的指标。Unregister函数用于注销指定名称的指标。loadOrRegister函数用于加载或注册指定名称的指标。registered函数用于检查指定名称的指标是否已注册。stop函数用于停止注册表的操作。
+
+NewPrefixedRegistry函数用于创建一个新的前缀注册表实例。NewPrefixedChildRegistry函数用于创建一个新的子前缀注册表实例。findPrefix函数用于查找指定前缀的注册表。MustRegister函数用于注册新的指标，如果注册失败则会引发错误。
+

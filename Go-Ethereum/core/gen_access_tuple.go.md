@@ -1,0 +1,16 @@
+# File: core/types/gen_access_tuple.go
+
+在go-ethereum项目中，core/types/gen_access_tuple.go文件的作用是生成通用的访问元组类型。这个文件定义了AccessTuple结构体和一些相关方法。
+
+AccessTuple是一个通用的访问元组类型，用于表示具有权限的账户地址、合约地址和权限级别的组合。它由以下字段组成：
+
+- Address：账户或合约地址
+- CodeAddress：智能合约的合约地址
+- Hash：访问权限级别哈希
+
+MarshalJSON是一个方法，用于将AccessTuple对象序列化为JSON格式。它通过将AccessTuple中的字段转换为对应的JSON字段来实现序列化。
+
+UnmarshalJSON是一个方法，用于将JSON格式的数据反序列化为AccessTuple对象。它通过解析JSON字段并将其映射到AccessTuple中的字段来实现反序列化。
+
+这两个方法的作用是将AccessTuple对象与JSON数据进行互转。MarshalJSON用于将AccessTuple对象转换为JSON数据，而UnmarshalJSON则用于将JSON数据转换为AccessTuple对象。这在网络通信和持久化存储中经常用到，可以方便地将AccessTuple对象以JSON格式进行传输和保存。
+

@@ -1,0 +1,29 @@
+# File: core/state/snapshot/metrics.go
+
+在go-ethereum项目中，core/state/snapshot/metrics.go文件主要用于记录和跟踪快照的度量指标。
+
+该文件中的snapGeneratedAccountMeter、snapRecoveredAccountMeter、snapWipedAccountMeter、snapMissallAccountMeter、snapGeneratedStorageMeter、snapRecoveredStorageMeter、snapWipedStorageMeter、snapMissallStorageMeter、snapDanglingStorageMeter、snapSuccessfulRangeProofMeter、snapFailedRangeProofMeter、snapAccountProveCounter、snapAccountTrieReadCounter、snapAccountSnapReadCounter、snapAccountWriteCounter、snapStorageProveCounter、snapStorageTrieReadCounter、snapStorageSnapReadCounter、snapStorageWriteCounter和snapStorageCleanCounter这些变量分别用于记录以下内容的度量指标：
+
+- snapGeneratedAccountMeter：已生成的帐户快照总数。
+- snapRecoveredAccountMeter：已恢复的帐户快照总数。
+- snapWipedAccountMeter：已擦除的帐户快照总数。
+- snapMissallAccountMeter：未找到的帐户快照总数。
+- snapGeneratedStorageMeter：已生成的存储快照总数。
+- snapRecoveredStorageMeter：已恢复的存储快照总数。
+- snapWipedStorageMeter：已擦除的存储快照总数。
+- snapMissallStorageMeter：未找到的存储快照总数。
+- snapDanglingStorageMeter：悬挂的存储快照总数。
+- snapSuccessfulRangeProofMeter：成功的范围证明总数。
+- snapFailedRangeProofMeter：失败的范围证明总数。
+- snapAccountProveCounter：帐户快照的证明总数。
+- snapAccountTrieReadCounter：帐户Trie读取操作的计数器。
+- snapAccountSnapReadCounter：帐户快照读取操作的计数器。
+- snapAccountWriteCounter：帐户写入操作的计数器。
+- snapStorageProveCounter：存储快照的证明总数。
+- snapStorageTrieReadCounter：存储Trie读取操作的计数器。
+- snapStorageSnapReadCounter：存储快照读取操作的计数器。
+- snapStorageWriteCounter：存储写入操作的计数器。
+- snapStorageCleanCounter：存储清除操作的计数器。
+
+通过这些度量指标，可以对快照的生成、恢复、擦除和读取等操作进行监控和统计，从而更好地了解和优化项目的性能和资源使用情况。
+

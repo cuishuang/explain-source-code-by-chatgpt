@@ -1,0 +1,10 @@
+# File: node/api.go
+
+在go-ethereum项目中，node/api.go文件的作用是定义了Geth节点的API接口。
+
+adminAPI结构体是用于管理节点的API接口，提供了一系列与节点管理相关的方法。其中，AddPeer方法用于添加节点的网络连接；RemovePeer方法用于移除节点的网络连接；AddTrustedPeer方法用于添加受信任的节点；RemoveTrustedPeer方法用于移除受信任的节点；PeerEvents方法用于订阅节点之间的事件。
+
+web3API结构体是用于与以太坊网络交互的API接口，提供了一系列与以太坊交互相关的方法。其中，StartHTTP方法用于启动HTTP服务器，以供外部应用程序访问以太坊节点；StartRPC方法用于启动RPC服务器，以供外部应用程序通过 RPC 接口访问以太坊节点；StopHTTP方法用于停止HTTP服务器；StopRPC方法用于停止RPC服务器；StartWS方法用于启动WebSocket服务器；StopWS方法用于停止WebSocket服务器；Peers方法用于获取节点的连接信息；NodeInfo方法用于获取节点的基本信息；Datadir方法用于获取节点的数据目录；ClientVersion方法用于获取节点软件的版本号；Sha3方法用于计算给定数据的SHA3哈希值。
+
+这些方法提供了Geth节点的一系列管理和交互功能，可以通过它们与以太坊网络进行通信、管理和监控节点的状态。
+

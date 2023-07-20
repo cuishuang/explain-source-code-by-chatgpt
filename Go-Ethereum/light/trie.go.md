@@ -1,0 +1,36 @@
+# File: light/trie.go
+
+在go-ethereum项目中，light/trie.go文件的作用是实现一个轻量级的Merkle Patricia Trie（简称trie）数据结构，用于存储以太坊账户和状态数据。
+
+sha3Nil是一个全局的256位零值哈希常量，用于表示空哈希。
+odrDatabase是一个接口，定义了一组对数据库的操作方法，如获取数据、存储数据等。
+odrTrie是一个trie数据结构的包装器，提供了对trie的操作方法，如存储键值对、获取键值对等。
+nodeIterator是一个迭代器，用于遍历trie中的节点。
+
+NewState函数用于创建一个新的trie状态对象。
+NewStateDatabase函数用于创建一个trie状态的内存数据库。
+OpenTrie函数用于打开一个持久化的trie。
+OpenStorageTrie函数用于打开一个持久化的存储trie。
+CopyTrie函数用于复制一个trie。
+ContractCode函数用于返回合约的代码。
+ContractCodeSize函数用于返回合约代码的大小。
+TrieDB是一个trie与数据库之间的桥接器。
+DiskDB是一个实现odrDatabase接口的磁盘数据库。
+GetStorage函数用于获取账户的存储数据。
+GetAccount函数用于获取账户信息。
+UpdateAccount函数用于更新账户信息。
+UpdateContractCode函数用于更新合约代码。
+UpdateStorage函数用于更新账户的存储数据。
+DeleteStorage函数用于删除账户的存储数据。
+DeleteAccount函数用于删除账户。
+Commit函数用于提交对trie的更改。
+Hash函数用于计算trie的哈希值。
+NodeIterator函数用于创建一个新的节点迭代器。
+GetKey函数用于获取迭代器指向的节点的键。
+Prove函数用于生成一个由键到值的路径证明。
+do函数用于将节点处理为字节数组。
+newNodeIterator函数用于创建一个新的节点迭代器。
+Next函数用于将迭代器移动到下一个节点。
+Error函数用于获取迭代器的错误信息。
+nibblesToKey函数用于将字节切片表示的键转换为字符串表示。
+

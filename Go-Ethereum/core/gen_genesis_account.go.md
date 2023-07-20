@@ -1,0 +1,14 @@
+# File: core/gen_genesis_account.go
+
+在go-ethereum项目中，core/gen_genesis_account.go文件的作用是用于生成创世区块中的帐户账号。
+
+在区块链系统中，创世区块是区块链的第一个区块，也是区块链的起始点。创世区块包含了初始的帐户账号及其余额等信息。gen_genesis_account.go文件主要用于生成创世区块中的帐户账号。
+
+文件中的_变量是用于占位的匿名变量，它的作用是忽略并丢弃不需要的值，用于提高代码的可读性。
+
+MarshalJSON函数是将对象序列化为JSON格式的函数。在这个文件中，MarshalJSON函数用于将帐户账号序列化为JSON字符串的形式。
+
+UnmarshalJSON函数是将JSON格式反序列化为对象的函数。在这个文件中，UnmarshalJSON函数用于将JSON字符串反序列化为帐户账号的结构。
+
+总的来说，core/gen_genesis_account.go文件的作用是生成创世区块中的帐户账号，并提供了将帐户账号序列化为JSON字符串和从JSON字符串反序列化为帐户账号的功能。
+

@@ -1,0 +1,21 @@
+# File: p2p/discover/v5wire/crypto.go
+
+在go-ethereum项目中，p2p/discover/v5wire/crypto.go文件的作用是提供了一些与加密和解密相关的功能，用于在节点之间建立安全的通信。
+
+Nonce结构体用于表示一个随机数，用于加密和解密中的相关操作。
+s256raw结构体表示一个256位的原始可溯源消息，用于哈希计算。
+hashFn结构体用于表示哈希函数，用于对数据进行哈希计算。
+
+EncodePubkey函数用于将公钥编码为字节切片。
+DecodePubkey函数将字节切片解码为公钥。
+idNonceHash函数用于对ID和Nonce进行哈希计算。
+makeIDSignature函数用于使用私钥对消息进行签名。
+ENRKey函数用于生成使用密钥对加密的随机值。
+verifyIDSignature函数用于验证使用私钥对消息签名的合法性。
+deriveKeys函数用于派生出一对加密和解密密钥。
+ecdh函数用于基于椭圆曲线密钥交换算法计算共享密钥。
+encryptGCM函数用于使用加密密钥对数据进行GCM模式的加密。
+decryptGCM函数用于使用解密密钥对数据进行GCM模式的解密。
+
+这些函数和结构体的目的是通过各种加密算法和哈希函数，提供节点之间的通信安全性和机密性。
+

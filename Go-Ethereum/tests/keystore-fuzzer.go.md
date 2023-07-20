@@ -1,0 +1,14 @@
+# File: tests/fuzzers/keystore/keystore-fuzzer.go
+
+在go-ethereum项目中，tests/fuzzers/keystore/keystore-fuzzer.go文件的作用是实现了一个针对keystore（密钥存储）模块的模糊测试工具。该工具可以通过产生随机的输入数据来模拟各种情况下的运行，并使用这些输入数据来测试和发现潜在的安全漏洞、错误或异常行为。
+
+该文件中实现了几个Fuzz前缀的函数，它们的作用如下：
+
+1. FuzzDecrypter：该函数对Decrypter接口进行模糊测试。它首先使用随机生成的数据创建Decrypter对象，然后根据随机生成的数据调用Decrypt方法，并验证返回的解密结果和错误是否符合预期。
+
+2. FuzzEciesEncrypter：该函数对EciesEncrypter接口进行模糊测试。它使用随机生成的数据创建EciesEncrypter对象，并使用随机生成的数据调用Encrypt方法，并验证返回的加密结果和错误是否符合预期。
+
+3. FuzzKeystore：该函数对Keystore进行模糊测试。它根据随机生成的数据创建Keystore对象，并调用Keystore方法执行一系列操作，包括创建、删除和导入密钥等。它还会验证返回的结果和错误是否符合预期。
+
+这些模糊测试函数可以通过不断生成随机的输入数据，使得测试覆盖到尽可能多的情况，以发现潜在的错误或安全漏洞。通过这样的测试可以提高代码的健壮性和可靠性，确保keystore模块的正常运行。
+

@@ -1,0 +1,26 @@
+# File: core/bloom_indexer.go
+
+在go-ethereum项目中，core/bloom_indexer.go文件包含了BloomIndexer的实现，它是一个用于索引区块链中事件日志Bloom过滤器的结构体。
+
+BloomIndexer是一个用于处理和索引区块链事件日志的结构体，它实现了BlockProcessor接口。它的主要作用是构建和维护Bloom过滤器索引，以便支持快速的事件日志查询。
+
+下面是BloomIndexer中的几个主要结构体及其功能：
+
+1. BloomIndexer：BloomIndexer是核心结构体，它包含了Bloom过滤器索引所需的所有状态和操作。
+
+2. bloomIndex：bloomIndex是一个内部辅助结构体，它表示Bloom过滤器索引的状态。它包含一个CPU友好的位图和一个最后更新区块号的字段。
+
+以下是BloomIndexer中的主要函数及其功能：
+
+1. NewBloomIndexer：NewBloomIndexer函数用于创建一个新的BloomIndexer实例。它接受一个块计数器实例作为参数，并使用它来计算bloomIndex的初始大小。
+
+2. Reset：Reset函数用于重置BloomIndexer的状态。它会清空bloomIndex中的位图，并将最后更新区块号设置为0。
+
+3. Process：Process函数用于处理一个新的块。它接受一个块对象作为参数，并更新bloomIndex中的位图。它会遍历块中的所有日志条目，并根据日志的Bloom过滤器更新位图。
+
+4. Commit：Commit函数用于将BloomIndexer的状态持久化到数据库中。它会将位图写入数据库，并将最后更新区块号存储在数据库中。
+
+5. Prune：Prune函数用于根据指定的块号清除过时的位图。它会检查数据库中存储的最后更新区块号，并清除比该区块号旧的位图。
+
+通过这些函数，BloomIndexer能够对事件日志进行索引并提供快速的查询支持。它能够在处理新块时更新索引，并在需要时清除过时的位图。这样一来，用户就可以使用BloomIndexer来高效地查询区块链中的事件日志。
+

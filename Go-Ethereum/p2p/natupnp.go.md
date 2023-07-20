@@ -1,0 +1,12 @@
+# File: p2p/nat/natupnp.go
+
+在go-ethereum项目中，p2p/nat/natupnp.go文件的作用是实现针对UPnP（Universal Plug and Play）协议的网络地址转换（NAT）的功能。UPnP是一种网络协议，允许设备动态地添加、删除和映射网络地址，用于实现设备之间的通信。
+
+upnp和upnpClient是这个文件中定义的两个结构体。upnp结构体用于表示UPnP服务的实例，其中保存了一个标准库"net/http"的HTTP客户端。upnpClient结构体继承了upnp结构体，并扩展了一些方法和字段。
+
+natEnabled是一个布尔值，表示是否启用了NAT（网络地址转换）功能。ExternalIP是一个表示UPnP设备的外部IP地址的字符串。AddMapping方法用于添加端口映射规则，接受本地端口、外部端口和映射的持续时间作为输入参数。internalAddress是内部网络地址的字符串表示。DeleteMapping方法用于删除指定的端口映射规则，接受本地端口和外部端口作为输入参数。String方法用于返回UPnP设备信息的字符串表示。withRateLimit方法用于设置请求速率限制。
+
+discoverUPnP函数用于通过SSDP（Simple Service Discovery Protocol）协议发现局域网中的UPnP设备，并返回discovery操作的结果。discover函数是discoverUPnP函数的包装器，负责处理返回的结果，最终获取到目标UPnP设备的IP地址。
+
+总体来说，p2p/nat/natupnp.go文件中的这些函数和结构体，提供了一种使用UPnP协议自动进行端口映射的能力，以便在P2P网络中正确地建立节点间的连接。
+

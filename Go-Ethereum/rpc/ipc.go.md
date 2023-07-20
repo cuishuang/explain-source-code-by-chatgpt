@@ -1,0 +1,16 @@
+# File: rpc/ipc.go
+
+rpc/ipc.go文件是go-ethereum项目中与IPC（Inter-Process Communication）相关的代码文件。IPC是一种用于在同一台机器上运行的进程之间进行通信的机制。以太坊使用IPC机制允许客户端与以太坊节点进行通信。
+
+该文件实现了与IPC相关的功能，包括IPC服务器的运行和IPC客户端的连接。
+
+下面是对ServeListener、DialIPC和newClientTransportIPC这几个函数的详细介绍：
+
+1. ServeListener：该函数用于在给定的IPC监听地址上启动IPC服务器。它接收一个监听地址和一个处理请求的函数作为参数。该函数将通过监听指定地址等待来自客户端的连接请求，并在连接建立后调用传入的处理函数来处理请求。
+
+2. DialIPC：该函数用于与指定的IPC地址建立IPC连接，并返回一个连接对象。它接收一个IPC地址作为参数，并使用指定的地址建立IPC连接。返回的连接对象可以用于后续的IPC通信。
+
+3. newClientTransportIPC：该函数创建一个新的IPC连接传输对象。它接收一个IPC地址作为参数，并返回一个用于IPC通信的传输对象。该传输对象可用于发送和接收IPC请求。
+
+这几个函数结合起来实现了Go Ethereum项目中与IPC相关的功能，包括IPC服务器的启动、IPC客户端的连接和IPC请求的发送与接收。通过IPC机制，Go Ethereum客户端和节点之间可以进行有效的通信，实现数据交换和操作执行。
+

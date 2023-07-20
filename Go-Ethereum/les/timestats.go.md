@@ -1,0 +1,26 @@
+# File: les/vflux/client/timestats.go
+
+在Go-Ethereum项目中，les/vflux/client/timestats.go文件的作用是实现了用于测量客户端与服务端之间的时间统计信息的功能。
+
+timeStatsLogFactor变量用于定义时间统计日志的放大因子。它可用于调整日志中记录的统计信息的精度。
+
+ResponseTimeStats结构体用于存储每个时间统计的响应时间信息。它包含了最短响应时间、最长响应时间、响应时间分布等统计数据。
+
+RtDistribution结构体用于存储响应时间分布的统计信息。它使用一个数组表示不同范围内响应时间的统计数据。
+
+TimeToStatScale函数将给定的时间值（以纳秒为单位）转换为用于统计的值。
+
+StatScaleToTime函数将给定的统计值转换回时间值（以纳秒为单位）。
+
+TimeoutWeights函数根据给定的一组超时重复次数计算超时权重。
+
+EncodeRLP和DecodeRLP函数分别用于将响应时间分布表示为RLP（Recursive Length Prefix）形式的字节数组以及将RLP字节数组解码为响应时间分布。
+
+Add、SetExp和Value函数用于操作和获取ResponseTimeStats结构体中的最大响应时间和响应时间分布的统计数据。
+
+AddStats、SubStats函数用于计算两个ResponseTimeStats结构体中的统计数据之和和差。
+
+Timeout函数用于检查给定的超时时间是否超过了阈值。
+
+Distribution函数用于根据给定的时间统计信息计算响应时间分布的统计数据。
+

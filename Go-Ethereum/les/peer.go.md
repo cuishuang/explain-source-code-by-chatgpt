@@ -1,0 +1,26 @@
+# File: les/peer.go
+
+在go-ethereum项目中，les/peer.go文件是实现以太坊轻节点对等网络通信协议的核心文件。它定义了与轻节点通信相关的数据类型、结构体和函数。
+
+errClosed、errAlreadyRegistered和errNotRegistered是错误变量。它们分别表示连接已关闭、已经注册和尚未注册的错误状态。
+
+keyValueEntry是用于表示键值对的数据结构。keyValueList表示键值对的列表，keyValueMap表示键值对的映射。
+
+peerCommons是一个包含共享的轻节点对等通信功能的结构体。
+
+PeerInfo是描述轻节点对等信息的结构体。
+
+serverPeer表示作为服务端的轻节点对等方。
+
+sentReqEntry是表示已发送请求的条目。
+
+clientPeer表示作为客户端的轻节点对等方。
+
+reply是表示收到响应的结构体。
+
+serverPeerSubscriber表示连接到服务端的轻节点的订阅者。
+
+serverPeerSet、clientPeerSet和serverSet是存储轻节点对等方的集合。
+
+add、decode、get、isFrozen、canQueue、queueSend、String、Info、Head、Td、HeadAndTd、sendReceiveHandshake、handshake、close、newServerPeer、rejectUpdate、freeze、unfreeze、sendRequest、requestHeadersByHash、requestHeadersByNumber、requestBodies、requestCode、requestReceipts、requestProofs、requestHelperTrieProofs、requestTxStatus、sendTxs、waitBefore、getRequestCost、getTxRelayCost、HasBlock、updateFlowControl、updateHead、Handshake、setValueTracker、updateVtParams、sentRequest、answeredRequest、newClientPeer、FreeClientId、sendStop、sendResume、send、size、replyBlockHeaders、replyBlockBodiesRLP、replyCode、replyReceiptsRLP、replyProofsV2、replyHelperTrieProofs、replyTxStatus、sendAnnounce、InactiveAllowance、getCapacity、UpdateCapacity、announceOrStore、sendLastAnnounce、bumpInvalid、getInvalid、Disconnect、newServerPeerSet、subscribe、register、unregister、ids、peer、len、allPeers、newClientPeerSet、setSignerKey、broadcast、newServerSet等函数分别实现了与轻节点通信相关的功能，包括发送请求、处理响应、更新节点状态等。每个函数的具体功能请查看源代码注释或详细代码逻辑。
+

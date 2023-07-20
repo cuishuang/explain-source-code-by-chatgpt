@@ -1,0 +1,14 @@
+# File: rpc/inproc.go
+
+rpc/inproc.go文件是以太坊Go实现项目中的一个文件，它是用于处理与内部进程之间进行本地操作的RPC功能。在以太坊中，不同模块（例如eth，miner等）可以通过RPC进行通信和交互。
+
+详细介绍rpc/inproc.go文件的功能如下：
+1. 定义了InProcServer和InProcClient这两个结构体，用于处理RPC服务器和客户端的连接和通信。
+2. 提供了启动和停止InProcServer的方法，并处理通过本地套接字进行通信的连接。
+3. 实现了一些InProcServer和InProcClient的方法，用于处理RPC调用和响应的序列化、反序列化、发送和接收。
+4. 定义了一些常量和全局变量，用于存储和管理InProcServer和InProcClient的信息。
+
+DialInProc函数是InProcClient结构体中定义的方法，其作用是与正在运行的InProcServer建立连接。它接受一个本地套接字地址作为参数，创建一个与InProcServer通信的连接，并返回一个新的InProcClient实例。通过这个连接，客户端可以向服务器发送RPC请求并接收响应。
+
+总结来说，rpc/inproc.go文件的作用是处理与内部进程之间进行本地操作的RPC功能，并提供了InProcServer和InProcClient这两个结构体，以及相关方法来管理和进行与InProcServer的通信。DialInProc函数是其中的一种方法，用于在客户端与服务器之间建立连接。
+

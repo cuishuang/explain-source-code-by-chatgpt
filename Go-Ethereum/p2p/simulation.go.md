@@ -1,0 +1,10 @@
+# File: p2p/simulations/simulation.go
+
+在go-ethereum项目中，p2p/simulations/simulation.go文件是用于模拟网络行为和交互的文件。
+
+Simulation结构体代表一个网络模拟实例，它包含了所有参与者和他们之间的连接。Step结构体定义了网络模拟中的一步操作，例如发送消息或执行某个动作。Expectation结构体表示预期的一步操作，它用于检查模拟是否按照预期执行。StepResult结构体用于记录每次模拟执行的结果。
+
+NewSimulation函数用于创建一个新的网络模拟实例，它接收参与者和连接作为参数，并返回一个Simulation结构体。Run函数用于运行网络模拟，它接收一个或多个Step结构体作为参数，并按顺序执行这些步骤。watchNetwork函数用于监听网络事件，例如消息的发送和接收。newStepResult函数用于创建一个新的StepResult结构体，用于记录每次模拟的结果。
+
+总体而言，这些结构体和函数提供了一种在go-ethereum项目中进行网络模拟和测试的机制，可以模拟出实际网络环境中的交互和行为。
+

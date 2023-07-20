@@ -1,0 +1,12 @@
+# File: p2p/enr/enr.go
+
+p2p/enr/enr.go文件是go-ethereum项目中用于实现Ethereum Node Record (ENR)的文件。ENR是在以太坊网络中，用于标识和描述节点的一种标准化格式。
+
+ErrInvalidSig是一个错误变量，表示签名无效；errNotSorted是一个错误变量，表示ENR中键值对没有按照字典顺序排序；errDuplicateKey是一个错误变量，表示ENR中存在重复的键；errIncompletePair是一个错误变量，表示ENR中的键值对不完整；errIncompleteList是一个错误变量，表示ENR中的列表不完整；errTooBig是一个错误变量，表示ENR的大小超过了限制；errEncodeUnsigned是一个错误变量，表示试图编码未签名的ENR；errNotFound是一个错误变量，表示在ENR中找不到指定键。
+
+IdentityScheme是一个枚举类型，表示ENR的身份验证方案；SchemeMap是一个映射表，用于将ENR的身份验证方案映射到字符串；Record是一个结构体，表示ENR的内容，包括签名、身份验证方案、序列号和键值对列表；pair是一个结构体，表示ENR中的键值对。
+
+Verify是一个方法，用于验证ENR的签名；NodeAddr是一个方法，返回ENR中指定键对应的节点地址；Size是一个方法，返回ENR的大小；computeSize是一个方法，用于计算ENR的大小；Seq是一个方法，返回ENR的序列号；SetSeq是一个方法，设置ENR的序列号；Load是一个方法，从给定的字节切片加载ENR；Set是一个方法，用给定的键和值设置ENR中的键值对；invalidate是一个方法，使ENR的签名无效；Signature是一个方法，返回ENR的签名；EncodeRLP和DecodeRLP分别是两个方法，用于将ENR编码为RLP（Recursive Length Prefix）格式或从RLP格式解码；decodeRecord是一个方法，用于解码ENR的记录部分；IdentityScheme是一个方法，返回ENR的身份验证方案；VerifySignature是一个方法，验证给定签名是否与ENR匹配；SetSig是一个方法，设置ENR的签名；AppendElements是一个方法，向ENR的记录部分追加元素；encode是一个方法，将ENR编码为字节切片。
+
+这些变量和方法主要用于ENR的创建、解析、验证和操作，包括序列化和反序列化。
+

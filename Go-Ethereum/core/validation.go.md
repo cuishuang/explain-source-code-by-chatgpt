@@ -1,0 +1,14 @@
+# File: core/txpool/validation.go
+
+在go-ethereum项目中，core/txpool/validation.go文件的主要作用是处理交易池中的交易验证。该文件中包含了一些结构体和函数，用于定义和执行交易验证的逻辑。
+
+1. ValidationOptions结构体：该结构体定义了交易验证的选项，例如是否启用签名验证、是否启用Nonce验证、是否检查Gas上限等。
+
+2. ValidationOptionsWithState结构体：该结构体继承了ValidationOptions，并添加了一个State字段，用于存储区块链的状态。
+
+3. ValidateTransaction函数：该函数用于验证一个未签名的交易，并返回验证结果。它接受一个交易和ValidationOptions作为参数，在验证过程中根据选项的设定进行相应的验证操作，如检查交易的Nonce是否正确、检查交易的Gas上限是否合理等。
+
+4. ValidateTransactionWithState函数：该函数功能与ValidateTransaction函数相似，但它接受一个已签名的交易和ValidationOptionsWithState作为参数。在验证过程中，除了执行ValidateTransaction函数的验证逻辑外，还会通过State字段获取区块链的状态，以进行更加全面的验证。
+
+这些函数和结构体的作用是确保交易池中的交易是有效的和合法的，以防止恶意交易对网络的影响和损害。它们使用了选项来控制验证策略，并与区块链的状态进行交互，以确保交易的正确性和安全性。
+

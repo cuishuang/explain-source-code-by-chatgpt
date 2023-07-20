@@ -1,0 +1,20 @@
+# File: trie/trie_id.go
+
+在go-ethereum项目中，trie/trie_id.go文件的作用是定义了一些用于标识和操作Merkle Patricia Trie（又称为状态字典树）的ID结构体和相关函数。
+
+1. StateTrieID结构体表示状态字典树的标识，它包含了一个唯一的ID和一个布尔值isDirty，用于标识该状态字典树是否已经被修改。
+
+2. StorageTrieID结构体表示存储字典树的标识，它同样包含了一个唯一的ID和一个布尔值isDirty，用于标识该存储字典树是否已经被修改。
+
+3. TrieID结构体用于标识一个整体的字典树。它包含了状态字典树和存储字典树的标识。
+
+StateTrieID和StorageTrieID结构体的作用是在字典树被修改时，帮助记录和标识字典树的状态，从而提高字典树的效率。通过检查isDirty属性，可以判断字典树是否已被修改，从而可以选择是否对其进行持久化存储。
+
+StateTrieID函数用于创建一个新的状态字典树标识，并初始化isDirty属性。
+
+StorageTrieID函数用于创建一个新的存储字典树标识，并初始化isDirty属性。
+
+TrieID函数用于创建一个新的字典树标识，它包含一个状态字典树标识和一个存储字典树标识。该函数用于整合状态字典树和存储字典树的标识，方便同时操作两个字典树。
+
+总之，trie/trie_id.go文件中定义的ID结构体和相关函数用于标识和操作Merkle Patricia Trie的状态字典树和存储字典树，提供了记录字典树状态和判断是否需要持久化的功能。
+

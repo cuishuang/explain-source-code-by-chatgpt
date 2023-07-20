@@ -1,0 +1,21 @@
+# File: metrics/graphite.go
+
+在go-ethereum项目中，metrics/graphite.go文件的作用是将以太坊节点的性能指标（metrics）发送到Graphite服务，以便进行监控和分析。
+
+GraphiteConfig定义了与Graphite服务相关的配置信息。它包含以下结构体：
+
+- GraphiteConfig：包含Graphite服务器的地址和端口。
+- GraphitePaths：包含不同指标的Graphite路径，用于对不同指标进行分类。
+- GraphiteTags：包含Graphite指标的标签信息，可以用于分组和过滤指标。
+- GraphiteTiming：定义指标发送的时间间隔和超时时间。
+
+Graphite函数主要用于创建一个Graphite对象，用于发送性能指标到Graphite服务器。它接受一个GraphiteConfig对象作为参数，并返回一个Graphite对象。
+
+GraphiteWithConfig函数是一个便捷函数，用于创建一个Graphite对象，并将其配置为使用给定的GraphiteConfig。
+
+GraphiteOnce函数用于向Graphite服务器发送一次性性能指标。它接受一个GraphiteConfig对象和一个MetricsMap对象作为参数，并在单次调用中发送MetricsMap中的所有指标。
+
+graphite函数是Graphite对象的Send函数的别名，它用于发送一个MetricsMap对象中的所有性能指标到Graphite服务器。
+
+总的来说，metrics/graphite.go文件通过GraphiteConfig结构体以及Graphite对象和相关函数，实现了将以太坊节点的性能指标发送到Graphite服务器进行监控和分析的功能。
+

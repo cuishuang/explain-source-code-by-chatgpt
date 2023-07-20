@@ -1,0 +1,10 @@
+# File: common/compiler/solidity.go
+
+在go-ethereum项目中，common/compiler/solidity.go文件的作用是为Solidity编译器提供一个Go语言的接口，以便可以在Go代码中编译和分析Solidity合约。
+
+该文件中的solcOutput和solcOutputV8结构体分别用于解析solc(V0.x.x版本)和solc(V0.8.x版本)的编译输出结果。这些结构体用于存储Solidity合约的详细信息，例如编译器版本，源代码，ABI接口，以及合约的二进制代码等。
+
+ParseCombinedJSON和parseCombinedJSONV8函数分别用于解析solc和solc V0.8.x版本的输出JSON。这些函数将编译输出的JSON数据作为输入，并将其解析为相应的solcOutput和solcOutputV8结构体，以便可以进一步处理和分析Solidity合约。
+
+总之，solidity.go文件提供了处理Solidity合约编译和解析输出的功能，以便可以在go-ethereum项目中轻松地与Solidity合约进行交互和操作。
+

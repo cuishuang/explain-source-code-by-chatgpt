@@ -1,0 +1,18 @@
+# File: consensus/misc/gaslimit.go
+
+在go-ethereum项目中，consensus/misc/gaslimit.go文件的作用是实现了基于前一个区块的当前矿工块的gas限制算法。该算法用于计算新的矿工块的gas限制，以确保区块链系统能够有效地处理交易。
+
+在该文件中，VerifyGaslimit函数用于验证候选矿工块的gas限制是否满足预定的约束条件。它接收矿工块、前一个区块和当前时间作为参数，并根据一定的规则来判断候选矿工块的gas限制是否有效。如果验证失败，函数会返回相应的错误；否则，函数返回nil，表示验证通过。
+
+VerifyGaslimit函数背后依赖于其他几个辅助函数，包括calcGaslimitDelta、diffSamples和maxMedianGaslimit。这些函数一起协同工作，以确保算法的正确性和可靠性。
+
+- calcGaslimitDelta函数用于计算候选矿工块的gas限制与前一个区块的gas限制之间的差异。这个差异决定了新块的gas限制的上下限。
+
+- diffSamples函数用于通过获取一系列最近的区块，以重放这些区块的所有交易，并计算其总gas使用量，从而估计块间的gas使用量。
+
+- maxMedianGaslimit函数用于根据最近几个区块的gas限制的中位数和当前时间来确定新的矿工块的gas限制。
+
+VerifyGaslimit函数在进行验证时使用这些辅助函数来确定一个合适的gas限制范围，并根据该范围来判断候选矿工块的gas限制是否合理。
+
+通过这一系列的函数，consensus/misc/gaslimit.go文件实现了一个计算新矿工块gas限制的算法，以确保区块链系统能够适当地处理交易，并保持网络的安全性和可伸缩性。
+

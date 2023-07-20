@@ -1,0 +1,16 @@
+# File: core/bloombits/generator.go
+
+在go-ethereum项目中，core/bloombits/generator.go文件的作用是实现布隆过滤器生成器的功能。该文件定义了Generator结构体和与之相关的一些函数。
+
+errSectionOutOfBounds和errBloomBitOutOfBounds是用来表示在Generator结构体中的section或bloom bit索引超出范围的错误。
+
+Generator结构体表示布隆过滤器生成器，它包含了一些元数据和位集（bitset）。位集是一个用于存储布隆过滤器的底层数据结构，用于快速查询元素是否存在。
+
+NewGenerator函数用于创建一个新的布隆过滤器生成器。它接受一个section大小和布隆过滤器容量作为参数，并返回一个初始化的Generator结构体。
+
+AddBloom函数用于向布隆过滤器生成器中添加一个布隆过滤器。它接受一个byte slice（布隆过滤器的字节数组表示）和起始位置，然后将布隆过滤器添加到Generator结构体的位集中。
+
+Bitset函数用于将布隆过滤器生成器的位集转换为一个byte slice。
+
+总体而言，core/bloombits/generator.go文件定义了布隆过滤器生成器的核心逻辑，包括创建生成器、添加布隆过滤器和转换位集等功能。
+

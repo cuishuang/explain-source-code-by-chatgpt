@@ -1,0 +1,14 @@
+# File: metrics/disk_linux.go
+
+在go-ethereum项目中，metrics/disk_linux.go文件的作用是收集关于Linux操作系统磁盘的系统信息和指标。
+
+ReadDiskStats函数是一个用于获取磁盘统计信息的辅助函数。它实际上是通过读取/proc/diskstats文件来获取有关磁盘读写操作的详细信息。该函数返回一个结构体DiskStats，其中包含了磁盘的各种指标，如读取操作的次数、读取的扇区数、写入操作的次数、写入的扇区数等。
+
+在init函数中，会创建两个全局变量diskReads和diskWrites，它们分别是用于记录磁盘读取和写入次数的指标对象。这两个指标对象会在Collector的Collect函数中被使用，用于向Prometheus收集器添加磁盘读写操作的监控指标。
+
+Collector的Collect函数是Collector接口的实现。它会在每次采集指标时被调用，用于更新磁盘读写操作的指标。在Collect函数中，会调用ReadDiskStats函数来获取当前的磁盘统计信息。然后，根据这些信息更新diskReads和diskWrites指标对象的值。
+
+通过实时收集和更新这些指标，可以方便地监控并分析磁盘的读写操作。这对于识别性能问题、优化磁盘使用以及故障排除都是非常重要的。
+
+总结来说，metrics/disk_linux.go文件的作用是通过读取proc文件系统中的磁盘统计信息，实时收集和更新磁盘读写操作的指标，并将其供给Prometheus收集器使用，用于监控和分析磁盘性能。
+

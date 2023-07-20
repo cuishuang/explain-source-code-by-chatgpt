@@ -1,0 +1,12 @@
+# File: internal/build/archive.go
+
+在go-ethereum项目中，internal/build/archive.go文件是用于构建和管理存档文件的功能。
+
+Archive结构体表示一个存档文件，它可以是zip格式的压缩文件或tarball格式的归档文件。ZipArchive和TarballArchive是Archive的子结构体，分别表示zip和tarball格式的存档文件。
+
+NewArchive函数用于创建一个新的存档文件。AddFile函数用于向存档文件中添加文件。WriteArchive函数将存档文件写入磁盘。
+
+NewZipArchive函数用于创建一个新的zip格式存档文件。Directory函数返回zip格式存档文件的目录。Header函数返回zip文件的头部信息。Close函数关闭zip格式存档文件。
+
+NewTarballArchive函数用于创建一个新的tarball格式存档文件。ExtractArchive函数用于从存档文件中提取文件。extractTarball函数用于提取tarball格式存档文件。extractZip函数用于提取zip格式存档文件。extractFile函数用于提取单个文件。
+

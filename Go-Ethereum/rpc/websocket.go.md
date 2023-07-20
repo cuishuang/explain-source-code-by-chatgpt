@@ -1,0 +1,40 @@
+# File: rpc/websocket.go
+
+rpc/websocket.go这个文件在go-ethereum项目中是用于处理通过Websocket与以太坊节点进行通信的功能的。它提供了一些函数和类型，用于解析Websocket请求、发送和接收数据，并处理与以太坊节点的通信错误。
+
+wsBufferPool是一个用于存储和复用websocket buffer的缓冲池，它可以减少内存分配和释放的次数，提高性能。
+
+wsHandshakeError是一个结构体，用于表示Websocket握手过程中出现的错误信息。
+
+websocketCodec是一个结构体，它封装了Websocket通信中数据的编码和解码逻辑。
+
+WebsocketHandler是一个函数类型，用于处理Websocket请求。
+
+wsHandshakeValidator是一个函数类型，用于验证Websocket握手请求的合法性。
+
+Error是一个用于包装错误信息的函数。
+
+originIsAllowed是一个函数，用于判断给定的origin是否被允许访问。
+
+ruleAllowsOrigin是一个函数，用于判断给定的origin是否符合规则。
+
+parseOriginURL是一个函数，用于解析Origin URL。
+
+DialWebsocketWithDialer是一个函数，用于通过指定的dialer建立一个Websocket连接。
+
+DialWebsocket是一个函数，用于建立一个Websocket连接。
+
+newClientTransportWS是一个函数，用于创建一个用于与以太坊节点通信的Websocket传输对象。
+
+wsClientHeaders是一个函数，用于构建发送给节点的Websocket请求头。
+
+newWebsocketCodec是一个函数，用于创建一个新的Websocket编解码器。
+
+close是一个函数，用于关闭Websocket连接。
+
+peerInfo是一个函数，用于获取与节点的Websocket连接的对等节点的信息。
+
+writeJSON是一个函数，用于将JSON数据写入Websocket连接。
+
+pingLoop是一个函数，用于周期性地向节点发送ping消息，以保持连接活跃。
+
