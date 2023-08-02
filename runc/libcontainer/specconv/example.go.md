@@ -1,0 +1,12 @@
+# File: runc/libcontainer/specconv/example.go
+
+在runc项目中，runc/libcontainer/specconv/example.go文件用于提供示例函数，可以将普通的配置文件（如Docker容器配置文件）转换为libcontainer库可以识别的配置。
+
+该文件中主要定义了两个函数，分别为Example和ToRootless。
+
+1. Example函数的作用是生成一个基本的容器配置示例。该函数接受一个参数rootless（布尔类型），表示是否启用rootless模式。在rootless模式下，容器将以普通用户的身份运行而非以root用户的身份运行。Example函数会创建一个包含基本配置的spec（容器运行配置），并根据rootless参数对spec进行一些修改，最后返回修改后的spec。
+
+2. ToRootless函数的作用是将已有的容器配置转换为rootless模式下的配置。该函数接受一个参数spec，表示需要转换的容器配置。ToRootless函数会返回一个转换后的spec，其中容器运行时的用户相关设置将被修改为适用于rootless模式的配置。
+
+这些函数的目的是为了提供场景示例和方便使用runc库进行容器配置的转换。Example函数可用于生成基本示例，供用户参考和修改。ToRootless函数则是用于将已有的配置转换为rootless模式下可用的配置，以便在rootless环境下运行容器。
+

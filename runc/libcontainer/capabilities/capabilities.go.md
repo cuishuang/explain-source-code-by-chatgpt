@@ -1,0 +1,16 @@
+# File: runc/libcontainer/capabilities/capabilities.go
+
+在runc项目中，runc/libcontainer/capabilities/capabilities.go文件的作用是处理和管理容器的功能权限。
+
+capabilityMap变量是一个映射表，用于将Capability名称映射为Capability值，以方便进行查询和操作。capTypes变量是一个数组，其中包含了所有支持的Capability类型。
+
+Caps结构体是Capability的集合，用于存储和操作一个进程所拥有的各种功能权限。它包含了两个字段：Bounding和Effective。Bounding字段表示进程的限制边界，即进程能够具备的Capability的上限；Effective字段表示进程当前实际拥有的Capability。
+
+init函数会初始化capabilityMap和capTypes两个全局变量，为后续的操作做准备。KnownCapabilities函数返回一个包含所有已知Capability的字符串切片。New函数用于创建一个新的Caps结构体，并根据参数设定其Bounding和Effective字段。
+
+capSlice函数将一个Caps结构体转换为Capability的字符串切片。mapKeys函数将capabilityMap的key（即Capability名称）转换为字符串切片。ApplyBoundingSet函数根据设定的Capability限制边界，更新一个进程的进程限制集。
+
+ApplyCaps函数通过系统调用，将一个进程的Capability集合应用到当前进程。它根据参数指定的进程ID和Capability集合，将Capability设置为进程的限制边界和有效范围，并应用到当前进程。
+
+这些函数的作用是为容器的功能权限管理提供了一系列的操作和工具函数。可以通过这些函数来查询、创建、修改和应用容器的Capability集合。
+

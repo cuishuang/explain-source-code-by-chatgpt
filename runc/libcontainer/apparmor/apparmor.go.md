@@ -1,0 +1,14 @@
+# File: runc/libcontainer/apparmor/apparmor.go
+
+在runc项目中，runc/libcontainer/apparmor/apparmor.go文件负责处理AppArmor（Application Armor）的相关功能。AppArmor是一种Linux内核安全模块，用于限制应用程序的行为，并提供额外的安全性。
+
+该文件中的函数和变量的作用如下：
+
+1. IsEnabled：这个变量用于指示当前系统是否启用了AppArmor。如果AppArmor被启用，则该变量的值为true；否则为false。
+
+2. ApplyProfile：这个函数用于将指定的AppArmor配置文件应用到当前进程上，以确保该进程受到了相应的限制和安全策略。该函数接受一个参数，即AppArmor配置文件的路径。
+
+3. ErrApparmorNotEnabled：这个变量是一个错误类型，在AppArmor未启用的情况下，可以用于表示相关的错误信息。
+
+总结起来，文件/apparmor.go通过变量IsEnabled和函数ApplyProfile实现了与AppArmor相关的功能。IsEnabled指示系统是否启用了AppArmor，ApplyProfile用于将指定的AppArmor配置应用到当前进程上。而变量ErrApparmorNotEnabled则用于处理AppArmor未启用所引发的错误情况。
+

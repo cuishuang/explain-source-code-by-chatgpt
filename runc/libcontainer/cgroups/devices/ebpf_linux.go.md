@@ -1,0 +1,16 @@
+# File: runc/libcontainer/cgroups/devices/ebpf_linux.go
+
+在runc项目中，`ebpf_linux.go`文件的作用是为容器的cgroups设备配置提供eBPF（extended Berkeley Packet Filter）功能支持。eBPF是一种在Linux内核中运行的虚拟机，它可以执行事先编译好的程序，用于过滤、修改和统计网络数据包以及其他系统事件。
+
+`haveBpfProgReplaceBool`和`haveBpfProgReplaceOnce`是用于在程序运行时检查主机系统是否支持使用eBPF进行cgroups设备配置替换的布尔变量。它们用于保证只在第一次检查时执行检查，从而提高性能。
+
+`nilCloser`函数是一个空函数，它实现了`io.Closer`接口的Close()方法。在runc项目中，该函数用于关闭eBPF文件描述符。
+
+`findAttachedCgroupDeviceFilters`函数用于查找当前容器的cgroups设备过滤器，即已经配置的设备访问规则。它通过解析cgroups文件系统中的`devices.list`文件来获取这些过滤器。
+
+`haveBpfProgReplace`函数用于检查主机系统是否支持使用eBPF进行cgroups设备配置替换。它使用`haveBpfProgReplaceBool`和`haveBpfProgReplaceOnce`变量来进行缓存，从而避免重复检查。
+
+`loadAttachCgroupDeviceFilter`函数用于将eBPF程序加载到内核中，并将其与cgroups设备过滤器关联。它首先检查主机系统是否支持eBPF，并使用`haveBpfProgReplace`函数进行判断。然后，它将eBPF程序加载到内核中，并使用`findAttachedCgroupDeviceFilters`函数找到当前容器的cgroups设备过滤器。最后，它使用eBPF程序替换cgroups设备过滤器，以达到使用eBPF进行设备访问控制的目的。
+
+总之，`ebpf_linux.go`文件通过使用eBPF来实现容器的cgroups设备配置替换功能，提供了更灵活和高效的设备访问控制方法。以上提到的变量和函数分别用于检查主机系统的eBPF支持、关闭eBPF文件描述符、查找设备过滤器和加载设备过滤器等操作。
+

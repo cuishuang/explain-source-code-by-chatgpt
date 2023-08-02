@@ -1,0 +1,10 @@
+# File: runc/libcontainer/notify_linux.go
+
+在runc项目中，runc/libcontainer/notify_linux.go文件是用于处理Linux系统的内存事件通知的。该文件实现了一些函数和数据结构，用于注册内存事件、接收OOM（Out of Memory）事件通知以及处理内存压力。
+
+文件中定义了三个结构体：PressureLevel、PressureMetrics和PressureStat。PressureLevel是一个枚举类型，定义了内存压力的几个级别：PressureLow、PressureMedium、PressureCritical和PressureUnknown。PressureMetrics是一个结构体，包含了内存压力相关的统计数据，如内存限制、当前使用的内存等。PressureStat是一个结构体，用于记录内存事件发生的统计数据，如内存压力级别、最后一次OOM事件发生的时间等。
+
+在该文件中，registerMemoryEvent函数用于注册接收内存事件通知的文件描述符，通过使用Linux系统的cgroup文件系统，将文件描述符与内存事件通知关联起来。notifyOnOOM函数用于注册接收OOM事件通知的文件描述符，用于监听发生OOM事件的信号。notifyMemoryPressure函数用于注册接收内存压力事件通知的文件描述符，用于监听发生内存压力变化的事件。
+
+整体而言，runc/libcontainer/notify_linux.go文件的作用是实现了处理Linux系统的内存事件通知的功能，包括注册接收内存事件通知的文件描述符，接收OOM事件通知以及处理内存压力等。
+

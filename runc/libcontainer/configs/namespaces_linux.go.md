@@ -1,0 +1,18 @@
+# File: runc/libcontainer/configs/namespaces_linux.go
+
+在runc项目中，runc/libcontainer/configs/namespaces_linux.go这个文件定义了与Linux命名空间（namespace）相关的配置和函数。
+
+文件中的namespaceLock是用于对全局的命名空间进行锁定的互斥体，用于保护对命名空间的并发访问。supportedNamespaces是一个切片，包含了支持的命名空间类型，如pid、mnt、net等。
+
+Namespace是一个结构体，用来描述命名空间的类型和路径。结构体中的Type字段表示命名空间的类型，如pid、mnt等；Path字段表示该命名空间的路径。
+
+nsName函数用于将命名空间类型转换为字符串。isNamespaceSupported函数用于判断指定的命名空间类型是否被支持。
+
+NamespaceTypes函数返回一个切片，包含了所有支持的命名空间类型。
+
+GetPath函数用于获取指定命名空间类型的路径。Remove函数用于删除指定命名空间类型的路径。Add函数用于添加指定命名空间类型的路径。
+
+index函数返回指定命名空间类型在supportedNamespaces切片中的位置。contains函数用于判断指定命名空间类型是否被支持。
+
+PathOf函数返回指定命名空间类型的路径。
+

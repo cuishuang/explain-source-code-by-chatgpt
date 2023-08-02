@@ -1,0 +1,20 @@
+# File: runc/libcontainer/cgroups/fs/paths.go
+
+在runc项目中，runc/libcontainer/cgroups/fs/paths.go文件主要用于实现控制组（cgroup）的文件路径操作。
+
+cgroup是Linux内核提供的一种机制，用于对进程进行资源管理和限制。cgroup文件系统提供了一组虚拟文件，用于设置和监控各个子系统的资源限制和公平共享。
+
+cgroupRootLock和cgroupRoot是用于管理cgroup根目录的锁和路径变量。cgroup根目录是所有cgroup层次结构的顶层目录。
+
+initPaths函数用于初始化cgroup的路径。它通过解析/proc/self/mountinfo文件来获取当前cgroup挂载的根路径，并将结果保存在cgroupRoot变量中。
+
+tryDefaultCgroupRoot函数尝试返回默认的cgroup根路径。如果环境变量CGROUPS_MOUNT没有设置并且/proc/self/mountinfo文件不存在，那么返回一个常量默认路径。
+
+rootPath函数返回指定控制组子系统的根路径。它通过拼接cgroupRoot和子系统名称生成完整的路径。
+
+innerPath函数返回指定控制组路径的内部路径。它通过拼接根路径和容器ID生成相对路径。
+
+subsysPath函数返回指定控制组子系统的路径。它通过拼接子系统根路径和内部路径生成完整的子系统路径。
+
+apply函数用于应用控制组的配置。它根据给定的配置信息和指定的路径，生成对应的cgroup文件并将配置应用到内核中。
+

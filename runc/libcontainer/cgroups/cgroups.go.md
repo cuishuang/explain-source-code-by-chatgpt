@@ -1,0 +1,16 @@
+# File: runc/libcontainer/cgroups/cgroups.go
+
+在runc项目中，runc/libcontainer/cgroups/cgroups.go文件用于实现对进程组的cgroup管理操作。具体而言，它负责创建、配置和管理进程组在Linux系统下的cgroups。
+
+在该文件中，ErrDevicesUnsupported、DevicesSetV1和DevicesSetV2是针对设备资源限制而定义的变量。
+
+- ErrDevicesUnsupported用于表示设备资源限制在当前系统上不受支持的错误。当尝试在不支持设备资源限制的系统上设置设备资源限制时，将返回该错误。
+- DevicesSetV1和DevicesSetV2是用于设置设备资源限制的结构体。它们都包含一组设备规则，用于允许或禁止进程组访问特定的设备。DevicesSetV1用于旧版本的cgroup配置，而DevicesSetV2用于新版本的cgroup配置。
+
+而关于Manager结构体，主要有以下几个：
+
+- Manager结构体是一个整合了对所有cgroups操作的接口。它提供了对cgroup的创建、配置以及监控等功能。在runc项目中，Manager结构体根据容器的配置信息，负责创建和配置cgroups。它将进程组与cgroup绑定，管理资源的限制，并提供监控和释放资源等功能。
+- cgroup.Manager接口定义了cgroup管理操作的基本函数，如创建cgroup、进程绑定到cgroup、设置资源限制等。Manager结构体实现了该接口，并提供了一组具体实现的函数。这些函数包括: NewCgroupManager、Apply的各种变体、Cleanup等，用于创建和配置cgroup以及清理资源。
+
+总结起来，runc/libcontainer/cgroups/cgroups.go文件的主要作用是实现对进程组的cgroup管理操作，包括创建cgroup、进程绑定、资源限制设置等。而ErrDevicesUnsupported、DevicesSetV1和DevicesSetV2作为相关的变量，在设备资源限制方面提供了支持。Manager结构体则用于整合对cgroup的操作，提供管理和监控功能。
+

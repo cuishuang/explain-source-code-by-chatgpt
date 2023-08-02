@@ -1,0 +1,24 @@
+# File: runc/libcontainer/state_linux.go
+
+在runc项目中，runc/libcontainer/state_linux.go文件的作用是实现了容器状态的管理和转换。
+
+stateTransitionError结构体是一个自定义错误类型，用于表示容器状态转换错误时的错误信息。
+
+containerState结构体定义了容器的基本状态，包括容器的状态（running、stopped等）和容器的pid等信息。
+
+stoppedState、runningState、createdState、pausedState、restoredState、loadedState这几个结构体分别表示不同的容器状态，并且它们都继承自containerState。每个结构体定义了特定状态下容器的行为和属性。
+
+newStateTransitionError函数用于创建一个新的stateTransitionError对象，返回一个包含错误信息的错误类型。
+
+Error函数用于将stateTransitionError类型的错误转换为字符串形式。
+
+destroy函数用于销毁容器的资源，包括删除容器的命名空间、删除容器的进程等。
+
+runPoststopHooks函数用于在容器停止后执行一些后续的操作，如清理容器的资源。
+
+status函数用于获取容器的状态，返回容器的状态信息。
+
+transition函数用于执行容器状态的转换，根据传入的目标状态和当前状态，进行相应的状态转换操作，包括创建、拉起、停止、暂停、恢复等。
+
+总结一下，state_linux.go文件定义了容器的不同状态以及状态转换的相关函数，提供了容器状态的管理和控制的功能。
+

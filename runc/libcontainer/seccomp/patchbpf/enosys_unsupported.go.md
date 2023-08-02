@@ -1,0 +1,14 @@
+# File: runc/libcontainer/seccomp/patchbpf/enosys_unsupported.go
+
+文件`enosys_unsupported.go`的作用是在runc项目的libcontainer/seccomp/patchbpf子目录中，定义了一个函数`unimplementedSyscall`，用于处理不支持的系统调用。
+
+在Linux系统中，应用程序可以通过系统调用来请求操作系统提供的服务和资源。然而，不同的Linux内核版本和不同的硬件架构可能会支持不同的系统调用。为了在不同的环境下保持应用程序的可移植性，runc项目使用了seccomp机制来过滤应用程序的系统调用。
+
+在runc的seccomp实现中，使用了BPF（Berkeley Packet Filter）过滤器来处理系统调用。`enosys_unsupported.go`文件中的`unimplementedSyscall`函数被用作一个BPF程序，在系统调用被过滤时调用。
+
+当应用程序调用一个不受支持的系统调用时，seccomp机制会拦截该系统调用请求，然后通过执行`unimplementedSyscall`函数来进行处理。该函数会返回一个表示系统调用不被支持的错误。
+
+通过这种方式，runc项目可以在遇到不支持的系统调用时，提供一个合适的错误处理机制。这有助于应用程序开发者在运行runc容器时，能够得到清晰的错误提示，以便及时修复应用程序代码。
+
+总而言之，`enosys_unsupported.go`文件的作用是定义了用于处理不支持的系统调用的函数，以增强runc容器在不同环境下的可移植性和错误处理能力。
+

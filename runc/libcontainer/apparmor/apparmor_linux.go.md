@@ -1,0 +1,20 @@
+# File: runc/libcontainer/apparmor/apparmor_linux.go
+
+在runc项目中，runc/libcontainer/apparmor/apparmor_linux.go文件是用来处理与AppArmor安全模块相关的功能。
+
+appArmorEnabled是一个全局变量，用于标记当前系统是否支持AppArmor。checkAppArmor函数用于检查系统是否支持AppArmor，并将结果保存到appArmorEnabled变量中。
+
+isEnabled函数用于检查指定路径的程序是否启用了AppArmor安全模块。setProcAttr函数通过设置进程的安全属性，将进程与AppArmor配置文件绑定起来。changeOnExec函数用于在执行程序时更改AppArmor的配置文件。applyProfile函数用于应用指定路径的AppArmor配置文件。
+
+这些函数的具体作用如下：
+
+1. isEnabled函数：检查指定路径的程序是否启用了AppArmor安全模块。它会读取程序的配置文件，判断是否包含AppArmor相关的配置项，若有则返回true，否则返回false。
+
+2. setProcAttr函数：通过设置进程的安全属性，将进程与指定的AppArmor配置文件绑定起来。它会将指定的配置文件路径写入到进程的/proc/<pid>/attr/current文件中，使得进程在执行时受到该配置文件的约束。
+
+3. changeOnExec函数：在执行程序时更改AppArmor的配置文件。它会在程序启动之前，根据程序的配置文件动态地更改AppArmor的配置文件。这样可以根据不同的程序配置文件，为不同的程序提供不同的安全约束。
+
+4. applyProfile函数：应用指定路径的AppArmor配置文件。它会读取指定路径的配置文件内容，并使用AppArmor的工具函数将配置应用到当前进程中。
+
+这些函数的主要作用是通过AppArmor安全模块，提供进程的隔离和安全保护功能，防止恶意程序的攻击和滥用系统资源。
+

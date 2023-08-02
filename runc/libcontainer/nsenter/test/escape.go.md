@@ -1,0 +1,10 @@
+# File: runc/libcontainer/nsenter/test/escape.go
+
+在runc项目中，runc/libcontainer/nsenter/test/escape.go文件的作用是提供了一些测试功能，用于测试处理JSON字符串的逻辑。
+
+该文件中的testEscapeJSONString函数用于测试转义JSON字符串的功能。它接收一个未转义的JSON字符串作为输入，然后使用内置的escapeJSONString函数对字符串进行转义。转义后的字符串会与预期的结果进行比较，如果相等则测试通过。
+
+testEscapeJSON函数则是用于测试整个JSON的转义功能。它接收一个未转义的JSON字符串作为输入，然后使用内置的escapeJSON函数对字符串进行转义。转义后的JSON会与预期的结果进行比较，如果相等则测试通过。
+
+这些测试函数的作用是确保在runc项目中，对JSON字符串做转义处理的逻辑是正确的。通过编写这些测试用例，可以帮助开发者发现并修复潜在的Bug，提高代码的质量和稳定性。
+
