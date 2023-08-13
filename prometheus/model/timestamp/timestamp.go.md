@@ -1,0 +1,14 @@
+# File: model/timestamp/timestamp.go
+
+在Prometheus项目中，model/timestamp/timestamp.go文件的作用是定义了用于处理时间戳的相关函数和数据结构。
+
+1. FromTime函数：从Go语言的time.Time类型转换为Prometheus内部的Time类型。这个函数接受一个time.Time类型的参数，并返回一个对应的Time类型的值。Time类型在Prometheus中用于表示时间戳，以纳秒为单位。
+
+2. Time数据结构：Time是Prometheus内部用于表示时间戳的数据结构，它是一个64位的无符号整数。这个数据结构提供了一些方法用于操作时间戳，比如将时间戳转换为字符串、判断两个时间戳的先后顺序等。
+
+3. Time函数：将时间戳转换为Prometheus内部的Time类型。这个函数接受一个int64类型的参数，表示以纳秒为单位的时间戳值，然后返回对应的Time类型的值。
+
+4. FromFloatSeconds函数：从浮点数表示的秒数转换为Prometheus内部的Time类型。这个函数接受一个float64类型的参数，表示以秒为单位的时间间隔，然后返回对应的Time类型的值。在Prometheus中，时间间隔常常以浮点数表示，比如1.5秒。
+
+通过这些函数，可以实现不同时间类型之间的转换，方便在处理时间戳时进行转换和比较。这些功能对于Prometheus的度量指标和监控数据的处理非常重要，可以方便地在不同的时间表示形式之间进行转换和操作。
+

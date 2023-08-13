@@ -1,0 +1,26 @@
+# File: discovery/aws/lightsail.go
+
+在Prometheus项目中，discovery/aws/lightsail.go文件的作用是实现与Amazon Lightsail服务的发现和监测。
+
+该文件中的DefaultLightsailSDConfig变量定义了用于配置Lightsail服务发现的默认值。它包括一些默认的和可选的标签，这些标签可以用来筛选要监测的Lightsail实例。例如，默认的标签可以是 `prometheus` 和 `monitoring`。
+
+LightsailSDConfig结构体定义了对Lightsail服务发现的配置项。它继承了Prometheus的通用SDConfig结构体，并添加了一些特定于Lightsail的配置选项。可以在该结构体中设置目标实例所属地区、要监测的实例标签等。
+
+LightsailDiscovery结构体定义了Lightsail服务的发现器。该发现器实现了Prometheus的TargetProvider接口，用于返回要监测的Lightsail实例的目标地址。
+
+init函数用于初始化Lightsail发现的默认配置，包括设置默认的标签和目标实例的默认地区。
+
+Name方法返回用于标识Lightsail发现器的名称，即"aws-lightsail"。
+
+NewDiscoverer方法根据配置创建一个新的Lightsail发现器实例。
+
+UnmarshalYAML方法用于通过解析YAML格式的配置文件，将配置项反序列化为LightsailSDConfig结构体。
+
+NewLightsailDiscovery方法用于创建一个新的Lightsail服务发现器。
+
+lightsailClient函数返回一个用于与Amazon Lightsail服务通信的客户端。
+
+refresh方法用于刷新Lightsail服务发现器的目标地址列表，并通过向Amazon Lightsail服务发送请求来获取最新的实例信息。
+
+总的来说，discovery/aws/lightsail.go文件中的代码实现了对Amazon Lightsail服务的发现和监测功能，并提供了相应的配置选项和接口，以便与Prometheus整合使用。
+

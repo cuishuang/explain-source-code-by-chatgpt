@@ -1,0 +1,86 @@
+# File: discovery/kubernetes/endpointslice_adaptor.go
+
+在Prometheus项目中，discovery/kubernetes/endpointslice_adaptor.go文件的作用是实现了用于读取Kubernetes集群中的EndpointSlices的适配器。EndpointSlice是Kubernetes中一种新的资源类型，用于代替旧的Endpoints资源，可以更高效地表示服务的网络终端。
+
+接下来我们逐个介绍这些结构体和函数的功能：
+
+1. endpointSliceAdaptor：EndpointSlice适配器。该结构体实现了discovery.Adaptor接口，用于读取Kubernetes集群中的EndpointSlice对象，并将其转换为discovery.Targets类型的目标。
+
+2. endpointSlicePortAdaptor：处理EndpointSlice中的端口信息的适配器。
+
+3. endpointSliceEndpointAdaptor：处理EndpointSlice中的终端信息的适配器。
+
+4. endpointSliceEndpointConditionsAdaptor：处理EndpointSlice中的终端状态信息的适配器。
+
+5. endpointSliceAdaptorV1：用于在v1版本的Kubernetes API中读取EndpointSlice对象的适配器。
+
+6. endpointSliceAdaptorV1Beta1：用于在v1beta1版本的Kubernetes API中读取EndpointSlice对象的适配器。
+
+7. endpointSliceEndpointAdaptorV1：用于在v1版本的Kubernetes API中处理EndpointSlice中的终端信息的适配器。
+
+8. endpointSliceEndpointConditionsAdaptorV1：用于在v1版本的Kubernetes API中处理EndpointSlice中的终端状态信息的适配器。
+
+9. endpointSliceEndpointAdaptorV1beta1：用于在v1beta1版本的Kubernetes API中处理EndpointSlice中的终端信息的适配器。
+
+10. endpointSliceEndpointConditionsAdaptorV1beta1：用于在v1beta1版本的Kubernetes API中处理EndpointSlice中的终端状态信息的适配器。
+
+11. endpointSlicePortAdaptorV1：用于在v1版本的Kubernetes API中处理EndpointSlice中的端口信息的适配器。
+
+12. endpointSlicePortAdaptorV1beta1：用于在v1beta1版本的Kubernetes API中处理EndpointSlice中的端口信息的适配器。
+
+下面是这些函数的作用：
+
+1. newEndpointSliceAdaptorFromV1：根据v1版本的EndpointSlice对象创建EndpointSlice适配器。
+
+2. get：获取EndpointSlice适配器的目标。
+
+3. name：获取EndpointSlice适配器的名称。
+
+4. namespace：获取EndpointSlice适配器的命名空间。
+
+5. addressType：获取EndpointSlice适配器的地址类型。
+
+6. endpoints：获取EndpointSlice适配器的终端信息。
+
+7. ports：获取EndpointSlice适配器的端口信息。
+
+8. labels：获取EndpointSlice适配器的标签信息。
+
+9. labelServiceName：获取EndpointSlice适配器的标签服务名称。
+
+10. newEndpointSliceAdaptorFromV1beta1：根据v1beta1版本的EndpointSlice对象创建EndpointSlice适配器。
+
+11. newEndpointSliceEndpointAdaptorFromV1：根据v1版本的EndpointSlice中的终端信息创建EndpointSlice适配器。
+
+12. addresses：获取EndpointSlice适配器中终端的地址信息。
+
+13. hostname：获取EndpointSlice适配器中终端的主机名。
+
+14. nodename：获取EndpointSlice适配器中终端的节点名称。
+
+15. conditions：获取EndpointSlice适配器中终端的状态信息。
+
+16. targetRef：获取EndpointSlice适配器中终端的目标引用。
+
+17. topology：获取EndpointSlice适配器中终端的拓扑信息。
+
+18. newEndpointSliceEndpointConditionsAdaptorFromV1：根据v1版本的EndpointSlice中的终端状态信息创建EndpointSlice适配器。
+
+19. ready、serving、terminating：获取EndpointSlice适配器中各个终端的状态。
+
+20. newEndpointSliceEndpointAdaptorFromV1beta1：根据v1beta1版本的EndpointSlice中的终端信息创建EndpointSlice适配器。
+
+21. newEndpointSliceEndpointConditionsAdaptorFromV1beta1：根据v1beta1版本的EndpointSlice中的终端状态信息创建EndpointSlice适配器。
+
+22. newEndpointSlicePortAdaptorFromV1：根据v1版本的EndpointSlice中的端口信息创建EndpointSlice适配器。
+
+23. port：获取EndpointSlice适配器中端口的端口号。
+
+24. protocol：获取EndpointSlice适配器中端口的协议。
+
+25. appProtocol：获取EndpointSlice适配器中端口的应用协议。
+
+26. newEndpointSlicePortAdaptorFromV1beta1：根据v1beta1版本的EndpointSlice中的端口信息创建EndpointSlice适配器。
+
+以上就是在Prometheus项目中discovery/kubernetes/endpointslice_adaptor.go文件的详细介绍。
+

@@ -1,0 +1,14 @@
+# File: discovery/moby/services.go
+
+discovery/moby/services.go是Prometheus项目中的一个文件，其作用是从Docker API中获取服务的信息，并将其添加到Prometheus的target列表中。
+
+接下来，我将详细介绍每个函数的作用：
+
+1. refreshServices: 这个函数负责从Docker API中获取所有的服务信息，并更新Prometheus的target列表。它会首先调用getServicesLabelsAndPorts函数来获取每个服务的标签和端口信息，然后根据这些信息生成target列表。
+
+2. getServicesLabelsAndPorts: 这个函数用于获取每个服务的标签和端口信息。它会通过Docker的API调用获取Docker Swarm集群中的所有服务，并遍历每个服务，获取其标签和端口信息。然后，它会将这些信息返回给refreshServices函数。
+
+3. getServiceValueMode: 这个函数用于确定服务的value模式。Prometheus支持不同的value模式，如sum、max等。根据服务的标签，这个函数会确定服务的value模式并返回相应的值。这个值将被用于设置Prometheus的metric。
+
+这些函数的目的是使Prometheus能够监控并收集Docker Swarm集群中的服务指标。它们通过与Docker API交互来获取服务的信息，并将这些信息添加到Prometheus的target列表中，这样Prometheus就可以定期地从这些服务中获取指标数据。
+

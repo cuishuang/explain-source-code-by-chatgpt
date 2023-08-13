@@ -1,0 +1,14 @@
+# File: tsdb/chunkenc/varbit.go
+
+在Prometheus项目中，tsdb/chunkenc/varbit.go文件是用来实现可变位数数据编码的功能。
+
+Varbit编码是一种节省存储空间的编码方式，用于将整数值编码为不定长度的位序列。这种编码方式适用于需要存储大量具有较小数值范围的整数。
+
+文件中的putVarbitInt和putVarbitUint函数用于将整数值编码为Varbit格式，并存储到字节数组中。这些函数使用了变长编码方法，根据整数值的大小选择最小的位数表示。putVarbitInt用于编码有符号整数，而putVarbitUint用于编码无符号整数。
+
+readVarbitInt和readVarbitUint函数则用于反向操作，从字节数组中解码出Varbit格式的整数值。这些函数会根据编码方式解析位序列，并恢复原始整数值。
+
+bitRangeUint函数用于从无符号整数值的位序列中提取指定范围的位，并以对应的无符号整数返回。这个函数在解码Varbit格式整数时会被使用。
+
+这些函数的作用是为Prometheus的时间序列数据库提供一种高效的数据编码方式，以减少存储空间的占用和提高读取效率。
+

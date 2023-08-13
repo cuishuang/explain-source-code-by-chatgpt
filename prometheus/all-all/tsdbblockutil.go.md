@@ -1,0 +1,16 @@
+# File: tsdb/tsdbblockutil.go
+
+在Prometheus项目中，tsdb/tsdbblockutil.go文件的作用是提供了一些用于处理和生成数据块的工具函数。
+
+首先，让我们了解一下整个文件的结构。该文件定义了一些常量、变量和函数，用于处理和操作时间序列数据块。其中，常量ErrInvalidTimes是一个错误，表示无效的时间戳。变量ErrInvalidTimesMetric和ErrInvalidTimesNaN分别是ErrInvalidTimes的不同类型错误，用于在处理数据时指示无效的时间戳。这些错误变量用于帮助在出现问题时更好地诊断和处理异常情况。
+
+接下来，让我们了解一下文件中的CreateBlock函数。在tsdb包中，数据存储在称为块（blocks）的文件中，每个块包含一定时间范围内的时间序列数据。CreateBlock函数用于创建一个新的数据块。
+
+- CreateBlock函数的第一个参数是块的存储路径，第二个参数是该块的版本号。
+- CreateBlock函数首先根据存储路径和版本号创建一个新的块目录，并在其中创建一些元数据文件。
+- 接下来，CreateBlock函数返回一个WritableBlock接口，该接口表示可以向其中写入数据的数据块。
+- 此WritableBlock接口由BlockWriter结构实现，该结构实现了向数据块中写入数据的方法。
+- 最后，CreateBlock函数返回创建的WritableBlock接口，供后续的写入操作使用。
+
+总结一下，tsdb/tsdbblockutil.go文件中的主要作用是提供了用于处理和生成数据块的工具函数。ErrInvalidTimes变量用于表示无效的时间戳错误，而CreateBlock函数用于创建一个新的数据块，并返回一个WritableBlock接口，以供数据写入操作使用。
+

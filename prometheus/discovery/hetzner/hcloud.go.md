@@ -1,0 +1,12 @@
+# File: discovery/hetzner/hcloud.go
+
+在Prometheus项目中，discovery/hetzner/hcloud.go文件的作用是实现在Hetzner云平台上进行服务发现的功能。它通过与Hetzner Cloud API交互来获取并更新有关云服务器的信息，以供Prometheus监控使用。
+
+该文件中定义了几个重要的结构体，包括Config、hcloudDiscovery和Server。Config结构体用于配置Hetzner云访问的相关参数，如API密钥、区域等。hcloudDiscovery结构体表示Hetzner云服务发现的状态信息，如最近一次刷新的时间、已发现的服务器列表等。Server结构体表示一个Hetzner云服务器的信息，包括主机名、私有和公共IP地址等。
+
+函数newHcloudDiscovery用于创建并初始化一个hcloudDiscovery结构体，将传入的Config参数应用到新创建的结构体中。
+
+函数refresh是hcloudDiscovery结构体的一个方法，其作用是刷新服务器列表的信息。在该方法内部，它首先会调用Hetzner Cloud API来获取所有可用的服务器，随后会对返回的服务器进行处理，将其中的信息以Server结构体的形式存储在hcloudDiscovery结构体中。
+
+总结来说，hcloudDiscovery结构体负责存储Hetzner云服务发现的状态信息，newHcloudDiscovery函数用于创建并初始化该结构体，refresh方法用于刷新并更新服务器列表的信息。这些功能的实现使得Prometheus能够在Hetzner云平台上进行自动服务发现和监控。
+

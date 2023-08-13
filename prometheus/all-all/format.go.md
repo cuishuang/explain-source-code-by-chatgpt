@@ -1,0 +1,20 @@
+# File: util/fmtutil/format.go
+
+在Prometheus项目中，util/fmtutil/format.go文件的作用是实现为Prometheus的格式化和输出提供通用的工具函数和结构。
+
+在这个文件中，MetricMetadataTypeValue定义了一个包含了四种度量指标的枚举类型，包括Counter、Gauge、Summary和Histogram。这些变量用于指定度量指标的类型。
+
+MetricTextToWriteRequest是一个结构，用于表示待写入时间序列的文本数据。它包含了一组标签和它们对应的时间序列值。
+
+MetricFamiliesToWriteRequest是一个结构，用于表示待写入时间序列的MetricFamily数据。MetricFamily由一组带有标签的时间序列组成。
+
+toTimeseries是一个辅助函数，用于将MetricTextToWriteRequest转换为时间序列。它接收MetricTextToWriteRequest和MetricMetadataTypeValue作为参数，并返回对应的时间序列。
+
+makeTimeseries是一个辅助函数，用于根据给定的度量指标类型和标签创建时间序列。它接收MetricMetadataTypeValue、标签和值作为参数，并返回一个时间序列。
+
+makeLabels是一个辅助函数，用于根据给定的标签数组创建标签。它接收标签数组作为参数，并返回一个标签。
+
+makeLabelsMap是一个辅助函数，用于将给定的标签数组转换为一个标签映射。它接收标签数组作为参数，并返回一个标签映射。
+
+这些函数和结构为Prometheus的格式化和输出提供了便捷的工具，可以方便地将输入数据转换为Prometheus所需的时间序列格式，并进行后续的处理和输出。
+

@@ -1,0 +1,12 @@
+# File: storage/remote/write.go
+
+storage/remote/write.go文件是Prometheus项目中的一个组件，负责将接收到的时间序列数据写入到持久化存储中。
+
+文件中的samplesIn、exemplarsIn和histogramsIn这几个变量是用于接收和存储不同类型的数据。其中，samplesIn用于存储普通的时间序列数据，exemplarsIn用于存储标本数据，而histogramsIn用于存储直方图数据。
+
+WriteStorage结构体是一个用于写入数据的存储引擎接口，定义了写入时间序列数据、更新数据等方法。timestampTracker结构体是一个用于跟踪时间戳的辅助结构，用于保证写入数据的顺序性。
+
+NewWriteStorage函数用于创建一个新的写入存储引擎实例。run函数是整个写入过程的主要逻辑，不断从输入通道接收数据，并调用相应的方法写入到存储引擎中。ApplyConfig函数用于应用配置更改，根据配置中的数据保留策略，对过期的数据进行清理。Appender函数用于创建一个追加器，用于将时间序列数据追加到存储引擎中。LowestSentTimestamp函数用于获取已发送数据的最小时间戳。Close函数用于关闭写入存储引擎。Append函数用于将新的时间序列样本数据追加到存储引擎中。AppendExemplar函数用于将标本数据追加到存储引擎中。AppendHistogram函数用于将直方图数据追加到存储引擎中。UpdateMetadata函数用于更新时间序列的元数据。Commit函数用于提交写入操作，将数据持久化到存储中。Rollback函数用于回滚写入操作，清除未提交的数据。
+
+通过这些函数和数据结构，storage/remote/write.go文件实现了接收、写入和管理时间序列数据的功能。
+

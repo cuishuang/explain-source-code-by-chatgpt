@@ -1,0 +1,12 @@
+# File: model/relabel/relabel.go
+
+在Prometheus项目中，model/relabel/relabel.go文件的作用是提供了一个用于重新标签和处理目标的机制，它允许用户通过配置文件来动态地修改目标的标签，以便更好地管理和监控这些目标。
+
+relabelTarget是一个结构体，用于表示一个目标及其关联的标签信息。DefaultRelabelConfig是一个结构体，用于表示默认的重标签配置。
+
+Action是一个枚举类型，用于表示针对目标标签进行何种操作，例如添加、删除和替换标签等。Config是一个结构体，用于表示配置标签和标签操作的条件。Regexp是一个结构体，用于表示正则表达式。
+
+UnmarshalYAML是一个用于解析YAML格式配置的函数。NewRegexp和MustNewRegexp函数用于创建正则表达式。MarshalYAML函数用于将配置映射转换为YAML格式。String函数用于将Action和Config转换为字符串。Process函数用于处理单个目标的标签。ProcessBuilder函数用于处理多个目标的标签。relabel函数是一个处理函数，用于执行标签处理规则并返回处理后的目标。
+
+总的来说，relabel.go文件中的这些变量和函数提供了一个灵活的机制，可以根据用户的配置动态地修改目标的标签，以便更好地适应监控需求。它可以通过正则表达式匹配和操作来实现标签的添加、删除、替换等操作，并提供了方便的函数用于解析和处理配置。
+

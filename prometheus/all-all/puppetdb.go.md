@@ -1,0 +1,12 @@
+# File: discovery/puppetdb/puppetdb.go
+
+在Prometheus项目中，discovery/puppetdb/puppetdb.go文件的作用是实现与PuppetDB的集成，通过查询PuppetDB API获取节点信息以进行服务发现。
+
+在该文件中，DefaultSDConfig是一个默认的配置实例，用于设置服务发现的配置参数。matchContentType是用于确定PuppetDB返回的HTTP响应的Content-Type与JSON格式是否匹配的正则表达式。userAgent用于设置HTTP请求的User-Agent头。
+
+SDConfig是用于配置服务发现的结构体，其中包含了一些必要的参数，如PuppetDB URL、查询过滤器、查询间隔等。Discovery是服务发现的接口，由实现它的具体结构体进行实例化和实现。
+
+init函数用于初始化PuppetDB服务发现的相关配置。Name函数返回PuppetDB服务发现的名称。NewDiscoverer函数返回一个新的Discoverer实例，并根据配置参数设置其成员变量。SetDirectory函数用于设置存储目录。UnmarshalYAML函数用于将配置文件解析为SDConfig结构体。NewDiscovery函数根据配置生成一个Deployment结构体作为服务发现的实例。refresh函数用于根据配置的间隔定期刷新服务发现的结果。
+
+通过以上的功能和接口，PuppetDB服务发现的文件实现了与PuppetDB的集成，并按照配置的要求定期从PuppetDB获取节点信息来进行服务发现。
+

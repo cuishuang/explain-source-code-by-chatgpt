@@ -1,0 +1,14 @@
+# File: tsdb/fileutil/preallocate_darwin.go
+
+在Prometheus项目中，tsdb/fileutil/preallocate_darwin.go文件的作用是为了在Darwin操作系统上预分配文件空间。
+
+Darwin是一种类Unix操作系统，主要用于Apple公司的产品，如MacOS。在Darwin系统上，文件的分配和扩展涉及到一系列的系统调用和错误处理。
+
+preallocExtend函数用于扩展给定文件的大小，以使其具有所需的长度。它首先使用系统调用ftruncate来将文件大小设置为目标长度。如果文件目标长度更大，那么会使用fallocate系统调用来进行扩展。然后，函数会使用fstat系统调用来获取文件的当前大小，以确保文件扩展成功。
+
+preallocFixed函数用于为给定的文件预分配固定的长度。它通过使用ftruncate系统调用将文件截断为指定的长度来实现。如果文件已经超过了所需的长度，那么函数将返回错误。同样，函数使用fstat系统调用来验证文件的有效性。
+
+这些函数的作用是在Darwin操作系统上执行文件预分配操作，以确保在需要扩展或分配文件大小时，能够正确地分配所需的空间。这对于tsdb（时间序列数据库）来说尤为重要，因为它需要持久地保存大量的时间序列数据，并且在运行时可能会动态地增长。预分配文件空间可以提高文件的写入性能和系统响应速度。
+
+总之，preallocExtend和preallocFixed函数是用于在Darwin操作系统上进行文件预分配的工具函数，确保在Prometheus项目中的tsdb中，文件的分配和扩展操作能够正确执行。
+

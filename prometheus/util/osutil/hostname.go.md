@@ -1,0 +1,10 @@
+# File: util/osutil/hostname.go
+
+在Prometheus项目中，util/osutil/hostname.go文件的作用是提供与主机名相关的功能。
+
+该文件中的GetHostname函数用于获取主机的名称。它通过调用系统的hostname命令获取主机名，并返回该主机名的字符串表示。如果在获取主机名的过程中遇到任何错误，GetHostname函数将返回一个空字符串。
+
+GetFQDN函数用于获取主机的完全限定域名（Fully Qualified Domain Name, FQDN）。FQDN是主机名与其所在域名组合而成的完整标识。GetFQDN首先调用GetHostname函数获取主机名，然后使用net库中的LookupAddr函数查询与该主机名关联的IP地址列表。接下来，它通过调用LookupPTR函数将IP地址转换为域名，然后将域名与主机名进行比较来确定是否找到FQDN。如果找到FQDN，则返回该字符串，否则返回主机名。
+
+在Prometheus项目中，这些函数的作用是为了用于标识和区分不同的主机。通过获取主机名和FQDN，Prometheus可以更好地管理和监控不同主机上运行的应用程序和服务。这些函数的功能对于构建监控系统以及进行故障排除和日志分析等操作非常有用。
+

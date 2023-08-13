@@ -1,0 +1,26 @@
+# File: model/textparse/protobufparse.go
+
+在Prometheus项目中，model/textparse/protobufparse.go文件的作用是解析Protobuf格式的指标数据。Protobuf是一种语言无关、平台无关、扩展性强的二进制数据序列化格式，该文件负责将Protobuf格式的指标数据转换为Prometheus中的Metric数据结构。
+
+文件中的errInvalidVarint这几个变量用于表示在解析Varint数据时出现无效的数据错误。
+
+ProtobufParser结构体是一个解析器，用于解析Protobuf格式的指标数据。它包含了一些字段，如buf用于存储待解析的数据，pos表示当前解析的位置等。
+
+NewProtobufParser函数用于创建一个ProtobufParser对象，并为其分配内存空间。
+
+Series、Histogram、Help、Type、Unit、Comment、Metric、Exemplar是不同类型的结构体，用于表示不同种类的指标数据，如时序数据、直方图、帮助信息、指标类型、单位、注释等。
+
+Next方法用于解析下一个Protobuf格式的指标数据，并将结果保存在解析器中的Metric字段中。
+
+updateMetricBytes函数用于根据解析器中的指标数据生成Metric数据，并将其转换为字节数组。
+
+getMagicName和getMagicLabel函数用于根据给定的魔术字节(前缀)获取对应的指标名称和标签名。
+
+readDelimited函数用于从解析器的缓冲区中读取一个字节序列。
+
+formatOpenMetricsFloat函数用于将OpenMetrics格式的浮点数转换为字符串。
+
+isNativeHistogram函数用于判断给定的Metric是否属于原生的Histogram类型。
+
+总体而言，这个文件负责解析Protobuf格式的指标数据，并将其转换为Prometheus中的Metric数据结构，以便进行进一步的处理和存储。
+

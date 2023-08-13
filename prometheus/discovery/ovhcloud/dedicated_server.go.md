@@ -1,0 +1,20 @@
+# File: discovery/ovhcloud/dedicated_server.go
+
+在Prometheus项目中，discovery/ovhcloud/dedicated_server.go文件的作用是实现OVH Cloud专用服务器的自动发现功能。
+
+这个文件中定义了几个重要的结构体。首先是dedicatedServer结构体，它表示一个OVH Cloud专用服务器的相关信息，包括服务器的ID、主机名、IP地址等。dedicatedServerDiscovery结构体表示OVH Cloud专用服务器的发现功能，它包含了发现所需的配置信息，例如OVH API的访问令牌、区域等。
+
+newDedicatedServerDiscovery函数用于创建一个dedicatedServerDiscovery实例，它接收OVH API的访问令牌、区域等配置信息，并返回一个可以用于发现OVH Cloud专用服务器的实例。
+
+getDedicatedServerList函数用于获取OVH Cloud账户下的所有专用服务器列表。它通过调用OVH API来获取服务器列表，并返回一个包含所有服务器信息的数组。
+
+getDedicatedServerDetails函数用于获取指定专用服务器的详细信息。它接收一个服务器ID参数，并通过调用OVH API来获取该服务器的详细信息。
+
+getService函数用于获取OVH服务的实例。它接收一个服务类型参数，并返回一个封装了该服务实例的对象。在这个文件中，它主要用于获取OVH Cloud的实例。
+
+getSource函数用于获取发现源的名称。它返回一个字符串，表示该发现源的名称。
+
+refresh函数用于刷新专用服务器的列表。它接收一个context.Context参数，并用于在后台刷新服务器列表。
+
+以上这些函数共同实现了OVH Cloud专用服务器的自动发现功能。通过调用OVH API获取服务器列表和详细信息，并将其转化为Prometheus可识别的数据格式，使得Prometheus能够监控OVH Cloud专用服务器的指标。
+

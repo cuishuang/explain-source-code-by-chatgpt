@@ -1,0 +1,32 @@
+# File: tsdb/wlog/live_reader.go
+
+在Prometheus项目中的tsdb/wlog/live_reader.go文件是用于处理Prometheus的Write Ahead Log（WAL）文件的实时读取的功能。
+
+该文件中的LiveReaderMetrics结构体是用于记录读取WAL文件时的性能指标的结构体。它包含了用于记录读取次数、读取耗时、读取字节数等指标的字段和方法。
+
+LiveReader结构体是用于封装WAL文件的实时读取器的结构体。它包含了读取WAL文件时的一些状态信息和操作方法。
+
+NewLiveReaderMetrics函数用于创建一个新的LiveReaderMetrics实例，用于记录读取WAL文件时的性能指标。
+
+NewLiveReader函数用于创建一个新的LiveReader实例，它接收一个WAL文件的路径作为参数，并根据该路径创建一个文件读取器，用于实时读取WAL文件。
+
+Err方法用于获取当前LiveReader实例的错误（如果有）。
+
+Offset方法用于获取当前LiveReader实例的读取位置的偏移量。
+
+fillBuffer方法用于从WAL文件中读取数据并填充到缓冲区。
+
+Next方法用于从缓冲区中获取下一个完整的记录，并更新读取位置的偏移量。
+
+Record方法用于将获取的记录转换为数据块。
+
+buildRecord方法用于构建一条WAL记录。
+
+validateRecord方法用于验证记录的合法性。
+
+readRecord方法用于从缓冲区中读取一条完整的WAL记录。
+
+min函数用于返回两个整数中的较小者。
+
+这些函数一起协同工作，实现了从WAL文件中实时读取记录，并将其转换为数据块的功能。这有助于Prometheus在实时的基础上分析和查询收集的监控数据。
+

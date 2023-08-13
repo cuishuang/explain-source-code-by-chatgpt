@@ -1,0 +1,24 @@
+# File: tracing/tracing.go
+
+tracing/tracing.go文件是Prometheus项目中的一部分，它用于实现跟踪功能。以下是对文件中几个重要结构体和函数的详细介绍：
+
+1. Manager结构体：Manager是一个跟踪管理器，负责管理跟踪实例的创建和配置。它有一个包级私有变量traceProvider用于存储TracerProvider实例。
+
+2. otelErrHandler结构体：otelErrHandler是一个实现了ErrorHandler接口的结构体。在Prometheus项目中，它用于处理TracerProvider创建过程中的错误，并返回错误信息。
+
+3. NewManager函数：NewManager是一个工厂函数，用于创建Manager实例。它接收一个ErrorHandler作为参数，并返回一个Manager实例。
+
+4. Run函数：Run函数用于启动跟踪管理器。它首先会根据配置信息创建并初始化TracerProvider，然后将该Provider与全局DefaultTracerProvider关联起来，以便全局的Tracer实例可以使用该Provider。
+
+5. ApplyConfig函数：ApplyConfig函数用于根据给定的配置参数对跟踪管理器进行配置。它会创建或更新TracerProvider的配置信息。
+
+6. Stop函数：Stop函数用于停止TracerProvider的运行，释放相关资源。
+
+7. Handle函数：Handle函数用于处理跟踪数据的发送。它会调用TracerProvider的ExportSpans函数将跟踪数据发送到指定的目标。
+
+8. buildTracerProvider函数：buildTracerProvider函数用于创建TracerProvider实例。它会根据配置信息创建不同类型的Exporter，并将其配置到TracerProvider中。同时，也会根据配置信息创建Sampler用于采样策略。
+
+9. getClient函数：getClient函数用于获取与指定TracerProvider关联的Tracer实例，以便在其他地方进行跟踪记录。
+
+总而言之，tracing/tracing.go文件中的结构体和函数用于管理和配置跟踪功能。Manager结构体负责管理TracerProvider的创建和配置，通过NewManager函数创建Manager实例。Run函数用于启动TracerProvider的运行，ApplyConfig函数用于配置Manager实例，Stop函数用于停止TracerProvider运行。Handle函数用于处理跟踪数据的发送。buildTracerProvider函数用于创建TracerProvider实例，getClient函数用于获取Tracer实例。
+

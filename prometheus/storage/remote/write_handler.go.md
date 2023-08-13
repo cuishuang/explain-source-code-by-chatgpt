@@ -1,0 +1,14 @@
+# File: storage/remote/write_handler.go
+
+在Prometheus项目中，storage/remote/write_handler.go文件的作用是处理远程写入请求的HTTP接口。它负责接收来自远程客户端的写入请求，并将数据写入到本地的存储中。
+
+该文件中包含了多个结构体，其中最主要的是writeHandler结构体。writeHandler结构体实现了http.Handler接口，通过ServeHTTP函数处理来自客户端的HTTP请求。ServeHTTP函数首先检查请求的方法，如果不是POST方法，则返回错误响应。如果是POST方法，则进一步检查请求体的格式是否正确，并解析出请求中的样本数据。接着调用checkAppendExemplarError函数进行样本数据合法性检查。最后，将解析后的样本数据传递给write函数进行实际的写入操作，并返回响应结果。
+
+NewWriteHandler函数是writeHandler结构体的构造函数，用于创建一个新的writeHandler实例。它接受一个存储实例作为参数，并返回一个具有合适配置的writeHandler实例。
+
+checkAppendExemplarError函数用于检查样本数据的合法性。它会检查样本数据的标签是否为空，以及其值是否符合规定的类型。如果检查失败，则返回相应的错误信息。
+
+write函数负责将样本数据写入到存储中。它将样本数据封装为一个追加操作，并提交给存储进行处理。在写入成功时，返回一个标识成功的响应；如果在写入过程中出现错误，则返回相应的错误信息。
+
+总而言之，storage/remote/write_handler.go文件中的writeHandler结构体和相关函数提供了处理远程写入请求的功能，包括请求的解析、样本数据合法性检查和写入操作。
+

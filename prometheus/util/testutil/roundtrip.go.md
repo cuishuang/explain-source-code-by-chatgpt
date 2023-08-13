@@ -1,0 +1,14 @@
+# File: util/testutil/roundtrip.go
+
+在Prometheus项目中，roundtrip.go文件的作用是提供用于测试的工具函数和结构体，用于模拟和验证HTTP请求和响应的过程。
+
+roundTrip结构体是一个嵌入了http.RoundTripper接口的实现，它可以在测试中模拟和记录HTTP请求和响应的过程。这个结构体的主要作用是用于捕获发送给它的请求和返回给它的响应，并将其存储在内部的记录中，以便测试中可以对其进行验证和检查。
+
+roundTripCheckRequest结构体是一个用于存储检查HTTP请求的函数的容器。这个结构体包含一个检查函数，用于验证传入的请求是否符合预期的要求。
+
+RoundTrip函数是roundTrip结构体的实现的核心方法，它接收一个HttpRequest参数，并返回一个HttpResponse和error。在这个方法中，它会通过记录请求和响应，并交给roundTripCheckRequest的检查函数进行验证。这个方法会返回符合检查函数要求的预定义响应，或者在检查失败时返回错误。
+
+NewRoundTripCheckRequest函数用于创建一个roundTripCheckRequest结构体，并将提供的检查函数作为参数传递给它进行初始化。这个函数返回一个新的roundTripCheckRequest实例。
+
+通过使用这些函数和结构体，测试可以模拟和验证与Prometheus中的HTTP请求和响应相关的行为。这对于确保服务器和客户端在处理请求时的正确性非常有用。
+

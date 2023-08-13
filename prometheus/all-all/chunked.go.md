@@ -1,0 +1,24 @@
+# File: storage/remote/chunked.go
+
+在Prometheus项目中，storage/remote/chunked.go文件的作用是为Prometheus远程存储模块提供了一个实现了ChunkedWriter和ChunkedReader的chunkedWriter和chunkedReader结构体，并定义了相应的函数。
+
+castagnoliTable是一个CRC-32校验表，用于计算校验和。
+
+ChunkedWriter结构体用于将数据以chunked编码格式写入到一个可写入的缓冲区中。它有一个CRC32校验和，用来验证数据的完整性。ChunkedWriter具有Write和Close方法，用于写入数据和关闭writer。
+
+ChunkedReader结构体用于从一个可读取的缓冲区中读取chunked编码的数据。它有一个CRC32校验和，用来验证读取的数据的完整性。ChunkedReader具有Next和NextProto方法，分别用于读取下一个chunk和下一个完整的protobuf数据块。
+
+init函数用于初始化CRC-32校验表。
+
+NewChunkedWriter函数创建并返回一个ChunkedWriter实例。
+
+Write方法用于将数据写入到ChunkedWriter的缓冲区中，并计算校验和。
+
+NewChunkedReader函数创建并返回一个ChunkedReader实例。
+
+Next方法用于读取下一个chunk数据。
+
+NextProto方法用于读取下一个完整的protobuf数据块。
+
+这些函数的作用是支持在chunked编码格式中写入和读取数据，并提供了校验和功能以确保数据的完整性。
+

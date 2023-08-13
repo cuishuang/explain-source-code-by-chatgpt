@@ -1,0 +1,34 @@
+# File: tsdb/wlog/watcher.go
+
+tsdb/wlog/watcher.go文件是Prometheus项目中的一个文件，主要负责监控并读取Write Ahead Log（WAL）文件的变化，以便能够及时将数据写入到时间序列数据库（TSDB）中。
+
+ErrIgnorable是一个错误类型，表示在读取WAL文件时遇到的可忽略的错误。readTimeout是用于设置读取WAL文件时的超时时间。
+
+WriteTo是一个接口，定义了将数据写入到数据库的方法。WriteNotified是一个通知通道，用于通知新的写操作已经完成。
+
+WatcherMetrics是一个结构体，用于记录监控相关的度量指标。Watcher是一个结构体，表示WAL文件的观察者，用于监视和处理WAL文件的变化。
+
+segmentReadFn是一个函数类型，用于从WAL文件中读取段（segment）数据。
+
+NewWatcherMetrics函数用于创建WatcherMetrics结构体的实例，NewWatcher函数用于创建Watcher结构体的实例。
+
+Notify函数用于向Watcher发送通知，表示有新的WAL文件需要处理。setMetrics函数用于设置观察者的度量指标。
+
+Start函数用于启动Watcher，使其开始监控WAL文件的变化。Stop函数用于停止Watcher的监控。
+
+loop函数是Watcher的核心循环，负责执行读取和处理WAL文件的逻辑。Run函数用于执行loop函数。
+
+findSegmentForIndex函数用于根据WAL文件的索引找到对应的段。firstAndLast函数用于获取WAL文件的第一个和最后一个段。
+
+segments函数用于获取已经存在的WAL文件段。readAndHandleError函数用于读取WAL文件并处理可能的错误。
+
+watch函数用于监视WAL文件的变化并通知观察者。garbageCollectSeries函数用于清理无效的时间序列。
+
+readSegment函数用于读取WAL文件的段数据。readSegmentForGC函数用于读取WAL文件进行垃圾回收。
+
+SetStartTime函数用于设置Watcher的起始时间。readCheckpoint函数用于读取WAL文件的检查点信息。
+
+checkpointNum函数用于获取WAL文件的检查点编号。getSegmentSize函数用于获取WAL文件段的大小。
+
+isClosed函数用于判断Watcher是否已经关闭。以上这些函数都是Watcher的一些辅助功能函数，用于执行具体的任务。
+

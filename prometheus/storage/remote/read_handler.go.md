@@ -1,0 +1,18 @@
+# File: storage/remote/read_handler.go
+
+在Prometheus项目中，storage/remote/read_handler.go文件负责处理远程读取数据请求。该文件中定义了一些结构体和函数，具体作用如下：
+
+1. readHandler结构体：该结构体实现了http.Handler接口，用于处理HTTP请求并返回数据给客户端。它包含一个Storage接口，用于存储的读取操作。
+
+2. NewReadHandler函数：该函数用于创建一个readHandler实例。它接收一个Storage接口作为参数，并返回一个新的readHandler实例。
+
+3. ServeHTTP方法：该方法是readHandler结构体的方法，用于处理HTTP请求。它首先解析请求中的参数和标头信息，并调用remoteReadSamples方法从存储中读取数据。然后，根据请求中的查询参数，对读取的数据进行过滤和转换，并最终返回给客户端。
+
+4. remoteReadSamples方法：该方法接收查询参数和时间范围作为输入，并使用存储接口的Query方法从存储中读取相应的样本数据。它返回一个SampleStream接口，用于迭代和读取样本数据。
+
+5. remoteReadStreamedXORChunks方法：该方法接收查询参数和时间范围作为输入，并使用存储接口的QueryXORChunk方法从存储中读取压缩的样本数据块。它返回一个ChunkStreamReader接口，用于流式读取样本数据块。
+
+6. filterExtLabelsFromMatchers函数：该函数用于根据标签匹配规则，从SampleStream或ChunkStreamReader中过滤掉指定的外部标签。这个函数在查询远程存储时用于移除不必要的标签，以减少网络传输和存储负载。
+
+这些功能结合在一起，使得read_handler.go文件可以处理远程读取数据的请求，并根据查询参数对数据进行过滤和转换，最后以适当的格式返回给客户端。
+

@@ -1,0 +1,18 @@
+# File: model/labels/regexp.go
+
+在Prometheus项目中，model/labels/regexp.go文件的作用是实现正则表达式的匹配功能，用于在标签匹配器中使用。该文件定义了一个用于快速匹配字符串的正则表达式匹配器和相关的函数。
+
+FastRegexMatcher是一个结构体，包含了正则表达式的相关信息。它有两个成员变量，一个是模式字符串pattern，另一个是指示是否为字面量匹配的标志位isLiteral。
+
+NewFastRegexMatcher函数用于创建一个新的FastRegexMatcher实例。它接收一个正则表达式字符串作为参数，并根据表达式类型（字面量或正则表达式）设置相应的标志位。
+
+MatchString函数用于检查给定的字符串是否匹配该正则表达式。它接收一个要匹配的字符串作为参数，并返回一个布尔值，表示是否匹配。
+
+GetRegexString函数用于获取存储在FastRegexMatcher中的正则表达式字符串。
+
+isLiteral函数用于判断FastRegexMatcher是否为字面量匹配。
+
+optimizeConcatRegex函数用于优化连接的正则表达式。它接收一个正则表达式列表作为参数，并将它们连接成一个正则表达式。
+
+总结：model/labels/regexp.go文件中的FastRegexMatcher结构体以及相关函数提供了正则表达式的快速匹配功能。通过使用这些函数，可以创建正则表达式匹配器、检查字符串匹配、获取正则表达式字符串以及优化连接的正则表达式。
+

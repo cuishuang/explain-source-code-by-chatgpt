@@ -1,0 +1,34 @@
+# File: discovery/triton/triton.go
+
+discovery/triton/triton.go文件在Prometheus项目中的作用是实现与Triton云平台的服务发现和监控集成。
+
+DefaultSDConfig是用于配置服务发现的变量。它定义了默认的Triton服务发现配置，包括Triton API的URL、Triton API的版本、Triton账户的账户名和公钥路径等。
+
+SDConfig结构体是用于配置Triton服务发现的结构体，包含了与Triton云平台通信所需的所有参数，如Triton API的URL、Triton API的版本、Triton账户的账户名和公钥路径等。
+
+DiscoveryResponse是Triton服务发现的响应结构体，用于解析Triton返回的服务发现响应。它包含了响应中的所有重要信息，如服务实例的IP地址、端口等。
+
+ComputeNodeDiscoveryResponse是Triton服务发现的计算节点响应结构体，用于解析Triton返回的计算节点响应。它包含了响应中的计算节点的重要信息，如节点的名称、地址等。
+
+Discovery是一个接口，定义了Triton服务发现的功能。
+
+init函数是模块的初始化函数，用于初始化Triton服务发现模块。
+
+Name函数用于返回服务发现的名称，即"Triton"。
+
+NewDiscoverer函数用于实例化Triton服务发现器。
+
+SetDirectory函数用于设置Triton服务发现目录。
+
+UnmarshalYAML函数用于从YAML配置文件中解析配置选项。
+
+New函数用于创建Triton服务发现的实例。
+
+refresh函数用于刷新Triton服务发现器中的数据。
+
+processContainerResponse函数用于处理容器级别的Triton服务发现响应，并将响应中的服务实例信息提取出来。
+
+processComputeNodeResponse函数用于处理计算节点级别的Triton服务发现响应，并将响应中的计算节点信息提取出来。
+
+总的来说，discovery/triton/triton.go文件中的这些函数和结构体用于与Triton云平台进行通信和解析Triton的服务发现响应，实现对Triton云平台的服务发现和监控集成。
+

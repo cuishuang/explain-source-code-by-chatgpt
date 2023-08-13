@@ -1,0 +1,30 @@
+# File: tsdb/wal.go
+
+在Prometheus项目中，tsdb/wal.go文件的作用是实现了日志文件（Write Ahead Log, WAL）的读写操作。WAL是用于持久化存储时间序列数据，并保证数据的一致性和可恢复性的一种机制。
+
+首先，castagnoliTable是用于计算CRC32校验和的多项式表。CRC32校验和用于校验WAL文件的完整性。
+
+接下来，WALEntryType定义了WAL日志条目的类型，包括数据点、样本、删除操作等。
+
+walMetrics结构体定义了用于记录WAL日志的各种指标，例如条目写入数、校验和错误数等。
+
+WAL是一个文件，包含了多个WAL日志段。WALReader是用于读取WAL文件的结构体，SegmentWAL是一个WAL文件的段，repairingWALReader和walReader用于修复WAL文件的读取操作，walCorruptionErr是WAL文件损坏的错误类型。
+
+newWalMetrics函数用于创建walMetrics结构体，newSegmentFile函数用于创建一个新的WAL文件段，init用于初始化WAL文件，newCRC32用于创建CRC32校验模块。
+
+OpenSegmentWAL函数用于打开一个WAL文件段，Read用于读取WAL文件中的数据，truncate用于截断WAL文件，Reader定义了WAL文件的读取器接口，getBuffer和putBuffer用于获取和释放缓冲区。
+
+Truncate用于截断WAL文件，LogSeries、LogSamples和LogDeletes分别用于写入时间序列数据、样本和删除操作到WAL日志中。
+
+openSegmentFile和createSegmentFile用于打开和创建WAL文件段，cut用于切割WAL文件段，head用于获取WAL文件头部信息，Sync、sync和flush用于刷写WAL数据到磁盘。
+
+run是一个协程，用于异步刷写WAL数据到磁盘，Close用于关闭WAL文件，write用于向WAL文件写入数据，writeTo用于将WAL数据写入到指定的io.Writer中。
+
+encodeSeries、encodeSamples和encodeDeletes用于将时间序列数据、样本和删除操作编码为序列化的字节流，newWALReader用于创建WAL文件读取器。
+
+Err用于判断错误类型，at、next和current用于迭代WAL文件条目，Error用于获取WAL文件读取器的错误信息，corruptionErr用于判断WAL文件是否损坏。
+
+entry用于解码WAL条目，decodeSeries、decodeSamples和decodeDeletes用于解码时间序列数据、样本和删除操作，deprecatedWALExists用于判断是否存在旧版本的WAL文件，MigrateWAL用于迁移旧版本的WAL文件。
+
+总而言之，tsdb/wal.go文件定义了WAL文件的结构和操作方法，提供了写入和读取WAL文件的接口，保证了时间序列数据的持久化和可恢复性。
+

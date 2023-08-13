@@ -1,0 +1,16 @@
+# File: tsdb/tsdbutil/chunks.go
+
+tsdb/tsdbutil/chunks.go文件在Prometheus项目中的作用是定义了一些用于操作时间序列数据块的函数和结构体。
+
+Samples结构体表示一个时间序列的样本点集合，其中每个样本点由时间戳和具体值组成。Sample结构体表示一个单独的样本点，包含了时间戳和值。SampleSlice结构体是Samples结构体的一个子集，表示一组样本点，可以进行切片操作。
+
+sample结构体是Samples结构体中实际存储的样本点数据的结构体，其中包含时间戳和值。
+
+Get函数用于根据索引从样本点集合中获取指定位置的样本点。Len函数用于获取样本点集合的长度。ChunkFromSamples函数用于根据给定的样本点创建一个数据块，该数据块将样本点按照时间戳进行排序和压缩。ChunkFromSamplesGeneric函数是ChunkFromSamples的一个通用版本，可以用于不同类型的样本集合。
+
+T、F、H、FH、Type是用于表示数据块类型的枚举值。
+
+PopulatedChunk函数用于对给定的数据块进行填充，使其包含指定的样本集合。GenerateSamples函数用于生成指定数量的样本点，可以用于测试和模拟数据。generateSamples函数是GenerateSamples的一个内部实现函数。
+
+这些函数和结构体提供了对时间序列数据的常用操作，包括创建数据块、获取数据、生成测试数据等。通过这些功能，可以方便地对时间序列数据进行存储、读取和处理。
+
