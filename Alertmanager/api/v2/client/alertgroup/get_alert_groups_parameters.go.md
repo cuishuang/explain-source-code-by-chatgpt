@@ -1,0 +1,20 @@
+# File: alertmanager/api/v2/restapi/operations/alertgroup/get_alert_groups_parameters.go
+
+在alertmanager项目中，alertmanager/api/v2/restapi/operations/alertgroup/get_alert_groups_parameters.go文件的作用是定义了获取警报组参数的结构体和函数。
+
+GetAlertGroupsParams结构体是一个包含了获取警报组所需的各种参数的数据结构。它包含了以下字段：
+
+- Active：表示是否只获取激活状态的警报。
+- Filter：表示需要筛选的警报标签。
+- Inhibited：表示是否只获取被阻止的警报。
+- Receiver：表示需要筛选的接收者。
+- Silenced：表示是否只获取被静默的警报。
+
+NewGetAlertGroupsParams是一个用于创建GetAlertGroupsParams结构体对象的函数。它接收各种参数的值作为输入，并返回一个初始化后的GetAlertGroupsParams对象。
+
+BindRequest函数是用于将HTTP请求的参数值绑定到GetAlertGroupsParams结构体对象的函数。它接收一个http.Request对象和一个GetAlertGroupsParams对象作为参数，并将请求中的参数值绑定到GetAlertGroupsParams对象的相应字段上。
+
+bindActive、bindFilter、bindInhibited、bindReceiver、bindSilenced函数分别是用于将特定参数值绑定到GetAlertGroupsParams对象的内部函数。它们接收一个字符串作为输入，并将输入值绑定到GetAlertGroupsParams对象的相应字段上。
+
+这些函数的作用是通过将HTTP请求中的参数值绑定到GetAlertGroupsParams对象，从而实现通过API获取特定条件下的警报组。通过设置不同的参数值，可以调整警报组的获取条件，以满足具体的需求。
+

@@ -1,0 +1,24 @@
+# File: alertmanager/cli/format/format_json.go
+
+在Alertmanager项目中，alertmanager/cli/format/format_json.go文件的作用是定义了用于格式化输出JSON的代码。
+
+该文件定义了JSONFormatter结构体和一些相关函数，用于根据提供的数据格式化输出为JSON字符串，并提供了一些功能函数来设置输出、格式化静默、格式化警报、格式化配置以及格式化集群状态等。
+
+下面详细介绍JSONFormatter结构体的作用和每个函数的功能：
+
+1. JSONFormatter结构体：这是一个自定义的结构体，用于存储相关的格式化输出配置和输出数据。
+
+2. init函数：在包被导入时自动执行的初始化函数，用于初始化JSONFormatter结构体的默认值。
+
+3. SetOutput函数：用于设置输出的接口，通过该函数可以指定输出目标，比如设置为文件或标准输出等。
+
+4. FormatSilences函数：用于将提供的静默数据格式化为JSON字符串。静默数据是Alertmanager中用于屏蔽某些告警规则的配置，该函数将静默数据转换为JSON字符串以便输出。
+
+5. FormatAlerts函数：用于将提供的警报数据格式化为JSON字符串。警报数据包含了具体的告警信息，该函数将警报数据转换为JSON字符串以便输出。
+
+6. FormatConfig函数：用于将提供的配置数据格式化为JSON字符串。配置数据包含Alertmanager的相关配置信息，该函数将配置数据转换为JSON字符串以便输出。
+
+7. FormatClusterStatus函数：用于将提供的集群状态数据格式化为JSON字符串。集群状态数据包含了Alertmanager集群的运行状态和健康信息，该函数将集群状态数据转换为JSON字符串以便输出。
+
+以上函数通过接收不同类型的数据作为参数，将这些数据转换为对应的JSON格式字符串，并根据需要的格式输出到指定的接口。这些功能函数可以被其他部分的代码调用，用于实现在Alertmanager命令行工具中以JSON格式输出相关数据。
+

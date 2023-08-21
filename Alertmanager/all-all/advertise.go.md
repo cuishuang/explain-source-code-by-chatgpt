@@ -1,0 +1,16 @@
+# File: alertmanager/cluster/advertise.go
+
+在Alertmanager项目中，`alertmanager/cluster/advertise.go`文件的作用是确定Alertmanager实例广播的地址。这个文件中的函数和变量有助于确定广播地址，使得Alertmanager实例能够在集群中互相发现。
+
+`getPrivateAddress`是一个函数变量，用于获取Alertmanager实例的私有IP地址。私有IP地址是内部网络中使用的地址，只在内部网络中可见。
+
+`getPublicAddress`是另一个函数变量，用于获取Alertmanager实例的公共IP地址。公共IP地址是外部网络中可见的地址，用于与外部系统进行通信。
+
+`getIPFunc`是一个函数类型，它作为参数传递给其他函数，并用于获取Alertmanager实例的IP地址。
+
+`calculateAdvertiseAddress`是一个函数，用于计算广告地址。此函数基于不同的条件（如是否配置了公共地址，是否在IPv6环境中等）来确定最佳的广告地址。
+
+`discoverAdvertiseAddress`是另一个函数，用于发现广告地址。此函数会尝试获取Alertmanager实例的IP地址，并使用`calculateAdvertiseAddress`函数确定广告地址。
+
+通过使用这些函数和变量，Alertmanager能够确定在集群中广播的地址，并使得其他Alertmanager实例能够通过该地址发现彼此。这对于Alertmanager的集群化和高可用性非常重要。
+

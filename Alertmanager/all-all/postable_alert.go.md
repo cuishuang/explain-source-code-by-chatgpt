@@ -1,0 +1,24 @@
+# File: alertmanager/api/v2/models/postable_alert.go
+
+在alertmanager项目中，alertmanager/api/v2/models/postable_alert.go是一个包含PostableAlert结构体和相关方法的文件。它的作用是定义alertmanager API v2中可通过POST请求传递的警报信息的数据结构。
+
+PostableAlert结构体是alertmanager API v2中可通过POST请求传递的警报信息的主要数据结构。该结构体的字段包括：
+- Version：警报的API版本
+- GroupLabels：警报分组的标签
+- CommonLabels：警报的共同标签
+- CommonAnnotations：警报的共同注释
+- Alerts：警报列表，包括每个警报的标签、注释和开始/结束时间等信息。
+
+UnmarshalJSON方法用于从JSON数据中解析出一个PostableAlert结构体实例。
+MarshalJSON方法用于将PostableAlert结构体实例转换为JSON格式的数据。
+Validate方法用于验证PostableAlert结构体的字段值是否符合要求。
+validateAnnotations方法用于验证PostableAlert结构体的共同注释字段的值是否符合要求。
+validateEndsAt方法用于验证结束时间字段的值是否符合要求。
+validateStartsAt方法用于验证开始时间字段的值是否符合要求。
+ContextValidate方法用于在验证时进行上下文验证。
+contextValidateAnnotations用于在验证时进行共同注释字段的上下文验证。
+MarshalBinary方法用于将PostableAlert结构体实例转换为二进制格式的数据。
+UnmarshalBinary方法用于从二进制数据中解析出一个PostableAlert结构体实例。
+
+这些方法的作用是对PostableAlert结构体的字段进行验证、解析和转换，以确保数据的有效性和正确性。它们在alertmanager API v2的请求处理和数据处理过程中发挥重要作用。
+

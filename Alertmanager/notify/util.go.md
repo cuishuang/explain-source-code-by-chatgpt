@@ -1,0 +1,33 @@
+# File: alertmanager/notify/util.go
+
+在alertmanager项目中，alertmanager/notify/util.go文件的作用是提供了一些通用的实用函数和结构体，用于发送通知、进行模板渲染等操作。
+
+UserAgentHeader变量是一个通用的HTTP请求头，表示请求的用户代理。
+possibleFailureReasonCategory变量是一个枚举，定义了可能的失败原因的类别。
+
+Key结构体用于表示通知模板的键值对，用于模板渲染。
+Retrier结构体用于定义通知重试策略，包含了重试次数和重试间隔等属性。
+ErrorWithReason结构体用于表示带有原因的错误，可以携带失败原因的详细信息。
+Reason结构体用于表示一个失败原因，包含了原因的类别和详细信息。
+
+RedactURL函数用于对URL进行隐私处理，将敏感信息替换为占位符。
+Get函数用于发送HTTP GET请求，并返回响应内容。
+PostJSON函数用于发送HTTP POST请求，将数据以JSON格式提交，并返回响应内容。
+PostText函数用于发送HTTP POST请求，将数据以文本格式提交，并返回响应内容。
+post函数用于发送HTTP请求，可以自定义请求方法、请求头和请求体，并返回响应内容。
+request函数用于创建一个HTTP请求实例。
+Drain函数用于读取和丢弃HTTP响应体的内容。
+TruncateInRunes函数用于通过字符数截断字符串。
+TruncateInBytes函数用于通过字节数截断字符串。
+TmplText函数用于渲染文本模板。
+TmplHTML函数用于渲染HTML模板。
+ExtractGroupKey函数用于从通知标签中提取分组键。
+Hash函数用于计算字符串的哈希值。
+String函数用于将任意类型的值转换为字符串。
+GetTemplateData函数用于获取模板渲染所需的数据。
+readAll函数用于读取并关闭一个io.Reader实例。
+Check函数用于检查HTTP响应的状态码是否存在于给定的范围内。
+NewErrorWithReason函数用于创建一个带有原因的错误。
+Error函数用于返回一个不带有原因的错误。
+GetFailureReasonFromStatusCode函数根据HTTP状态码返回对应的失败原因。
+

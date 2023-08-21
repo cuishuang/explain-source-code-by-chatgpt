@@ -1,0 +1,14 @@
+# File: alertmanager/nflog/nflogpb/set.go
+
+在alertmanager项目中，alertmanager/nflog/nflogpb/set.go文件的作用是实现了一些与集合操作相关的函数。该文件定义了一个Set结构体，该结构体是一个无序的唯一元素集合。
+
+下面是对IsFiringSubset、IsResolvedSubset、isSubset这几个函数的作用的详细解释：
+
+1. IsFiringSubset方法：此方法用于判断当前Set是否是另一个给定Set的子集，并且只考虑正在触发的警报。其中，Set是通过给定的标签组合，用来筛选在给定Set中设置的警报。该方法返回一个布尔值，如果当前Set是给定Set的子集，则返回true，否则返回false。
+
+2. IsResolvedSubset方法：该方法与IsFiringSubset方法类似，但是不仅考虑正在触发的警报，还考虑已解决的警报。该方法也返回一个布尔值，如果当前Set是给定Set的子集，则返回true，否则返回false。
+
+3. isSubset方法：这是Set的内部方法，用于判断当前Set是否是另一个给定Set的子集。它与IsFiringSubset和IsResolvedSubset方法不同的是，isSubset方法不考虑警报的触发状态，只根据标签组合判断子集关系。该方法在实现IsFiringSubset和IsResolvedSubset方法时调用。
+
+这些函数的作用是用于检查当前Set是否是另一个给定Set的子集，通过比较标签组合来确定子集关系。这在Alertmanager项目中是非常有用的，因为它可以帮助用户快速确定哪些警报属于特定的组合，并进行相应的处理。
+

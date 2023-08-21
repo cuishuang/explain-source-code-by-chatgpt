@@ -1,0 +1,25 @@
+# File: alertmanager/notify/pagerduty/pagerduty.go
+
+在alertmanager项目中，alertmanager/notify/pagerduty/pagerduty.go文件的作用是实现与PagerDuty集成的通知功能。该文件中定义了与PagerDuty API交互所需的数据结构和函数，以及具体的通知逻辑。
+
+Notifier是一个接口，定义了通知器的行为。pagerDutyMessage、pagerDutyLink、pagerDutyImage和pagerDutyPayload是用于构建PagerDuty通知消息的数据结构。
+
+- pagerDutyMessage用于配置通知消息的主体内容。
+- pagerDutyLink用于添加链接到通知消息中。
+- pagerDutyImage用于添加图片到通知消息中。
+- pagerDutyPayload包含通知消息的完整信息，包括主体、链接和图片等。
+
+New函数用于创建一个PagerDuty通知器，通过提供PagerDuty的API Token和URL参数进行配置。
+
+encodeMessage函数将pagerDutyMessage、pagerDutyLink和pagerDutyImage结构体中的数据编码为JSON格式，用于向PagerDuty发送通知。
+
+notifyV1函数根据PagerDuty集成的v1 API规范，使用HTTP POST方法将通知消息发送给PagerDuty。
+
+notifyV2函数根据PagerDuty集成的v2 API规范，使用HTTP POST方法将通知消息发送给PagerDuty。
+
+Notify函数是Notifier接口的实现，它根据PagerDuty API的版本选择适当的通知函数进行通知，并处理错误情况。
+
+errDetails函数用于获取PagerDuty API返回的错误信息。
+
+总的来说，alertmanager/notify/pagerduty/pagerduty.go文件的作用是实现Alertmanager与PagerDuty的通知集成功能，通过定义数据结构和函数实现构建通知消息、发送通知和处理错误的功能。
+

@@ -1,0 +1,12 @@
+# File: alertmanager/cli/format/sort.go
+
+在alertmanager项目中，alertmanager/cli/format/sort.go这个文件的作用是实现了用于排序alertmanager中报警信息的功能。
+
+该文件中定义了三个结构体：ByEndAt、ByStartsAt和ByAddress。这些结构体实现了Go语言中sort接口的三个方法：Len、Swap和Less。它们的作用是定义了按照不同的字段对报警信息进行排序。
+
+结构体ByEndAt是按照报警信息的结束时间排序，结构体ByStartsAt是按照报警信息的开始时间排序，而结构体ByAddress是按照报警信息的地址排序。
+
+函数Len返回该排序器的长度。Swap按照给定的索引交换两个元素的位置。Less确定两个元素的顺序，如果第一个元素小于第二个元素，则返回true，否则返回false。
+
+通过使用这些结构体和函数，可以根据不同的排序需求对报警信息进行排序，使其更直观和易于管理。
+

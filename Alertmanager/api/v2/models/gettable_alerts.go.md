@@ -1,0 +1,16 @@
+# File: alertmanager/api/v2/models/gettable_alerts.go
+
+在alertmanager项目中，alertmanager/api/v2/models/gettable_alerts.go文件的作用是定义了与获取告警相关的结构体和函数。
+
+GettableAlerts这几个结构体定义了不同层次的获取告警请求和响应的结构体。具体而言，这些结构体包括：
+
+1. GettableAlertsPayload：获取告警请求的载荷结构体，用于指定获取告警的条件和参数。
+2. GettableAlertsOKBody：获取告警成功的响应体结构体，包含了获取的告警列表和相关的元数据。
+3. GettableAlertsMatcher：获取告警匹配器结构体，用于定义筛选告警的条件。
+
+Validate是一个方法，用于校验GettableAlertsPayload结构体的合法性。它会检查载荷中的字段是否符合要求，包括范围限制和字段的存在性。
+
+ContextValidate也是一个方法，用于在上下文中校验GettableAlertsPayload结构体的合法性。与Validate方法不同的是，ContextValidate方法还可以基于上下文中的其他信息进行更复杂的校验。这个方法通常在更复杂的场景下使用，如需要获取告警的特定时间段或者特定状态的告警。
+
+总的来说，alertmanager/api/v2/models/gettable_alerts.go文件提供了获取告警的相关结构体和函数，用于定义获取告警的请求和响应体，并进行校验来确保请求的合法性。
+

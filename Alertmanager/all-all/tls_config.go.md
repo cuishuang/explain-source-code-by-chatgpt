@@ -1,0 +1,10 @@
+# File: alertmanager/cluster/tls_config.go
+
+在alertmanager项目中，alertmanager/cluster/tls_config.go文件的作用是处理与TLS传输相关的配置。
+
+在该文件中，定义了三个结构体，分别为TLSTransportConfig、TLSConfig和ServerConfig。TLSTransportConfig用于保存TLS传输配置的信息，包括证书、私钥、CA证书等。TLSConfig则用于保存TLS配置的信息，包括最小版本、允许的密码套件等。ServerConfig则用于保存服务器的TLS配置信息，包括TLSConfig和客户端认证信息。
+
+在文件中，还定义了一系列的GetTLSTransportConfig函数，用于获取TLS传输配置。这些函数根据输入的证书、私钥和CA证书路径，使用标准库中的crypto/tls来加载和解析相应的证书文件，生成对应的TLS配置。GetTLSTransportConfigFromTLSConfig函数从给定的TLS配置中构建一个TLSTransportConfig对象。其他的GetTLSTransportConfig函数则使用默认的证书、私钥和CA证书路径，创建一个默认的TLSTransportConfig对象。
+
+总的来说，tls_config.go文件负责处理Alertmanager集群通信中与TLS传输相关的配置，通过TLSConfig和TLSTransportConfig结构体保存和管理TLS配置信息，并提供了相应的获取TLS传输配置的函数。
+

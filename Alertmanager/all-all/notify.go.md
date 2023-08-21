@@ -1,0 +1,71 @@
+# File: alertmanager/notify/notify.go
+
+文件 `alertmanager/notify/notify.go` 是 Alertmanager 项目中的一个文件，负责实现通知功能。以下是该文件中提到的变量和结构体的介绍：
+
+- `hashBuffers`：用于存储不同 `AlertGroup` 的哈希值缓存。
+- `ResolvedSender`：负责发送已解决通知的发送器。
+- `Peer`：表示Alertmanager服务的对等节点。
+- `Notifier`：负责通知发送器的抽象类型。
+- `Integration`：通知整合器，包含接收通知配置和处理通知的方法。
+- `notifyKey`：包含通知的标识符、发送器和整合器之间的对应关系。
+- `Stage`：通知管道中的一个阶段。
+- `StageFunc`：阶段的处理函数，接收一个 `context` 和一个 `...*Stage` 参数。
+- `NotificationLog`：通知日志结构，用于存储所有发出的报警通知以及其状态。
+- `Metrics`：用于收集和指标相关的数据。
+- `PipelineBuilder`：通知管道构建器，负责构建通知的处理管道。
+- `RoutingStage`：负责根据配置的接收器路由通知到正确的阶段。
+- `MultiStage`：用于并行处理阶段的组合阶段。
+- `FanoutStage`：负责将通知广播到多个接收器。
+- `GossipSettleStage`：负责处理短暂的网络抖动并解决冲突。
+- `MuteStage`：负责根据静音配置在通知到达之前过滤通知。
+- `WaitStage`：负责等待在一段时间内考虑是否发送通知。
+- `DedupStage`：负责根据去重配置消除重复通知。
+- `hashBuffer`：用于存储通知的一致性哈希缓冲。
+- `RetryStage`：负责处理发送失败的通知并进行重试。
+- `SetNotifiesStage`：负责将接收器名称映射到阶段。
+- `timeStage`：负责将通知事件设置为当前时间。
+- `TimeMuteStage`：根据时间静音配置在通知到达之前过滤通知。
+- `TimeActiveStage`：根据时间活动配置在通知到达之前过滤通知。
+- `NewIntegration`：创建新的通知整合器。
+- `Notify`：通知发送器的方法，用于发送通知。
+- `SendResolved`：发送已解决通知的方法。
+- `Name`：获取通知的名称。
+- `Index`：获取通知的索引。
+- `String`：将通知转换为字符串。
+- `WithReceiverName`：设置接收器名称。
+- `WithGroupKey`：设置通知的分组键。
+- `WithFiringAlerts`：设置触发的警报。
+- `WithResolvedAlerts`：设置已解决的警报。
+- `WithGroupLabels`：设置分组标签。
+- `WithNow`：设置通知的当前时间。
+- `WithRepeatInterval`：设置重复间隔。
+- `WithMuteTimeIntervals`：设置静音时间间隔。
+- `WithActiveTimeIntervals`：设置活动时间间隔。
+- `RepeatInterval`：获取重复间隔。
+- `ReceiverName`：获取接收器名称。
+- `GroupKey`：获取分组键。
+- `GroupLabels`：获取分组标签。
+- `Now`：获取当前时间。
+- `FiringAlerts`：获取触发的警报。
+- `ResolvedAlerts`：获取已解决的警报。
+- `MuteTimeIntervalNames`：获取静音时间间隔名称。
+- `ActiveTimeIntervalNames`：获取活动时间间隔名称。
+- `Exec`：执行通知整合器的方法。
+- `NewMetrics`：创建新的指标收集器。
+- `NewPipelineBuilder`：创建新的通知管道构建器。
+- `New`：创建新的通知发送器。
+- `createReceiverStage`：创建接收器阶段。
+- `NewGossipSettleStage`：创建新的短暂解决阶段。
+- `NewMuteStage`：创建新的静音阶段。
+- `NewWaitStage`：创建新的等待阶段。
+- `NewDedupStage`：创建新的去重阶段。
+- `utcNow`：获取当前的UTC时间。
+- `hashAlert`：哈希通知。
+- `needsUpdate`：检查通知是否需要更新。
+- `NewRetryStage`：创建新的重试阶段。
+- `exec`：执行阶段处理函数。
+- `NewSetNotifiesStage`：创建新的接收器名称映射阶段。
+- `NewTimeMuteStage`：创建新的时间静音阶段。
+- `NewTimeActiveStage`：创建新的时间活动阶段。
+- `inTimeIntervals`：检查时间间隔是否包含给定时间。
+

@@ -1,0 +1,15 @@
+# File: alertmanager/api/v2/restapi/operations/general/get_status_parameters.go
+
+在alertmanager项目中，alertmanager/api/v2/restapi/operations/general/get_status_parameters.go文件的作用是定义了获取Alertmanager状态的请求参数结构体和相应的函数。
+
+GetStatusParams这几个结构体定义了不同请求参数的结构，包括URL参数、Query参数和Header参数等。具体包括：
+- GetStatusParams：最基础的请求参数结构体，包含了URL参数和Header参数。
+- GetStatusParamsWithTimeout：在GetStatusParams的基础上增加了超时时间的设置。
+- GetStatusParamsWithContext：在GetStatusParams的基础上增加了上下文信息的设置。
+
+NewGetStatusParams函数是一个工厂函数，用于创建指定GetStatusParams结构体对象。它接受不同类型的参数，并返回相应类型的参数结构体对象。
+
+BindRequest函数是用于验证和绑定请求参数的函数。它接受一个http请求对象和GetStatusParams结构体对象作为参数，通过检查和解析请求中的URL参数、Query参数和Header参数以及进行数据验证，将这些参数绑定到GetStatusParams结构体对象中。
+
+总结起来，alertmanager/api/v2/restapi/operations/general/get_status_parameters.go文件定义了获取Alertmanager状态的请求参数结构体以及对应的工厂函数和参数绑定函数，用于处理获取Alertmanager状态的请求，并且提供了对请求参数的验证和解析功能。
+

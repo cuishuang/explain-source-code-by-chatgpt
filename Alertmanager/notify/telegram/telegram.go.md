@@ -1,0 +1,16 @@
+# File: alertmanager/notify/telegram/telegram.go
+
+在alertmanager项目中，alertmanager/notify/telegram/telegram.go文件是用于集成Telegram通知功能的文件。它提供了与Telegram API进行通信的功能，以便Alertmanager能够通过Telegram向用户发送警报通知。
+
+该文件中的Notifier结构体是一个实现了alertmanager.Notifier接口的结构体，它定义了发送Telegram通知所需的各种参数和方法。这些参数包括BotToken（Telegram Bot的令牌）、ChatID（Telegram用户或群组的聊天ID）以及Proxy（代理服务器地址）等。
+
+在该文件中，New函数用于创建一个新的Telegram通知器实例。它接受BotToken、ChatID和Proxy等参数，并返回一个Notifier结构体。
+
+Notify方法是Notifier结构体的一个方法，用于发送Telegram通知。它接受一个alertmanager.Alert参数，该参数包含了警报的详细信息。Notify方法中，会调用createTelegramClient函数创建一个Telegram客户端，并使用该客户端通过Telegram API发送通知消息到指定的ChatID。
+
+createTelegramClient函数是一个内部函数，它根据传入的BotToken和Proxy参数创建一个Telegram客户端。这个客户端可以与Telegram API进行交互，发送和接收消息。
+
+getBotToken函数是一个辅助函数，用于从配置文件中获取Telegram Bot的令牌。
+
+总而言之，alertmanager/notify/telegram/telegram.go文件实现了Alertmanager与Telegram之间的通信，提供了发送Telegram通知的功能。Notifier结构体定义了发送通知所需的参数和方法，New函数用于创建一个新的Telegram通知器实例，Notify方法用于发送通知，createTelegramClient函数用于创建Telegram客户端，getBotToken函数用于获取Bot令牌。
+
