@@ -1,0 +1,12 @@
+# File: client-go/applyconfigurations/flowcontrol/v1beta1/flowdistinguishermethod.go
+
+在client-go项目中的client-go/applyconfigurations/flowcontrol/v1beta1/flowdistinguishermethod.go文件是关于流量控制器中流量区分方法的代码实现。
+
+FlowDistinguisherMethodApplyConfiguration是一个包含了用于设置流量区分方法的配置的结构体。该结构体可以被应用于流量控制对象的创建和更新操作中。
+
+FlowDistinguisherMethod结构体表示流量区分方法，它包含了选择流量的一种方式。它可以将区分方法的类型（Type）与其他参数一起表示。FlowDistinguisherMethod结构体通过WithType函数来创建。
+
+FlowDistinguisherMethod的WithType函数用于创建带有指定类型的流量区分方法对象。它接受一个字符串类型的参数作为流量区分方法的类型，例如 "ByNamespace"、"ByUser" 等。WithType函数会返回一个FlowDistinguisherMethod对象，该对象包含了指定的类型。
+
+总的来说，client-go/applyconfigurations/flowcontrol/v1beta1/flowdistinguishermethod.go文件定义了流量控制器中流量区分方法的配置和相关的操作函数。
+

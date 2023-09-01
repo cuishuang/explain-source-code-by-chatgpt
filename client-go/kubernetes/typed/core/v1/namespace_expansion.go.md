@@ -1,0 +1,22 @@
+# File: client-go/kubernetes/typed/core/v1/namespace_expansion.go
+
+在client-go项目中，client-go/kubernetes/typed/core/v1/namespace_expansion.go文件的作用是拓展 Kubernetes Core V1 API 中的Namespace资源接口。
+
+NamespaceExpansion文件定义了NamespaceExpansionInterface接口和NamespaceExpansion结构体，用于扩展Clientset结构体中的CoreV1Interface接口。
+
+NamespaceExpansionInterface接口定义了一系列操作Namespace资源的方法，包括创建、更新、删除和获取Namespace资源。
+
+NamespaceExpansion结构体实现了NamespaceExpansionInterface接口，并使用真实的Clientset对象进行操作。
+
+另外，NamespaceExpansion文件还定义了一系列Finalize方法，用于操作Namespace的Finalize子资源。
+
+FinalizeDefault方法用于设置Namespace中的Finalizers字段，用来标志是否有Finalize子资源。
+
+FinalizeExpansion方法用于对Finalize子资源进行扩展操作。
+
+FinalizeNamespaceExpansionInterface接口定义了一系列操作Namespace Finalize子资源的方法。
+
+FinalizeNamespaceExpansion结构体实现了FinalizeNamespaceExpansionInterface接口，并使用真实的Clientset对象进行操作。
+
+总而言之，namespace_expansion.go文件的作用是扩展 Kubernetes Core V1 API 中的Namespace资源接口，并提供了操作Finalize子资源的方法。
+

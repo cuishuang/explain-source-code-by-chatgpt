@@ -1,0 +1,12 @@
+# File: client-go/informers/internalinterfaces/factory_interfaces.go
+
+在client-go项目中，client-go/informers/internalinterfaces/factory_interfaces.go这个文件定义了一些接口和方法，用于创建和管理Informer对象。
+
+1. NewInformerFunc：这个函数类型定义了一个创建Informer对象的函数，它接收一个shared informer factory以及一些参数，并返回一个已创建的Informer对象。它被用来创建新的Informer对象，并在InformerFactory中保存。
+
+2. SharedInformerFactory：这是一个接口，定义了一系列方法用于创建和管理多个Informer对象。它包含了一些常用的方法，如Start方法用于启动所有Informer对象的监听，WaitForCacheSync方法用于等待缓存同步完成等。SharedInformerFactory可以根据不同的资源类型和版本创建对应的Informer对象，并将其保存在一个map中以便后续使用。
+
+3. TweakListOptionsFunc：这是一个函数类型，用于自定义List操作的选项。它可以在创建Informer对象时添加一些定制的List选项，例如指定LabelSelector或FieldSelector等。TweakListOptionsFunc可以修改传递给List方法的选项参数，并返回修改后的选项参数供Informer使用。
+
+这些结构体和接口的作用是协助开发者创建和管理Informer对象。Informer是Kubernetes中用于监听某个资源的变化并处理事件的一种机制。client-go提供了一些工具和接口，让开发者能够更方便地创建和管理Informer对象，以便在自己的应用中使用。
+

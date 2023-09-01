@@ -1,0 +1,35 @@
+# File: client-go/applyconfigurations/storage/v1beta1/csistoragecapacity.go
+
+在K8s组织下的client-go项目中，`csistoragecapacity.go`文件的作用是定义了CSI Storage Capacity资源的Apply Configuration。CSI（Container Storage Interface）Storage Capacity是Kubernetes的一种机制，用于查询持久存储后端的能力信息。
+
+`CSIStorageCapacityApplyConfiguration`是一个结构体，它定义了一组可应用于CSIStorageCapacity对象的配置选项。可以使用该结构体将配置应用于CSIStorageCapacity对象。
+
+以下是CSIStorageCapacity及其相关函数的作用：
+
+1. `CSIStorageCapacity`：定义了CSIStorageCapacity资源的数据结构，包含存储能力的信息。
+2. `ExtractCSIStorageCapacity`：从指定的对象中提取CSIStorageCapacity对象并返回。
+3. `ExtractCSIStorageCapacityStatus`：从指定的对象中提取CSIStorageCapacity的状态信息并返回。
+4. `extractCSIStorageCapacity`：从指定的对象中提取CSIStorageCapacity对象并返回。
+5. `WithKind`：为CSIStorageCapacityApplyConfiguration对象设置Kind字段。
+6. `WithAPIVersion`：为CSIStorageCapacityApplyConfiguration对象设置APIVersion字段。
+7. `WithName`：为CSIStorageCapacityApplyConfiguration对象设置名称字段。
+8. `WithGenerateName`：为CSIStorageCapacityApplyConfiguration对象设置生成名称字段。
+9. `WithNamespace`：为CSIStorageCapacityApplyConfiguration对象设置命名空间字段。
+10. `WithUID`：为CSIStorageCapacityApplyConfiguration对象设置UID字段。
+11. `WithResourceVersion`：为CSIStorageCapacityApplyConfiguration对象设置资源版本字段。
+12. `WithGeneration`：为CSIStorageCapacityApplyConfiguration对象设置生成版本字段。
+13. `WithCreationTimestamp`：为CSIStorageCapacityApplyConfiguration对象设置创建时间戳字段。
+14. `WithDeletionTimestamp`：为CSIStorageCapacityApplyConfiguration对象设置删除时间戳字段。
+15. `WithDeletionGracePeriodSeconds`：为CSIStorageCapacityApplyConfiguration对象设置删除优雅期限秒数字段。
+16. `WithLabels`：为CSIStorageCapacityApplyConfiguration对象设置标签字段。
+17. `WithAnnotations`：为CSIStorageCapacityApplyConfiguration对象设置注释字段。
+18. `WithOwnerReferences`：为CSIStorageCapacityApplyConfiguration对象设置所有者引用字段。
+19. `WithFinalizers`：为CSIStorageCapacityApplyConfiguration对象设置终结器字段。
+20. `ensureObjectMetaApplyConfigurationExists`：确保CSIStorageCapacityApplyConfiguration对象的ObjectMeta字段存在。
+21. `WithNodeTopology`：为CSIStorageCapacityApplyConfiguration对象设置节点拓扑字段。
+22. `WithStorageClassName`：为CSIStorageCapacityApplyConfiguration对象设置存储类名称字段。
+23. `WithCapacity`：为CSIStorageCapacityApplyConfiguration对象设置容量字段。
+24. `WithMaximumVolumeSize`：为CSIStorageCapacityApplyConfiguration对象设置最大卷大小字段。
+
+上述函数可用于设置和配置CSIStorageCapacityApplyConfiguration对象的各个字段，以便创建或更新CSIStorageCapacity资源。
+

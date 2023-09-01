@@ -1,0 +1,16 @@
+# File: client-go/kubernetes/typed/policy/v1/fake/fake_eviction.go
+
+在client-go/kubernetes/typed/policy/v1/fake/fake_eviction.go文件中，包含了用于测试目的的假（fake）Eviction API的实现。
+
+FakeEvictions提供了一组结构体，用于模拟与Eviction API交互的行为。这些结构体实现了EvictionV1Interface接口，并提供了一组方法来处理和操作假的Eviction资源。
+
+以下是这些结构体的详细介绍：
+
+1. FakeEvictionBindings：模拟Eviction Bindings的行为，保存了执行的Eviction请求的详细信息，例如传递给Create方法的eviction对象、调用Create方法的次数等。它还提供了一个自定义的Create方法，用于处理假的Eviction资源的创建。
+
+2. FakeEvictionNamespaces：模拟命名空间下的Eviction资源的行为，实现了EvictionV1NamespacedInterface接口。它保存了执行的Eviction请求的详细信息，并提供了一组自定义的方法来处理假的Eviction资源的操作，如创建、更新和删除。
+
+3. FakeEvictions：模拟Eviction资源的行为，实现了EvictionV1Interface接口。它保存了执行的Eviction请求的详细信息，并提供了一组自定义的方法来处理假的Eviction资源的操作，如创建、更新和删除。它还实现了EvictionListerInterface接口，用于列出所有假的Eviction资源。
+
+这些结构体的主要目的是提供一个假的Eviction API实现，用于在单元测试和集成测试中模拟和验证与Eviction资源相关的行为。通过在测试中使用这些结构体，开发人员可以利用其自定义的行为来测试和验证对Eviction资源的操作，而无需实际与集群进行通信。这样可以更轻松地编写、运行和维护测试用例，并提高代码的测试覆盖率。
+

@@ -1,0 +1,17 @@
+# File: client-go/applyconfigurations/flowcontrol/v1alpha1/queuingconfiguration.go
+
+queuingconfiguration.go文件是client-go项目中的一个文件，它定义了一些与调度程序队列相关的配置选项。
+
+QueuingConfigurationApplyConfiguration是一个接口，表示可以将某个配置应用到当前的队列配置中，它有一个方法ApplyQueuingConfiguration，用于将给定的配置应用到队列配置中。
+
+QueuingConfiguration是一个结构体，用于表示调度程序队列的配置选项。它具有以下字段：
+- Queues：表示队列的数量。
+- HandSize：表示每个处理器同时处理的项目数量。
+- QueueLengthLimit：表示队列中可容纳的最大项目数量。
+
+WithQueues方法是QueuingConfiguration的一个函数，用于返回一个新的QueuingConfiguration实例，其中包含指定的队列数量。
+
+WithHandSize方法是QueuingConfiguration的一个函数，用于返回一个新的QueuingConfiguration实例，其中包含指定的每个处理器同时处理的项目数量。
+
+WithQueueLengthLimit方法是QueuingConfiguration的一个函数，用于返回一个新的QueuingConfiguration实例，其中包含指定的队列中可容纳的最大项目数量。
+

@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/core/v1/weightedpodaffinityterm.go
+
+在client-go项目中，client-go/applyconfigurations/core/v1/weightedpodaffinityterm.go 文件定义了 WeightedPodAffinityTermApplyConfiguration 结构体以及相关的方法。这个文件的主要作用是用于设置和应用 WeightedPodAffinityTerm 对象的配置。
+
+WeightedPodAffinityTermApplyConfiguration 结构体包含了对 WeightedPodAffinityTerm 对象所需的配置参数进行操作的方法。它提供了一种方便的方式来为 WeightedPodAffinityTerm 对象设置配置，以及在创建和更新对象时应用这些配置。
+
+WeightedPodAffinityTerm 结构体表示了一个 PodAffinityTerm 即带有权重的亲和性项。它由一个绑定标签选择器的有权重的亲和性项和权重组成。WeightedPodAffinityTerm 可以与 Affinity 和 AntiAffinity 配置中的 PodAffinityTerm 配合使用，通过指定权重来为 Pod 集群的调度策略提供更灵活的控制。
+
+WithWeight 是一个方法，用于设置 WeightedPodAffinityTerm 的权重。这个方法接收一个 int32 类型的参数，表示权重值。
+
+WithPodAffinityTerm 是一个方法，用于设置 WeightedPodAffinityTerm 的关联 PodAffinityTerm。这个方法接收一个 *corev1.PodAffinityTerm 类型的参数，表示关联的 PodAffinityTerm。
+
+WeightedPodAffinityTerm 函数是一个工厂函数，用于创建一个 WeightedPodAffinityTerm 对象。它接收一个闭包函数作为参数，在闭包函数中可以通过调用 WithWeight 和 WithPodAffinityTerm 方法来设置 WeightedPodAffinityTerm 的配置参数，并返回创建好的 WeightedPodAffinityTerm 对象。
+
+通过使用这些方法和结构体，可以方便地创建和配置 WeightedPodAffinityTerm 对象，并将配置应用到实际的 Kubernetes 资源中。这样，开发人员可以在编写客户端应用程序时，更灵活地控制 Pod 集群的调度和亲和性策略。
+

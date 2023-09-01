@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/core/v1/containerresizepolicy.go
+
+client-go/applyconfigurations/core/v1/containerresizepolicy.go文件的作用是定义对Pod中容器的调整大小策略进行应用配置的方法和结构体。
+
+ContainerResizePolicyApplyConfiguration是一个结构体，它定义了对容器调整大小策略参数进行应用配置的方法。该方法可以将容器调整大小策略的配置应用到Pod的容器中。
+
+ContainerResizePolicy是一个枚举类型，用于定义容器的调整大小策略。它有以下几个可能的取值：
+
+1. ContainerResizePolicyDefault: 默认的调整大小策略。
+2. ContainerResizePolicyRestart: 调整大小时重新启动容器。
+3. ContainerResizePolicyResourceName: 调整大小时使用新的资源名称。
+
+WithResourceName是一个函数，它接收一个字符串作为参数，返回一个ContainerResizePolicyApplyConfiguration的函数。此函数用于设置调整大小策略为ContainerResizePolicyResourceName，并将资源名称设置为传入的参数。
+
+WithRestartPolicy是一个函数，它返回一个ContainerResizePolicyApplyConfiguration的函数。此函数用于设置调整大小策略为ContainerResizePolicyRestart，表示在调整大小时重新启动容器。
+
+这些方法和结构体的目的是为了提供一种简单直观的方式来配置Pod中容器的调整大小策略。用户可以使用这些方法来设置Pod中容器的调整大小策略，并将配置应用到相应的容器中。
+

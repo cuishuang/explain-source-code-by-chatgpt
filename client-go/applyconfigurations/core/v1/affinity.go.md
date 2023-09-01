@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/core/v1/affinity.go
+
+在K8s组织下的client-go项目中，`client-go/applyconfigurations/core/v1/affinity.go`文件是用于配置亲和性（Affinity）的工具。亲和性指定了Pod如何与其它Poc或节点互动，使得Pod可以根据特定的条件被调度到特定的节点上。
+
+`AffinityApplyConfiguration`是一个结构体，用于配置亲和性的应用程序配置。它可以指定Pod的亲和性规则。
+
+以下是文件中的几个主要功能:
+
+1. `Affinity`函数用于创建一个空的AffinityApplyConfiguration对象，该对象可以进一步配置Pod的亲和性规则。
+
+2. `WithNodeAffinity`函数用于创建一个NodeAffinityApplyConfiguration对象，该对象关联Pod与节点的亲和性规则。可以通过NodeSelector和NodeAffinityPreference来指定所需的节点。
+
+3. `WithPodAffinity`函数用于创建一个PodAffinityApplyConfiguration对象，该对象关联Pod与其他Pod的亲和性规则。可以配置PodAffinityType和PodAffinityTerms来定义亲和性规则。
+
+4. `WithPodAntiAffinity`函数用于创建一个PodAntiAffinityApplyConfiguration对象，该对象关联Pod与其他Pod的排斥性规则。可以配置PodAffinityType和PodAffinityTerms来定义排斥性规则。
+
+这些函数提供了一种简便的方式来配置Pod的亲和性规则，以便更好地控制Pod的调度和互动。可以使用这些函数创建和配置AffinityApplyConfiguration对象，并将其应用到Pod的配置中，以满足特定的调度需求和关联规则。
+

@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/flowcontrol/v1alpha1/prioritylevelconfigurationspec.go
+
+文件`client-go/applyconfigurations/flowcontrol/v1alpha1/prioritylevelconfigurationspec.go`定义了PriorityLevelConfigurationSpec的数据结构和相应的一些操作方法。
+
+PriorityLevelConfigurationSpec用于描述Kubernetes中的优先级级别配置规范，它包含以下字段：
+- Type: 优先级级别的类型，可以是'PriorityClassName'或'PriorityLevel'。
+- Limited: boolean值，表示是否对该级别的请求应用限制。
+- Exempt: boolean值，表示是否对该级别的请求免于应用任何限制。
+
+PriorityLevelConfigurationSpecApplyConfiguration是一个结构体，它包含一个PriorityLevelConfigurationSpec对象，并提供了一些方法来对其进行配置修改。以下是其中的几个方法和作用：
+- WithType(type string)：设置PriorityLevelConfigurationSpec的Type字段。
+- WithLimited(limited bool)：设置PriorityLevelConfigurationSpec的Limited字段。
+- WithExempt(exempt bool)：设置PriorityLevelConfigurationSpec的Exempt字段。
+
+这些方法通过链式调用可以实现对PriorityLevelConfigurationSpec对象的字段值进行修改，以便满足特定需求。在client-go的使用中，可以通过这些方法来构建和修改PriorityLevelConfigurationSpec对象，然后将其传递给相应的API请求。
+

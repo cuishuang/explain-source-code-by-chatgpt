@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/extensions/v1beta1/ipblock.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/extensions/v1beta1/ipblock.go文件的作用是为IP块（IPBlock）资源提供批量更新配置。
+
+IPBlockApplyConfiguration是一个接口，用于定义对IPBlock资源进行批量更新的操作。在ipblock.go文件中，定义了三个IPBlockApplyConfiguration的结构体：IPBlockApplyConfiguration、WithCIDR和WithExcept。
+
+1. IPBlockApplyConfiguration结构体是一个空结构体，用于标识批量更新操作。
+
+2. WithCIDR函数用于指定批量更新IP块的CIDR（Classless Inter-Domain Routing），接收一个字符串参数用于设置CIDR值。CIDR是用于分配和管理IP地址的标准方法。
+
+3. WithExcept函数用于指定批量更新IP块的排除IP列表，接收一个字符串切片参数用于设置排除IP的列表。排除IP列表是那些不属于IP块范围的IP地址。
+
+IPBlock结构体表示一个IP块资源，其中定义了两个属性：
+
+1. CIDR属性指定了IP块的CIDR值，表示该IP块所包含的IP地址范围。
+
+2. Except属性是一个字符串切片，用于存储需要排除在IP块范围之外的IP地址列表。
+
+通过使用IPBlockApplyConfiguration结构体和WithCIDR、WithExcept函数，可以方便地对IPBlock资源进行批量更新操作，例如设置IP块的范围和排除特定IP地址。这样可以更灵活地管理Kubernetes集群中的网络配置。
+

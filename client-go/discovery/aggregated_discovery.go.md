@@ -1,0 +1,22 @@
+# File: client-go/discovery/aggregated_discovery.go
+
+在client-go的aggregated_discovery.go文件中，定义了一些辅助函数和结构体，用于支持聚合的API发现。
+
+文件中的emptyKind、emptyGroup和emptyResource是用来标识"空"的对象类型，用于在发现过程中进行判断和处理。它们的作用是在初始化和比较对象时提供空值。
+
+StaleGroupVersionError是一个结构体，用于表示发现到的过期的API组版本。在发现过程中，如果已经存在的组版本和新发现的组版本不一致，就会返回该错误。可以通过调用其Error()方法获取错误信息。
+
+Error()函数是一个帮助函数，用于在转换过程中生成错误。
+
+SplitGroupsAndResources函数用于将API组和API资源的列表拆分为两个不同的列表，并且过滤掉空对象。
+
+convertAPIGroup、convertAPIResource和convertAPISubresource是用于将从发现接口获取的原始数据结构转换成其他结构的函数。
+
+- convertAPIGroup函数将从发现接口获取的APIGroup类型转换成内部使用的Group类型，并过滤掉空的Group。
+
+- convertAPIResource函数将从发现接口获取的APIResource类型转换成内部使用的Resource类型，并过滤掉空的Resource。
+
+- convertAPISubresource函数将从发现接口获取的APISubresource类型转换成内部使用的Subresource类型，并过滤掉空的Subresource。
+
+这些转换函数的作用是将从发现接口获取的原始数据转换成内部使用的数据结构，以便在调用方易于使用和处理。同时，对于无效或空的对象，这些函数还会进行过滤和处理。
+

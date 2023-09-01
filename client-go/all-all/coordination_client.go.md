@@ -1,0 +1,22 @@
+# File: client-go/kubernetes/typed/coordination/v1beta1/coordination_client.go
+
+client-go/kubernetes/typed/coordination/v1beta1/coordination_client.go文件是client-go项目中Coordination API的实现。Coordination API是Kubernetes中的一个资源API组，提供了与集群协调相关的资源的操作。
+
+在这个文件中，CoordinationV1beta1Interface和CoordinationV1beta1Client是两个结构体。CoordinationV1beta1Interface是Coordination API的接口定义，包含了对Lease资源的增删改查等操作方法。CoordinationV1beta1Client是CoordinationV1beta1Interface的具体实现，它实现了这些操作方法的具体逻辑。
+
+Leases是Coordination API中的一个资源，表示一个租约。它用于实现对共享资源的访问控制，以确保一次只有一个客户端可以访问某个资源。Leases资源具有自动过期特性，并且可以在各个客户端之间进行交互。
+
+- NewForConfig用于创建一个新的CoordinationV1beta1Client对象，该对象将使用提供的kubeconfig配置进行API请求。
+
+- NewForConfigAndClient在NewForConfig的基础上额外接受一个客户端参数，用于指定自定义的底层客户端。
+
+- NewForConfigOrDie是NewForConfig的一个变体，如果创建客户端失败则会导致程序终止。
+
+- New函数用于创建一个CoordinationV1beta1Client对象，该对象使用默认的配置。
+
+- setConfigDefaults函数用于设置默认的配置选项，例如设置资源的API版本等。
+
+- RESTClient是一个表示具体的RESTful客户端的结构体，提供了对底层HTTP请求的封装，可以进行HTTP请求的发送、处理和解析。
+
+这些函数和结构体共同实现了对Coordination API的访问和操作，提供了对Lease等资源的增删改查的功能。
+

@@ -1,0 +1,14 @@
+# File: client-go/applyconfigurations/certificates/v1alpha1/clustertrustbundlespec.go
+
+在Kubernetes client-go项目中，`client-go/applyconfigurations/certificates/v1alpha1/clustertrustbundlespec.go`文件定义了用于创建或更新ClusterTrustBundleSpec对象的Apply Configuration。
+
+`ClusterTrustBundleSpec`结构体表示一个集群信任捆绑包规范。一个信任捆绑包由一个签名算法和一组信任捆绑包和证书组成。
+
+`ClusterTrustBundleSpecApplyConfiguration`是用于创建或更新`ClusterTrustBundleSpec`对象的Apply Configuration。它包含了对`ClusterTrustBundleSpec`对象的所有字段进行修改或更新的方法。
+
+`WithSignerName`函数用于设置`ClusterTrustBundleSpec`对象的签名人名称字段。该字段表示用于生成信任捆绑包的签名人的名称。
+
+`WithTrustBundle`函数用于设置`ClusterTrustBundleSpec`对象的信任捆绑包字段。该字段包含一个或多个信任捆绑包，每个信任捆绑包都包含一个URL和相应的证书。
+
+这些函数和结构体的作用是为了提供一种方便的方式来操作和配置`ClusterTrustBundleSpec`对象，以便在Kubernetes集群中管理信任捆绑包信息。
+

@@ -1,0 +1,30 @@
+# File: client-go/kubernetes/typed/apps/v1beta2/fake/fake_controllerrevision.go
+
+在K8s组织下的client-go项目中，文件client-go/kubernetes/typed/apps/v1beta2/fake/fake_controllerrevision.go的作用是提供了一个用于测试的假的ControllerRevision客户端。
+
+该文件中的controllerrevisionsResource和controllerrevisionsKind变量用于标识和使用ControllerRevision资源。controllerrevisionsResource变量用于表示ControllerRevision资源的API路径，而controllerrevisionsKind变量用于表示ControllerRevision资源的类型。
+
+而FakeControllerRevisions结构体则是一个假的ControllerRevision客户端，用于在测试过程中模拟与ControllerRevision资源的交互。它实现了ControllerRevisionInterface接口，提供了对ControllerRevision资源的各种操作。
+
+下面是每个函数的作用介绍：
+
+- Get函数用于获取指定名称的ControllerRevision资源。
+
+- List函数用于获取所有的ControllerRevision资源。
+
+- Watch函数用于监听ControllerRevision资源的变化。
+
+- Create函数用于创建新的ControllerRevision资源。
+
+- Update函数用于更新ControllerRevision资源。
+
+- Delete函数用于删除指定名称的ControllerRevision资源。
+
+- DeleteCollection函数用于删除指定条件的ControllerRevision资源集合。
+
+- Patch函数用于部分更新指定名称的ControllerRevision资源。
+
+- Apply函数用于应用ControllerRevision资源的更新。
+
+通过使用FakeControllerRevisions结构体的这些函数，可以在测试中模拟对ControllerRevision资源的各种操作，以验证应用程序在与ControllerRevision资源交互时的行为是否正确。
+

@@ -1,0 +1,21 @@
+# File: client-go/kubernetes/typed/node/v1beta1/fake/fake_node_client.go
+
+文件fake_node_client.go的作用是提供一个fake的NodeV1beta1Client实现，用于测试和模拟Node资源的操作。
+
+结构体FakeNodeV1beta1是该文件定义的最重要的结构体，它实现了NodeV1beta1Interface接口，其中包含了Node资源的CRUD操作。FakeNodeV1beta1实现了每个操作的具体逻辑，并将这些操作的结果存储在Fake对象中。
+
+结构体FakeNodeV1beta1包含了以下几个重要的部分：
+
+1. 属性：其中包括了存储Node对象的列表、Node对象的索引、存储操作的历史记录等。
+
+2. 方法：包含了Node资源的CRUD操作，如Create、Update、Get等。这些方法通过操作列表中的Node对象实现对资源的操作，同时记录操作历史。
+
+3. 扩展方法：除了基本的CRUD操作之外，还包含了一些扩展方法，如Watch、Patch等。
+
+RuntimeClasses和RESTClient是结构体FakeNodeV1beta1中使用的两个重要辅助对象。
+
+- RuntimeClasses指向一个存储了RuntimeClass对象的列表，用于模拟操作RuntimeClass资源的操作。
+- RESTClient是一个RESTful客户端，用于与API服务器进行通信。FakeNodeV1beta1使用RESTClient来发送请求和接收响应。
+
+这些方法和辅助对象的作用是为了提供对Node资源的模拟操作，并记录模拟操作的历史和结果。这样，在测试过程中可以使用FakeNodeV1beta1来替代真实的NodeV1beta1Client，以便更好地控制和验证测试环境中的行为。
+

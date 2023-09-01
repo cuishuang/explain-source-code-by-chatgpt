@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/discovery/v1beta1/endpointhints.go
+
+在client-go项目的applyconfigurations/discovery/v1beta1目录下，endpointhints.go文件定义了用于应用EndpointHints对象的配置选项。
+
+EndpointHints对象是用于向Kubernetes API服务器发送请求以获取某个服务的端点提示信息的配置对象。EndpointHintsApplyConfiguration是一个接口类型，表示了应用EndpointHints配置的方法。
+
+EndpointHintsApplyConfiguration接口包含以下方法：
+- ApplyToEndpointHints：将配置应用到EndpointHints对象上。
+
+EndpointHints对象包含以下字段：
+- ForZones：用于指定预期的有效区域。
+
+WithForZones函数用于配置EndpointHints对象的预期有效区域。
+- WithForZones：传入一个预期的有效区域参数，返回配置了有效区域的EndpointHints对象。
+
+总结：
+endpointhints.go文件中的代码用于配置EndpointHints对象，并通过applyconfigurations模块将配置应用到EndpointHints对象上。EndpointHints对象是用于指定向Kubernetes API服务器发送请求获取服务端点提示信息的配置选项。
+

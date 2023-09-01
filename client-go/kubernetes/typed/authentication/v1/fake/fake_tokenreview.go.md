@@ -1,0 +1,14 @@
+# File: client-go/kubernetes/typed/authentication/v1beta1/fake/fake_tokenreview.go
+
+在client-go/kubernetes/typed/authentication/v1beta1/fake/fake_tokenreview.go文件中，定义了用于测试的假（fake）TokenReview客户端。
+
+TokenReview是Kubernetes中的一种API对象，用于验证给定的令牌是否有效。在client-go中，fake_tokenreview.go文件中的代码用于创建一个假的TokenReview客户端，用于模拟对TokenReview API的调用，并返回预定义的测试响应。
+
+变量tokenreviewsResource和tokenreviewsKind定义了TokenReview API的资源名称和资源类型。这些变量用于创建、更新、删除TokenReview资源时的操作。
+
+FakeTokenReviews结构体定义了一个实现了TokenReviewInterface接口的假客户端对象。该结构体主要包含一个tokenReview字段，用于存储TokenReview对象的状态和数据。
+
+Create函数是FakeTokenReviews结构体的方法之一，用于创建一个假的TokenReview对象。该方法接收一个TokenReview对象作为参数，并将其存储在tokenReview字段中，以便后续可以模拟对TokenReview对象的操作。
+
+通过定义这些假客户端和方法，可以在测试中模拟对TokenReview API的调用，而无需实际连接到Kubernetes集群。这样可以方便地进行单元测试和集成测试。
+

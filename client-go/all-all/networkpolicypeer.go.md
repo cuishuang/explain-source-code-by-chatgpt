@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/extensions/v1beta1/networkpolicypeer.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/extensions/v1beta1/networkpolicypeer.go文件的作用是定义扩展v1beta1版本的网络策略对等体(NetworkPolicyPeer)的应用配置(ApplyConfiguration)。
+
+NetworkPolicyPeer是Kubernetes网络策略中用于指定允许或阻止网络流量的对象。这个文件中定义的NetworkPolicyPeerApplyConfiguration结构体是用于修改或创建NetworkPolicyPeer对象的配置。
+
+NetworkPolicyPeerApplyConfiguration结构体有以下几个作用：
+
+1. 支持链式调用：这个结构体中的方法使用了函数选项模式，允许用户可以通过连续调用不同的方法来设置或修改不同的字段，从而方便地对NetworkPolicyPeer进行配置。
+
+2. 配置Pod选择器：WithPodSelector方法用于指定要匹配的Pod的标签选择器。这样可以根据Pod的标签来控制网络策略。
+
+3. 配置Namespace选择器：WithNamespaceSelector方法用于指定要匹配的Namespace的标签选择器。这样可以根据Namespace的标签来控制网络策略。
+
+4. 配置IP块：WithIPBlock方法用于指定一组IP块，这些IP块在网络策略中要允许或阻止的流量。可以通过指定CIDR范围、IP块的选择器或例外来设置。
+
+这些方法的作用是根据用户的需求来配置或修改NetworkPolicyPeer对象的字段值，以实现对网络策略的精细控制。通过链式调用这些方法，用户可以方便地进行多次的修改，从而达到想要的网络策略配置。
+

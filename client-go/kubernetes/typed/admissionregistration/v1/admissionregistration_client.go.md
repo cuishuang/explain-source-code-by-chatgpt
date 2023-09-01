@@ -1,0 +1,22 @@
+# File: client-go/kubernetes/typed/admissionregistration/v1beta1/admissionregistration_client.go
+
+在client-go/kubernetes/typed/admissionregistration/v1beta1/admissionregistration_client.go文件中，定义了与Kubernetes admissionregistration/v1beta1 API相关的客户端接口和实现。
+
+AdmissionregistrationV1beta1Interface是一个接口，定义了操作admissionregistration/v1beta1 API资源的方法集合。它包含了以下方法：
+- MutatingWebhookConfigurations：操作MutatingWebhookConfiguration资源的接口
+- ValidatingAdmissionPolicies：操作ValidatingAdmissionPolicy资源的接口
+- ValidatingAdmissionPolicyBindings：操作ValidatingAdmissionPolicyBinding资源的接口
+- ValidatingWebhookConfigurations：操作ValidatingWebhookConfiguration资源的接口
+
+AdmissionregistrationV1beta1Client是AdmissionregistrationV1beta1Interface接口的具体实现，实现了与admissionregistration/v1beta1 API相关的方法。
+
+下面是一些重要的函数及其作用：
+- NewForConfig：根据给定的配置创建一个新的AdmissionregistrationV1beta1Interface接口对象。
+- NewForConfigAndClient：根据给定的配置和现有的RESTClient创建一个新的AdmissionregistrationV1beta1Interface接口对象。
+- NewForConfigOrDie：根据给定的配置创建一个新的AdmissionregistrationV1beta1Interface接口对象，如果出错则panic。
+- New：创建一个默认的AdmissionregistrationV1beta1Interface接口对象。
+- setConfigDefaults：为配置对象设置默认值。
+- RESTClient：调用admissionregistration/v1beta1 API的核心RESTClient对象，用于发送和接收HTTP请求。
+
+通过这些函数和结构体，我们可以使用client-go库与admissionregistration/v1beta1 API进行交互，例如创建、更新、删除MutatingWebhookConfiguration、ValidatingAdmissionPolicy等资源，并进行相关的操作和查询。
+

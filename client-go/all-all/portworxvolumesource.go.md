@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/portworxvolumesource.go
+
+在Kubernetes client-go项目组织下的client-go/applyconfigurations/core/v1/portworxvolumesource.go文件主要定义了PortworxVolumeSource类型及其应用配置结构体PortworxVolumeSourceApplyConfiguration。
+
+PortworxVolumeSource是用于描述在使用Portworx存储时挂载卷的相关配置信息的类型。该类型包含了VolumeID、FSType和ReadOnly等字段。
+
+PortworxVolumeSourceApplyConfiguration是对PortworxVolumeSource类型进行应用配置的结构体。它用于配置PortworxVolumeSource类型的各种属性。
+
+具体而言，该文件中的PortworxVolumeSourceApplyConfiguration结构体定义了四个方法，分别是WithVolumeID、WithFSType、WithReadOnly和ApplyTo。这些方法提供了一种便捷的方式来对PortworxVolumeSource类型的属性进行配置。
+
+- WithVolumeID是一个设置VolumeID字段的方法。它接收一个字符串参数，用于设置VolumeID属性的值。
+
+- WithFSType是一个设置FSType字段的方法。它接收一个字符串参数，用于设置FSType属性的值。
+
+- WithReadOnly是一个设置ReadOnly字段的方法。它接收一个布尔值参数，用于设置ReadOnly属性的值。
+
+- ApplyTo是一个对PortworxVolumeSource类型进行配置的方法。它接收一个PortworxVolumeSource类型的参数并将应用配置结构体中的属性值应用到该类型对象上。
+
+这些方法帮助用户在使用Kubernetes客户端库时轻松进行PortworxVolumeSource类型的配置，从而更方便地完成对Portworx存储卷的挂载配置。
+

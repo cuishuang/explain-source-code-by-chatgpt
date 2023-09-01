@@ -1,0 +1,26 @@
+# File: client-go/kubernetes/typed/authentication/v1beta1/selfsubjectreview.go
+
+在Kubernetes中，client-go是官方提供的Go语言客户端库，用于与Kubernetes API进行交互。client-go/kubernetes/typed/authentication/v1beta1/selfsubjectreview.go文件是client-go库中的一部分，用于处理Kubernetes API中的SelfSubjectReview资源。
+
+SelfSubjectReview是Kubernetes authentication/v1beta1 API版本中的一种资源类型。它用于验证自己的主体(subject)是否有权限对某些资源进行特定的操作。SelfSubjectReview功能的实现在Kubernetes中被称为SelfSubjectAccessReview。
+
+让我们分析一下selfsubjectreview.go文件中的一些重要部分：
+
+1. SelfSubjectReviewsGetter接口：该接口定义了一个方法`SelfSubjectReviews(namespace string) SelfSubjectReviewInterface`。这个方法用于获取SelfSubjectReview资源的接口。
+
+2. SelfSubjectReviewInterface接口：该接口定义了对SelfSubjectReview资源的操作。其中包括`Create(*v1beta1.SelfSubjectReview) (*v1beta1.SelfSubjectReview, error)`方法，用于创建SelfSubjectReview资源。
+
+3. selfSubjectReviews结构体：该结构体是SelfSubjectReviewInterface接口的具体实现。它包含了一个指向REST客户端的指针，并实现了SelfSubjectReviewInterface接口中定义的方法。
+
+这些结构体和方法的作用如下：
+
+- SelfSubjectReviewsGetter接口和SelfSubjectReviewInterface接口定义了获取和操作SelfSubjectReview资源的方法，以便用户可以通过client-go库与Kubernetes API进行交互。
+
+- selfSubjectReviews结构体实现了SelfSubjectReviewInterface接口定义的方法。它通过调用REST客户端并执行相应的操作，与Kubernetes API进行通信。
+
+- newSelfSubjectReviews函数是一个辅助函数，用于创建selfSubjectReviews结构体的实例。它接受一个REST客户端作为参数，并返回一个selfSubjectReviews结构体的实例。
+
+- Create函数用于创建SelfSubjectReview资源。它接受一个SelfSubjectReview对象作为参数，并向Kubernetes API发送创建请求。在成功创建后，它返回创建的SelfSubjectReview资源对象。
+
+综上所述，selfsubjectreview.go文件中的结构体和函数组合起来，提供了与Kubernetes API进行SelfSubjectReview资源交互的功能。通过client-go库中的这些组件，开发人员可以方便地使用Go语言来验证主体对特定资源的访问权限。
+

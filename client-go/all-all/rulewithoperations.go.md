@@ -1,0 +1,22 @@
+# File: client-go/applyconfigurations/admissionregistration/v1/rulewithoperations.go
+
+在client-go项目中，client-go/applyconfigurations/admissionregistration/v1/rulewithoperations.go文件定义了用于配置AdmissionRegistration V1 API中RuleWithOperations对象的ApplyConfiguration。
+
+在Kubernetes中，Admission Control是一种用于控制集群中对象的创建和修改的机制。AdmissionRegistration API中的RuleWithOperations定义了适用于Admission控制规则的操作范围。
+
+RuleWithOperationsApplyConfiguration这个结构体是一个实现了ApplyConfiguration接口的结构体，它包含了对RuleWithOperations对象进行修改的各种操作。
+
+- RuleWithOperations：该结构体表示一个AdmissionRegistration V1 API中的RuleWithOperations对象，用于表示Admission控制规则的操作范围。
+
+- WithOperations：这个函数接受一个[]v1.Operation类型的参数，用于设置RuleWithOperations对象的操作范围。这些操作包括CREATE、UPDATE和DELETE。
+
+- WithAPIGroups：这个函数接受一个[]string类型的参数，用于设置RuleWithOperations对象适用的API组。
+
+- WithAPIVersions：这个函数接受一个[]string类型的参数，用于设置RuleWithOperations对象适用的API版本。
+
+- WithResources：这个函数接受一个[]string类型的参数，用于设置RuleWithOperations对象适用的资源类型。
+
+- WithScope：这个函数接受一个ScopeType类型的参数，用于设置RuleWithOperations对象适用的作用域，可以是ClusterScope或NamespaceScope。
+
+上述的每个函数都是用于修改RuleWithOperations对象的不同属性，并返回一个新的ApplyConfiguration对象，这样可以方便地配置和修改Admission控制规则。
+

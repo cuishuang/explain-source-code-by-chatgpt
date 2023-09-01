@@ -1,0 +1,17 @@
+# File: client-go/applyconfigurations/core/v1/daemonendpoint.go
+
+在Kubernetes中，DaemonEndpoint是一个用于表示守护程序（Daemon）的终结点的结构体。而client-go/applyconfigurations/core/v1/daemonendpoint.go文件中的DaemonEndpointApplyConfiguration则提供了用于应用DaemonEndpoint配置的方法。
+
+DaemonEndpointApplyConfiguration结构体是一个可嵌入的结构体，它具有两个字段：
+- Spec - 表示DaemonEndpoint的规范部分，用于描述守护程序的地址和端口等信息。
+- Status - 表示DaemonEndpoint的状态部分，用于记录守护程序的当前状态。
+
+DaemonEndpointApplyConfiguration结构体提供了一些方法来生成和应用DaemonEndpoint的配置。其中，最常用的方法是WithPort方法，它可以设置DaemonEndpoint的端口值。通过调用WithPort方法并传递端口参数，可以为DaemonEndpoint生成一个新的配置。
+
+DaemonEndpoint结构体则是DaemonEndpointApplyConfiguration的最终结果，它包含了最终的DaemonEndpoint配置，包括规范和状态字段。
+
+总结：
+- DaemonEndpointApplyConfiguration是用于应用DaemonEndpoint配置的结构体。
+- DaemonEndpoint结构体表示最终的DaemonEndpoint配置。
+- WithPort方法用于设置DaemonEndpoint的端口值。
+

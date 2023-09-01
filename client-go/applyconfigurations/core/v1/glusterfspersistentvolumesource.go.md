@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/core/v1/glusterfspersistentvolumesource.go
+
+在K8s组织下的client-go项目中，`client-go/applyconfigurations/core/v1/glusterfspersistentvolumesource.go`文件的作用是用于定义Glusterfs持久卷的配置信息。
+
+`GlusterfsPersistentVolumeSourceApplyConfiguration`结构体是一个用于应用Glusterfs持久卷配置的配置器。它提供了一系列的函数来设置Glusterfs持久卷的相关参数。
+
+- `GlusterfsPersistentVolumeSource`结构体用于定义Glusterfs持久卷的相关配置信息，包括Glusterfs的挂载路径、服务器地址等。
+- `WithEndpointsName`函数用于设置Glusterfs服务器的端点名。
+- `WithPath`函数用于设置Glusterfs的挂载路径。
+- `WithReadOnly`函数用于设置是否将Glusterfs持久卷设置为只读模式。
+- `WithEndpointsNamespace`函数用于设置Glusterfs服务器的端点命名空间。
+
+这些函数可以通过创建`GlusterfsPersistentVolumeSourceApplyConfiguration`结构体的实例，并通过链式调用这些函数来设置Glusterfs持久卷的配置信息。
+
+`client-go/applyconfigurations/core/v1/glusterfspersistentvolumesource.go`文件的作用是提供了一种在应用配置时更加灵活和便捷的方式，使开发人员能够更方便地定义和设置Glusterfs持久卷的相关参数。
+

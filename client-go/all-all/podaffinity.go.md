@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/core/v1/podaffinity.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/core/v1/podaffinity.go文件的作用是定义了Pod的亲和性配置。
+
+PodAffinityApplyConfiguration结构体用于指定Pod的亲和性配置。它包含以下字段：
+- RequiredDuringSchedulingIgnoredDuringExecution：指定必需的亲和性规则，这些规则在调度期间必须满足，但在执行期间可以被忽略。
+- PreferredDuringSchedulingIgnoredDuringExecution：指定优先的亲和性规则，这些规则会尽量满足，但在执行期间可以被忽略。
+
+PodAffinity结构体表示Pod的亲和性配置。它包含以下字段：
+- RequiredDuringSchedulingIgnoredDuringExecution：表示必需的亲和性规则。
+- PreferredDuringSchedulingIgnoredDuringExecution：表示优先的亲和性规则。
+
+WithRequiredDuringSchedulingIgnoredDuringExecution函数用于设置必需的亲和性规则。它接受一个或多个PodAffinityTerm参数，并将这些参数添加到PodAffinity的RequiredDuringSchedulingIgnoredDuringExecution字段中。
+
+WithPreferredDuringSchedulingIgnoredDuringExecution函数用于设置优先的亲和性规则。它接受一个或多个WeightedPodAffinityTerm参数，并将这些参数添加到PodAffinity的PreferredDuringSchedulingIgnoredDuringExecution字段中。
+
+这些函数的作用是方便开发者使用client-go库创建和配置Pod的亲和性。通过使用这些函数，开发者可以通过方法链的方式来设置亲和性规则，提高代码的可读性和易用性。
+

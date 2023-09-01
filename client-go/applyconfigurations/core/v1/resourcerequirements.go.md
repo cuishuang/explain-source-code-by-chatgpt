@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/resourcerequirements.go
+
+client-go/applyconfigurations/core/v1/resourcerequirements.go文件是client-go项目中的一个文件，它的作用是为Kubernetes核心v1版本的资源配置（ResourceRequirements）提供ApplyConfiguration方法和相关函数。
+
+文件中定义了几个重要的结构体和函数：
+
+1. ResourceRequirementsApplyConfiguration结构体：它是对Client-go库中的ResourceRequirements类型进行扩展的一个结构体。它定义了一个Apply方法，用于将配置应用到ResourceRequirements对象上。
+
+2. ResourceRequirements结构体：它表示一个Kubernetes资源请求的资源配置，包括容器的资源限制（limits）和资源请求（requests）。资源限制用来限制一个容器能够使用的资源上限，资源请求用来请求一个容器所需要的资源。
+
+3. WithLimits函数：它是一个函数，接收一个或多个参数，用来为ResourceRequirements结构体的limits字段设置值。该函数返回一个函数类型结果，可以进一步为limits字段设置值。
+
+4. WithRequests函数：它是一个函数，接收一个或多个参数，用来为ResourceRequirements结构体的requests字段设置值。该函数返回一个函数类型结果，可以进一步为requests字段设置值。
+
+5. WithClaims函数：它是一个函数，接收一个或多个参数，用来为ResourceRequirements结构体的claims字段设置值。该函数返回一个函数类型结果，可以进一步为claims字段设置值。
+
+使用这些函数和结构体，可以通过链式调用的方式逐步为ResourceRequirements对象的字段赋值。我们可以先通过调用WithLimits函数来设置limits字段的值，然后再调用WithRequests函数来设置requests字段的值，最后再调用WithClaims函数来设置claims字段的值。通过这种方式，可以方便地构建一个完整的ResourceRequirements对象，并将配置应用到该对象上。
+
+综上所述，client-go/applyconfigurations/core/v1/resourcerequirements.go文件的作用是为Kubernetes核心v1版本的资源配置提供了一种链式配置的方式，并提供了相关的结构体和函数来进行资源配置的操作。
+

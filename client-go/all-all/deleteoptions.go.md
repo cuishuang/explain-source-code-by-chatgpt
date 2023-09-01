@@ -1,0 +1,19 @@
+# File: client-go/applyconfigurations/meta/v1/deleteoptions.go
+
+在client-go项目中，deleteoptions.go文件定义了DeleteOptions结构体和一系列与DeleteOptions相关的函数。DeleteOptions是用于指定删除资源时的设置选项。
+
+DeleteOptionsApplyConfiguration结构体定义了DeleteOptions的应用配置选项，用于在应用DeleteOptions时设置其配置选项。
+
+下面是DeleteOptions结构体的详细介绍：
+
+- DeleteOptions结构体包含了删除资源时的各种选项设置，例如删除时的超时时间、是否删除关联的子资源等。
+- WithKind函数用于设置DeleteOptions中的Kind字段，表示要删除的资源的类型。
+- WithAPIVersion函数用于设置DeleteOptions中的APIVersion字段，表示要删除的资源的API版本。
+- WithGracePeriodSeconds函数用于设置DeleteOptions中的GracePeriodSeconds字段，表示删除资源的优雅期限，即在该期限内进行资源的清理工作。
+- WithPreconditions函数用于设置DeleteOptions中的Preconditions字段，表示删除资源的前提条件，例如资源的特定状态。
+- WithOrphanDependents函数用于设置DeleteOptions中的OrphanDependents字段，表示删除资源时是否同时删除关联的子资源。
+- WithPropagationPolicy函数用于设置DeleteOptions中的PropagationPolicy字段，表示删除资源时的传播策略，即删除后是否同时删除与之相关的资源。
+- WithDryRun函数用于设置DeleteOptions中的DryRun字段，表示删除资源时是否只模拟删除操作，而不实际执行。
+
+总之，DeleteOptions结构体和与之相关的函数提供了在删除资源时的各种选项设置，以满足不同场景下的需求。通过修改DeleteOptions的字段值，可以定制删除操作的行为和配置。
+

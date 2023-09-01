@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/core/v1/preferredschedulingterm.go
+
+在client-go项目中，client-go/applyconfigurations/core/v1/preferredschedulingterm.go文件的作用是定义了Kubernetes中的PreferredSchedulingTerm对象的配置应用操作。
+
+PreferredSchedulingTermApplyConfiguration结构体是一个用于应用配置的辅助类型，它提供了一组方法用于修改PreferredSchedulingTerm对象的配置。它包含以下方法：
+
+1. WithWeight(weight int32)：设置PreferredSchedulingTerm的权重。PreferredSchedulingTerm表示了一个节点的首选调度条件，而权重决定了节点的优先级。
+2. WithPreference(preference corev1.NodeSelectorTermApplyConfiguration)：设置PreferredSchedulingTerm的首选项。首选项是一个nodeSelectorTerm对象，表示了满足该条件的节点是首选节点。
+
+PreferredSchedulingTerm结构体是一个用于描述节点的优先调度条件的对象，它包含了以下字段：
+
+1. Weight(int32)：优选权重，表示此条件的相对权重，权重越高，节点被优选的机会越大。
+2. Preference(corev1.NodeSelectorTerm)：首选项条件，表示节点必须满足的条件。
+
+总结起来，PreferredSchedulingTermApplyConfiguration提供了一组方法来修改PreferredSchedulingTerm对象的配置，而PreferredSchedulingTerm结构体用于描述节点的优先调度条件，可以通过设置权重和首选项条件来影响节点的调度优先级。
+

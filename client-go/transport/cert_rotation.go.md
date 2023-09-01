@@ -1,0 +1,28 @@
+# File: client-go/transport/cert_rotation.go
+
+在client-go项目中的client-go/transport/cert_rotation.go文件主要实现了Kubernetes客户端证书的自动轮换功能。它允许在运行时动态地更新客户端证书，而不需要重启整个客户端应用。
+
+CertCallbackRefreshDuration变量定义了客户端证书回调函数（certCallback）刷新的时间间隔，用于检查并更新证书。
+
+reloadFunc是一个可调用函数类型（callable function type），它用于回调客户端证书，当证书需要被更新时，该函数会被调用。
+
+dynamicClientCert结构体定义了动态客户端证书，包括证书、证书密钥、受信任的CA证书，以及证书的最后更新时间和证书的回调函数。
+
+certRotatingDialer是一个实现了Dialer接口的结构体，它包装了一个基础的Dialer，并在每次建立连接时检查并更新客户端证书。
+
+loadClientCert函数用于加载客户端证书，将证书加载到内存中，并返回证书的x509.Certificate类型和密钥的crypto.Signer类型。它还会返回证书是否需要更新的标志。
+
+certsEqual函数用于比较两个证书是否相等。
+
+byteMatrixEqual函数用于比较两个字节矩阵（byte matrix）是否相等。
+
+Run函数是certRotatingDialer结构体的方法，它用于启动证书更新的后台协程。
+
+runWorker函数是Run方法中的一个内部函数，用于启动一个工作线程，定期检查证书是否需要更新。
+
+processNextWorkItem函数是runWorker方法中的一个内部函数，用于处理证书更新任务。
+
+GetClientCertificate函数是client-go库中的一个公共函数，用于获取客户端证书。
+
+总体而言，cert_rotation.go文件定义了自动轮换客户端证书的逻辑，包括定期检查证书是否需要更新，以及在需要更新时执行更新操作。
+

@@ -1,0 +1,16 @@
+# File: client-go/kubernetes/typed/certificates/v1beta1/certificatesigningrequest_expansion.go
+
+在client-go/kubernetes/typed/certificates/v1beta1/certificatesigningrequest_expansion.go文件中，包含了CertificateSigningRequestExpansion结构体以及一些相关函数。这个文件的作用是为证书签名请求（CertificateSigningRequest）资源提供更丰富的操作方法。
+
+CertificateSigningRequestExpansion结构体提供了一组通过扩展证书签名请求资源对象的方法。这个结构体包含以下几个方法：
+
+1. UpdateApproval：用于更新证书签名请求的批准状态。这个方法接收一个证书签名请求的名称和一个更新请求对象，然后向api服务器发送一个更新请求，以更新证书签名请求的批准状态。
+
+2. UpdateApprovalWithContext：与UpdateApproval作用相同，通过传入上下文来进行请求。
+
+3. UpdateApprovalStatus：用于更新证书签名请求的批准状态和证书。这个方法接收一个证书签名请求的名称和一个更新请求对象，然后向api服务器发送一个更新请求，以更新证书签名请求的批准状态和证书。
+
+4. UpdateApprovalStatusWithContext：与UpdateApprovalStatus作用相同，通过传入上下文来进行请求。
+
+这些方法提供了对证书签名请求资源的操作，可以通过调用这些方法与Kubernetes集群进行交互，更新证书签名请求的批准状态和证书信息。这些方法提供了方便的接口，简化了与证书签名请求资源的交互过程。
+

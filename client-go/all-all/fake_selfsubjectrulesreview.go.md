@@ -1,0 +1,17 @@
+# File: client-go/kubernetes/typed/authorization/v1beta1/fake/fake_selfsubjectrulesreview.go
+
+在client-go中的FakeSelfSubjectRulesReview是一个用于测试目的的假装实现的对象。它模拟了SelfSubjectRulesReview的API行为，用于生成虚假的SelfSubjectRulesReview对象，以便于在单元测试中进行使用。
+
+fake_selfsubjectrulesreview.go文件中定义了以下几个重要的变量和结构体：
+
+1. selfsubjectrulesreviewsResource: 这个变量是一个字符串，表示SelfSubjectRulesReview的资源路径。
+2. selfsubjectrulesreviewsKind: 这个变量是一个字符串，表示SelfSubjectRulesReview的资源类型。
+
+下面是FakeSelfSubjectRulesReview结构体的作用和相关方法的介绍：
+
+1. FakeSelfSubjectRulesReviews: 这个结构体是FakeSelfSubjectRulesReview结构体的实例化对象，用于生成假的SelfSubjectRulesReview对象。
+2. Create: 这个函数是FakeSelfSubjectRulesReviews结构体中的方法，用来创建一个虚假的SelfSubjectRulesReview对象，并将其存储在内存中。它接收一个SelfSubjectRulesReview对象作为参数，并返回一个存储了该对象的Response对象。
+3. CreateWithContext: 这个函数与Create函数类似，不同之处在于它还接收一个context.Context对象作为参数。
+
+这些函数的作用是模拟了SelfSubjectRulesReview的API行为，在单元测试中可以使用它们来创建虚假的SelfSubjectRulesReview对象，并检查是否按预期调用了API。通过使用FakeSelfSubjectRulesReviews，可以避免依赖实际的Kubernetes集群和网络，从而更容易、更高效地进行单元测试。
+

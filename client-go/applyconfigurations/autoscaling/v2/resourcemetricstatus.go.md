@@ -1,0 +1,22 @@
+# File: client-go/applyconfigurations/autoscaling/v2/resourcemetricstatus.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/autoscaling/v2/resourcemetricstatus.go文件的作用是定义了应用配置（Apply Configuration）相关的结构体和函数，用于配置和管理自动伸缩组件中的资源指标状态（Resource Metric Status）。
+
+该文件中的结构体包括：
+
+1. ResourceMetricStatusApplyConfiguration: 用于配置自动伸缩组件中的资源指标状态的应用配置。
+2. ResourceMetricStatusApplyConfigurationWithName: 在ResourceMetricStatusApplyConfiguration的基础上，额外提供了指定名称的功能。
+3. ResourceMetricStatusApplyConfigurationWithCurrent: 在ResourceMetricStatusApplyConfiguration的基础上，额外提供了当前状态（Current）的功能。
+
+这些结构体的作用是为了方便用户在进行应用配置时，能够灵活地配置和管理自动伸缩组件中的资源指标状态。
+
+而函数包括：
+
+1. ResourceMetricStatus: 创建一个新的ResourceMetricStatusApplyConfiguration对象。
+2. WithName: 设置ResourceMetricStatusApplyConfiguration对象的名称。
+3. WithCurrent: 设置ResourceMetricStatusApplyConfiguration对象的当前状态。
+
+这些函数的作用是为了方便用户在进行应用配置时，能够直接调用相应函数来设置、修改ResourceMetricStatusApplyConfiguration对象中的相关属性。
+
+总之，resourcemetricstatus.go文件中定义了用于配置和管理自动伸缩组件中资源指标状态的应用配置结构体和相关函数，提供了灵活的对象操作和属性设置功能。
+

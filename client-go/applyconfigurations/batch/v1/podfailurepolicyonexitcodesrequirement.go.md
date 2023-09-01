@@ -1,0 +1,18 @@
+# File: client-go/applyconfigurations/batch/v1/podfailurepolicyonexitcodesrequirement.go
+
+在Kubernetes中，client-go库是用于与Kubernetes API进行交互的官方Go客户端库。client-go/applyconfigurations/batch/v1/podfailurepolicyonexitcodesrequirement.go文件是client-go库中与PodFailurePolicyOnExitCodesRequirement资源对象相关的配置和操作方法。
+
+下面对文件中的结构体和函数进行详细介绍：
+
+1. PodFailurePolicyOnExitCodesRequirementApplyConfiguration结构体：该结构体用于配置PodFailurePolicyOnExitCodesRequirement资源对象的应用配置。它包含了设置PodFailurePolicyOnExitCodesRequirement资源对象的Container Name、Operator和Values的方法。
+
+2. PodFailurePolicyOnExitCodesRequirement结构体：该结构体表示一个PodFailurePolicyOnExitCodesRequirement资源对象，在Pod的失败策略中指定了出现指定Exit Code时的操作要求。
+
+3. WithContainerName函数：用于设置PodFailurePolicyOnExitCodesRequirement资源对象的Container Name属性，表示指定的容器名称。
+
+4. WithOperator函数：用于设置PodFailurePolicyOnExitCodesRequirement资源对象的Operator属性，表示Exit Codes的操作符（等于、大于等）。
+
+5. WithValues函数：用于设置PodFailurePolicyOnExitCodesRequirement资源对象的Values属性，表示期望的Exit Codes值。可以设置多个值，用逗号分隔。
+
+这些结构体和函数提供了可编程的方式来构建和操作PodFailurePolicyOnExitCodesRequirement资源对象，方便开发者使用client-go库与Kubernetes API进行交互，并进行Pod的失败策略配置。
+

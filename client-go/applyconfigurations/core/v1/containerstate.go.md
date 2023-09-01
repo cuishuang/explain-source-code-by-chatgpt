@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/core/v1/containerstate.go
+
+在client-go项目中，client-go/applyconfigurations/core/v1/containerstate.go文件的作用是定义了对容器状态对象（ContainerState）的应用配置操作。
+
+ContainerStateApplyConfiguration结构体是用于指定应用配置的容器状态的结构体。它包含四个字段：Waiting、Running、Terminated和Unknown，每个字段表示容器的不同状态。这些字段也是ContainerState结构体中的子字段。
+
+ContainerState结构体表示容器的状态。它包含三个子字段：Waiting、Running和Terminated。这些子字段对应了容器在不同状态下的详细信息。
+
+- Waiting函数是ContainerStateApplyConfiguration结构体的方法，用于指定容器在等待状态下的详细信息。它接收一个函数作为参数，该函数为Waiting结构体类型，并用于配置等待状态的详细信息。
+
+- Running函数是ContainerStateApplyConfiguration结构体的方法，用于指定容器在运行状态下的详细信息。它接收一个函数作为参数，该函数为Running结构体类型，并用于配置运行状态的详细信息。
+
+- Terminated函数是ContainerStateApplyConfiguration结构体的方法，用于指定容器在终止状态下的详细信息。它接收一个函数作为参数，该函数为Terminated结构体类型，并用于配置终止状态的详细信息。
+
+这些函数（WithWaiting、WithRunning、WithTerminated）都是ContainerStateApplyConfiguration结构体的方法，它们用于指定容器在相应状态下的详细信息。这些函数接收一个函数作为参数，这个函数用于配置相应状态的详细信息。对应的函数名字表明了该函数用于配置的容器状态。通过这些函数的调用，可以设置容器在不同状态下的详细信息，从而进行应用配置。
+

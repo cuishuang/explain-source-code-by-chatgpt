@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/azurefilepersistentvolumesource.go
+
+在Kubernetes（K8s）中，client-go是一个用于与Kubernetes API进行交互的Go语言库。其中client-go/applyconfigurations/core/v1/azurefilepersistentvolumesource.go文件是client-go库中用于定义Azure文件类型的持久卷源的配置应用的文件。
+
+AzureFilePersistentVolumeSourceApplyConfiguration文件定义了一系列的结构体和方法，用于配置Azure文件类型的持久卷源。下面是对这些结构体和方法的详细介绍：
+
+1. AzureFilePersistentVolumeSource结构体：用于表示Azure文件类型的持久卷源的配置信息。它包含了如SecretName、SecretNamespace、ShareName、ReadOnly等字段，用于指定Azure存储帐户的凭据、共享名称以及是否以只读方式挂载等。
+
+2. WithSecretName方法：用于在AzureFilePersistentVolumeSource结构体中设置SecretName字段，该字段指定了密钥对应的名称，用于访问Azure文件存储帐户。
+
+3. WithShareName方法：用于在AzureFilePersistentVolumeSource结构体中设置ShareName字段，该字段指定了要挂载的Azure文件共享的名称。
+
+4. WithReadOnly方法：用于在AzureFilePersistentVolumeSource结构体中设置ReadOnly字段，该字段指定了挂载的Azure文件共享是否以只读方式。
+
+5. WithSecretNamespace方法：用于在AzureFilePersistentVolumeSource结构体中设置SecretNamespace字段，该字段指定了密钥对应的命名空间，用于访问Azure文件存储帐户。
+
+这些方法可以通过链式调用的方式，用于按需设置Azure文件类型的持久卷源的配置信息。
+
+总的来说，client-go/applyconfigurations/core/v1/azurefilepersistentvolumesource.go文件中的结构体和方法是用于配置和操作Azure文件类型的持久卷源的，通过这些结构体和方法可以灵活地设置Azure文件存储帐户的相关信息，并进行相应的操作。
+

@@ -1,0 +1,20 @@
+# File: client-go/tools/clientcmd/merged_client_builder.go
+
+merged_client_builder.go文件的作用是构建并合并clientcmd.ClientConfig对象，用于配置Kubernetes客户端的访问方式和身份认证。
+
+DeferredLoadingClientConfig是一个延迟加载的客户端配置对象，它可以通过调用函数来预加载配置而不是立即加载。InClusterConfig是一个用于在Kubernetes内部集群中进行身份验证的客户端配置对象。
+
+NewNonInteractiveDeferredLoadingClientConfig函数返回一个不需要交互的DeferredLoadingClientConfig对象，用于创建不需要与用户交互的Kubernetes客户端配置。
+
+NewInteractiveDeferredLoadingClientConfig函数返回一个需要交互的DeferredLoadingClientConfig对象，用于创建需要与用户交互的Kubernetes客户端配置。
+
+createClientConfig函数根据传入的参数创建一个clientcmd.ClientConfig对象，用于指定Kubernetes客户端的配置。
+
+RawConfig函数返回一个未处理的原始配置对象，用于获取Kubernetes集群、用户、上下文等配置信息。
+
+ClientConfig函数返回一个clientcmd.ClientConfig对象，用于获取配置文件中的Kubernetes客户端配置。
+
+Namespace函数返回当前配置中的命名空间。
+
+ConfigAccess函数返回一个clientcmd.ConfigAccess对象，用于访问配置文件，并读取其内容。
+

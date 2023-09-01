@@ -1,0 +1,10 @@
+# File: client-go/applyconfigurations/autoscaling/v2/podsmetricsource.go
+
+在client-go项目中，client-go/applyconfigurations/autoscaling/v2/podsmetricsource.go文件的作用是定义PodsMetricSource的应用配置。
+
+PodsMetricSourceApplyConfiguration结构体是PodsMetricSource的应用配置结构体，其定义了PodsMetricSource结构体中的各个字段的值。
+
+PodsMetricSource结构体代表了Pods的度量源，用于指定度量信息的目标价值和度量准则。WithMetric函数用于设置PodsMetricSource中的metric字段，WithTarget函数用于设置PodsMetricSource中的target字段。
+
+总结起来，这个文件定义了PodsMetricSource的应用配置结构体，以及设置PodsMetricSource中各个字段值的函数。PodsMetricSource用于指定Pods的度量源和度量准则。
+

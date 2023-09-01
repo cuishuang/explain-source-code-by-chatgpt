@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/nodeaddress.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/core/v1/nodeaddress.go文件是用于定义对于Kubernetes的核心API对象NodeAddress的配置应用。
+
+NodeAddressApplyConfiguration结构体定义了对NodeAddress对象的配置应用操作。它拥有一组方法，可以用于对NodeAddress对象进行配置。
+
+- WithType方法用于设置NodeAddress的类型，接受一个字符串作为参数，表示NodeAddress的类型。
+- WithAddress方法用于设置NodeAddress的地址，接受一个字符串作为参数，表示NodeAddress的地址。
+
+NodeAddress结构体表示了Kubernetes中的NodeAddress对象，它包含了NodeAddress的类型和地址等信息。
+
+- Type字段表示NodeAddress的类型，例如"InternalIP"、"ExternalIP"等。
+- Address字段表示NodeAddress的地址。
+
+NodeAddressApplyConfiguration结构体的方法和NodeAddress结构体的字段配合使用，可以方便地对NodeAddress对象进行配置应用操作。使用这些方法可以设置NodeAddress的类型和地址等属性。
+
+NodeAddressApplyConfiguration结构体和NodeAddress结构体使用了builder模式，通过一系列方法来配置和设置NodeAddress对象的属性。这种设计可以方便地进行链式操作，使得代码更加简洁和易读。
+
+总结起来，client-go/applyconfigurations/core/v1/nodeaddress.go文件中的NodeAddressApplyConfiguration结构体及其相关方法和NodeAddress结构体主要用于表示和配置Kubernetes中NodeAddress对象的属性，方便用户对该对象进行操作和修改。
+

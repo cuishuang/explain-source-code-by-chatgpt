@@ -1,0 +1,12 @@
+# File: client-go/util/retry/util.go
+
+client-go/util/retry/util.go文件是Kubernetes client-go库中的一个文件，提供了用于重试操作的实用函数。
+
+该文件中的DefaultRetry和DefaultBackoff变量是重试操作时使用的默认值。DefaultRetry定义了重试的次数，默认是3次；DefaultBackoff定义了重试操作之间的默认时间间隔，默认是100毫秒。
+
+OnError函数是一个帮助函数，用于判断重试操作时是否遇到了错误。它接收一个错误作为输入参数，并返回一个布尔值，表示是否应该重试。该函数只有在错误是transient类型时才返回true，transient错误指的是可以通过重试操作解决的错误，例如网络错误。
+
+RetryOnConflict函数是一个帮助函数，用于处理在发生冲突（Conflict）情况下的重试。冲突指的是多个请求对同一个资源执行了操作，而导致的冲突错误。RetryOnConflict函数接收一个重试函数作为参数，并在发生冲突错误时自动重试。它会根据默认的重试次数和时间间隔（DefaultRetry和DefaultBackoff）进行重试操作。
+
+总之，client-go/util/retry/util.go文件提供了一些实用函数和变量，用于实现重试机制，并提供了对特定类型错误的判断和处理。这些函数和变量可以帮助开发人员在使用client-go库进行操作时处理错误和实现重试逻辑。
+

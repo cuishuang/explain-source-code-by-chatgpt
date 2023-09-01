@@ -1,0 +1,14 @@
+# File: client-go/applyconfigurations/node/v1beta1/scheduling.go
+
+client-go/applyconfigurations/node/v1beta1/scheduling.go文件是client-go库中实现Kubernetes的Node调度相关功能的代码文件。
+
+这个文件中定义了三个结构体：SchedulingApplyConfiguration、WithNodeSelector、WithTolerations。这些结构体用于定义Node对象的调度配置，并为Node对象的调度配置提供了便捷的构造方法。
+
+1. SchedulingApplyConfiguration结构体是用来设置Node对象的调度配置的。它包含了Node对象的调度相关的属性，比如nodeAffinity、taints等。通过设置这些属性，可以对Node对象进行调度策略的配置。
+
+2. WithNodeSelector函数用来设置Node选择器。Node选择器是一种用于筛选Node的机制，通过定义标签选择表达式，只选择符合条件的Node进行调度。使用WithNodeSelector函数可以为Node对象设置Node选择器。
+
+3. WithTolerations函数用来设置Node的容忍度。容忍度是用于标识一个Pod或Node能够容忍哪些污点（Taints）的机制。使用WithTolerations函数可以为Node对象设置容忍度。
+
+这些函数和结构体的作用是为了方便用户对Node对象的调度配置进行灵活的设置和修改，从而实现对Node调度策略的定制化。使用这些函数和结构体，用户可以通过代码的方式轻松地为Node对象定义和修改各种调度配置，以满足自己的业务需求。
+

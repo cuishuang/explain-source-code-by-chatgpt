@@ -1,0 +1,54 @@
+# File: client-go/applyconfigurations/policy/v1beta1/poddisruptionbudget.go
+
+在K8s组织下的client-go项目中，`client-go/applyconfigurations/policy/v1beta1/poddisruptionbudget.go`文件的作用是定义了PodDisruptionBudget资源对象的应用配置。
+
+`PodDisruptionBudgetApplyConfiguration`是用于应用PodDisruptionBudget配置的结构体，包含了PodDisruptionBudget的所有配置信息。它可以用于更新或创建PodDisruptionBudget对象。
+
+以下是对这些结构体和函数的详细介绍：
+
+- `PodDisruptionBudget`：表示PodDisruptionBudget资源对象。它包含了对可中断Pod数量的约束规则，用于保护服务的稳定性。
+
+- `ExtractPodDisruptionBudget`：从PodDisruptionBudgetApplyConfiguration中提取PodDisruptionBudget对象。如果对象不存在，则返回nil。
+
+- `ExtractPodDisruptionBudgetStatus`：从PodDisruptionBudgetApplyConfiguration中提取PodDisruptionBudget的状态。如果状态不存在，则返回nil。
+
+- `extractPodDisruptionBudget`：从PodDisruptionBudgetApplyConfiguration或PodDisruptionBudget中提取PodDisruptionBudget对象的引用。如果引用不存在，则返回nil。
+
+- `WithKind`：设置PodDisruptionBudgetApplyConfiguration的Kind属性，表示资源对象类型。
+
+- `WithAPIVersion`：设置PodDisruptionBudgetApplyConfiguration的APIVersion属性，表示API版本。
+
+- `WithName`：设置PodDisruptionBudgetApplyConfiguration的名称属性。
+
+- `WithGenerateName`：设置PodDisruptionBudgetApplyConfiguration的GenerateName属性。
+
+- `WithNamespace`：设置PodDisruptionBudgetApplyConfiguration的Namespace属性，表示所属的命名空间。
+
+- `WithUID`：设置PodDisruptionBudgetApplyConfiguration的UID属性，表示唯一标识符。
+
+- `WithResourceVersion`：设置PodDisruptionBudgetApplyConfiguration的ResourceVersion属性，表示资源的版本。
+
+- `WithGeneration`：设置PodDisruptionBudgetApplyConfiguration的Generation属性，代表资源的生成。
+
+- `WithCreationTimestamp`：设置PodDisruptionBudgetApplyConfiguration的CreationTimestamp属性，表示资源的创建时间戳。
+
+- `WithDeletionTimestamp`：设置PodDisruptionBudgetApplyConfiguration的DeletionTimestamp属性，表示资源的删除时间戳。
+
+- `WithDeletionGracePeriodSeconds`：设置PodDisruptionBudgetApplyConfiguration的DeletionGracePeriodSeconds属性，表示资源的删除宽限期。
+
+- `WithLabels`：设置PodDisruptionBudgetApplyConfiguration的Labels属性，表示资源的标签。
+
+- `WithAnnotations`：设置PodDisruptionBudgetApplyConfiguration的Annotations属性，表示资源的注解。
+
+- `WithOwnerReferences`：设置PodDisruptionBudgetApplyConfiguration的OwnerReferences属性，表示资源的所有者引用。
+
+- `WithFinalizers`：设置PodDisruptionBudgetApplyConfiguration的Finalizers属性，表示资源的终结器（Finalizer）。
+
+- `ensureObjectMetaApplyConfigurationExists`：确保PodDisruptionBudgetApplyConfiguration的ObjectMeta对象存在，如果不存在则创建一个新的ObjectMeta对象。
+
+- `WithSpec`：设置PodDisruptionBudgetApplyConfiguration的Spec属性，表示资源的规范配置。
+
+- `WithStatus`：设置PodDisruptionBudgetApplyConfiguration的Status属性，表示资源的状态配置。
+
+这些函数提供了在PodDisruptionBudgetApplyConfiguration中设置各种配置属性的功能，以便在更新或创建PodDisruptionBudget对象时使用。
+

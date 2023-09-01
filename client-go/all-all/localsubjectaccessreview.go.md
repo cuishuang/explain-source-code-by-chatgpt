@@ -1,0 +1,20 @@
+# File: client-go/kubernetes/typed/authorization/v1beta1/localsubjectaccessreview.go
+
+在client-go/kubernetes/typed/authorization/v1beta1/localsubjectaccessreview.go文件中，定义了与授权相关的本地主体访问审查器(LocalSubjectAccessReview)。授权是Kubernetes中重要的安全机制之一，它用于验证用户或实体对资源的访问权限。
+
+该文件中的三个结构体分别有以下作用：
+
+1. LocalSubjectAccessReviewsGetter：该结构体定义了一个接口，用于获取本地主体访问审查器的客户端。
+   
+2. LocalSubjectAccessReviewInterface：该结构体定义了本地主体访问审查器的接口，其中包含了执行访问审查的方法，如Create、Update、Delete等。
+
+3. localSubjectAccessReviews：该结构体实现了LocalSubjectAccessReviewInterface接口，并提供了与API服务器通信的能力。
+
+下面是其中几个重要的函数的解释：
+
+1. newLocalSubjectAccessReviews：该函数用于创建一个本地主体访问审查器的客户端，返回一个localSubjectAccessReviews对象，该对象实现了LocalSubjectAccessReviewInterface接口。
+
+2. Create：该函数用于创建一个本地主体访问审查对象（LocalSubjectAccessReview），并将其提交给API服务器进行审查。通过调用该函数，我们可以请求对指定资源的访问进行审查，并获得审查结果。
+
+在Kubernetes领域中，授权是非常重要的，因为它确保了只有经过授权的用户或实体可以访问资源。通过使用这些结构体和函数，client-go可以与Kubernetes API服务器进行通信，并对资源的访问进行授予或拒绝的审查操作。
+

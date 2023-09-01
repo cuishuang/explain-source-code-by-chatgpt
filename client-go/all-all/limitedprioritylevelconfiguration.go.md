@@ -1,0 +1,22 @@
+# File: client-go/applyconfigurations/flowcontrol/v1beta1/limitedprioritylevelconfiguration.go
+
+limitedprioritylevelconfiguration.go文件的作用是定义了流量控制机制中的有限优先级配置，用于配置流量控制的参数和策略。
+
+LimitedPriorityLevelConfigurationApplyConfiguration 结构体是 LimitedPriorityLevelConfiguration 结构体的一个嵌入结构体，它用来保存 LimitedPriorityLevelConfiguration 的配置信息，并提供了一些方法来设置和获取配置的不同属性。
+
+LimitedPriorityLevelConfiguration 结构体是有限优先级配置的主要结构体，它定义了以下属性：
+- Type：配置类型，表示 LimitedPriorityLevelConfiguration。
+- AssuredConcurrencyShares：指定保证并发共享的资源数量，表示该配置中每个优先级的流量在调度时可以同时处理的请求数量。
+- LimitResponse：指定限制处理的方式，表示当超过 AssuredConcurrencyShares 限制时的请求处理方式。
+- LendablePercent：指定被借用的资源百分比，表示该配置中每个优先级可以借用的额外资源数量相对于 AssuredConcurrencyShares 的百分比。
+- BorrowingLimitPercent：指定借用限制的资源百分比，表示该配置中每个优先级可以借用的额外资源数量相对于 AssuredConcurrencyShares 和 LendablePercent 的百分比。
+
+WithAssuredConcurrencyShares、WithLimitResponse、WithLendablePercent、WithBorrowingLimitPercent 是 LimitedPriorityLevelConfiguration 结构体的方法，用于为 LimitedPriorityLevelConfiguration 结构体设置不同属性的值。
+
+- WithAssuredConcurrencyShares 方法用于设置 AssuredConcurrencyShares 属性的值。
+- WithLimitResponse 方法用于设置 LimitResponse 属性的值。
+- WithLendablePercent 方法用于设置 LendablePercent 属性的值。
+- WithBorrowingLimitPercent 方法用于设置 BorrowingLimitPercent 属性的值。
+
+这些方法通过链式调用，可以方便地设置 LimitedPriorityLevelConfiguration 结构体的不同属性，并返回一个新的 LimitedPriorityLevelConfiguration 结构体。
+

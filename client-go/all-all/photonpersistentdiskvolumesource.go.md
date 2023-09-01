@@ -1,0 +1,17 @@
+# File: client-go/applyconfigurations/core/v1/photonpersistentdiskvolumesource.go
+
+client-go是一个用于与Kubernetes集群进行交互的Golang客户端库。在client-go中，client-go/applyconfigurations/core/v1/photonpersistentdiskvolumesource.go文件包含了与Photon持久磁盘卷相关的配置和应用操作。
+
+具体来说，photonpersistentdiskvolumesource.go文件中定义了PhotonPersistentDiskVolumeSource类型，该类型用于描述Pod中使用的Photon持久磁盘卷的配置信息。它包含以下字段：
+
+- PdID：Photon持久磁盘的ID。
+- FSType：文件系统类型。
+
+PhotonPersistentDiskVolumeSourceApplyConfiguration结构体是一个用于应用PhotonPersistentDiskVolumeSource配置的辅助类型。它提供了一些方法，用于设置PhotonPersistentDiskVolumeSource的各个字段的值。
+
+例如，WithPdID方法用于设置PdID字段的值，WithFSType方法用于设置FSType字段的值。
+
+这些方法可以在创建或更新Pod的配置时使用，以便指定使用Photon持久磁盘卷作为Pod的存储卷，并配置该存储卷的相关属性。
+
+总而言之，photonpersistentdiskvolumesource.go文件及相关结构体和函数提供了在client-go中配置和应用Photon持久磁盘卷的功能，使开发人员可以轻松地与Kubernetes集群进行交互并管理存储卷。
+

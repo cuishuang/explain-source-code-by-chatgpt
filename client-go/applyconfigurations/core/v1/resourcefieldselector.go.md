@@ -1,0 +1,24 @@
+# File: client-go/applyconfigurations/core/v1/resourcefieldselector.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/core/v1/resourcefieldselector.go文件的作用是提供了用于配置Pod的ResourceFieldSelector的功能。
+
+ResourceFieldSelector是一种选择器，用于选择Pod中特定的资源字段。通过使用ResourceFieldSelector，可以对具有特定资源字段值的Pod进行筛选。
+
+ResourceFieldSelectorApplyConfiguration是一个结构体，其中包含一些配置ResourceFieldSelector的方法。这些方法通过链式调用，可以设置ResourceFieldSelector的属性。
+
+- WithContainerName方法用于设置容器的名称，从而将ResourceFieldSelector应用于指定的容器。
+- WithResource方法用于设置要选择的资源字段的名称。
+- WithDivisor方法用于设置ResourceFieldSelector结果值的除数。
+
+这些方法的目的是为了方便设置ResourceFieldSelector的各个属性。通过调用这些方法，可以以更加简洁的方式配置ResourceFieldSelector。
+
+ResourceFieldSelector是一个结构体，表示一个资源字段选择器。它包含了一些属性，用于指定选择器的行为和目标。具体而言，这些属性包括：
+
+- ContainerName：要选择的容器的名称。通过设置ContainerName，可以指定将ResourceFieldSelector应用于哪个容器。
+- Resource：要选择的资源字段的名称。通过设置Resource，可以指定选择哪个资源字段。
+- Divisor：结果值的除数。通过设置Divisor，可以用于计算选择器的结果值。
+
+通过使用这些属性，可以灵活地配置ResourceFieldSelector来满足不同的需求。
+
+综上所述，client-go/applyconfigurations/core/v1/resourcefieldselector.go文件提供了用于配置Pod的ResourceFieldSelector的功能，并通过一些结构体和函数提供了设置ResourceFieldSelector属性的便利性。
+

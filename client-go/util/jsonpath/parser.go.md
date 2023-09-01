@@ -1,0 +1,22 @@
+# File: client-go/util/jsonpath/parser.go
+
+在K8s组织下的client-go项目中，client-go/util/jsonpath/parser.go文件的作用是实现了一个用于解析和评估JSONPath表达式的解析器。
+
+该文件中定义了一个Parser结构体，它负责接收JSONPath表达式，并将其解析成一系列的操作。Parser结构体的主要方法是Parse()，用于将JSONPath表达式解析成操作集合。
+
+ErrSyntax是一个解析错误的常量，用于表示在解析过程中发生了语法错误。
+
+dictKeyRex和sliceOperatorRex是用于匹配JSONPath表达式中的字典键和切片操作符的正则表达式。
+
+Parser结构体包含了解析器的状态和相关方法。其中，Parse方法接收JSONPath表达式，并返回一个包含解析后操作的操作集合。NewParser用于创建一个新的Parser对象。
+
+parseAction方法是解析器内部使用的其中一个方法，用于解析表达式中的操作。consumeText方法用于读取和返回下一个标记。next和peek方法用于读取下一个和预读取下一个标记。backup方法用于回退一个标记。
+
+parseText、parseLeftDelim、parseInsideAction、parseRightDelim、parseIdentifier、parseRecursive、parseNumber、parseArray、parseFilter、parseQuote和parseField是一些用于解析不同类型的操作的方法。
+
+advance函数用于将解析器向前移动一个字符。isTerminator、isSpace、isEndOfLine和isAlphaNumeric等函数用于判断解析器当前位置的字符类型。
+
+UnquoteExtend函数用于解析引号包围的字符串。contains函数用于判断一个字符串是否包含另一个字符串。
+
+总结起来，parser.go文件定义了一个用于解析和评估JSONPath表达式的解析器。它通过逐个解析表达式中的字符，将其转换为一系列的操作，以便后续对JSON数据进行筛选和操作。
+

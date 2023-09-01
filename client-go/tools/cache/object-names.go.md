@@ -1,0 +1,20 @@
+# File: client-go/tools/cache/object-names.go
+
+在client-go项目中，client-go/tools/cache/object-names.go文件主要定义了一些用于处理Kubernetes对象名称的工具函数和结构体。
+
+ObjectName结构体表示一个Kubernetes对象的名称，它包含两个字段：Namespace和Name。Namespace表示对象所在的命名空间，而Name表示对象的名称。
+
+NewObjectName函数用于创建一个新的ObjectName对象，通过传入命名空间和名称参数，返回一个指向新对象的指针。
+
+Parts函数将一个ObjectName对象分解为命名空间和名称组成的片段，返回命名空间和名称的切片。
+
+String函数将ObjectName对象转换为字符串表示形式，返回命名空间和名称的字符串拼接结果，以"namespace/name"的形式返回。
+
+ParseObjectName函数用于解析一个字符串形式的对象名称，返回一个ObjectName对象。该函数将字符串根据"/"进行分割，并将第一部分作为命名空间，第二部分作为名称。
+
+NamespacedNameAsObjectName函数是一个辅助函数，用于将一个k8s.util.NamespacedName对象转换为一个ObjectName对象。
+
+AsNamespacedName函数是一个辅助函数，用于将一个ObjectName对象转换为一个k8s.util.NamespacedName对象。
+
+总结起来，object-names.go文件中的相关结构体和函数提供了一些实用工具函数，用于处理Kubernetes对象的名称和转换。这些函数和结构体可以在Kubernetes客户端代码中被使用，以简化处理对象名称的操作。
+

@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/podaffinityterm.go
+
+在client-go项目的applyconfigurations/core/v1/podaffinityterm.go文件中，定义了与Pod亲和性相关的应用配置。PodAffinityTerm用于配置Pod的亲和性规则，其中包含以下几个关键字段：
+
+1. LabelSelector：用于指定匹配的标签选择器，只有与该选择器匹配的Pod才能进行亲和性绑定。
+2. Namespaces：用于指定适用的命名空间，只有在这些命名空间中的Pod才能进行亲和性绑定。
+3. TopologyKey：定义了拓扑关键字，表示Pod的拓扑约束。
+4. NamespaceSelector：用于指定匹配的命名空间选择器，只有与该选择器匹配的命名空间中的Pod才能进行亲和性绑定。
+
+PodAffinityTerm的作用是描述亲和性规则，可以使用PodAffinityTermApplyConfiguration来进行配置。其主要方法是使用WithLabelSelector、WithNamespaces、WithTopologyKey和WithNamespaceSelector等函数，用于指定PodAffinityTerm中的各个字段的值。
+
+具体作用如下：
+
+1. WithLabelSelector：用于设置LabelSelector字段，指定需要匹配的标签选择器。
+2. WithNamespaces：用于设置Namespaces字段，指定适用的命名空间。
+3. WithTopologyKey：用于设置TopologyKey字段，定义拓扑关键字。
+4. WithNamespaceSelector：用于设置NamespaceSelector字段，指定需要匹配的命名空间选择器。
+
+通过使用这些函数，可以创建PodAffinityTerm对象，并对其进行相应的配置。这些配置可以用于创建PodAffinity或PodAntiAffinity规则，用于控制Kubernetes集群中Pod的调度和亲和性约束。
+

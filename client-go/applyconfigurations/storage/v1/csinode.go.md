@@ -1,0 +1,52 @@
+# File: client-go/applyconfigurations/storage/v1beta1/csinode.go
+
+在K8s组织下的client-go项目中，client-go/applyconfigurations/storage/v1beta1/csinode.go这个文件的作用是定义了对CSINode资源对象进行创建、更新、删除等操作的配置。
+
+CSINodeApplyConfiguration结构体是对CSINode资源对象进行应用配置的数据结构。它包含了对该资源对象的各种配置项的设置。
+
+下面是对CSINodeApplyConfiguration中一些关键结构体和函数的介绍：
+
+1. CSINode：代表了CSI插件与Node之间的绑定关系。它包含了一组与该Node相关联的CSI插件信息。
+
+2. ExtractCSINode：从一个CSINode对象中提取出CSINode类型的数据。
+
+3. ExtractCSINodeStatus：从一个CSINode对象中提取出CSINodeStatus类型的数据。
+
+4. extractCSINode：从一个CSINode对象中提取出CSINode的数据。
+
+5. WithKind：设置CSINodeApplyConfiguration对象的Kind字段。
+
+6. WithAPIVersion：设置CSINodeApplyConfiguration对象的APIVersion字段。
+
+7. WithName：设置CSINodeApplyConfiguration对象的Name字段。
+
+8. WithGenerateName：设置CSINodeApplyConfiguration对象的GenerateName字段。
+
+9. WithNamespace：设置CSINodeApplyConfiguration对象的Namespace字段。
+
+10. WithUID：设置CSINodeApplyConfiguration对象的UID字段。
+
+11. WithResourceVersion：设置CSINodeApplyConfiguration对象的ResourceVersion字段。
+
+12. WithGeneration：设置CSINodeApplyConfiguration对象的Generation字段。
+
+13. WithCreationTimestamp：设置CSINodeApplyConfiguration对象的CreationTimestamp字段。
+
+14. WithDeletionTimestamp：设置CSINodeApplyConfiguration对象的DeletionTimestamp字段。
+
+15. WithDeletionGracePeriodSeconds：设置CSINodeApplyConfiguration对象的DeletionGracePeriodSeconds字段。
+
+16. WithLabels：设置CSINodeApplyConfiguration对象的Labels字段。
+
+17. WithAnnotations：设置CSINodeApplyConfiguration对象的Annotations字段。
+
+18. WithOwnerReferences：设置CSINodeApplyConfiguration对象的OwnerReferences字段。
+
+19. WithFinalizers：设置CSINodeApplyConfiguration对象的Finalizers字段。
+
+20. ensureObjectMetaApplyConfigurationExists：确保CSINodeApplyConfiguration对象的ObjectMeta字段存在。
+
+21. WithSpec：设置CSINodeApplyConfiguration对象的Spec字段。
+
+这些函数主要用于根据需要对CSINodeApplyConfiguration对象进行配置，包括设置各种字段的值，以便执行创建、更新、删除等操作时可以生效。
+

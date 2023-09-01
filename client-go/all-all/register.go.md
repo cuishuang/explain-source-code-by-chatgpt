@@ -1,0 +1,18 @@
+# File: client-go/kubernetes/scheme/register.go
+
+在client-go项目中，client-go/kubernetes/scheme/register.go文件的作用是进行Kubernetes API对象的Scheme注册。
+
+Scheme是一个用于序列化和反序列化Kubernetes API对象的机制，它定义了对象和版本之间的映射关系。在Kubernetes中，每个API对象都有一个对应的版本，而Scheme会根据这个版本来选择正确的编解码方式。
+
+Codecs是用于对对象进行编解码的工具，包括对对象进行序列化和反序列化的方法。
+
+ParameterCodec是用于处理URL中的参数的编解码器。
+
+localSchemeBuilder是一个用于构建Scheme的函数列表。它包含了所有的Kubernetes API组中的所有资源对象的类型和版本。
+
+AddToScheme函数通过调用localSchemeBuilder函数列表中的所有函数，将这些函数返回的Scheme添加到一个全局的Scheme对象中。这样，就可以将所有的API对象注册到Scheme中，以便进行后续的序列化和反序列化操作。
+
+init函数是Go语言中的初始化函数，它会在程序启动时自动调用。在register.go文件中，init函数主要起到了在程序启动时注册所有的API对象到Scheme的作用。具体来说，init函数会调用AddToScheme函数，将所有的Scheme对象都添加到全局的Scheme对象中去。
+
+总结起来，register.go文件中的作用是注册Kubernetes API对象的Scheme，包括编解码器和版本映射关系。其中Scheme、Codecs、ParameterCodec、localSchemeBuilder、AddToScheme等变量和init函数都是为了实现这个注册过程所需要的工具和步骤。它们的作用分别是定义编解码机制、处理URL参数、构建Scheme对象、添加Scheme到全局对象中，并在程序启动时进行注册。
+

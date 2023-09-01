@@ -1,0 +1,21 @@
+# File: client-go/tools/cache/retry_with_deadline.go
+
+在K8s组织下的client-go项目中，client-go/tools/cache/retry_with_deadline.go这个文件是用于实现带有截止日期的重试机制的。
+
+RetryWithDeadline是实现截止日期重试的接口，定义了ShouldRetry和After两个方法。retryWithDeadlineImpl是RetryWithDeadline接口的具体实现。
+
+- ShouldRetry方法用于判断是否应该进行重试。该方法接受一个error参数，根据该参数判断是否需要重试。如果返回true，则重试；如果返回false，则放弃重试。
+- After方法用于计算下一次重试的等待时间。该方法接受一个重试次数作为参数，根据重试次数计算下一次重试的等待时间。
+
+NewRetryWithDeadline是创建一个RetryWithDeadline的实例。它接受一个截止日期和一个重试机制作为参数，并返回一个实现RetryWithDeadline接口的对象。
+
+reset方法用于重置重试计数器和等待时间。每次调用retryWithDeadlineImpl的ShouldRetry方法时，都会先调用reset方法重置状态。
+
+After方法计算并返回下一次重试的等待时间。
+
+ShouldRetry方法根据错误类型判断是否需要重试。如果错误是由于网络问题或暂时的错误导致的，则返回true，表示需要重试。
+
+在client-go的缓存模块中，retryWithDeadlineImpl主要用于处理与api server之间的交互，当出现网络错误或其他暂时的错误时，会将请求重新加入到队列中，并根据截止日期和重试策略进行重试，直到截止日期或达到最大重试次数。
+
+通过retryWithDeadlineImpl实现的重试机制，可以提高对api server的请求的可靠性和稳定性。
+

@@ -1,0 +1,19 @@
+# File: client-go/applyconfigurations/apps/v1beta2/deploymentspec.go
+
+client-go/applyconfigurations/apps/v1beta2/deploymentspec.go这个文件是client-go库中的一个文件，用于定义DeploymentSpecApplyConfiguration结构体以及一些相关的函数。
+
+DeploymentSpecApplyConfiguration结构体是一个可应用的DeploymentSpec配置对象，可以用于自定义和修改Deployment的配置。它提供了一系列的With函数，可以通过链式调用来设置DeploymentSpec的各个属性。
+
+下面是对于这些函数的介绍：
+
+- WithReplicas函数用于设置Deployment的副本数。
+- WithSelector函数用于设置Deployment的选择器，指定哪些Pod属于该Deployment。
+- WithTemplate函数用于设置Deployment的Pod模板，指定如何创建每个Pod。
+- WithStrategy函数用于设置Deployment的更新策略，可以指定滚动更新、Recreate或者灰度发布等策略。
+- WithMinReadySeconds函数用于设置Deployment的最小可用时间，即Pod在变为Ready状态之前的最小等待时间。
+- WithRevisionHistoryLimit函数用于设置Deployment的修订历史记录限制，即保存Deployment的历史修订版本数。
+- WithPaused函数用于设置Deployment的暂停状态，可以将Deployment暂停在当前状态而不进行任何更新。
+- WithProgressDeadlineSeconds函数用于设置Deployment的更新进度截止时间，即在指定时间内没有完成更新则认为更新失败。
+
+这些函数提供了一种方便的方式来自定义和修改Deployment的配置，可以根据实际需求来定制Deployment的各个属性。
+

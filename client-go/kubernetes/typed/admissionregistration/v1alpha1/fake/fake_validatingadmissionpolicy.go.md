@@ -1,0 +1,25 @@
+# File: client-go/kubernetes/typed/admissionregistration/v1beta1/fake/fake_validatingadmissionpolicy.go
+
+在client-go/kubernetes/typed/admissionregistration/v1beta1/fake/fake_validatingadmissionpolicy.go文件中，定义了一个用于模拟测试的FakeValidatingAdmissionPolicy客户端。
+
+该文件主要用于实现对ValidatingAdmissionPolicy资源的模拟操作，用于测试和开发目的。
+
+- validatingadmissionpoliciesResource: 该变量定义了ValidatingAdmissionPolicy资源的REST路径，用于构建API请求。
+- validatingadmissionpoliciesKind: 该变量定义了ValidatingAdmissionPolicy资源的类型名称。
+
+FakeValidatingAdmissionPolicies结构体的作用是模拟ValidatingAdmissionPolicy资源的客户端操作，提供对资源的增删改查等功能的模拟实现。
+
+- Get: 模拟获取指定名称的ValidatingAdmissionPolicy资源。
+- List: 模拟获取所有ValidatingAdmissionPolicy资源。
+- Watch: 模拟监听ValidatingAdmissionPolicy资源的变动。
+- Create: 模拟创建ValidatingAdmissionPolicy资源。
+- Update: 模拟更新指定名称的ValidatingAdmissionPolicy资源。
+- UpdateStatus: 模拟更新ValidatingAdmissionPolicy资源的状态。
+- Delete: 模拟删除指定名称的ValidatingAdmissionPolicy资源。
+- DeleteCollection: 模拟删除所有ValidatingAdmissionPolicy资源。
+- Patch: 模拟对指定名称的ValidatingAdmissionPolicy资源进行局部更新。
+- Apply: 模拟应用指定名称的ValidatingAdmissionPolicy资源。
+- ApplyStatus: 模拟应用ValidatingAdmissionPolicy资源的状态更新。
+
+这些函数提供了对FakeValidatingAdmissionPolicy客户端的操作，使得在测试过程中可以模拟对ValidatingAdmissionPolicy资源的增删改查操作，并验证业务逻辑的正确性。
+

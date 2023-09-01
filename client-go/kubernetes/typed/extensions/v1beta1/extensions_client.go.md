@@ -1,0 +1,20 @@
+# File: client-go/kubernetes/typed/extensions/v1beta1/extensions_client.go
+
+在client-go/kubernetes/typed/extensions/v1beta1/extensions_client.go文件中，定义了ExtensionsV1beta1Interface和ExtensionsV1beta1Client这两个结构体，以及一系列相关的函数。
+
+ExtensionsV1beta1Interface是一个接口，它定义了与Kubernetes Extensions API的交互方法。ExtensionsV1beta1Client是ExtensionsV1beta1Interface的默认实现，它包含了具体的请求和处理逻辑。
+
+函数DaemonSets、Deployments、Ingresses、NetworkPolicies、ReplicaSets是ExtensionsV1beta1Interface接口中定义的一些方法，用于获取对应资源的操作对象。比如，通过调用client.DaemonSets(namespace)可以获得对DaemonSets资源进行操作的对象。
+
+函数NewForConfig用于创建ExtensionsV1beta1Client对象，并根据提供的配置来初始化这个对象。
+
+函数NewForConfigAndClient类似于NewForConfig，除了会为提供的client配置客户端对象之外，还会根据提供的config配置初始化ExtensionsV1beta1Client对象。
+
+函数NewForConfigOrDie和New类似，它们将会在无法创建ExtensionsV1beta1Client对象时引发panic错误。
+
+函数setConfigDefaults用于设置客户端的默认配置。例如，可以通过调用setConfigDefaults(clientConfig)来设置一些默认参数值。
+
+RESTClient是一个用于和Kubernetes API服务器进行交互的REST客户端。它使用HTTP协议发送请求并处理响应，这些请求和响应都是与Kubernetes Extensions API相关的。
+
+总结来说，extensions_client.go文件定义了ExtensionsV1beta1Interface接口和ExtensionsV1beta1Client结构体，以及相关的函数，用于对Kubernetes Extensions API的访问和操作。
+

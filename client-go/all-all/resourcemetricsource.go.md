@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/autoscaling/v2/resourcemetricsource.go
+
+在client-go项目的applyconfigurations/autoscaling/v2/resourcemetricsource.go文件中，定义了与kubernetes自动伸缩API的ResourceMetricSource相关的一些配置和操作。
+
+该文件中的ResourceMetricSourceApplyConfiguration结构体用于配置ResourceMetricSource的属性。ResourceMetricSourceApplyConfiguration结构体包括以下字段：
+
+- Name: 资源指标的名称，用于标识资源指标的类型。
+- Target: 资源指标的目标值。
+
+ResourceMetricSource结构体是ResourceMetricSourceApplyConfiguration的一个具体实例，用于描述资源指标的配置。ResourceMetricSource结构体包括以下字段：
+
+- Name: 资源指标的名称，用于标识资源指标的类型。
+- Target: 资源指标的目标值。
+
+WithName()函数用于在ResourceMetricSourceApplyConfiguration结构体上设置资源指标的名称。该函数接收一个字符串参数，用于设置资源指标的名称。
+
+WithTarget()函数用于在ResourceMetricSourceApplyConfiguration结构体上设置资源指标的目标值。该函数接收一个Quantity参数，用于设置资源指标的目标值。
+
+这些函数主要用于方便用户对ResourceMetricSourceApplyConfiguration结构体进行配置，以及对ResourceMetricSource对象进行操作。通过调用这些函数，用户可以设置资源指标的名称和目标值，从而实现对资源指标的自定义配置。
+

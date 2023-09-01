@@ -1,0 +1,14 @@
+# File: client-go/applyconfigurations/flowcontrol/v1beta1/nonresourcepolicyrule.go
+
+在client-go项目中，client-go/applyconfigurations/flowcontrol/v1beta1/nonresourcepolicyrule.go文件的作用是提供非资源策略规则（NonResourcePolicyRule）的应用配置。
+
+NonResourcePolicyRuleApplyConfiguration是一个配置接口，用于描述应用于非资源策略规则的配置选项。它提供了一些方法用于设置和获取非资源策略规则的属性。
+
+NonResourcePolicyRule是一个非资源策略规则结构体，用于描述授权策略中的非资源规则。该结构体包含Verbs和NonResourceURLs字段。Verbs字段定义了可以对非资源进行的操作，例如"get"、"post"、"put"等。NonResourceURLs字段定义了可以对非资源路径进行操作的URL。
+
+WithVerbs是一个函数，用于设置非资源策略规则的Verbs字段。它接受一个字符串切片作为参数，用于设置允许的操作列表。
+
+WithNonResourceURLs是一个函数，用于设置非资源策略规则的NonResourceURLs字段。它接受一个字符串切片作为参数，用于设置允许操作的非资源路径列表。
+
+这些函数提供了一种链式调用的方式来设置非资源策略规则的属性。通过使用这些函数，可以方便地创建和配置非资源策略规则对象。
+

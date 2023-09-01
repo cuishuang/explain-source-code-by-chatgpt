@@ -1,0 +1,26 @@
+# File: client-go/tools/cache/mutation_cache.go
+
+在K8s组织下的client-go项目中，client-go/tools/cache/mutation_cache.go文件是为了支持缓存Kubernetes对象和它们的变更推送机制。
+
+MutationCache结构体是用来缓存对象的结构，它维护了一个存储对象变更的列表，并提供了一些方法来增加、删除和获取这些对象。
+
+ResourceVersionComparator结构体是用来比较两个资源的版本号的，它实现了Comparator接口。
+
+mutationCache结构体是MutationCache的实例，它维护了一个对象列表以及对这些对象进行增删改查的方法。
+
+etcdObjectVersioner结构体是用来获取对象的版本号的，它实现了ObjectVersioner接口。
+
+NewIntegerResourceVersionMutationCache是创建带有整数资源版本的MutationCache的构造函数。
+
+GetByKey是通过给定的键获取对象的函数。
+
+ByIndex是通过给定的索引和键获取对象的函数。
+
+newerObject是比较两个对象的版本号，返回较新的对象。
+
+Mutation是表示对象变更的结构体，包含了旧对象、新对象和变更类型等信息。
+
+ObjectResourceVersion是获取对象的版本号的函数。
+
+CompareResourceVersion是用来比较两个资源版本的函数。
+

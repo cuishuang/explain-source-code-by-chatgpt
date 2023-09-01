@@ -1,0 +1,20 @@
+# File: client-go/applyconfigurations/core/v1/containerstatewaiting.go
+
+文件containerstatewaiting.go的主要作用是定义了容器等待状态的应用配置。
+
+在client-go中，apply configuration是指通过客户端对Kubernetes对象进行更新操作时所使用的配置。apply configuration是以JSON Patch方式来描述要对对象进行的变更，然后将该JSON Patch应用到Kubernetes对象上，从而实现对对象的更新。
+
+在containerstatewaiting.go中，定义了一系列的结构体和函数用于描述和操作容器等待状态的应用配置。
+
+结构体ContainerStateWaitingApplyConfiguration是容器等待状态的应用配置的总体描述。它包含了容器等待状态中的各个字段以及其应用配置的更新方式。
+
+结构体ContainerStateWaiting定义了容器的等待状态。具体来说，它描述了容器等待状态的原因（Reason）和消息（Message）等字段。
+
+函数WithReason是ContainerStateWaitingApplyConfiguration结构体的一个方法，用于设置容器等待状态的原因字段的值。该方法返回一个函数，该函数负责将原因字段设置为指定的值。
+
+函数WithMessage是ContainerStateWaitingApplyConfiguration结构体的一个方法，用于设置容器等待状态的消息字段的值。该方法返回一个函数，该函数负责将消息字段设置为指定的值。
+
+这些函数的作用是方便用户通过链式调用的方式设置容器等待状态的应用配置。用户可以使用WithReason函数来设置原因字段的值，使用WithMessage函数来设置消息字段的值。通过这种方式，可以在不修改其他字段的情况下，只对特定字段进行更新操作。
+
+总的来说，containerstatewaiting.go文件中的结构体和函数用于定义和操作容器等待状态的应用配置，方便用户对容器等待状态进行更新操作。
+

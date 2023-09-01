@@ -1,0 +1,14 @@
+# File: client-go/kubernetes/typed/extensions/v1beta1/fake/fake_deployment_expansion.go
+
+在Kubernetes的client-go项目中，client-go/kubernetes/typed/extensions/v1beta1/fake/fake_deployment_expansion.go文件负责定义了FakeDeploymentExpansion接口的实现，该接口用于模拟和扩展Deployment对象的操作。
+
+FakeDeploymentExpansion接口是在fake扩展客户端（即虚拟客户端）上定义的，它提供了一些特定于Deployment对象的功能，以便在测试或模拟环境中使用。主要通过以下几个方法来实现：
+
+1. Rollback - 这是一个Rollback方法，用于回滚Deployment的操作。它接受一个DeploymentRollback参数，该参数包含了回滚所需的信息，例如指定要回滚的ReplicaSet的名称、回滚的历史版本等。其作用是将Deployment对象回滚到指定的历史版本，以便恢复先前的部署状态。
+
+2. RollbackUntil - 这个方法用于在指定条件下进行回滚操作。它接受一个DeploymentRollback参数以及一个函数参数，函数参数用于指定回滚判断条件。该函数应该接收一个*appsv1beta1.DeploymentRollback对象作为输入，并返回一个布尔值表示是否应该继续回滚操作。在每次回滚时，函数将会调用，并传递适当的DeploymentRollback对象，直到返回false为止。
+
+3. UpdateRollback - 这个方法用于更新回滚操作。它接受一个字符串参数作为Deployment的名称，一个DeploymentRollback参数作为新回滚配置的信息。它的作用是更新指定名称的Deployment对象的回滚配置。
+
+通过这些方法，fake_deployment_expansion.go文件中的FakeDeploymentExpansion实现了在测试环境中模拟Deployment对象的回滚操作。这样一来，开发者可以在不实际部署或更改实际资源的情况下，进行回滚相关功能的测试和验证。
+

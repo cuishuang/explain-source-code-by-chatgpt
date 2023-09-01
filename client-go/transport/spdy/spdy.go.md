@@ -1,0 +1,18 @@
+# File: client-go/transport/spdy/spdy.go
+
+client-go/transport/spdy/spdy.go是client-go项目中与SPDY协议相关的文件。SPDY是Google推出的一种提高Web性能的应用层协议，它利用多路复用、Header压缩和服务端推送等技术来提高网络传输效率。
+
+文件中的_变量是用于忽略某个值的占位符。在这个文件中，有几个地方使用了匿名导入的方式，导入的包并没有被直接使用，但为了保证这些包的init函数能够执行，使用_变量进行了占位。
+
+Upgrader结构体是用于升级HTTP连接到SPDY协议。它的主要作用是通过HTTP Upgrade机制将HTTP连接升级为SPDY连接。
+
+dialer结构体用于建立和管理SPDY连接。它实现了Go的net.Dialer接口，用于建立底层的网络连接。
+
+RoundTripperFor函数是为传输SPDY请求和响应而创建的http.RoundTripper接口实现。它包装了一个底层的RoundTripper，在进行请求时会先升级到SPDY连接，然后再进行实际的请求和响应。
+
+NewDialer函数用于创建一个dialer结构体，用于管理SPDY连接的建立。
+
+Dial函数用于建立SPDY连接。它使用提供的dialer来建立连接，并返回一个用于发送和接收SPDY流的处理器Handler。
+
+Negotiate函数用于与服务端进行SPDY协议的协商。它发送一个带有协议升级的HTTP请求，通过接收HTTP响应中的Upgrade信息来确定是否成功升级为SPDY协议。
+

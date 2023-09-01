@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/batch/v1beta1/cronjobstatus.go
+
+在Kubernetes组织下的client-go项目中，client-go/applyconfigurations/batch/v1beta1/cronjobstatus.go文件是用于应用配置的文件。它提供了一组结构体和函数，用于配置CronJob资源的状态。
+
+CronJobStatusApplyConfiguration结构体是一个用于应用CronJob状态配置的配置器。它包含了CronJobStatus的各个字段，通过调用With函数可以设置这些字段的值。它负责生成一个用于应用到CronJob的配置对象。
+
+CronJobStatus结构体是CronJob资源的状态信息。它包含了CronJob的当前状态，比如最近的调度时间、最近一次成功的调度时间等。
+
+WithActive函数用于设置CronJob的活跃状态。它接受一个整数类型的参数，表示当前活跃的作业数。
+
+WithLastScheduleTime函数用于设置CronJob的最后一次调度时间。它接受一个时间类型的参数，表示最后一次调度的时间。
+
+WithLastSuccessfulTime函数用于设置CronJob的最后一次成功调度的时间。它接受一个时间类型的参数，表示最后一次成功调度的时间。
+
+这些函数可以通过CronJobStatusApplyConfiguration结构体的实例进行调用，用于设置CronJob的状态配置。最后，通过将实例应用到CronJob对象上，可以将这些配置应用到实际的CronJob资源上。
+

@@ -1,0 +1,14 @@
+# File: client-go/rest/url_utils.go
+
+client-go/rest/url_utils.go是client-go项目中的一个文件，用于处理与URL相关的操作。
+
+该文件中的DefaultServerURL函数的作用是获取默认的Kubernetes服务器URL。默认情况下，它将返回"127.0.0.1"，但可以通过环境变量KUBERNETES_MASTER来覆盖默认值。该函数还支持使用HTTPS协议，并根据环境变量KUBERNETES_SERVICE_HOST和KUBERNETES_SERVICE_PORT来确定服务器地址。
+
+DefaultVersionedAPIPath函数的作用是获取对应版本的API路径。它接收一个API版本字符串参数，并返回一个带有版本前缀的API路径字符串。例如，如果传入的版本为"v1"，则返回的路径为"/api/v1"。
+
+DefaultServerURLFor函数的作用是根据给定的协议和主机名生成一个完整的服务器URL。它接收两个参数，分别是协议（"http"或"https"）和主机名。它将根据这两个参数返回一个完整的服务器URL字符串。
+
+这些函数可以用于构建和解析Kubernetes API服务器的URL。例如，可以使用DefaultServerURL函数获取默认的服务器URL，并将其与DefaultVersionedAPIPath函数返回的API路径拼接，以获得完整的API服务器URL。而DefaultServerUrlFor函数可以根据给定的协议和主机名生成一个自定义的服务器URL。
+
+总之，url_utils.go文件中的这些函数提供了便捷的方法来处理Kubernetes API服务器的URL相关操作。
+

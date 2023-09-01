@@ -1,0 +1,12 @@
+# File: client-go/dynamic/dynamiclister/shim.go
+
+在K8s组织下的client-go项目中，client-go/dynamic/dynamiclister/shim.go文件的作用是提供用于动态列表操作的功能。
+
+文件中的_变量表示被忽略的值，通常用于占位符，表示不需要该返回值。
+
+dynamicListerShim结构体是一个通用的动态列表器，dynamicNamespaceListerShim是用于按命名空间进行列表操作的动态列表器。
+
+NewRuntimeObjectShim函数用于创建一个新的RuntimeObjectShim对象，该对象用于操作指定资源类型的动态列表。List函数用于列出所有的资源实例，Get函数用于获取指定名称的资源实例，ByNamespace函数用于按命名空间列出所有的资源实例。
+
+这些函数的作用是通过调用底层的RESTClient执行相应的API请求，然后将返回的结果构造成对应的资源对象并返回给调用者。动态列表器的作用是为资源类型提供了方便、统一的列表操作接口，使得开发者可以更简便地进行资源的访问和操作。
+

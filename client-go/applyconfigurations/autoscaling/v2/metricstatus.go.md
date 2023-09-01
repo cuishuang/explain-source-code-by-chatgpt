@@ -1,0 +1,22 @@
+# File: client-go/applyconfigurations/autoscaling/v2/metricstatus.go
+
+在Kubernetes的client-go项目中的client-go/applyconfigurations/autoscaling/v2/metricstatus.go文件是关于自动缩放(v2版本)的度量状态的配置。
+
+MetricStatusApplyConfiguration定义了用于自动缩放的度量状态的配置参数。它是自动生成的代码，用于应用于AutoscalingV2beta2Client中的MetricStatus的配置对象。
+
+MetricStatus是自动缩放(v2版本)中的度量状态。它包含了度量的类型、目标对象、对应的指标数值等信息。
+
+WithType函数用于设置MetricStatus的度量类型。
+
+WithObject函数用于设置MetricStatus的目标对象。目标对象可以是Deployment、ReplicaSet等。
+
+WithPods函数用于设置MetricStatus的目标对象为Pod。
+
+WithResource函数用于设置MetricStatus的目标对象为资源。例如，设置CPU或内存的度量。
+
+WithContainerResource函数用于设置MetricStatus的目标对象为容器资源。例如，设置特定容器的CPU或内存的度量。
+
+WithExternal函数用于设置MetricStatus的目标对象为外部度量。例如，设置Prometheus等外部监控系统的度量存储。
+
+这些函数可以通过链式调用，用于设置MetricStatusApplyConfiguration结构体中的各个字段的值。它们提供了一种方便且可读性强的方式来配置度量状态对象。
+

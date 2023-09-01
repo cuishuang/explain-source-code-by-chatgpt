@@ -1,0 +1,16 @@
+# File: client-go/applyconfigurations/discovery/v1beta1/endpointconditions.go
+
+在client-go项目中，`endpointconditions.go`文件是用于定义和应用Endpoint的条件的。它包含了EndpointConditionsApplyConfiguration结构体、EndpointConditions结构体以及几个相关的函数，下面逐一介绍：
+
+1. `EndpointConditionsApplyConfiguration`结构体：它表示EndpointConditions的应用配置。EndpointConditions用于指定Endpoint对象的各个条件，例如Ready、Serving和Terminating。EndpointConditionsApplyConfiguration是对EndpointConditions的配置进行更改和更新的结构体。
+
+2. `EndpointConditions`结构体：它用于描述Endpoint的条件状态。Endpoint表示可以让客户端连接的网络终点，EndpointConditions用于指示Endpoint的准备就绪状态、服务状态和终止状态的条件。
+
+3. `WithReady`函数：它是EndpointConditionsApplyConfiguration结构体中的方法，用于设置EndpointConditions对象的Ready状态。Ready状态表示Endpoint是否已准备就绪，可以接受客户端的连接。
+
+4. `WithServing`函数：它是EndpointConditionsApplyConfiguration结构体中的方法，用于设置EndpointConditions对象的Serving状态。Serving状态表示Endpoint是否正在提供服务，即是否可以处理客户端的请求。
+
+5. `WithTerminating`函数：它是EndpointConditionsApplyConfiguration结构体中的方法，用于设置EndpointConditions对象的Terminating状态。Terminating状态表示Endpoint正在终止，即即将停止服务。
+
+这些函数提供了一种方便的方法来配置并更新EndpointConditions对象的状态。通过使用这些函数，可以创建或修改EndpointConditions对象的各个条件，以反映Endpoint的状态。
+

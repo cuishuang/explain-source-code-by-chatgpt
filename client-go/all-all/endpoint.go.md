@@ -1,0 +1,27 @@
+# File: client-go/applyconfigurations/discovery/v1beta1/endpoint.go
+
+在Kubernetes项目中，client-go是用于与Kubernetes集群进行交互的官方Go客户端库。在client-go/applyconfigurations/discovery/v1beta1/endpoint.go文件中，定义了一些用于应用配置的结构体和函数，以便用于创建或更新Kubernetes集群中的Endpoint资源。
+
+Endpoint是Kubernetes中的一种资源对象，用于描述服务的网络终点，即服务的IP地址和端口。而EndpointApplyConfiguration是一个应用配置的结构体，用于在创建或更新Endpoint资源时指定相关的配置选项。
+
+以下是对EndpointApplyConfiguration结构体的一些详细介绍：
+- Endpoint：用于描述Endpoint资源对象的配置
+- WithAddresses：用于指定Endpoint资源的网络地址，即服务的IP地址
+- WithConditions：用于指定Endpoint资源的状态条件，如是否可用、是否就绪等
+- WithHostname：用于指定Endpoint资源的主机名
+- WithTargetRef：用于指定Endpoint资源的目标引用，即连接到该Endpoint的Pod资源或Service资源
+- WithTopology：用于指定Endpoint资源的拓扑信息，即服务的位置信息
+- WithNodeName：用于指定Endpoint资源所在的节点名称
+- WithHints：用于指定Endpoint资源的提示信息，如端口类型等
+
+这些函数都用于根据需要为EndpointApplyConfiguration结构体的字段指定相应的值，从而创建或更新Endpoint资源。具体而言：
+- WithAddresses函数用于指定Endpoint资源的网络地址
+- WithConditions函数用于指定Endpoint资源的状态条件
+- WithHostname函数用于指定Endpoint资源的主机名
+- WithTargetRef函数用于指定Endpoint资源的目标引用
+- WithTopology函数用于指定Endpoint资源的拓扑信息
+- WithNodeName函数用于指定Endpoint资源所在的节点名称
+- WithHints函数用于指定Endpoint资源的提示信息，如端口类型等
+
+通过使用这些函数，可以对EndpointApplyConfiguration结构体进行逐个字段的设定，进而构建完整的Endpoint资源配置。完成配置后，可将该配置应用于Kubernetes集群中，以创建或更新Endpoint资源。
+

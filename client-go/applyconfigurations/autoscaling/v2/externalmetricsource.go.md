@@ -1,0 +1,22 @@
+# File: client-go/applyconfigurations/autoscaling/v2beta1/externalmetricsource.go
+
+client-go/applyconfigurations/autoscaling/v2beta1/externalmetricsource.go是client-go项目中用于处理自动扩展(v2beta1版本)中外部度量数据源的配置的文件。
+
+这个文件中定义了ExternalMetricSourceApplyConfiguration这个结构体，它用于配置自动扩展(v2beta1版本)中的外部度量数据源。
+
+ExternalMetricSource结构体表示外部度量数据源的信息，包含以下字段：
+- MetricName: 指定外部度量数据源的名称。
+- MetricSelector: 指定一个标签选择器，用于过滤外部度量数据源中的度量指标。
+- TargetValue: 指定扩展目标的度量数值。当外部度量数据源的度量指标值超过此数值时，触发自动扩展。
+- TargetAverageValue: 指定扩展目标的平均度量数值。当外部度量数据源的度量指标值的平均值超过此数值时，触发自动扩展。
+
+WithMetricName函数用于设置ExternalMetricSource结构体中的MetricName字段的值。
+
+WithMetricSelector函数用于设置ExternalMetricSource结构体中的MetricSelector字段的值。
+
+WithTargetValue函数用于设置ExternalMetricSource结构体中的TargetValue字段的值。
+
+WithTargetAverageValue函数用于设置ExternalMetricSource结构体中的TargetAverageValue字段的值。
+
+这些函数可以用于在代码中对ExternalMetricSource结构体进行配置，方便用户根据自己的需求来设置外部度量数据源的相关参数。
+

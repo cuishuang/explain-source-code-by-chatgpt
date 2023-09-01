@@ -1,0 +1,14 @@
+# File: client-go/applyconfigurations/core/v1/grpcaction.go
+
+在Kubernetes的client-go项目中，`client-go/applyconfigurations/core/v1/grpcaction.go`文件定义了与GRPCAction相关的应用配置。下面将逐个介绍文件中的结构体和函数的作用：
+
+1. `GRPCActionApplyConfiguration`：这个结构体定义了应用配置的GRPCAction部分。它包含了几个字段，如Port和Service，用于配置GRPCAction的属性。
+
+2. `GRPCAction`：这个结构体定义了一个GRPCAction对象的属性，其中包含了Target和Payload。Target字段表示GRPCAction的目标地址，Payload字段表示GRPCAction的负载数据。
+
+3. `WithPort`：这是一个函数，它接收一个整型参数并返回一个函数类型。返回的函数用于修改GRPCActionApplyConfiguration结构体中的Port字段。这个函数提供了一种方便的方式来设置Port字段的值。
+
+4. `WithService`：这也是一个函数，它接收一个字符串参数并返回一个函数类型。返回的函数用于修改GRPCActionApplyConfiguration结构体中的Service字段。这个函数提供了一种方便的方式来设置Service字段的值。
+
+这些结构体和函数的目的是定义并配置Kubernetes中使用的GRPCAction。GRPCAction是一种动作类型，用于在Kubernetes集群中触发特定的GRPC调用或操作。通过使用这些结构体和函数，可以方便地进行GRPCAction的配置和修改。
+

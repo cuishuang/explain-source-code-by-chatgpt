@@ -1,0 +1,20 @@
+# File: client-go/kubernetes/typed/admissionregistration/v1beta1/fake/fake_admissionregistration_client.go
+
+在Kubernetes的client-go项目中，"fake_admissionregistration_client.go"文件是一个用于测试目的的假客户端。它模拟了Kubernetes AdmissionRegistration API(准入控制)的v1beta1版本的操作。主要用于在不连接实际Kubernetes集群的情况下进行本地测试。
+
+FakeAdmissionregistrationV1beta1结构体是一个实现了AdmissionregistrationV1beta1接口的假客户端。它模拟了与准入控制器相关的操作，如创建、更新和删除mutating webhook配置、验证admission策略、以及验证admission策略绑定。
+
+这里解释每个结构体的作用：
+
+1. MutatingWebhookConfigurations：用于模拟创建、更新和删除mutating webhook配置的操作。MutatingWebhookConfiguration是一个用于配置mutating webhook的对象，可以定义在触发API操作前和之后进行的转变。
+
+2. ValidatingAdmissionPolicies：用于模拟验证admission策略的操作。ValidatingAdmissionPolicy是一种定义验证请求的策略的对象。它可以被用于验证和拒绝那些未能满足策略要求的请求。
+
+3. ValidatingAdmissionPolicyBindings：用于模拟验证admission策略绑定的操作。ValidatingAdmissionPolicyBinding是一个用于绑定验证策略的对象。它定义了将验证策略应用到资源上的方法。
+
+4. ValidatingWebhookConfigurations：用于模拟创建、更新和删除验证webhook配置的操作。ValidatingWebhookConfiguration是一个配置验证webhook的对象，它可以定义在API操作之前和之后进行的验证。
+
+5. RESTClient：提供了用于发送REST请求的功能函数。它可以用于与Kubernetes API交互，包括进行列表、获取和更新资源等操作。
+
+这些function提供了对AdmissionRegistration API的不同操作的模拟，并且可以在测试中使用。它们模拟了真实的API行为，但实际上并不与Kubernetes集群通信。而是通过内存中的数据进行操作和返回响应。这样可以帮助开发者进行单元测试、集成测试和功能测试。
+

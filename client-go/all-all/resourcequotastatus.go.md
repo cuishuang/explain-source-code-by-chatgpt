@@ -1,0 +1,14 @@
+# File: client-go/applyconfigurations/core/v1/resourcequotastatus.go
+
+在K8s组织下的client-go项目中，`resourcequotastatus.go`文件的作用是定义了ResourceQuotaStatusApplyConfiguration结构体及其相关函数，并提供了一些用于设置ResourceQuotaStatus的方法。
+
+ResourceQuotaStatusApplyConfiguration结构体是用于配置ResourceQuotaStatus对象的应用配置。它定义了一系列的配置字段，用于设置ResourceQuotaStatus的各个属性。
+
+`ResourceQuotaStatus`是一个用于表示资源配额状态的结构体，它包含了两个字段Hard和Used。其中，Hard字段用于表示该资源配额限制的最大值，Used字段用于表示实际使用的资源数量。
+
+`WithHard`是一个用于设置ResourceQuotaStatus的Hard字段的方法。通过调用`WithHard`函数并传入资源配额限制的最大值，可以设置ResourceQuotaStatus对象的Hard字段。
+
+`WithUsed`是一个用于设置ResourceQuotaStatus的Used字段的方法。通过调用`WithUsed`函数并传入已使用的资源数量，可以设置ResourceQuotaStatus对象的Used字段。
+
+这些函数提供了便捷的方式来设置ResourceQuotaStatus对象的属性，使得使用者在创建或更新ResourceQuotaStatus对象时更加方便和快捷。
+
