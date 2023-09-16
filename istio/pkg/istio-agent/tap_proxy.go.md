@@ -1,0 +1,16 @@
+# File: istio/pkg/istio-agent/tap_proxy.go
+
+tap_proxy.go文件是Istio项目中的一个文件，其主要作用是处理和代理Tap相关的功能。
+
+在该文件中，有几个重要的结构体，分别是：
+1. TapProxy：负责代理Tap请求和响应的结构体。它是一个HTTP处理器，用于接收和分发Tap请求，并将其转发到TapScanner进行处理。
+2. TapScanner：负责处理Tap请求和响应的结构体。它会从TapHandler中获取具体的Tap配置，并根据这些配置对请求中的流量进行分析和采样，并生成Tap事件，然后将这些事件发送回TapProxy。
+3. TapHandler：负责处理来自控制平面的Tap配置的结构体。它负责解析和验证控制平面下发的Tap配置，并将其提供给TapScanner使用。
+
+下面介绍几个重要的函数：
+1. NewTapGrpcHandler：用于创建Tap gRPC处理器。它负责处理来自gRPC接口的Tap请求，并将其转发给TapScanner进行处理。
+2. StreamAggregatedResources：该函数用于通过gRPC流式传输从服务注册表中获取聚合的资源信息。它会不断地监听并接收来自服务注册表的资源更新，并将这些更新传递给TapScanner进行处理。
+3. DeltaAggregatedResources：该函数用于通过gRPC增量方式从服务注册表中获取聚合的资源信息。它会定期地轮询服务注册表，检查是否有新的资源或资源更新，并将这些变更传递给TapScanner进行处理。
+
+这几个函数的作用是协调和处理Tap相关的请求和响应，以及获取服务注册表中的资源信息，为Tap功能提供支持。通过这些函数和结构体的组合，Istio能够实现对服务流量的动态分析和采样，并生成Tap事件供其他组件使用。
+

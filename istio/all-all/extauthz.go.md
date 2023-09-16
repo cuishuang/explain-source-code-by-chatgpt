@@ -1,0 +1,34 @@
+# File: istio/pilot/pkg/security/authz/builder/extauthz.go
+
+在Istio项目中，istio/pilot/pkg/security/authz/builder/extauthz.go文件的作用是构建External Authorization（外部授权）的配置。
+
+rbacPolicyMatchAll变量表示在构建授权规则时，所有的RBAC策略都要匹配才能通过授权；rbacDefaultDenyAll变量表示如果没有匹配的RBAC策略，则默认拒绝授权；supportedStatus变量定义了支持的HTTP状态码。
+
+builtExtAuthz结构体用于保存构建的External Authorization配置。它包含了URL、RequestHeadersToAdd、RequestHeadersToRemove、SupportedAuthorization格式等信息。
+
+processExtensionProvider函数是扩展提供者的处理函数，用于将扩展提供者的配置转换为External Authorization配置。
+
+notAllTheSame函数用于检查是否所有的Extension Provider具有相同的扩展配置。
+
+getExtAuthz函数用于获取使用的扩展配置。
+
+buildExtAuthzHTTP函数用于构建HTTP的External Authorization配置。
+
+buildExtAuthzGRPC函数用于构建gRPC的External Authorization配置。
+
+parsePort函数用于解析端口号。
+
+parseStatusOnError函数用于解析错误时的状态码。
+
+generateHTTPConfig函数用于生成HTTP的配置。
+
+generateGRPCConfig函数用于生成gRPC的配置。
+
+generateHeaders函数用于生成请求头。
+
+generateFilterMatcher函数用于生成过滤器匹配器。
+
+timeoutOrDefault函数用于获取超时时间配置。
+
+withBodyRequest函数用于检查是否包含请求体。
+

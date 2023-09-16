@@ -1,0 +1,20 @@
+# File: istio/pilot/test/xdstest/mock_discovery.go
+
+在Istio项目中，istio/pilot/test/xdstest/mock_discovery.go文件主要用于测试和模拟Istio Pilot的发现服务。
+
+在文件中，_是一个特殊标识符，用于忽略函数返回的值。这通常在测试中使用，当我们只关心函数的副作用而不是具体返回值时。
+
+MockDiscovery结构体用于模拟Istio Pilot的发现服务的接口。它实现了`gRPC`的`xds_discovery.DiscoveryRequest`和`xds_discovery.AggregatedDiscoveryService_StreamAggregatedResourcesServer`接口，用于处理和响应上游xDS（即Envoy代理）的发现请求。
+
+NewMockServer是用于创建一个新的MockDiscovery对象的函数，通过设置对象的初始状态来模拟不同的测试场景。
+
+StreamAggregatedResources函数处理xDS请求并将其发送到与之相对应的SendResponse或SendDeltaResponse函数进行处理，并返回一个流式响应。该函数模拟了Envoy代理与Pilot之间的xDS流式传输。
+
+DeltaAggregatedResources函数用于处理Envoy代理的增量发现请求。它会根据请求中的资源类型和版本进行相应的处理，并返回适当的响应。
+
+SendResponse函数用于处理传入的请求，并发送一个完整的响应回Envoy代理。该函数模拟了Pilot根据请求发送发现的完整响应。
+
+SendDeltaResponse函数用于处理传入的增量请求，并以增量形式发送响应回Envoy代理。该函数模拟了Pilot根据请求发送发现的增量响应。
+
+这些函数和结构体的主要目的是为了在Istio项目中进行单元测试和功能测试，以验证Pilot的发现服务是否正确响应了Envoy代理的请求，并根据请求发送适当的响应。
+

@@ -1,0 +1,12 @@
+# File: istio/pkg/kube/labels/labels.go
+
+在istio项目中，istio/pkg/kube/labels/labels.go文件的作用是定义了与Kubernetes标签相关的功能函数和常量。
+
+该文件中的nameLabels和revisionLabels变量定义了用于标识服务名称和版本的Kubernetes标签键名。这些常量被用于创建Istio对象，以便在Kubernetes中标识服务的名称和版本。
+
+canonicalServiceRevision和canonicalServiceName函数用于从Kubernetes标签中提取服务的规范名称和版本信息。CanonicalService函数将提供的服务名称作为输入并返回规范的服务名称，CanonicalServiceRevision函数用于从标签中提取服务版本。这些函数在Istio中用于规范化服务名称和版本。
+
+lookupLabelValue函数用于从给定的标签映射集合中查找指定标签的值。HasCanonicalServiceName和HasCanonicalServiceRevision函数分别用于检查标签映射中是否存在特定的服务名称和版本标签。
+
+总之，该文件中的函数和常量用于处理和操作与Kubernetes标签相关的操作，包括获取服务名称和版本信息以及标识服务的规范名称。这对于Istio的服务发现和路由功能非常重要。
+

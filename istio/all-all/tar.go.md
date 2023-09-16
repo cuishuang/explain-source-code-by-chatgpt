@@ -1,0 +1,14 @@
+# File: istio/tools/docker-builder/builder/tar.go
+
+在Istio项目中，istio/tools/docker-builder/builder/tar.go文件是一个用于操作tar文件的工具文件。它提供了用于创建和提取tar归档文件的函数。
+
+WriteTime是一个用于表示文件的修改时间的变量。它通常用于设置将要写入tar归档文件中的文件的修改时间。
+
+WriteArchiveFromFiles是一个函数，用于将给定的文件列表写入tar归档文件中。它接受要写入的文件列表以及目标tar文件的路径作为输入，并将这些文件添加到tar归档文件中。
+
+WriteArchiveFromFS是一个函数，用于从给定的文件系统路径提取文件，并将这些文件写入tar归档文件中。它接受文件系统路径和目标tar文件的路径作为输入，并将这些文件从文件系统中读取并添加到tar归档文件中。
+
+IsExecOwner是一个函数，用于检查文件的权限位，判断文件是否属于可执行者。它接受文件的权限位作为输入，并返回一个布尔值，用来表示文件是否属于可执行者。
+
+这些函数的作用是为了帮助构建tar归档文件，其中WriteArchiveFromFiles和WriteArchiveFromFS用于将文件添加到tar归档文件中，而IsExecOwner用于判断文件是否可执行。同时，WriteTime变量用于设置文件的修改时间。这些功能都是为了方便构建和管理tar归档文件，使其成为一个有用的工具。
+

@@ -1,0 +1,19 @@
+# File: istio/pilot/pkg/model/proxy_config.go
+
+在Istio项目中，istio/pilot/pkg/model/proxy_config.go文件的作用是定义和管理代理配置。
+
+ProxyConfigs中的结构体有以下作用：
+1. GlobalProxyConfig：代表全局代理配置，包括TCP代理、HTTP代理和Outbound代理。
+2. NamespaceProxyConfig：代表指定命名空间的代理配置。
+3. WorkloadProxyConfig：代表针对特定工作负载的代理配置。
+
+EffectiveProxyConfig结构体表示实际生效的代理配置。GetProxyConfigs函数用于从配置模型中获取所有的代理配置。
+
+mergedGlobalConfig、mergedNamespaceConfig和mergedWorkloadConfig函数分别用于合并全局配置、命名空间配置和工作负载配置。这些函数将集群级别的代理配置与命名空间级别的代理配置合并，并且还会将工作负载级别的代理配置合并到命名空间级别的配置中。
+
+mergeWithPrecedence函数用于根据优先级合并两个代理配置对象。toMeshConfigProxyConfig函数用于将代理配置转换为MeshConfig可识别的格式。
+
+proxyConfigFromAnnotation函数用于从Kubernetes注解中提取代理配置。
+
+总结起来，这些函数和结构体的作用是定义、管理和合并Istio代理的配置，以满足不同层级和优先级的需求。
+

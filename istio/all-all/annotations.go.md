@@ -1,0 +1,16 @@
+# File: istio/pkg/config/analysis/analyzers/annotations/annotations.go
+
+文件annotations.go定义了分析器以验证和解析Kubernetes对象的注释。
+
+1. istioAnnotations变量是一个字符串切片，包含了支持的Istio注释的列表。这些注释用于配置Istio的不同部分。
+2. deprecationExtraMessages是一个字符串映射，用于存储被弃用的注释和对应的额外信息。
+3. K8sAnalyzer结构体用于存储对Kubernetes对象进行分析的结果。它包含了对象的元数据和分析结果。
+4. Metadata函数用于解析和获取Kubernetes对象的元数据。
+5. Analyze函数用于分析Kubernetes对象的注释并生成相应的分析结果。
+6. allowAnnotations函数用于检查给定的注释是否在允许的Istio注释列表中。
+7. istioAnnotation函数用于检查给定的注释是否为Istio注释。
+8. lookupAnnotation函数用于从Kubernetes对象的注释中查找指定的注释并返回其值。
+9. resourceTypesAsStrings函数用于将资源类型转换为字符串表示，以便进行日志记录和错误报告。
+
+这些函数和结构体共同用于解析、分析和验证Kubernetes对象的注释，以确保对象与Istio的配置要求和规范一致。
+

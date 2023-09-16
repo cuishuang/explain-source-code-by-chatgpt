@@ -1,0 +1,34 @@
+# File: istio/pilot/pkg/model/authentication.go
+
+authentication.go是Istio Pilot中的一个文件，它定义了一些与身份认证相关的结构体和函数。
+
+MutualTLSMode是一个枚举类型，用于表示一对服务之间的双向TLS（Mutual TLS）的模式。该枚举类型包括：NONE、ISTIO_MUTUAL、MUTUAL_TLS_PERMISSIVE和MUTUAL_TLS_STRICT。
+
+AuthenticationPolicies是一个结构体，用于存储由配置文件定义的服务的身份认证策略。它包括一个DefaultPolicy字段，表示默认的身份认证策略，以及一个PermissiveMode字段，表示是否以宽容模式（Permissive Mode）运行。
+
+String是一个函数，用于将MutualTLSMode转换为字符串表示。
+
+ConvertToMutualTLSMode是一个函数，用于将字符串表示的MutualTLSMode转换为实际的MutualTLSMode枚举值。
+
+initAuthenticationPolicies是一个函数，用于初始化身份认证策略。它接收一个JSON格式的配置文件作为参数，并将其解析为AuthenticationPolicies结构。
+
+addRequestAuthentication是一个函数，用于将请求身份认证规则添加到配置中。
+
+addPeerAuthentication是一个函数，用于将对等身份认证规则添加到配置中。
+
+GetNamespaceMutualTLSMode是一个函数，用于获取给定名称空间的双向TLS模式。
+
+GetJwtPoliciesForWorkload是一个函数，用于获取给定工作负载的JWT策略。
+
+GetPeerAuthenticationsForWorkload是一个函数，用于获取给定工作负载的对等身份认证规则。
+
+GetRootNamespace是一个函数，用于获取Istio体系结构的根名称空间。
+
+GetVersion是一个函数，用于获取当前配置文件的版本。
+
+GetAmbientPolicyConfigName是一个函数，用于获取环境策略配置的名称。
+
+getConfigsForWorkload是一个函数，用于根据工作负载的名称和名称空间获取相应的配置信息。
+
+总之，authentication.go文件中定义了与身份认证相关的结构体和函数，它们用于处理和管理Istio中的身份验证策略和配置。
+

@@ -1,0 +1,12 @@
+# File: istio/security/pkg/util/certutil.go
+
+在Istio项目中，istio/security/pkg/util/certutil.go文件是用于证书管理的工具类。该文件定义了CertUtil和CertUtilImpl两个结构体，以及NewCertUtil和GetWaitTime两个函数。
+
+CertUtil结构体是一个接口，定义了证书管理的一些基本操作方法，如生成证书、加载证书、验证证书等。CertUtilImpl是CertUtil的实现，实现了这些操作方法。
+
+NewCertUtil函数用于创建一个CertUtilImpl的实例，来进行证书管理。它接收配置参数，并将其用于创建CertUtilImpl实例。通过NewCertUtil函数，我们可以创建一个CertUtilImpl实例，并使用其提供的方法进行证书管理。
+
+GetWaitTime函数是用于获取等待时间的方法。它接收一个Duration类型的参数，表示等待的持续时间，然后根据此信息计算等待时间并返回。
+
+总之，certutil.go文件提供了一些证书管理的工具类和方法，用于生成、加载、验证证书等操作，并提供了一些便捷的函数来创建证书管理实例和获取等待时间。这些功能对于Istio项目中的证书管理模块非常重要。
+

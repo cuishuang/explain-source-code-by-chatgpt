@@ -1,0 +1,24 @@
+# File: istio/pilot/pkg/model/cluster_local.go
+
+在Istio项目中，istio/pilot/pkg/model/cluster_local.go文件的作用是定义了集群本地服务的模型和提供相关的功能。
+
+defaultClusterLocalNamespaces是一个默认的字符串切片，表示集群本地服务的命名空间。这些命名空间中的服务将被视为是集群本地服务。
+
+defaultClusterLocalServices是一个默认的字符串切片，表示集群本地服务的名称。这些服务将被视为是集群本地服务。
+
+ClusterLocalHosts是一个结构体，表示集群本地服务的所有主机。
+
+ClusterLocalProvider是一个结构体，该结构体实现了model.ProxylessServiceDiscoveryProvider接口，并提供了集群本地服务的发现和更新机制。
+
+clusterLocalProvider是一个全局变量，表示集群本地服务的提供者。
+
+IsClusterLocal是一个函数，用于判断给定的服务是否是集群本地服务。
+
+NewClusterLocalProvider是一个函数，用于创建一个新的集群本地服务提供者。
+
+GetClusterLocalHosts是一个函数，用于获取集群本地服务的所有主机。
+
+onMeshUpdated是一个函数，用于在网格更新时处理集群本地服务。
+
+通过使用这些变量和函数，istio/pilot/pkg/model/cluster_local.go文件实现了对集群本地服务的管理和发现功能。它给予用户更多的灵活性，可以将特定的服务标记为集群本地服务，并将其与其他服务区分开来，以便更好地管理和路由流量。
+

@@ -1,0 +1,12 @@
+# File: istio/pkg/config/validation/header_value_validator.go
+
+在Istio项目中，istio/pkg/config/validation/header_value_validator.go文件的作用是实现对HTTP请求和响应头的值进行验证的逻辑。该文件中定义了一个名为HeaderValueValidator的结构体，用于将传入的头部键值对进行解析和验证。
+
+ParserState结构体是一个枚举类型，定义了不同的解析状态，包括开始、解析键、解析键值分隔符、解析值以及解析完毕等状态。
+
+validateHeaderValue函数用于验证头部值的格式是否正确。它接受一个字符串作为输入，并使用有限状态机的方式对字符串进行解析和验证。该函数会根据不同的解析状态，使用switch-case语句来执行不同的解析逻辑。
+
+isSpace函数用于检查给定的字符是否为空格。该函数接受一个rune类型的字符作为输入，并返回一个布尔值，指示该字符是否为空格。在验证过程中，根据遇到的不同字符，会使用该函数来判断是否为空格，以便进行下一步的解析操作。
+
+总的来说，header_value_validator.go文件中的函数和结构体定义了解析和验证HTTP请求和响应头值的逻辑，在Istio中起到了对传入头部值的验证和规范的作用。
+

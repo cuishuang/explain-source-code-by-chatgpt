@@ -1,0 +1,22 @@
+# File: istio/pilot/pkg/model/gateway.go
+
+在Istio项目中，gateway.go文件是Istio Pilot中用于处理网关相关逻辑的文件。它定义了一些结构体和函数来解析和处理网关配置信息。
+
+typeTag变量是用于标识网关配置的类型。nameTag变量用于标识网关配置的名称。totalRejectedConfigs变量是用于记录被拒绝的网关配置数量的计数器。
+
+ServerPort结构体用于表示网关配置中的服务端口信息，包括端口号和协议。MergedServers结构体是一组合并后的服务端口信息，用于表示一个网关实例中的所有服务端口信息。
+
+TLSServerInfo结构体表示网关配置中的TLS相关信息，包括证书和私钥等。MergedGateway结构体是合并后的网关信息，包括网关名称、监听地址和监听端口等。
+
+GatewayPortMap结构体用于记录网关的端口映射信息，包括网关名称和端口映射表。
+
+RecordRejectedConfig函数用于记录被拒绝的网关配置数量。MergeGateways函数用于合并多个网关配置。udpSupportedPort函数用于判断指定端口是否支持UDP协议。resolvePorts函数用于解析网关配置中的端口号。
+
+canMergeProtocols函数用于判断两个协议是否可以合并。GetSNIHostsForServer函数用于获取网关的SNI主机列表。CheckDuplicates函数用于检查网关配置是否存在重复。gatewayRDSRouteName函数用于生成网关的RDS路由名称。
+
+ParseGatewayRDSRouteName函数用于解析网关RDS路由名称并分解为网关名称和监听端口。sanitizeServerHostNamespace函数用于规范化服务端主机名称和命名空间。
+
+getTargetPortMap函数用于获取目标端口映射表，包括服务端口与网关端口的映射关系。
+
+这些函数和变量的目的是为了解析和处理网关配置信息，并进行相关的合并、校验和处理操作。
+

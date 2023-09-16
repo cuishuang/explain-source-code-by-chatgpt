@@ -1,0 +1,36 @@
+# File: istio/pilot/pkg/networking/core/v1alpha3/filterchain_options.go
+
+在istio项目中，istio/pilot/pkg/networking/core/v1alpha3/filterchain_options.go文件的作用是定义了一些用于配置Envoy代理的过滤器链选项。
+
+具体来说，该文件中定义了一组结构体和变量，用于配置InboundFilterChainMatch和OutboundFilterChainMatch规则，在转换为Envoy配置时可以使用这些选项。以下是对每个变量和结构体的介绍：
+
+1. inboundPermissiveFilterChainMatchWithMxcOptions: 这是一个用于配置入站PermissiveFilterChainMatch的选项结构体，在Envoy配置中该选项用于匹配Permissive模式的过滤器链。
+
+2. inboundPermissiveHTTPFilterChainMatchWithMxcOptions: 该选项结构体用于配置入站PermissiveFilterChainMatch的HTTP过滤器链匹配规则。
+
+3. inboundPermissiveTCPFilterChainMatchWithMxcOptions: 该选项结构体用于配置入站PermissiveFilterChainMatch的TCP过滤器链匹配规则。
+
+4. inboundStrictFilterChainMatchOptions: 该选项结构体用于配置入站StrictFilterChainMatch的过滤器链匹配规则。
+
+5. inboundStrictTCPFilterChainMatchOptions: 该选项结构体用于配置入站StrictFilterChainMatch的TCP过滤器链匹配规则。
+
+6. inboundStrictHTTPFilterChainMatchOptions: 该选项结构体用于配置入站StrictFilterChainMatch的HTTP过滤器链匹配规则。
+
+7. inboundPlainTextFilterChainMatchOptions: 该选项结构体用于配置入站不加密的明文数据的过滤器链匹配规则。
+
+8. inboundPlainTextTCPFilterChainMatchOptions: 该选项结构体用于配置入站不加密的明文TCP数据的过滤器链匹配规则。
+
+9. inboundPlainTextHTTPFilterChainMatchOptions: 该选项结构体用于配置入站不加密的明文HTTP数据的过滤器链匹配规则。
+
+上述选项结构体提供了对过滤器链的各种匹配规则的配置。
+
+此外，该文件还定义了一些辅助函数：
+
+1. getTLSFilterChainMatchOptions: 该函数用于获取过滤器链的TLS匹配选项。
+
+2. getFilterChainMatchOptions: 该函数用于获取过滤器链的匹配选项。
+
+3. ToTransportSocket: 该函数用于将过滤器链匹配选项转换为Envoy的TransportSocket配置。
+
+这些辅助函数有助于将过滤器链的配置选项转化为Envoy代理所需的配置形式。
+

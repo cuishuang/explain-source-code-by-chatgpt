@@ -1,0 +1,16 @@
+# File: istio/pkg/kube/rpc_creds.go
+
+在Istio项目中，istio/pkg/kube/rpc_creds.go文件的作用是提供用于Kubernetes集群的rpc认证凭据。
+
+_这些变量在该文件中表示空白标识符，用于忽略某个变量的值。在这里，它们用于忽略一些返回值。
+
+tokenSupplier结构体是一个接口，定义了如何供应有效的JWT token。它定义了两个方法：GetToken和Start。GetToken方法用于获取当前可用的token，Start方法用于启动Token供应器。
+
+NewRPCCredentials函数是一个工厂函数，用于创建新的RPC凭据。它接受一个tokenSupplier和一个布尔值insecureSkipTLSVerify，并返回一个认证凭据。
+
+GetRequestMetadata方法是RPC凭据的必需方法。它接受一个上下文和一个逻辑布尔型值，并返回请求的元数据。
+
+RequireTransportSecurity方法是RPC凭据的必需方法。它返回一个布尔值，指示是否需要运行安全的传输。
+
+createServiceAccountToken函数用于创建并返回用于服务帐户的JWT Token。它接受一个字符串参数serviceAccountName，表示服务帐户的名称，并返回一个字符串表示的JWT Token，用于进行认证。
+

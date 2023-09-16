@@ -1,0 +1,16 @@
+# File: istio/tools/bug-report/pkg/kubectlcmd/kubectlcmd.go
+
+在Istio项目中，"istio/tools/bug-report/pkg/kubectlcmd/kubectlcmd.go"是一个用于执行kubectl命令的工具文件。它提供了一系列函数和结构体，用于与Kubernetes集群进行交互，执行kubectl命令，并收集和处理命令的输出结果。
+
+结构体Runner用于表示一个kubectl命令的运行器，它包含了运行命令所需的各种参数和状态信息。Options结构体用于表示kubectl命令的参数选项。
+
+NewRunner函数用于创建一个Runner实例，它接收一个字符串数组作为参数，用于指定kubectl命令及其参数。SetClient函数用于设置当前的kubeconfig文件和集群上下文。
+
+ReportRunningTasks函数用于返回一个字符串数组，表示当前正在运行的kubectl命令。Logs函数用于获取kubectl命令的日志输出。EnvoyGet函数用于获取Envoy的状态信息。
+
+Cat函数用于在Kubernetes Pod上执行cat命令，并返回结果。Exec函数用于在Pod中执行shell命令，而RunCmd函数用于执行自定义的kubectl命令。
+
+Run函数用于执行Runner结构体中定义的kubectl命令。printRunningTasks函数将当前正在运行的kubectl命令打印到控制台上。addRunningTask和removeRunningTask函数分别用于向任务列表中添加和删除正在运行的kubectl命令。
+
+通过这些函数和结构体，kubectlcmd.go文件提供了一种简单的方式来执行kubectl命令，并获取相关的输出结果，方便在Istio项目中进行调试和故障排查。
+

@@ -1,0 +1,25 @@
+# File: istio/pilot/pkg/serviceregistry/kube/controller/serviceimportcache.go
+
+在Istio项目中，istio/pilot/pkg/serviceregistry/kube/controller/serviceimportcache.go文件的作用是管理和缓存ServiceImport资源的信息。ServiceImport资源是用于指定外部服务在Istio内部的命名空间中的服务，它允许将外部的Kubernetes服务暴露给Istio的流量管理系统。
+
+具体变量的作用如下：
+- _是空白标识符，用于忽略某个变量或导入包时忽略不使用的包。
+- importedService是导入的外部服务的结构体，表示一个ServiceImport资源。
+- serviceImportCache是ServiceImport缓存的接口，定义了缓存的行为。
+- serviceImportCacheImpl是serviceImportCache的实现，代表ServiceImport缓存的具体实例。
+- disabledServiceImportCache是一个空实现的ServiceImport缓存，用于禁用ServiceImport的功能。
+
+具体结构体的作用如下：
+- newServiceImportCache函数用于实例化一个新的ServiceImport缓存。
+- onServiceEvent函数用于处理Kubernetes的Service事件。
+- onServiceImportEvent函数用于处理Kubernetes的ServiceImport事件。
+- updateIPs函数用于更新ServiceImport的IP列表。
+- doFullPush函数将ServiceImport的更新推送到资源管理器。
+- GetServiceImportIPs函数用于获取给定的Kubernetes服务通过ServiceImport在Istio内部的IP列表。
+- genMCSService函数用于生成MultiClusterService(MCS)资源。
+- getClusterSetIPs函数用于获取给定的Kubernetes服务通过ClusterSet在Istio内部的IP列表。
+- ImportedServices函数用于获取ServiceImport缓存中所有已导入的服务。
+- Run函数用于启动ServiceImport缓存的处理循环。
+- HasSynced函数用于检查ServiceImport缓存是否已同步完成。
+- HasCRDInstalled函数用于检查ServiceImport的CRD是否已安装。
+

@@ -1,0 +1,14 @@
+# File: istio/tests/fuzz/kube_ingress_fuzzer.go
+
+`kube_ingress_fuzzer.go`文件是Istio项目中用于模糊测试Kubernetes Ingress配置的文件。
+
+模糊测试是一种软件测试技术，通过输入大量的无效、随机和异常数据，检查系统是否能够正确处理这些输入。Istio使用模糊测试来检测和修复Istio控制平面中的漏洞和错误。
+
+具体来说，`kube_ingress_fuzzer.go`文件中的`FuzzConvertIngressVirtualService`函数用于将Kubernetes Ingress对象转换为VirtualService对象。VirtualService是Istio中的一种配置对象，用于定义流量路由规则。
+
+`FuzzConvertIngressV1alpha3`函数是用于将Kubernetes Ingress对象转换为Istio中的v1alpha3版本的VirtualService对象。
+
+`newServiceLister`函数是用于创建一个服务列表的模拟器，用于在模糊测试中模拟Kubernetes集群中的服务列表。这个函数模拟了Kubernetes的服务检索过程，提供了服务的名称、名称空间和集群IP等信息。
+
+这些函数的作用是在模糊测试过程中，将Kubernetes Ingress对象转换为Istio的VirtualService对象，并模拟服务列表。通过模糊测试这些转换和模拟的过程，可以检测和修复在Kubernetes Ingress配置中可能存在的错误和漏洞。
+

@@ -1,0 +1,22 @@
+# File: istio/pilot/pkg/networking/core/v1alpha3/cluster_waypoint.go
+
+在Istio项目中，istio/pilot/pkg/networking/core/v1alpha3/cluster_waypoint.go文件是用于生成Envoy配置的一个关键文件之一。它定义了一些函数和变量，用于构建路由规则和集群配置，以支持Istio的流量管理和服务发现功能。
+
+该文件中的MainInternalCluster变量定义了用于Istio主要内部通信的集群配置信息。EncapCluster变量定义了用于流量封装的集群配置信息。
+
+buildInternalUpstreamCluster函数用于构建用于内部上游集群的配置。它基于传入的服务和端口信息，生成对应的集群定义。buildInboundHBONEClusters函数用于构建基于HBONE协议的Inbound集群配置。
+
+buildWaypointInboundClusters函数用于构建Waypoint入口集群配置。它创建了用于接收请求的Inbound集群。
+
+buildWaypointInboundVIPCluster函数用于构建Waypoint入口VIP集群配置。它创建了用于接收VIP流量的Inbound集群。
+
+buildWaypointInboundVIP函数用于构建Waypoint入口VIP的配置。它生成在流量接收时进行目标地址映射的路由规则。
+
+buildWaypointConnectOriginate函数用于构建Waypoint连接发起者的配置。它创建了用于向目标服务发出连接请求的集群配置和路由规则。
+
+buildConnectOriginate函数用于构建连接发起者的配置。它生成用于向目标服务发出连接请求的集群配置和路由规则。
+
+h2connectUpgrade函数用于构建HTTP/2连接升级的配置。它生成用于在需要时将HTTP/1.1连接升级为HTTP/2的路由规则和集群配置。
+
+这些函数的目的是根据传入的服务和端口信息，生成所需的集群配置和路由规则。这些配置和规则将被Envoy代理使用，以提供流量管理和服务发现的功能。
+

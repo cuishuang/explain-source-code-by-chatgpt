@@ -1,0 +1,18 @@
+# File: istio/pilot/pkg/serviceregistry/kube/controller/discoverycontrollers.go
+
+在Istio项目中，`istio/pilot/pkg/serviceregistry/kube/controller/discoverycontrollers.go`文件是Kubernetes服务发现控制器的实现。
+
+`initDiscoveryHandlers`函数负责初始化服务发现的处理程序，它注册了Kubernetes资源的监听器，如Service、Endpoint和Pod，并为每个资源类型创建对应的处理函数。对于Service资源，将调用`HandleSelectedNamespace`函数进行处理。对于Endpoint资源，将调用`handleSelectedNamespace`函数进行处理。对于Pod资源，将调用`handleSelectedPod`函数进行处理。
+
+`initDiscoveryNamespaceHandlers`函数负责初始化命名空间的处理程序，它注册了Kubernetes命名空间的监听器，并在命名空间被创建时调用`HandleSelectedNamespace`函数进行处理，在命名空间被删除时调用`HandleDeselectedNamespace`函数进行处理。
+
+`initMeshWatcherHandler`函数负责初始化Mesh配置的处理程序，它注册了对Istio的Mesh配置进行监听的处理函数，当Mesh配置发生变化时，会触发相应的处理逻辑。
+
+`HandleSelectedNamespace`函数在命名空间被创建或选中时进行处理，它会创建一个命名空间的监听器，监听该命名空间下的Service资源和Endpoint资源的变化。
+
+`handleSelectedNamespace`函数在命名空间被选中时进行处理，它会创建一个命名空间的监听器，监听该命名空间下的Endpoint资源的变化。
+
+`handleDeselectedNamespace`函数在命名空间被取消选中或删除时进行处理，它会停止并清理命名空间的监听器，停止对该命名空间下资源的监听。
+
+这些函数共同构成了Kubernetes服务发现控制器的核心逻辑，负责监听和处理Kubernetes中服务和端点的变化，并维护与Istio网格相关的信息。
+

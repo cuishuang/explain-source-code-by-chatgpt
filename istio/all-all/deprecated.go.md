@@ -1,0 +1,12 @@
+# File: istio/pkg/config/xds/deprecated.go
+
+在istio项目中，`istio/pkg/config/xds/deprecated.go`文件的作用是存储与Istio配置相关的弃用(filter与资源)名称，并提供了一些用于转换名称的方法。该文件定义了`DeprecatedFilterNames`和`ReverseDeprecatedFilterNames`两个变量以及相关的转换函数。
+
+`DeprecatedFilterNames`变量是一个map，它存储了过时的filter名称与最新的filter名称之间的映射关系。通过这个映射关系，可以在配置升级过程中将旧的filter名称转换为新的filter名称。
+
+`ReverseDeprecatedFilterNames`变量是`DeprecatedFilterNames`的反转映射，它存储了最新的filter名称与过时的filter名称之间的映射关系。通过这个映射关系，可以将新的filter名称转换为过时的filter名称。
+
+这些转换函数(`ReverseDeprecatedFilterNames`中的`ReverseLookup`和`ReverseFilterLookup`函数)根据给定的filter名称在`ReverseDeprecatedFilterNames`中查找对应的过时filter名称。这些函数可以用于将最新版本的配置还原为旧版本的配置。
+
+总之，`deprecated.go`文件提供了与Istio配置相关的过时(filter与资源)名称的映射关系以及相应的转换函数，方便在配置升级过程中进行名称的转换与回滚。
+

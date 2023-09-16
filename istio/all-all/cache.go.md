@@ -1,0 +1,19 @@
+# File: istio/operator/pkg/cache/cache.go
+
+在istio/operator/pkg/cache/cache.go文件中，定义了用于缓存Kubernetes API对象的功能。该文件的作用是提供对Kubernetes API对象的缓存管理。
+
+objectCaches变量是一个存储ObjectCache的map，以对象类型（比如ConfigMap、Service、Pod等）作为key，对应的ObjectCache结构体作为value。
+objectCachesMu则是用于对objectCaches进行互斥操作的读写锁。
+
+ObjectCache结构体用于存储特定对象类型的缓存信息。它包含了一个存储对象的map（以对象的key作为key，对象本身作为value）、一个标记该缓存是否已过期的标志位、以及一个读写锁用于对缓存进行互斥操作。
+
+FlushObjectCaches函数用于清空所有缓存，遍历objectCaches，逐个调用ObjectCache的Flush方法进行清空。
+
+GetCache函数用于获取指定对象类型的缓存。它首先通过objectType从objectCaches中获取对应的ObjectCache实例，如果不存在则创建一个新的ObjectCache实例并加入到objectCaches中，并返回这个ObjectCache实例。
+
+RemoveObject函数用于从指定对象类型的缓存中删除指定对象。它首先通过objectType从objectCaches中获取对应的ObjectCache实例，然后调用该实例的RemoveObject方法进行删除操作。
+
+RemoveCache函数用于从objectCaches中删除指定对象类型的缓存。
+
+总结起来，cache.go文件中的代码提供了对Kubernetes API对象的缓存管理功能，可以方便地对指定类型的对象进行增删改查操作，并且支持对整个缓存进行清空。通过维护一个objectCaches的map，以及每个对象类型对应的ObjectCache结构体，可以高效地管理和操作缓存数据。
+

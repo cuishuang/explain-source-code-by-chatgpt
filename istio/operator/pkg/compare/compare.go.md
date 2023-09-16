@@ -1,0 +1,53 @@
+# File: istio/operator/pkg/compare/compare.go
+
+在istio项目中，istio/operator/pkg/compare/compare.go文件的作用是实现了Istio YAML配置文件之间的比较工具。
+
+YAMLCmpReporter是一个结构体，用于报告YAML文件之间的比较结果。它包含了两个字段：DiffMsg和IgnoredMsg。
+
+- DiffMsg用于记录不同的配置项的信息，包括配置项的路径、旧值和新值。
+- IgnoredMsg用于记录忽略的配置项的信息，包括配置项的路径和值。
+
+PushStep和PopStep是一个用于维护配置项路径的栈结构。它们用于在比较过程中记录和管理配置项的路径。
+
+Report函数用于生成并返回比较结果报告。它遍历资源对象的每个配置项，将不同的配置项和忽略的配置项添加到报告中。
+
+isValidAndNonEmpty函数用于检查一个值是否有效且非空。
+
+String函数用于将一个值转换为字符串表示。
+
+YAMLCmp函数用于比较两个YAML配置文件。它递归遍历两个配置文件的资源对象和配置项，将不同的配置项和忽略的配置项添加到报告中。
+
+YAMLCmpWithIgnore函数用于比较两个YAML配置文件，并忽略指定的配置项。它在比较过程中会跳过忽略的配置项。
+
+UnmarshalInlineYaml函数用于将内联的YAML字符串解析为资源对象。
+
+genYamlIgnoreOpt函数用于生成YAML配置文件中需要忽略的配置项。
+
+genPathIgnoreOpt函数用于生成指定路径下需要忽略的配置项。
+
+pathToStringList函数用于将路径转换为字符串列表。
+
+ManifestDiff函数用于比较两个Manifest对象之间的差异。
+
+ManifestDiffWithRenameSelectIgnore函数用于比较两个Manifest对象之间的差异，并处理重命名、选择和忽略操作。
+
+FilterManifest函数用于过滤Manifest对象中的配置项，根据提供的选择和忽略规则。
+
+renameResource函数用于将Manifest对象中的资源对象重命名。
+
+filterResourceWithSelectAndIgnore函数用于根据选择和忽略规则过滤Manifest对象中的资源对象。
+
+buildResourceRegexp函数用于构建用于匹配资源对象的正则表达式。
+
+manifestDiff函数用于比较Manifest对象之间的差异。
+
+getObjPathMap函数用于构建资源对象的路径映射表。
+
+getKeyValueMap函数用于构建资源对象的键值映射表。
+
+objectIgnorePaths函数用于获取资源对象中需要忽略的路径列表。
+
+writeStringSafe函数用于安全地将字符串写入到目标位置。
+
+IsLeafNode函数用于判断给定的节点是否是叶子节点。
+

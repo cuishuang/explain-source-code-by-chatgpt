@@ -1,0 +1,26 @@
+# File: istio/istioctl/pkg/checkinject/checkinject.go
+
+在istio项目中，istio/istioctl/pkg/checkinject/checkinject.go文件的作用是实现对Kubernetes中运行的Webhook进行检查和注入的功能。
+
+文件中定义了一些变量和结构体，用于存储和处理检查和注入过程的相关数据。
+
+labelPairs变量是一个字符串切片，用于存储要检查的Webhook对象的标签键值对。
+
+webhookAnalysis结构体定义了要分析的Webhook对象的信息，包括名称、命名空间、服务、路径和匹配选择器等。
+
+Cmd函数是执行istio/inject命令的入口点函数，用于检查和注入Webhook。
+
+printCheckInjectorResults函数用于打印检查和注入的结果。
+
+analyzeRunningWebhooks函数用于分析正在运行的Webhooks，检查它们是否通过了标签键值对的匹配。
+
+analyzeWebhooksMatchStatus函数用于分析Webhooks的匹配状态，检查是否存在不匹配的情况。
+
+extractMatchedSelectorInfo函数用于提取匹配的选择器信息，以及它们所在的命名空间和服务。
+
+extractRevision函数用于提取Webhook对象的修订版本。
+
+isIstioWebhook函数用于判断一个Webhook对象是否是istio的Webhook。
+
+这些函数一起实现了对Kubernetes中运行的Webhook进行检查和注入操作的功能。
+

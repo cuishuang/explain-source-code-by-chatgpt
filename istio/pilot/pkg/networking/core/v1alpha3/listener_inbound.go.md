@@ -1,0 +1,50 @@
+# File: istio/pilot/pkg/networking/core/v1alpha3/listener_inbound.go
+
+文件listener_inbound.go的作用是定义了内部的入站监听器，并根据配置构建和管理这些监听器。它是Istio Pilot的核心网络组件之一。
+
+IPv4PassthroughCIDR和IPv6PassthroughCIDR是用于配置IPv4和IPv6的透明代理流量路由的CIDR范围。它们用于确定哪些流量应该被路由到透明代理链中。
+
+inboundChainConfig结构体用于定义入站链的配置。它包含了一些属性，如监听器名称、目标过滤链匹配、统计前缀等。
+
+StatPrefix是在统计信息中使用的前缀。Name是监听器的名称。ToFilterChainMatch是目标过滤链的匹配条件。
+
+buildInboundHBONEListeners函数根据配置构建入站的HTTP/1.x监听器。buildInboundListeners函数根据配置构建入站的所有监听器。
+
+inboundVirtualListener是一个虚拟监听器，它将入站流量路由到相应的目标过滤链。
+
+inboundCustomListener根据配置构建自定义入站监听器。
+
+buildInboundListener构建一个入站监听器。
+
+inboundChainForOpts用于根据选项构造入站链。
+
+getSidecarIngressPortList从配置中获取Sidecar的入口端口列表。
+
+getFilterChainsByServicePort根据服务端口获取过滤链。
+
+buildInboundChainConfigs构建入站链的配置。
+
+getBindToPort获取监听器绑定的端口。
+
+populateListenerFilters用于填充监听器的网络过滤器。
+
+listenerPredicateExcludePorts和listenerPredicateIncludePorts用于过滤监听器的端口。
+
+needsTLS和needsHTTP判断监听器是否需要TLS和HTTP设置。
+
+buildTLSInspector构建TLS Inspector网络过滤器。
+
+buildHTTPInspector构建HTTP Inspector网络过滤器。
+
+reportInboundConflict报告入站冲突。
+
+buildInboundPassthroughChains构建透明代理流量的入站链。
+
+buildInboundBlackhole构建黑洞入站链。
+
+buildSidecarInboundHTTPOpts构建Sidecar的入站HTTP选项。
+
+buildInboundNetworkFiltersForHTTP构建入站HTTP网络过滤器。
+
+buildInboundNetworkFilters构建入站网络过滤器。
+
