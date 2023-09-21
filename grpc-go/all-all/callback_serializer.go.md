@@ -1,0 +1,18 @@
+# File: grpc-go/internal/grpcsync/callback_serializer.go
+
+在grpc-go项目中，grpc-go/internal/grpcsync/callback_serializer.go文件的作用是提供一个用于调度和执行回调函数的机制。该文件中定义了CallbackSerializer结构体及其相关方法。
+
+CallbackSerializer结构体有两个字段：mu和callbacks。mu是一个互斥锁，用于保护callbacks字段的并发访问。callbacks是一个保存回调函数的切片。
+
+NewCallbackSerializer函数用于创建一个新的CallbackSerializer实例。它会初始化回调函数的切片，并返回一个指向该实例的指针。
+
+Schedule方法用于将待执行的回调函数添加到回调函数切片中。它会获取互斥锁，将回调函数追加到callbacks切片中，然后释放互斥锁。
+
+run方法是一个无限循环，用于执行回调函数。它会获取互斥锁，然后从callbacks切片中取出回调函数并执行。如果callbacks切片为空，则会调用wait方法等待下一个回调函数的到来。
+
+fetchPendingCallbacks方法会检查是否有待执行的回调函数。如果存在，则返回true，并将这些回调函数从callbacks切片中取出。否则，返回false。
+
+Done方法用于停止CallbackSerializer的执行。它会获取互斥锁并设置一个标志，表示后续不再接受新的回调函数。然后调用wait方法等待所有回调函数的执行完成。
+
+总结：CallbackSerializer是用于调度和执行回调函数的机制。它提供了添加回调函数、执行回调函数以及停止执行的功能。通过封装互斥锁和回调函数切片，CallbackSerializer实现了一种线程安全的回调函数管理机制。
+

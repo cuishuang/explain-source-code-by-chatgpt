@@ -1,0 +1,10 @@
+# File: tools/gopls/internal/lsp/analysis/infertypeargs/run_go118.go
+
+在Golang的Tools项目中，tools/gopls/internal/lsp/analysis/infertypeargs/run_go118.go文件的作用是在Go 1.18及以上版本中运行类型推断相关的分析。
+
+具体来说，该文件中的DiagnoseInferableTypeArgs函数是用于诊断可推导的类型参数（Type Arguments）的函数，它接收一个*analysis.Analyzer结构体，该结构体实现了golang.org/x/tools/go/analysis中的Analyzer接口。DiagnoseInferableTypeArgs函数首先计算出调用该Analyzer的位置，然后检查这个位置的函数是否有可推导的类型参数，如果有，则生成相应的诊断信息。
+
+另外，run_go118.go文件中的calledIdent函数用于从*analysis.Pass中获取调用位置信息，该位置是对函数的隐式参数使用MakeExpr代替时生成的。该函数返回了包含调用位置信息的ast.Node。
+
+值得注意的是，在Go 1.18及以上版本中，Go的类型推断特性允许将隐式参数替换为使用类型参数调用函数，以防止隐式参数的实际类型感染生成的结果。因此，run_go118.go文件中的DiagnoseInferableTypeArgs和calledIdent函数在分析代码并生成诊断信息时起到了关键作用。
+

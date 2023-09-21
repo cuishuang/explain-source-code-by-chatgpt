@@ -1,0 +1,10 @@
+# File: tools/gopls/internal/lsp/lsprpc/middleware.go
+
+在Golang的Tools项目中，tools/gopls/internal/lsp/lsprpc/middleware.go文件的作用是提供了一个用于处理Language Server Protocol（LSP）请求和响应的中间件。
+
+Metadata结构体用于存储LSP请求的元数据，包括请求的ID和方法名称等信息。PeerInfo结构体用于存储与LSP客户端或服务器相关的信息，如客户端的ID和地址等。Handshaker结构体定义了握手过程中需要执行的一些操作。
+
+Peers函数维护了LSP客户端和服务器的连接信息，包括客户端和服务器的读写接口、握手状态等。Middleware函数是一个中间件，用于处理LSP请求和响应，它接受一个处理LSP请求的函数（nextID）作为参数，并返回一个新的处理函数。ClientHandshake函数用于执行LSP客户端的握手过程。nextID函数用于生成LSP请求的ID。cleanupAtDisconnect函数用于在LSP客户端或服务器断开连接时清理相应的资源。recordPeer函数用于记录LSP客户端或服务器的连接信息。
+
+这些结构体和函数共同实现了LSP请求和响应的处理和管理，确保LSP客户端和服务器之间的正常通信和握手过程的执行。
+

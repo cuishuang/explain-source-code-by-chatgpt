@@ -1,0 +1,14 @@
+# File: tools/cmd/present/dir.go
+
+在Golang的Tools项目中，tools/cmd/present/dir.go文件是一个实现展示工具（present）的目录浏览功能的文件。
+
+dirListTemplate变量是用来定义目录列表的HTML模板，contentTemplate变量则是用来定义目录内容的HTML模板。
+
+dirListData结构体用来存储目录列表的数据，包括目录名称和URL。dirEntry结构体表示目录中的一个条目，包括条目的名称、是否为目录、URL等。dirEntrySlice是dirEntry的切片类型。
+
+init函数用来初始化模板，包括解析和设置模板。dirHandler函数是一个HTTP处理器，用来处理目录浏览请求。isDoc函数判断给定的文件是否为Golang源码文件或Markdown文档。initTemplates函数用来初始化模板，主要是解析和设置模板。renderDoc函数用来渲染给定的文档，生成HTML内容。parse函数用来解析给定的目录，生成目录内容的结构体。dirList函数用来生成目录列表的HTML内容。showFile函数用来生成展示给定文件内容的HTML。showDir函数用来生成展示给定目录内容的HTML。
+
+Len、Swap、Less是用于排序的函数，分别用于获取列表长度、交换列表中的元素、比较列表中的元素大小。
+
+总体来说，dir.go文件负责实现目录浏览功能，包括初始化模板、解析目录、渲染内容等。它提供了展示指定目录或文件的功能，并生成对应的HTML内容。
+

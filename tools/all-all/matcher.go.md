@@ -1,0 +1,24 @@
+# File: tools/internal/fuzzy/matcher.go
+
+在Golang的Tools项目中，tools/internal/fuzzy/matcher.go文件的作用是提供一个模糊匹配器，用于根据模式字符串在目标字符串中查找匹配项。
+
+scoreVal结构体用于表示匹配项的得分，其中包括用于计算得分的各个参数值。
+Matcher结构体是模糊匹配器的主要结构，它包含了匹配所需的信息和方法。
+
+val字段用于存储目标字符串的字节数组。
+prevK字段用于存储先前的K值，即前一个字符的匹配位置。
+score字段用于存储当前匹配位置的得分。
+bestK字段用于存储最佳匹配位置的K值。
+NewMatcher函数用于创建一个新的模糊匹配器实例。
+Score方法用于计算匹配项的得分。
+ScoreChunks方法用于计算匹配项的得分块。
+MatchedRanges方法用于获取匹配项的范围。
+match方法用于执行匹配过程，即在目标字符串中寻找模式字符串的匹配项。
+computeScore方法用于计算匹配项的得分。
+ScoreTable方法用于根据配置计算得分表。
+dir函数用于根据两个字节数组的相对顺序返回一个数字，用于确定匹配的顺序。
+PoorMatch函数用于确定匹配项是否较差。
+BestMatch函数用于确定最佳匹配项。
+
+总而言之，matcher.go文件中的结构体和函数提供了一种在目标字符串中进行模糊匹配的方法，计算匹配项的得分并确定最佳匹配项。
+

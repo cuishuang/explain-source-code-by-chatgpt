@@ -1,0 +1,14 @@
+# File: tools/go/analysis/internal/analysisflags/url.go
+
+在Golang的Tools项目中，tools/go/analysis/internal/analysisflags/url.go文件的作用是处理分析工具中的URL相关标志。
+
+该文件中包含了一个名为URLFlag的结构体，并定义了一些与URL相关的函数。
+
+ResolveURL是一个用于解析URL的函数，它接受一个字符串参数作为输入，该字符串表示一个URL。该函数将URL解析为其组成部分（如协议、主机、端口、路径等），并返回一个URLInfo的结构体，其中包含了解析结果的详细信息。URLInfo结构体的定义可以在tools/go/analysis/internal/analysisflags/url.go文件中找到。
+
+URLFlag结构体定义了一些解析URL所需要的标志位，其中包括表示URL的字符串值以及URL解析后的结果信息。这些标志位存储在一个URLFlag结构体的实例中，用于在分析工具的命令行参数中处理URL相关选项。
+
+ResolveURL用于将URLFlag中的URL字符串值解析为URLInfo中的详细信息，并将解析结果存储在URLFlag结构体的相应字段中。这个函数的主要作用是用于对URL进行解析和处理，以便在分析工具中正确处理URL参数。
+
+总结起来，tools/go/analysis/internal/analysisflags/url.go文件的作用是解析和处理分析工具中的URL相关选项，它定义了URLFlag结构体以及相关的解析函数（如ResolveURL），用于在分析工具的命令行参数中处理和存储URL选项。
+

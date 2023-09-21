@@ -1,0 +1,14 @@
+# File: grpc-go/grpclog/loggerv2.go
+
+grpclog/loggerv2.go文件是gRPC-go项目中的日志记录器相关代码文件，主要负责定义了LoggerV2的接口、实现以及日志的级别和格式等。
+
+severityName变量是一个用于存储日志级别名字的切片，包括了FATAL、ERROR、WARNING和INFO四个级别的名称，用于根据具体日志级别获取对应的名称。
+
+LoggerV2是一个接口，定义了基本的日志记录方法，包括了Info、Warning、Error和Fatal等方法。loggerT是LoggerV2接口的默认实现。loggerV2Config是一个结构体，用于配置LoggerV2相关参数。DepthLoggerV2是一种函数类型，用于指定进程调用的深度。
+
+SetLoggerV2函数用于设置当前的日志记录器。NewLoggerV2函数是一个工厂函数，用于创建LoggerV2的实例。NewLoggerV2WithVerbosity函数通过指定日志的详细程度来创建LoggerV2的实例。newLoggerV2WithConfig函数通过指定配置项来创建LoggerV2的实例。newLoggerV2函数用于创建一个LoggerV2的实例。
+
+output函数用于输出日志，将日志内容写入到标准输出或指定的日志文件。Info、Infoln、Infof等函数用于记录INFO级别的日志。Warning、Warningln、Warningf等函数用于记录WARNING级别的日志。Error、Errorln、Errorf等函数用于记录ERROR级别的日志。Fatal、Fatalln、Fatalf等函数用于记录FATAL级别的日志。
+
+V函数用于根据日志级别决定是否输出日志，它接受一个日志级别，如果当前设置的日志级别高于或等于传入的级别，则返回true，否则返回false。
+

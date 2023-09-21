@@ -1,0 +1,12 @@
+# File: tools/godoc/dirtrees.go
+
+在Golang的Tools项目中，tools/godoc/dirtrees.go文件的作用是实现了一个用于处理目录树的功能。
+
+ioGate变量是一个用于限制并发读写的互斥锁（mutex），而workGate变量是一个用于限制并发任务执行的信号量。
+
+Directory结构体表示一个目录，包含了目录的名称、路径、是否是一个GOPATH目录以及该目录包含的子目录和文件。treeBuilder结构体是一个用于构建目录树的辅助工具，它包含了该目录树的根目录以及其他相关的数据。
+
+DirEntry结构体表示一个目录条目，包含了条目的名称、路径以及是否是一个目录。DirList结构体表示一个目录的列表，包含该目录及其子目录的条目列表。
+
+isGoFile函数用于判断一个文件是否是一个Go源文件，isPkgFile函数用于判断一个文件是否是一个包文件，isPkgDir函数用于判断一个目录是否是一个包目录。newDirTree函数用于创建一个新的目录树，newDirectory函数用于创建一个新的目录。walk函数用于遍历指定目录下的所有文件和子目录，iter函数用于迭代遍历目录树。lookupLocal函数用于在目录中查找指定名称的目录条目，splitPath函数用于将一个路径分解为目录和文件名。lookup函数用于在目录树中查找指定路径的目录条目，hasThirdParty函数用于判断一个目录是否包含第三方库，listing函数用于获取目录的条目列表。
+

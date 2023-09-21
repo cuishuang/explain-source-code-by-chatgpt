@@ -1,0 +1,12 @@
+# File: grpc-go/credentials/alts/internal/handshaker/service/service.go
+
+在grpc-go项目的grpc-go/credentials/alts/internal/handshaker/service/service.go文件是用于实现gRPC ALTS握手服务的功能。ALTS（Application Layer Transport Security）是gRPC的一种安全传输协议，它使用TLS进行初始身份验证，之后使用ALTS进行传输层的加密和身份验证。
+
+该文件中的mu变量是用于互斥访问hsConnMap的读写锁。hsConnMap是一个map，用于保存与客户端连接关联的握手连接。hsDialer是一个握手连接拨号器，用于建立与目标服务器的握手连接。
+
+service.go文件中的Dial函数用于建立一个与目标服务器的握手连接。它接受一个地址字符串和一些可选的Dial选项作为参数，返回一个握手连接和一个错误。Dial函数内部首先会解析给定的地址，然后根据解析的结果构造一个新的握手连接。最后，Dial函数会将新建立的握手连接添加到hsConnMap中并返回。
+
+CloseForTesting函数用于关闭握手连接的测试版本。它接受一个握手连接作为参数，并在关闭握手连接之前，从hsConnMap中删除与之关联的记录。
+
+这些函数的作用是使gRPC ALTS握手服务能够建立和关闭与目标服务器的握手连接。握手连接是建立ALTS安全传输的基础，它负责处理和发送ALTS握手协议的消息，并管理与目标服务器的安全通信。
+

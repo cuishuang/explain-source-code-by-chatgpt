@@ -1,0 +1,17 @@
+# File: tools/gopls/internal/lsp/protocol/tsdocument_changes.go
+
+在Golang的Tools项目中，tools/gopls/internal/lsp/protocol/tsdocument_changes.go文件的作用是定义了与LSP协议中文档变化相关的数据结构和方法。
+
+该文件中定义了几个结构体，它们分别是DocumentChanges、TextDocumentEdit和CreateFile。
+
+- DocumentChanges结构体表示一系列文档的变化。它有两个字段，一个是一个Edit类型的切片，表示需要对文档进行的编辑操作，另一个是一个CreateFile类型的切片，表示需要创建的新文档。
+- TextDocumentEdit结构体表示对文本文档进行的编辑操作。它包含一个TextDocumentIdentifier字段，表示要编辑的文档的标识符，以及一个TextEdit类型的切片，表示对文档进行的具体编辑操作。
+- CreateFile结构体表示需要创建的新文档。它包含一个URI字段，表示新文档的唯一标识符。
+
+此外，文件中还定义了两个方法UnmarshalJSON和MarshalJSON，它们分别用于将JSON数据解析为对应的结构体实例，以及将结构体实例转换为JSON数据。
+
+- UnmarshalJSON方法用于将JSON数据解析为对应的结构体实例。在文档变化的JSON数据中，可以通过该方法将数据解析为对应的DocumentChanges结构体，以便后续对文档变化进行处理。
+- MarshalJSON方法用于将结构体实例转换为JSON数据。可以使用该方法将DocumentChanges结构体实例转换为符合LSP协议规定的JSON数据格式，以便在通信中传输和处理。
+
+综上所述，tsdocument_changes.go文件中定义了与LSP协议中文档变化相关的数据结构和方法，提供了对文档变化的表示和处理功能。
+

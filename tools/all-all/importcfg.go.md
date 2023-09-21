@@ -1,0 +1,14 @@
+# File: tools/internal/goroot/importcfg.go
+
+在Go语言的tools项目中，tools/internal/goroot/importcfg.go文件的作用是解析Go语言工具包的importcfg文件。
+
+importcfg文件是一个文本文件，用于保存Go语言工具包的依赖关系和编译选项。它在构建Go语言工具包时被使用，根据其中的内容来确定需要引入的其他包和库。
+
+文件中的变量stdlibPkgfileMap是一个映射（map）类型的变量，用于保存标准库包的文件路径。stdlibPkgfileErr是一个错误类型的变量，用于保存标准库包的文件路径获取的错误信息。once是一个sync.Once类型的变量，用于确保只执行一次初始化操作。
+
+Importcfg函数是一个初始化函数，用于解析importcfg文件并将其内容保存到Importcfg变量中。Importcfg变量是一个字符串类型的变量，保存了importcfg文件的内容。
+
+PkgfileMap是一个函数，用于根据importcfg文件的内容生成包文件（pkgfile）的映射。pkgfile是指已编译的包文件，包含了多个Go语言源文件的二进制代码。PkgfileMap函数解析importcfg文件的内容，根据其中的规则生成pkgfile的映射，并返回该映射。
+
+总结一下，tools/internal/goroot/importcfg.go文件的作用是解析Go语言工具包的importcfg文件，并提供相关的函数和变量来获取和处理这些信息。
+

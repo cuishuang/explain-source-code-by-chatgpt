@@ -1,0 +1,8 @@
+# File: tools/internal/bisect/bisect.go
+
+在Golang的Tools项目中，tools/internal/bisect/bisect.go文件的作用是实现二分查找算法。
+
+Matcher结构体表示一个字符串匹配器，用于检查某个字符串是否满足特定的条件。cond结构体表示一个字符串匹配条件。parseError结构体表示字符串条件解析错误。
+
+New函数用于创建一个Matcher对象。Verbose函数用于设置是否打印详细输出。ShouldEnable函数用于判断是否满足特定的条件。ShouldReport函数用于判断是否应该报告特定的条件。Marker函数用于创建一个标记。AppendMarker函数用于将标记添加到匹配器的标记列表中。CutMarker函数用于将匹配器的标记列表截取至给定位置之前。Hash函数用于计算字符串的哈希值。Error函数用于生成带有错误信息的字符串。fnv、fnvString、fnvUint64、fnvUint32函数是哈希函数，用于计算字符串的哈希值。
+

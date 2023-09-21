@@ -1,0 +1,12 @@
+# File: tools/internal/gcimporter/support_go118.go
+
+tools/internal/gcimporter/support_go118.go这个文件是Golang Tools项目中的一个文件，用于支持Go 1.18版本的gcimporter工具。gcimporter是一个用于将Go程序的字节码导入到Go编译器的数据结构中的工具。
+
+在该文件中，有两个函数additionalPredeclared和splitVargenSuffix。
+
+1. additionalPredeclared函数的作用是定义在导入过程中的附加预声明的标识符。在导入过程中，会为每个Go程序创建一个额外的包，其中包含与导入的程序相关的附加标识符。这些标识符在导入过程中起到重要的作用，并且在导入后可以在其他程序中使用。
+
+2. splitVargenSuffix函数的作用是将Go编译器生成的内部名称中的变长参数后缀分割出来。在Go语言中，函数可以接受变长参数。而在编译过程中，编译器会为这些函数生成不同的内部名称。splitVargenSuffix函数用于将这些内部名称中的变长参数后缀分割出来，以便在导入过程中正确地处理这些函数。
+
+这些函数是在支持Go 1.18版本的gcimporter工具中用于处理特定情况和需求的辅助函数。它们在导入过程中起到重要的作用，能够正确地处理附加预声明的标识符和变长参数后缀，确保导入的程序在编译器中被正确导入和使用。
+

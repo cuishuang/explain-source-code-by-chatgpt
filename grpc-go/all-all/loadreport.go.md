@@ -1,0 +1,26 @@
+# File: grpc-go/xds/internal/xdsclient/transport/loadreport.go
+
+loadreport.go文件的作用是实现了Load Reporting Service（LRS）中的相关逻辑，用于向服务端报告负载信息。
+
+lrsStream结构体是一个包装了LRS流的类型。它具有一个底层流对象和一些与流相关的状态。
+
+ReportLoad函数用于报告负载信息。它接收一组与负载相关的数据，包括节点信息、服务名、请求数和并发数等。然后将这些信息打包为LoadStats请求，并通过LRS流发送给服务端。
+
+lrsStartStream函数用于创建并启动一个新的LRS流。它首先构造了一个用于流控制的请求头，然后打开一个新的流对象，发送请求头，并返回这个流对象。
+
+lrsStopStream函数用于停止一个LRS流。它关闭流对象，并将这个流从运行中的流列表中删除。
+
+lrsRunner函数是一个LRS的运行器。它循环处理从运行中的流列表中接收到的流对象上的事件。
+
+sendLoads函数用于发送负载数据。它向LRS流中发送负载数据，并检查流的健康状况。
+
+sendFirstLoadStatsRequest函数用于发送第一个LoadStats请求。它构造并发送一个带有初始化负载数据的LoadStats请求。
+
+recvFirstLoadStatsResponse函数用于接收第一个LoadStats请求的响应。它接收响应并检查其状态码，如果状态码表示成功，则开始定期发送负载数据。
+
+sendLoadStatsRequest函数用于发送LoadStats请求。它构造并发送一个LoadStats请求。
+
+getStreamError函数用于获取流的错误。它检查流的状态并返回错误信息。
+
+这些函数一起构成了LRS的核心逻辑，实现了将负载信息报告给服务端，并处理与LRS流相关的事件和错误。
+

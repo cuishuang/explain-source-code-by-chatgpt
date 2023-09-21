@@ -1,0 +1,20 @@
+# File: grpc-go/xds/internal/xdsclient/client_new.go
+
+在grpc-go项目的xdsclient包中，文件client_new.go的作用是定义了xdsclient的创建和配置函数。它提供了几个重要的函数，用于创建和配置xdsclient实例以及测试函数。
+
+clients和clientsMu这两个变量用于存储xdsclient实例和进行同步操作。clients是一个映射，用于存储xdsclient实例的缓存，key是一个xdsClientConfig对象，value是对应的xdsclient实例。clientsMu是一个读写锁，用于保护对clients的并发访问。
+
+- New函数是最基本的创建xdsclient实例的方法。它接受一个bootstrap文件的路径作为参数，并使用该路径下的配置文件来初始化xdsclient实例。
+
+- NewWithConfig函数是类似于New函数的扩展版本，它接受一个xdsclient的配置对象xdsClientConfig作为参数，以便更细粒度地控制xdsclient的创建和配置。
+
+- newWithConfig函数是NewWithConfig函数的私有辅助函数，用于实际创建xdsclient实例。它接受一个xdsClientConfig对象作为参数，并使用该对象中定义的配置选项来创建xdsclient实例。
+
+- NewWithConfigForTesting函数是用于测试目的的特殊版本的NewWithConfig函数。它接受一个xdsclient的配置对象xdsClientConfig作为参数，并采用特定的测试配置来创建和配置xdsclient实例。
+
+- NewWithBootstrapContentsForTesting函数是另一个用于测试目的的特殊版本的New函数。它接受一个bootstrap配置文件的内容作为参数，而不是文件路径。它用于在测试中模拟一个特定的xdsclient配置。
+
+- getOrMakeClientForTesting函数也是用于测试目的的函数。它接受一个xdsclient配置对象xdsClientConfig作为参数，并返回与该配置对应的xdsclient实例。如果缓存中已经存在匹配的实例，则直接返回缓存中的实例；否则，创建一个新的实例并将其加入到缓存中。
+
+这些函数共同提供了创建和配置xdsclient实例的灵活性和可扩展性，并同时支持了测试的需求。这些xdsclient实例用于与xDS服务进行通信，并获取和管理服务配置信息。
+

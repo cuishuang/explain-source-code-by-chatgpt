@@ -1,0 +1,10 @@
+# File: tools/internal/event/export/ocagent/wire/core.go
+
+在Golang的Tools项目中，tools/internal/event/export/ocagent/wire/core.go文件的主要作用是定义一些与事件导出相关的核心数据结构和方法。
+
+该文件中定义了一组名为"core"的数据类型，用于将事件数据从内部格式转换为ocagent格式。其中的Timestamp结构体代表了一个时间戳，用于表示事件的发生时间。Int64Value和DoubleValue结构体分别代表了一个整型和浮点型的值，用于表示事件的数值（如度量指标）。
+
+在事件导出中，经常需要将事件数据转换为ocagent使用的格式。这些数据结构提供了一种方便的方式来表示和处理这些数据。Timestamp结构体表示了一个精确到纳秒级别的时间戳，它通常用于记录事件发生的时间。Int64Value和DoubleValue结构体则用于表示事件的数值，可以用于传递度量指标等数据。
+
+这些结构体的定义和相关方法在core.go文件中，以及在其他文件中可能会用到这些结构体进行事件数据的导出和处理。通过定义这些结构体和相关方法，开发者可以方便地在Golang的Tools项目中实现事件数据的导出和转换。
+

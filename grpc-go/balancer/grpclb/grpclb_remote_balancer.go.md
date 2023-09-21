@@ -1,0 +1,26 @@
+# File: grpc-go/balancer/grpclb/grpclb_remote_balancer.go
+
+grpc-go/balancer/grpclb/grpclb_remote_balancer.go文件是gRPC中处理远程负载均衡的组件。它实现了与gRPC Load Balancer服务进行交互的功能。
+
+remoteBalancerCCWrapper结构体是一个gRPC连接封装器，用于封装与远程负载均衡器连接的gRPC客户端连接。它实现了Balancer接口，提供负载均衡的功能。
+
+serverListEqual函数用于比较两个服务器列表是否相等。
+
+processServerList函数用于处理从负载均衡器获取的服务器列表信息。它解析负载均衡器发来的服务器地址和服务权重等信息，并根据实际情况对服务器列表进行更新和调整。
+
+refreshSubConns函数用于更新子连接列表。它通过比较新的服务器列表和当前的子连接列表，添加新的子连接、关闭不再需要的子连接，并调整子连接的状态等。
+
+newRemoteBalancerCCWrapper函数用于创建remoteBalancerCCWrapper对象。
+
+close函数用于关闭remoteBalancerCCWrapper对象。
+
+readServerList函数用于从远程负载均衡器获取服务器列表信息。
+
+sendLoadReport函数用于向远程负载均衡器发送负载报告。
+
+callRemoteBalancer函数用于发起与远程负载均衡器的连接，并发送负载报告和接收服务器列表。
+
+cancelRemoteBalancerCall函数用于取消与远程负载均衡器的连接。
+
+watchRemoteBalancer函数用于启动一个协程，定期向远程负载均衡器发送负载报告，并接收服务器列表的更新。
+

@@ -1,0 +1,16 @@
+# File: tools/cover/profile.go
+
+在Golang的Tools项目中，tools/cover/profile.go这个文件主要是用于解析和处理代码覆盖率文件的工具函数和数据结构。
+
+首先，Profile结构体表示代码覆盖率文件的概要信息，包括文件名、模式、覆盖率信息等。ProfileBlock结构体表示代码覆盖率文件中的一个代码块，它包含块的Coverage和Mode信息。
+
+byFileName是一个排序接口，用于根据文件名对ProfileBlock列表进行排序。blocksByStart是一个map，用于根据开始位置索引ProfileBlock。Boundary结构体表示一个分界点，它标志了代码块的开始和结束位置。
+
+boundariesByPos是一个排序接口，用于根据位置对Boundary列表进行排序。Len、Less、Swap是用于上述排序接口实现的三个函数，用于判断大小和交换元素位置。
+
+ParseProfiles是一个函数，用于从一个或多个文件中解析Profile列表。ParseProfilesFromReader是一个函数，用于从一个文件读取器中解析Profile列表。parseLine是用于解析一行覆盖率文件的函数。seekBack是一个辅助函数，用于从当前位置寻找上一个完整的行。
+
+Boundaries是一个函数，用于根据给定的覆盖率文件解析并返回Boundary列表，该函数会根据代码块的开始和结束位置生成适当的分界点。
+
+总的来说，这些数据结构和函数提供了对代码覆盖率文件进行解析、处理和排序的功能，使得开发者可以更方便地使用覆盖率信息。
+

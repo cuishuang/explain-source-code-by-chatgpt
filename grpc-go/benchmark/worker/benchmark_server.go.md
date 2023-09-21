@@ -1,0 +1,16 @@
+# File: grpc-go/benchmark/worker/benchmark_server.go
+
+在grpc-go项目中，grpc-go/benchmark/worker/benchmark_server.go文件的作用是实现性能基准测试的服务器端。
+
+首先，certFile和keyFile是用于进行安全连接的TLS证书和密钥文件的路径变量。当需要在服务器端建立安全连接时，可以通过这两个变量指定所需的证书和密钥。
+
+benchmarkServer结构体是服务器端的配置参数，它包含了服务器的地址、端口、TLS配置等信息，用于启动性能基准测试时配置服务器端的相关参数。
+
+printServerConfig函数的作用是在控制台输出服务器配置信息。
+
+startBenchmarkServer函数是启动性能基准测试服务器的函数。它根据benchmarkServer结构体中的配置参数，创建并启动grpc服务器，对外提供服务。
+
+getStats函数用于获取服务器状态信息，包括每个RPC方法的平均响应时间、吞吐量等。它会调用grpc内置的runtime.Stats函数获取统计信息，并将其格式化后返回给调用者。
+
+总而言之，benchmark_server.go文件中的这些函数和结构体是用于配置和启动性能基准测试服务器，并提供相关的状态信息获取功能。
+

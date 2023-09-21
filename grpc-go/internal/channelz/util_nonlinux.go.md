@@ -1,0 +1,18 @@
+# File: grpc-go/internal/channelz/util_nonlinux.go
+
+grpc-go/internal/channelz/util_nonlinux.go文件的作用是为非Linux系统提供与渠道z相关的实用函数和工具。
+
+具体而言，该文件定义了一些功能函数和类型，用于获取和设置底层的网络套接字选项。这些函数主要用于检查和修改与网络传输相关的参数，以便对gRPC通道进行更细粒度的配置和监控。
+
+在util_nonlinux.go文件中，有以下几个GetSocketOption函数：
+
+1. GetSocketOption_SO_RCVBUF：用于获取接收缓冲区大小的选项。通过调用syscall包的GetsockoptInt函数，获取给定套接字的SO_RCVBUF选项的值。
+
+2. GetSocketOption_SO_SNDBUF：用于获取发送缓冲区大小的选项。类似于GetSocketOption_SO_RCVBUF函数，它通过调用syscall包的GetsockoptInt函数来获取给定套接字的SO_SNDBUF选项的值。
+
+3. GetSocketOption_SO_KEEPALIVE：用于获取保持连接状态的选项。它通过调用syscall包的GetsockoptInt函数来获取给定套接字的SO_KEEPALIVE选项的值。
+
+4. GetSocketOption_TCP_USER_TIMEOUT：用于获取TCP用户超时选项。它通过调用syscall包的GetsockoptInt函数来获取给定套接字的TCP_USER_TIMEOUT选项的值。
+
+这些函数的作用是提供了对套接字选项的读取操作，使得开发人员能够获取底层网络套接字的配置参数，以便进行相关的配置和管理。
+

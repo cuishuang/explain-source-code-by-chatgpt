@@ -1,0 +1,16 @@
+# File: grpc-go/internal/channelz/util_linux.go
+
+grpc-go/internal/channelz/util_linux.go文件在grpc-go项目中的作用是提供用于获取Linux系统上socket选项的实用函数。该文件主要包含了一些函数，用于获取并解析套接字的选项值。
+
+下面是GetSocketOption函数的几个具体作用：
+
+1. GetSocketOptionInt函数：用于获取整数类型的套接字选项的当前值。该函数接收一个套接字文件描述符和一个指定的套接字选项，然后通过调用Linux系统的getsockopt系统调用来获取选项的值。
+
+2. GetSocketOptionString函数：用于获取字符串类型的套接字选项的当前值。该函数的实现类似于GetSocketOptionInt函数，只是用于获取字符串类型的选项，也是通过调用Linux系统的getsockopt系统调用来获取选项的值。
+
+3. SetSocketOptionInt函数：用于设置整数类型的套接字选项的值。该函数接收一个套接字文件描述符、一个套接字选项和一个整数值，并通过调用Linux系统的setsockopt系统调用来设置指定选项的值。
+
+4. SetSocketOptionString函数：用于设置字符串类型的套接字选项的值。该函数的实现类似于SetSocketOptionInt函数，只是用于设置字符串类型的选项，也是通过调用Linux系统的setsockopt系统调用来设置指定选项的值。
+
+这些函数的作用在于提供了一种在grpc-go中操作和管理Linux系统上套接字选项的方式，使得开发人员能够更灵活地配置和控制套接字的行为。
+

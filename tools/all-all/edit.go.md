@@ -1,0 +1,12 @@
+# File: tools/gopls/internal/lsp/fake/edit.go
+
+在Golang的Tools项目中，tools/gopls/internal/lsp/fake/edit.go文件的作用是提供一些用于模拟编辑操作的辅助函数和数据结构。该文件中的函数和类型都是为了在编辑相关的场景中方便使用和处理。
+
+- NewEdit函数主要用于创建一个新的编辑对象。这个对象表示一个编辑操作，包含了编辑的起始和结束位置以及要插入或替换的文本。它接受一个起始位置、结束位置和文本参数，并返回一个表示编辑操作的Edit对象。
+
+- EditToChangeEvent函数用于将一个编辑操作转换为LSP（Language Server Protocol）的DidChangeTextDocumentParams类型的改变事件。这个函数接受一个Edit对象作为参数，并返回一个表示该编辑操作的LSP改变事件对象。该对象可以被发送到Language Server，以模拟文件的编辑操作。
+
+- applyEdits函数则是应用一组编辑操作到给定的文本上。它接受一个原始文本和一组编辑操作作为参数，并返回应用这些编辑后的最终结果文本。applyEdits会按照编辑操作的位置和文本进行插入或替换。
+
+这些函数一起提供了处理编辑操作的便利性，使得在Golang的Tools项目中可以更方便地模拟和处理编辑相关的场景。
+

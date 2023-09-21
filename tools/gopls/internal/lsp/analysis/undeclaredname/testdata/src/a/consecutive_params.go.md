@@ -1,0 +1,14 @@
+# File: tools/gopls/internal/lsp/analysis/undeclaredname/testdata/src/a/consecutive_params.go
+
+文件consecutive_params.go的作用是测试在Go代码中连续参数的使用情况。
+
+在该文件中定义了几个函数（consecutiveParams1、consecutiveParams2、consecutiveParams3）来测试连续参数的不同用法和语法规则。
+
+1. 函数consecutiveParams1演示了连续参数的基本用法。它接受一个变长参数列表（使用...标识符），这意味着可以传递任意数量的参数。函数内部遍历并打印参数的值。
+
+2. 函数consecutiveParams2演示了连续参数的另一种用法。它接受连续参数列表和一个整数类型参数，函数内部根据整数参数打印出相应数量的连续参数的值。如果整数参数小于连续参数的数量，只会打印指定数量的参数；如果整数参数大于连续参数的数量，会打印出所有连续参数的值。
+
+3. 函数consecutiveParams3演示了连续参数和其他参数混合使用的情况。它接受一个字符串类型的参数和一个变长参数列表作为输入参数。函数内部遍历连续参数和变长参数列表，并打印它们的值。
+
+这些函数主要用于测试gopls工具在分析Go代码时对于连续参数的解析和分析是否正确。测试文件（consecutive_params_test.go）中会调用这些函数并检查返回结果是否符合预期。这样可以确保gopls工具在处理连续参数的情况下能够正确分析和提供准确的代码补全和错误检查功能。
+

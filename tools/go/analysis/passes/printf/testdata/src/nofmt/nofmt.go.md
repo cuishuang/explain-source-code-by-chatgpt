@@ -1,0 +1,14 @@
+# File: tools/go/analysis/passes/printf/testdata/src/nofmt/nofmt.go
+
+在Golang的Tools项目中，nofmt.go这个文件的作用是提供测试数据和示例代码，用于测试和演示go/analysis/passes/printf包中的noFmt pass。
+
+noFmt pass是一个静态分析工具，用于检查代码中的Printf和Sprintf函数是否遵循格式化字符串中参数数量和类型的规则。该工具可用于发现由于格式化字符串和参数类型不匹配而导致的运行时错误。
+
+nofmt.go文件中的formatBigInt函数是为了演示noFmt pass的使用而编写的示例代码。它定义了三个函数：formatBigInt，formatBigIntV2和formatBigIntV3，这些函数都接收一个BigInt类型的参数，并将其转换为一个字符串返回。这些函数的作用如下：
+
+1. formatBigInt：接收一个BigInt类型的参数，并将其转换为一个十进制字符串返回。
+2. formatBigIntV2：接收一个BigInt类型的参数，并将其转换为一个十六进制字符串返回。
+3. formatBigIntV3：接收一个BigInt类型的参数，并将其转换为一个以指数形式表示的字符串返回。
+
+这些函数的目的是演示noFmt pass在检查Printf和Sprintf函数调用时，对格式化字符串和参数类型的要求。通过对这些函数进行静态分析，可以发现在使用Printf和Sprintf函数时可能出现的格式化错误。
+

@@ -1,0 +1,14 @@
+# File: grpc-go/internal/binarylog/binarylog.go
+
+grpc-go/internal/binarylog/binarylog.go文件的作用是实现用于记录二进制日志的功能。
+
+在这个文件中，grpclogLogger代表了一个全局的日志记录器，用于记录二进制日志的相关信息。binLogger则是一个内部类型，用于记录每个方法的二进制日志。
+
+Logger是日志记录器的接口，定义了记录日志的方法。MethodLoggerConfig是每个方法的日志记录配置，用于设置是否启用二进制日志记录以及日志保存的目录等相关参数。LoggerConfig是日志记录器的配置，用于设置全局的二进制日志记录配置及日志保存的目录。logger是一个实现了Logger接口的具体日志记录器。
+
+SetLogger用于设置全局的日志记录器。GetLogger用于获取全局的日志记录器。GetMethodLogger用于获取指定方法的二进制日志记录器。
+
+init函数用于初始化二进制日志相关的配置。NewLoggerFromConfig根据给定的LoggerConfig创建一个新的日志记录器。newEmptyLogger创建一个空的日志记录器。setDefaultMethodLogger将指定的方法设置为默认的方法日志记录器。setServiceMethodLogger和setMethodMethodLogger分别用于设置指定Service和Method的日志记录器。setBlacklist用于设置指定方法的黑名单，即不记录日志的方法。
+
+总之，binarylog.go文件实现了grpc-go项目中用于记录二进制日志的相关功能，包括配置日志记录和保存的目录、创建日志记录器、设置全局和方法级的日志记录器等。
+

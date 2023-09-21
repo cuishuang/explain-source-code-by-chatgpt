@@ -1,0 +1,22 @@
+# File: grpc-go/xds/internal/xdsclient/xdsresource/unmarshal_lds.go
+
+在grpc-go项目中，grpc-go/xds/internal/xdsclient/xdsresource/unmarshal_lds.go文件的作用是解组Listener资源。它包含了一些函数，分别有不同的作用。
+
+1. unmarshalListenerResource函数用于解组Listener资源。它会解析从xDS服务器返回的Listener资源，并将其转化为grpc-go内部使用的结构体。
+
+2. processListener函数用于处理Listener资源。它接收解组后的Listener资源，并根据其中的信息进行一些处理，包括根据配置创建不同类型的Listener对象。
+
+3. processClientSideListener函数用于处理客户端Listener资源。它接收解组后的Listener资源，并根据其中的配置创建客户端侧监听器对象。
+
+4. unwrapHTTPFilterConfig函数用于获取HTTP过滤器的配置。它接收解组后的Listener资源和HTTP过滤器名称，返回对应HTTP过滤器的配置信息。
+
+5. validateHTTPFilterConfig函数用于验证HTTP过滤器的配置。它接收HTTP过滤器的名称和配置信息，并检查其是否符合规范。
+
+6. processHTTPFilterOverrides函数用于处理HTTP过滤器的重写配置。它接收解组后的Listener资源和重写配置信息，并根据重写的规则对HTTP过滤器的配置进行修改。
+
+7. processHTTPFilters函数用于处理HTTP过滤器。它接收解组后的Listener资源，并根据其中的配置创建HTTP过滤器对象。
+
+8. processServerSideListener函数用于处理服务端Listener资源。它接收解组后的Listener资源，并根据其中的配置创建服务端侧监听器对象。
+
+以上这些函数结合在一起，用于解析和处理从xDS服务器返回的Listener资源，将其转化为grpc-go内部可以使用的结构体，最终用于构建相应的客户端/服务端侧监听器对象。这些对象对于客户端和服务端的通信相当重要，其中包括了各种配置和处理逻辑，用于实现对请求和响应的拦截和处理。
+

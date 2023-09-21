@@ -1,0 +1,20 @@
+# File: tools/gopls/internal/lsp/cache/fs_memoized.go
+
+在Golang的Tools项目中，tools/gopls/internal/lsp/cache/fs_memoized.go文件用于实现一个缓存文件系统。
+
+该文件定义了一个memoizedFS结构体，它是缓存文件系统的主要组件。memoizedFS实现了golang.org/x/tools/internal/lsp/source包中的source.ModFiles和source.ReadFile接口。这个文件系统可以在内存中缓存文件，并且只有在需要时才从磁盘读取文件。
+
+ioLimit是一个全局变量，用于限制同时进行的并发文件读取的数量。这个变量的作用是避免在短时间内同时读取大量的文件，从而减轻系统的负载。
+
+DiskFile结构体表示一个磁盘上的文件，它包含了文件的元数据和内容。memoizedFS结构体使用DiskFile作为缓存的条目。URI是文件的唯一标识符，FileIdentity是文件的标识信息，SameContentsOnDisk用于检测文件是否与磁盘上的内容相同，Version是文件的版本号，Content是文件的内容。
+
+readFile函数用于从磁盘上读取文件的内容，并将内容缓存在内存中。这个函数首先会检查缓存中是否已经存在文件的副本，如果存在则直接返回；否则，它会读取磁盘上的文件，并将文件的元数据和内容缓存起来。
+
+fileStats函数用于获取文件的元数据，包括文件的大小和最后修改时间。
+
+ReadFile函数是memoizedFS的方法，它用于读取指定URI的文件内容。该方法会调用readFile函数从磁盘或缓存中获取文件的内容，并返回文件内容的副本。
+
+同样，memoizedFS还提供了其他一些方法，如GetFile，GetFileInfo等，用于获取文件和文件信息。
+
+这个缓存文件系统的目的是提高文件读取的效率，避免频繁的磁盘读取，以提高整体的性能和响应速度。
+

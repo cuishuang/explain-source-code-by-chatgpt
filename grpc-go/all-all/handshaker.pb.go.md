@@ -1,0 +1,30 @@
+# File: grpc-go/credentials/alts/internal/proto/grpc_gcp/handshaker.pb.go
+
+grpc_gcp/handshaker.pb.go文件是由Protocol Buffers编译器根据手动编写的handshaker.proto文件生成的，用于定义gRPC GCP握手协议相关的数据结构和方法。
+
+在这个文件中，有几个重要的变量和结构体：
+
+1. HandshakeProtocol_name和HandshakeProtocol_value：枚举类型HandshakeProtocol的名称和值的映射关系。
+2. NetworkProtocol_name和NetworkProtocol_value：枚举类型NetworkProtocol的名称和值的映射关系。
+3. File_grpc_gcp_handshaker_proto和file_grpc_gcp_handshaker_proto_rawDesc：手动编写的handshaker.proto文件的信息。
+4. file_grpc_gcp_handshaker_proto_enumTypes和file_grpc_gcp_handshaker_proto_msgTypes：handshaker.proto文件中定义的枚举类型和消息类型。
+5. file_grpc_gcp_handshaker_proto_goTypes和file_grpc_gcp_handshaker_proto_depIdxs：handshaker.proto文件中定义的Go类型和依赖索引。
+
+下面是一些重要的结构体和它们的作用：
+
+1. HandshakeProtocol：枚举类型，定义了握手协议的可能取值。
+2. NetworkProtocol：枚举类型，定义了网络协议的可能取值。
+3. StartClientHandshakeReq、ServerHandshakeParameters、StartServerHandshakeReq、NextHandshakeMessageReq：不同阶段的握手请求数据结构。
+4. HandshakerResult、HandshakerStatus、HandshakerResp：握手结果和状态的数据结构。
+
+这个文件还定义了一些方法和函数：
+
+1. GetIdentityOneof、GetServiceAccount、GetHostname：用于获取标识信息的辅助方法。
+2. GetHandshakeParameters、GetLocalEndpoint、GetRemoteEndpoint：用于获取握手相关信息的辅助方法。
+3. GetApplicationProtocol、GetRecordProtocol、GetKeyData、GetPeerIdentity：用于获取握手结果相关信息的辅助方法。
+4. GetStatus、GetResult、GetBytesConsumed：用于获取握手状态和结果的辅助方法。
+
+其他的函数和变量主要是用于初始化和处理handshaker.proto文件的相关内容。
+
+总体来说，grpc_gcp/handshaker.pb.go文件定义了gRPC GCP握手协议所使用的数据结构和方法，提供了对握手过程中各种请求和响应的处理和访问接口。
+

@@ -1,0 +1,12 @@
+# File: tools/internal/gcimporter/ureader_yes.go
+
+在Golang的Tools项目中，tools/internal/gcimporter/ureader_yes.go文件是用于读取导入的Go包的。
+
+pkgReader结构体是一个包阅读器，用于读取并解析包中的各个部分。derivedInfo结构体用于存储导入信息。typeInfo结构体用于存储类型信息。reader是一个通用的阅读器接口，可以用于读取数据。readerDict结构体是一个字典，用于存储阅读器。
+
+later函数是用于延迟解析的函数。UImportData函数用于导入信息的处理。laterFor函数用于为给定的阅读器启动延迟解析。readUnifiedPackage函数用于读取统一的包。newReader函数用于创建一个新的阅读器。tempReader函数用于创建一个临时的阅读器。retireReader函数用于释放阅读器。pos、posBase以及posBaseIdx是用于记录位置信息的变量。
+
+pkg、pkgIdx、doPkg是用于指定包信息的变量和函数。typ、typInfo、typIdx、doTyp是用于指定类型信息的变量和函数。structType、unionType、interfaceType、signature、params、param、obj、objIdx以及objDictIdx是用于指定不同类型的对象和信息的变量。
+
+typeParamNames是用于存储类型参数名的变量。method、qualifiedIdent、localIdent、selector、ident、pkgScope是用于指定不同标识符和作用域的函数。这些函数和变量共同协作，完成对导入包的读取和解析。
+

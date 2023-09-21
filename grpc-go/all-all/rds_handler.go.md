@@ -1,0 +1,18 @@
+# File: grpc-go/xds/internal/server/rds_handler.go
+
+在grpc-go项目中，grpc-go/xds/internal/server/rds_handler.go文件的作用是实现了RDS（Route Discovery Service）处理器，用于处理从xDS服务器接收到的路由配置信息。
+
+rdsHandlerUpdate和rdsHandler是两个结构体，用于存储和处理路由配置信息。rdsHandlerUpdate结构体存储了更新的路由配置信息，包括路由名称和更新时间戳等字段。rdsHandler结构体负责管理路由配置的变化和下发更新。
+
+newRDSHandler是一个工厂函数，用于创建新的RDS处理器实例。它会初始化一些内部数据结构，并返回一个rdsHandler对象。
+
+updateRouteNamesToWatch函数用于更新要监听的路由配置名称列表。它会从接收到的路由配置更新中提取出路由名称，并将其保存在rdsHandler对象中。
+
+handleRouteUpdate函数用于处理从xDS服务器接收到的路由配置更新。它会更新rdsHandler对象中的路由配置信息，并将更新的路由配置下发给相关的请求处理器。
+
+drainAndPush函数用于将路由配置信息下发给请求处理器。它会遍历注册的请求处理器列表，并将更新的路由配置发送给每个处理器。
+
+close函数用于关闭RDS处理器。它会停止监听路由配置更新，并关闭与xDS服务器的连接。
+
+总之，rds_handler.go文件实现了RDS处理器，用于接收、解析和下发路由配置信息。它提供了一些函数和数据结构，用于处理路由配置的更新和管理。
+

@@ -1,0 +1,16 @@
+# File: tools/internal/gcimporter/unified_no.go
+
+在Golang的tools项目中，tools/internal/gcimporter/unified_no.go文件的作用是实现无需使用cgo的跨平台Go语言编译器导入器。
+
+Go编译器导入过程涉及将Go源代码转换为可执行文件所需的各种依赖关系的解析和处理。gcimporter是一个Go语言包，用于实现这个导入过程。
+
+在Go编译器的早期版本中，gcimporter使用了一种特定于目标平台的方法，通常是通过cgo调用C编写的代码实现导入器。这种实现方法在跨平台和可移植性方面存在一些限制。
+
+unified_no.go文件的目的是为了实现一个不依赖于cgo的gcimporter。它通过在Go语言中实现对可移植的编译器库的直接访问，从而消除了cgo的需要。
+
+具体来说，unified_no.go文件定义了一个unifiedImporter类型，它实现了go/types的Import函数所需的Importer接口。这个接口以一种统一的方式将Go源代码转换为AST（抽象语法树），以便进行后续的类型检查和编译。
+
+unifiedImporter利用Go语言本身的反射和unsafe包等特性，以及encoding/gob包实现了无需cgo的方式来访问编译器库。它通过解析已编译的Go包的包导入路径和类型信息，构建一个Go包的完整表示。
+
+通过使用unified_no.go文件提供的unifiedImporter，Go工具链可以无需依赖于cgo实现，从而提供对各种平台上的Go代码的导入和编译支持，提高了Go语言的可移植性和跨平台性。
+

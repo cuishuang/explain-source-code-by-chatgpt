@@ -1,0 +1,22 @@
+# File: grpc-go/examples/helloworld/helloworld/helloworld.pb.go
+
+helloworld.pb.go是由protobuf编译器根据helloworld.proto文件生成的Go语言源码文件。它包含了与gRPC服务相关的结构体、接口和方法。
+
+- File_examples_helloworld_helloworld_helloworld_proto：这个变量是一个描述helloworld.proto文件的描述符（descriptor），用于在运行时构建和解析消息。
+- file_examples_helloworld_helloworld_helloworld_proto_rawDesc：这个变量是helloworld.proto文件的原始描述，它是一个字节切片，用于在运行时创建描述符。
+- file_examples_helloworld_helloworld_helloworld_proto_rawDescOnce：这个变量确保file_examples_helloworld_helloworld_helloworld_proto_rawDesc只被初始化一次。
+- file_examples_helloworld_helloworld_helloworld_proto_rawDescData：这个变量是file_examples_helloworld_helloworld_helloworld_proto_rawDesc的原始数据，用于在运行时构建描述符。
+- file_examples_helloworld_helloworld_helloworld_proto_msgTypes：这个变量是一个包含helloworld.proto文件定义的消息类型的切片。
+- file_examples_helloworld_helloworld_helloworld_proto_goTypes：这个变量是一个包含helloworld.proto文件定义的消息类型对应的Go语言结构体的切片。
+- file_examples_helloworld_helloworld_helloworld_proto_depIdxs：这个变量是一个包含helloworld.proto文件中相互依赖的消息类型的索引的切片。
+
+- HelloRequest：这个结构体是helloworld.proto文件定义的请求消息类型。
+- HelloReply：这个结构体是helloworld.proto文件定义的响应消息类型。
+
+- Reset：这个方法用于将结构体的字段重置为默认值。
+- String：这个方法用于返回结构体的字符串表示。
+- ProtoMessage、ProtoReflect：这两个接口是由protobuf生成的用于支持序列化和反序列化的方法。
+- Descriptor、GetName、GetMessage：这些方法是用于在运行时构建和解析描述符的。
+- file_examples_helloworld_helloworld_helloworld_proto_rawDescGZIP：这个函数返回helloworld.proto文件的原始描述的压缩版本。
+- init、file_examples_helloworld_helloworld_helloworld_proto_init：这些函数用于在初始化时注册类型和解析描述符。
+

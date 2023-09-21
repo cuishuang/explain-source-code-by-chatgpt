@@ -1,0 +1,14 @@
+# File: grpc-go/internal/testutils/wrappers.go
+
+grpc-go/internal/testutils/wrappers.go文件的作用是提供一些用于测试的包装器函数和结构体，用于模拟和操作grpc-go中的连接和监听器对象。
+
+ConnWrapper结构体是一个包装了grpc.ClientConn或grpc.ServerConn的对象，它实现了grpc.ClientConnInterface或grpc.ServerConnInterface接口，可以用于在测试中拦截和修改连接的行为。可以通过调用Close方法关闭连接，这会触发调用原始连接的Close方法。
+
+ListenerWrapper结构体是包装了net.Listener对象的结构体，它实现了net.Listener接口，可以用于在测试中拦截和修改监听器的行为。可以通过调用Accept方法接受传入的连接，这会触发调用原始监听器的Accept方法。
+
+Close函数用于关闭连接，它首先检查连接是否属于ConnWrapper类型，如果是则会调用ConnWrapper的Close方法关闭连接，否则调用原始连接的Close方法。
+
+Accept函数用于接受传入的连接，它首先检查监听器是否属于ListenerWrapper类型，如果是则会调用ListenerWrapper的Accept方法接受连接，否则调用原始监听器的Accept方法。
+
+NewListenerWrapper函数用于创建一个ListenerWrapper对象，它接受一个net.Listener作为参数，并返回一个包装了该监听器的ListenerWrapper对象。调用NewListenerWrapper可以用于将一个真实的监听器替换为一个模拟的监听器，在测试中可以拦截和修改监听器的行为。
+

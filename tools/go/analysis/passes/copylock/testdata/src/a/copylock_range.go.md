@@ -1,0 +1,16 @@
+# File: tools/go/analysis/passes/copylock/testdata/src/a/copylock_range.go
+
+在Golang的Tools项目中，tools/go/analysis/passes/copylock/testdata/src/a/copylock_range.go文件的作用是为copylock分析工具提供测试数据。copylock分析工具用于检测并发安全问题，特别是在复制锁的情况下可能出现的问题。
+
+文件中的函数rangeMutex被用作示例代码，用于模拟在多个goroutine中对共享数据进行读写操作。rangeMutex函数是一个无限循环的goroutine，它调用了另外两个函数readFromMap和writeToMap。
+
+readFromMap函数的作用是从一个全局的map中读取数据。它会获取一个锁，以确保多个goroutine不会同时读取该map。在读取完成后，它会释放锁。
+
+writeToMap函数的作用是往全局的map中写入数据。它也会获取锁以确保多个goroutine不会同时写入该map。写入完成后，它也会释放锁。
+
+这两个函数的目的是展示在多个goroutine中同时对共享数据进行读写操作时可能出现的竞态条件问题。这样的竞态条件可能导致数据不一致性或其他并发安全问题。
+
+copylock_range.go文件中还包含了一些注释以解释每个函数的作用和预期的行为。这些注释是为了测试copylock分析工具在检测并发安全问题时的准确性。
+
+通过提供这个测试文件，copylock分析工具可以使用其自动化测试套件来验证分析的正确性和稳定性，以确保能够准确地检测并发安全问题，并提供相关的建议和修复建议。
+

@@ -1,0 +1,16 @@
+# File: tools/go/callgraph/vta/testdata/src/callgraph_field_funcs.go
+
+callgraph_field_funcs.go是测试案例文件，用于测试Golang的调用图分析工具callgraph中的字段函数（Field Function）功能。
+
+文件中定义了3个包级别的变量WrappedFunc1、WrappedFunc2和WrappedFunc3，它们分别是WrappedFunc类型的结构体变量。这些变量用于在测试中模拟被调用的函数。
+
+WrappedFunc是一个结构体类型，具有两个属性：Function和Num。Function属性是一个函数类型，代表需要进行包装的函数；Num属性是一个整数类型，用于记录该函数被调用的次数。
+
+callWrappedFunc函数是一个包级别的函数，它接收一个函数类型的参数，将该函数进行包装后返回。在返回的函数内部，会更新对应的被包装函数的调用次数。
+
+foo函数是一个包级别的函数，它返回一个字符串并输出一条消息到标准输出。在函数内部，它调用了callWrappedFunc(WrappedFunc1.Function)函数将自身进行包装，并将返回的函数赋值给foo变量。
+
+Foo是一个公共的函数，返回一个整数。它也调用了callWrappedFunc(WrappedFunc2.Function)将自己进行包装，并将返回的函数赋值给Foo变量。
+
+这些函数的作用是用于测试callgraph包中的字段函数功能。通过包装函数并记录被包装函数的调用次数，可以进行函数的跟踪和分析，以验证调用图分析工具的正确性。
+

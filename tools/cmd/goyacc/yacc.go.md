@@ -1,0 +1,175 @@
+# File: tools/cmd/goyacc/yacc.go
+
+在Golang的Tools项目中，tools/cmd/goyacc/yacc.go文件是yacc工具的主要实现。yacc是一个用于生成语法分析器的工具，它通过读取一个定义了文法规则的输入文件，并产生相应的解析器代码。
+
+下面是这些变量和结构体的功能和作用：
+
+变量：
+- finput：输入文件
+- stderr：标准错误流
+- ftable：用于存储文法规则的数据结构
+- fcode：用于存储解析器代码的缓冲区
+- foutput：输出文件
+- fmtImported：fmt包的导入路径
+- oflag：是否生成解析器代码的标志
+- vflag：是否生成解析器代码的 verbose 标志
+- lflag：是否生成 lex 输入文件的标志
+- prefix：代码的前缀
+- initialstacksize：初始堆栈大小
+- infile：输入文件的路径
+- numbval：终结符之前的值
+- tokname：终结符的名称
+- tokflag：标记是否为终结符的标志
+- ntypes：非终结符的数量
+- typeset：终结符的类型集合
+- ntokens：终结符的数量
+- tokset：终结符集合
+- toklev：终结符的级别
+- nnonter：非终结符的数量
+- nontrst：非终结符索引
+- start：起始非终结符
+- nstate：状态集合的数量
+- pstate：用于跟踪状态和其内核项的栈
+- statemem：状态的内存
+- tystate：当前状态的类型
+- tstates：状态的类型
+- ntstates：计算冲突的状态的数量
+- mstates：最大状态数
+- lastred：最后一个规约的状态
+- defact：默认规约动作
+- nolook：没有lookaheads标志
+- tbitset：标记集的大小
+- clset：闭包集合
+- wsets：包含产生非终结符的初始状态的集合
+- cwp：当前闭包集的指针
+- amem：动作数组的内存
+- memp：堆栈的内存
+- indgo：指示转换表的指向
+- temp1：临时变量
+- lineno：当前行号
+- fatfl：在规约或错误中生成错误的标志
+- nerrors：错误的数量
+- extval：终结符值的类型
+- nprod：产生式的数量
+- prdptr：产生式指针
+- levprd：产生式级别
+- rlines：规约行数
+- zzgoent：进入动作表
+- zzgobest：最佳进入动作表
+- zzacent：接受动作表
+- zzexcp：出错动作表
+- zzclose：状态闭包集的标识
+- zzrrconf：规约/规约冲突码
+- zzsrconf：移位/规约冲突码
+- zzstate：当前状态
+- yypgo：产生整数和指针数组
+- optst：行数表
+- ggreed：产生的非终结符集
+- pgo：lifting
+- maxspr：最大转换伪码
+- maxoff：最大转换偏移量
+- maxa：最大动作数量
+- pres：前缀 结点
+- pfirst：第一个前缀数据
+- pempty：前缀为空集
+- indebug：debug 标志 (internal)
+- pidebug：debug 标志 (internal)
+- gsdebug：debug 标志 (internal)
+- cldebug：debug 标志 (internal)
+- pkdebug：debug 标志 (internal)
+- g2debug：debug 标志 (internal)
+- adb：代表数组的集合
+- resrv：保留字的集合
+- errors：错误消息的集合
+- stateTable：状态转换表
+- zznewstate：新的状态
+- peekline：预览行
+- peekrune：预览字符
+- yaccpar：yacc 解析器
+
+结构体：
+- Lkset：Lookahead set 的存储结构
+- Pitem：产生式项的存储结构
+- Item：项的集合
+- Symb：符号的存储结构
+- Wset：项集的存储结构
+- Resrv：保留字的存储结构
+- Error：错误信息的存储结构
+- Row：行的存储结构
+
+函数：
+- ASSOC：指定非终结符的关联性
+- PLEVEL：指定操作符优先级
+- TYPE：指定终结符的类型
+- SETASC：设置关联性
+- SETPLEV：设置优先级
+- SETTYPE：设置类型
+- init：yacc解析器的初始化
+- main：yacc解析器的入口
+- setup：设置yacc解析器的运行时环境
+- moreprod：合并产生式
+- defin：定义终结符或非终结符
+- gettok：获取下一个终结符或非终结符的标记
+- getword：获取一个字符串单词
+- fdtype：查找终结符的类型
+- chfind：查找终结符或非终结符的索引
+- cpyunion：复制类型信息
+- cpycode：复制代码
+- emitcode：输出解析器的代码
+- isPackageClause：检查是否为 package 子句
+- skipspace：跳过空格
+- lines：读取行
+- writecode：将代码写入文件
+- skipcom：跳过 /* ... */ 注释
+- cpyact：复制规约动作
+- openup：打开代码文件
+- symnam：获取符号的名称
+- aryfil：清空数组
+- cpres：复制项集
+- cempty：生成一个空项集
+- cpfir：复制前缀集
+- stagen：生成语法状态
+- closure：计算项的闭包
+- state：计算解析器的状态
+- putitem：将项插入集合中
+- writem：写入状态描述
+- apack：压缩编码值
+- output：输出解析器文件
+- precftn：获取操作符的优先级
+- addActions：添加解析器的动作
+- wrstate：写入状态
+- go2out：输出转换表
+- go2gen：生成转换表
+- hideprod：隐藏产生式
+- callopt：调用生成优化代码
+- nxti：获取下一个输入字符
+- gin：读取输入文件的下一字符
+- stin：从标准输入读取下一个字符
+- aoutput：输出一个字符
+- others：处理其他规约
+- runMachine：运行解析器状态机
+- minMax：获取最大值和最小值
+- minType：获取最小的类型
+- arrayOutColumns：计算要打印的输出列数
+- arout：输出一维数组
+- summary：输出分析总结
+- osummary：输出冲突总结
+- chcopy：复制串
+- usage：输出用法信息
+- bitset：生成一个位集
+- setbit：设置位集中的位
+- mkset：生成一个 set
+- setunion：合并两个 set
+- prlook：打印 lookaheads
+- isdigit：检查字符是否是数字
+- isword：检查字符是否是字符或数字
+- aryeq：检查两个数组是否相等
+- getrune：获取一个Unicode字符
+- ungetrune：撤销对字符的读取
+- open：打开一个文件
+- create：创建一个文件
+- lerrorf：输出错误信息到 Stderr
+- errorf：输出错误信息到 stdout
+- exit：退出程序
+- gofmt：格式化代码
+
