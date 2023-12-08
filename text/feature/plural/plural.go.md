@@ -1,0 +1,18 @@
+# File: text/feature/plural/plural.go
+
+在Go的text项目中，text/feature/plural/plural.go文件的作用是实现了根据不同语言的语法规则来处理复数的形态变化。该文件提供了一些功能函数和变量，用于处理不同语言中复数形态的匹配和转换。
+
+Cardinal、Ordinal、ordinal和cardinal是四个全局变量，它们分别代表了基数形式、序数形式、序数形式的小写形式和基数形式的小写形式。这些变量存储了语言特定的复数形态规则，用于在匹配时进行对比。
+
+Rules是一个结构体，用于存储不同语言的复数形态规则。它包含了两个字段：One 和 Other。One字段存储了特殊情况下的复数形态规则，而Other字段存储了一般情况下的复数形态规则。
+
+getIntApprox是一个辅助函数，用于将字符串转换为整数。MatchDigits函数用于匹配特定语言的整数形态，MatchPlural函数用于匹配复数形态。
+
+matchDisplayDigits函数用于匹配带有特定语言规则的数字形态，validForms函数用于验证一个语言对于复数形态是否有定义。
+
+MatchComponents函数用于从给定的语言标签和规则中找到适合的复数规则。matchPlural函数用于根据规则和数字类型来获取相应的复数形态。
+
+tagToID函数用于根据ISO语言码获取对应的语言ID。
+
+总之，这些函数和变量集合在一起，提供了一个功能强大的工具，可以根据不同语言的规则处理和转换复数形态。
+

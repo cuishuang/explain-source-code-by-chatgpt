@@ -1,0 +1,18 @@
+# File: text/internal/export/idna/trie13.0.0.go
+
+在Go的text项目中，text/internal/export/idna/trie13.0.0.go文件的作用是实现一个Trie树结构，用于Unicode字符的转换和映射。这个文件是根据Trie树的结构和Unicode字符集来生成的，它定义了这个Unicode字符的转换映射。
+
+文件的开头定义了一个TrieNode结构体，表示Trie树的节点。每个节点有一个unicode uint32类型的字段表示Unicode字符，以及一个children map[uint32]*TrieNode类型的字段表示子节点。
+
+接下来，文件定义了四个函数：appendMapping、appendKVMapping、appendKVMappingRange和appendgetMappings。这四个函数分别用于在Trie树中增加转换映射。
+
+1. appendMapping：该函数用于将Unicode字符的转换映射添加到Trie树中。它接收两个参数，一个是dst []uint8类型的目标切片，用于存储映射结果；另一个是src []uint8类型的源切片，表示Unicode字符的转换映射关系。该函数通过遍历源切片，将每个字符的转换映射添加到Trie树中。
+
+2. appendKVMapping：该函数用于将Unicode字符和转换映射关系添加到Trie树中。它接收三个参数，一个是t *TrieNode类型的Trie树根节点，一个是unicode uint32类型的Unicode字符，还有一个是value uint32类型的转换映射关系。该函数通过遍历Unicode字符，将每个字符的转换映射关系添加到Trie树中的相应节点上。
+
+3. appendKVMappingRange：该函数用于将一段Unicode字符范围的转换映射关系添加到Trie树中。它接收四个参数，一个是t *TrieNode类型的Trie树根节点，两个是lo uint32类型和hi uint32类型的Unicode字符范围的起始和结束位置，还有一个是value uint32类型的转换映射关系。该函数会在Trie树中根据范围找到相应的节点，并将转换映射关系添加到节点上。
+
+4. appendgetMappings：该函数用于获取Trie树中所有的转换映射关系。它接收一个参数t *TrieNode类型的Trie树根节点，并返回一个map[uint32]uint32类型的映射关系。该函数通过遍历Trie树中的所有节点，将节点的转换映射关系添加到结果映射中。
+
+这些函数的作用是实现Unicode字符的转换和映射功能，通过Trie树的结构和算法来快速检索和获取转换映射关系。这个文件是text项目中实现国际化域名（IDNA）的核心部分之一。
+

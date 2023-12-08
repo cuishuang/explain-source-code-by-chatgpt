@@ -1,0 +1,14 @@
+# File: /Users/fliter/go2023/sys/unix/cap_freebsd.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/cap_freebsd.go文件的作用是提供了在FreeBSD操作系统上使用的能力容量（capabilities）相关函数和变量。
+
+该文件中的bit2idx变量是一个数组，用于将位索引映射到容量索引。bit2idx[i]表示第i个容量的索引。rightToIndex是一个map，用于将容量名称映射到容量索引。capidxbit是容量索引的最大位数。
+
+caprver、capver和caparsize变量是在_FreeBSD_cap_rights_variant结构中的字段。caprver表示FreeBSD能力容量的版本号，capver表示当前使用的FreeBSD能力容量的版本号，caparsize表示能力容量数组的大小。
+
+CapRightsSet函数用于将指定容量的位设置为1，表示该容量被授权。CapRightsClear函数用于将指定容量的位设置为0，表示该容量被取消授权。CapRightsIsSet函数用于检查特定容量是否被授权。capright变量表示一组能力容量的位数组。
+
+CapRightsInit函数用于初始化capright为能力容量的位数组，并将所有位设置为0。CapRightsLimit函数用于将capright的大小限制为caparsize的大小。CapRightsGet函数返回能力容量的位数组。CapRightsSet、CapRightsClear和CapRightsIsSet这三个函数是对capright进行位操作的辅助函数。
+
+总而言之，/Users/fliter/go2023/sys/unix/cap_freebsd.go文件提供了在FreeBSD操作系统上使用的能力容量相关函数和变量，用于管理和控制系统对各种操作的权限。
+

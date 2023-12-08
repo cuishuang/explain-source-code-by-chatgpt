@@ -1,0 +1,22 @@
+# File: text/collate/index.go
+
+在Go的text/collate/package中，index.go文件的作用是定义了文本排序索引相关的结构体和函数。
+
+该文件中定义了多个结构体，其中包括tableIndex、tableIndexEntry和tailoringIndex。这些结构体用于存储和管理排序索引的数据。
+
+tableIndex结构体表示一个排序表的索引。它包含了索引的版本信息（version）以及一个用于快速查找排序表的哈希映射（indexMap）。indexMap中的键是一个可排序的Unicode码点，值则是一个迭代器，用于查找具有该码点的Unicode字符在排序表（如CLDR排序表）中的位置。
+
+tableIndexEntry结构体表示排序表的一个条目。它包含了Unicode字符和其在排序表中的位置。
+
+tailoringIndex结构体表示定制排序索引的链表。它存储了一系列的表（tailoringTable），每个表都包含了Unicode字符的排序顺序。
+
+在index.go中，还定义了一些用于获取排序表索引的函数，包括getTable、getTailoringIndex和getBuiltinIndex。
+
+getTable函数用于获取指定语言和区域设置的排序表索引。它会检查缓存中是否已经存在相应的索引，如果存在则直接返回；如果不存在则会先尝试加载已知语言和区域设置的索引，如果仍然不存在则会加载通用的排序表索引。
+
+getTailoringIndex函数用于获取定制排序表索引。它会根据指定的语言、区域设置和排序选项（如排序规则、大小写敏感等）查找对应的定制排序表索引。
+
+getBuiltinIndex函数用于获取内置的排序表索引。它会根据指定的语言和区域设置查找对应的内置排序表索引。
+
+这些函数都是提供给外部使用的，通过传递特定的参数，可以获取到对应的排序表索引，从而进行文本排序操作。
+

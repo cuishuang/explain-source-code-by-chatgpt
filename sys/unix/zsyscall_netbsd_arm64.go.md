@@ -1,0 +1,105 @@
+# File: /Users/fliter/go2023/sys/unix/zsyscall_netbsd_arm64.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/zsyscall_netbsd_arm64.go文件是用来定义在NetBSD操作系统上使用的系统调用的包装函数。这些包装函数通过使用Go语言的底层API调用真正的系统调用。这个文件中定义了很多变量，包括_下划线开头的变量。
+
+在Go语言中，下划线（_）作为一个特殊的标识符，用于表示一个不会被使用的变量。这些变量在函数实现中可能会用到，但是由于调用底层系统调用的方式的特殊性，对它们的使用是隐藏的，因此使用下划线，表示这些变量不会被使用到。
+
+下面是相关函数及其作用的简要介绍：
+- getgroups: 获取进程的所属组列表。
+- setgroups: 设置进程的所属组列表。
+- wait4: 等待子进程退出。
+- accept: 接受一个入站的TCP连接。
+- bind: 将一个本地地址与一个套接字进行绑定。
+- connect: 请求一个对端服务器建立一个TCP连接。
+- socket: 创建一个新的套接字。
+- getsockopt: 获取套接字选项的值。
+- setsockopt: 设置套接字选项的值。
+- getpeername: 获取连接的对端地址。
+- getsockname: 获取套接字的本地地址。
+- Shutdown: 关闭套接字发送或接收流。
+- socketpair: 创建一对相互连接的套接字。
+- recvfrom: 从套接字接收数据。
+- sendto: 发送数据到套接字。
+- recvmsg: 从套接字接收消息。
+- sendmsg: 发送消息到套接字。
+- kevent: 操作kqueue。
+- utimes: 修改文件的访问和修改时间。
+- futimes: 修改文件的访问和修改时间。
+- poll: 等待一组文件描述符的事件。
+- Madvise: 设置文件内存映射的内存处理属性。
+- Mlock, Mlockall: 锁定一段内存。
+- Mprotect: 设置内存保护属性。
+- Msync: 将内存映射的数据写回硬盘。
+- Munlock, Munlockall: 解锁一段内存。
+- pipe2: 创建一个管道。
+- Getdents: 读取目录的内容。
+- Getcwd: 获取当前工作目录。
+- ioctl, ioctlPtr: 控制设备。
+- sysctl: 获取和设置内核的运行参数。
+- Access: 检查文件是否可访问。
+- Adjtime: 调整系统时间。
+- Chdir: 改变当前工作目录。
+- Chflags: 设置文件的标记。
+- Chmod: 修改文件权限。
+- Chown: 修改文件的所有者和组。
+- Chroot: 改变根目录。
+- ClockGettime: 获取当前时间。
+- Close: 关闭文件描述符。
+- Dup, Dup2, Dup3: 复制文件描述符。
+- Exit: 终止当前进程。
+- ExtattrGetFd, ExtattrSetFd, ExtattrDeleteFd, ExtattrListFd: 管理文件描述符的扩展属性。
+- ExtattrGetFile, ExtattrSetFile, ExtattrDeleteFile, ExtattrListFile, ExtattrGetLink, ExtattrSetLink, ExtattrDeleteLink, ExtattrListLink: 管理文件的扩展属性。
+- Faccessat: 检查文件是否可访问。
+- Fadvise: 通知系统关于特定文件或文件区域的访问模式。
+- Fchdir: 改变当前工作目录。
+- Fchflags: 设置文件的标记。
+- Fchmod, Fchmodat: 修改文件权限。
+- Fchown, Fchownat: 修改文件的所有者和组。
+- Flock: 对文件进行锁定。
+- Fpathconf: 获取文件的系统相关限制和选项。
+- Fstat: 获取文件的元数据。
+- Fstatat: 获取文件的元数据。
+- Fstatvfs1: 获取文件系统的信息。
+- Fsync: 刷新文件缓冲区到磁盘。
+- Ftruncate: 截断文件到指定大小。
+- Getegid, Geteuid, Getgid, Getpgid, Getpgrp, Getpid, Getppid, Getpriority: 获取进程相关的信息。
+- Getrlimit: 获取进程的资源限制。
+- Getrusage: 获取进程的资源使用情况。
+- Getsid: 获取会话ID。
+- Gettimeofday: 获取当前时间。
+- Getuid: 获取用户ID。
+- Issetugid: 检查进程是否被置为"补充用户ID有效"状态。
+- Kill: 发送信号给指定的进程。
+- Kqueue: 创建一个文件描述符用于事件监听。
+- Lchown: 修改文件的所有者和组。
+- Link, Linkat: 创建硬链接。
+- Listen: 监听套接字上的连接请求。
+- Lstat: 获取文件的元数据。
+- Mkdir, Mkdirat: 创建目录。
+- Mkfifo, Mkfifoat: 创建命名管道。
+- Mknod, Mknodat: 创建文件节点。
+- Nanosleep: 休眠指定时间。
+- Open, Openat: 打开文件。
+- Pathconf: 获取文件系统相关的限制和选项。
+- pread, pwrite, read, Readlink, Readlinkat: 读取文件。
+- Rename, Renameat: 重命名文件。
+- Revoke: 撤销设备。
+- Rmdir: 删除目录。
+- Seek: 移动文件指针。
+- Select: 等待一组文件描述符的事件。
+- Setegid, Seteuid, Setgid, Setpgid, Setpriority, Setregid, Setreuid, Setuid: 设置进程的相关属性。
+- Setsid: 创建一个新的会话。
+- Settimeofday: 设置系统时间。
+- Stat, Statvfs1: 获取文件的元数据和文件系统的信息。
+- Symlink, Symlinkat: 创建一个符号链接。
+- Sync: 将文件系统的缓冲区刷新到磁盘。
+- Truncate: 截断文件到指定大小。
+- Umask: 设置文件模式创建屏蔽字。
+- Unlink, Unlinkat: 删除文件或目录。
+- Unmount: 卸载文件系统。
+- Write, mmap, munmap: 写入文件。
+- utimensat: 修改文件的访问和修改时间。
+- mremap: 重新映射内存。
+
+这些函数提供了与底层操作系统交互的能力，使Go语言的程序可以访问和控制操作系统的底层功能。
+

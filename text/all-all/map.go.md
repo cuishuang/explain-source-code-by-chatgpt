@@ -1,0 +1,12 @@
+# File: text/encoding/htmlindex/map.go
+
+在Go的text/encoding/html包中，map.go文件的作用是定义HTML实体编码的映射关系，以及处理编码和解码的相关函数。
+
+首先，该文件定义了一个名称为mibMap的映射变量。mibMap是一个map类型的变量，它将每个HTML实体的名称（如"amp"、"lt"等）映射到一个对应的MultiByte回调函数。这些回调函数用于将HTML实体编码转换为对应的Unicode字符。
+
+接下来，文件定义了encodings变量，它是一个[]encoding.Encoding类型的切片。encodings切片包含了一组encoding.Encoding接口的实现，这些实现用于提供HTML实体的编码和解码功能。每个encoding.Encoding实例都有一个名称、一个MultiByte回调函数以及一些用于编码和解码的内部数据。
+
+mibMap和encodings变量在init函数中进行初始化。在初始化过程中，首先会创建并填充mibMap变量，将HTML实体名称与对应的MultiByte回调函数进行映射。然后，根据需要，会创建并添加一些encoding.Encoding实例到encodings切片中。这些实例可以通过encoding.HTMLEntityHTMLEscape和encoding.HTMLEntityUnescape函数来访问，用于将HTML实体编码和解码为Unicode字符。
+
+总的来说，map.go文件的作用是提供HTML实体编码和解码的映射关系和相关函数，方便开发者在Go中处理HTML实体的编码和解码操作。
+

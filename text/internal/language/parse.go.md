@@ -1,0 +1,16 @@
+# File: text/language/parse.go
+
+text/language/parse.go是Go的text项目中的一个文件，它定义了语言标签的解析器和一些相关的函数和结构体。
+
+errInvalidArgument、errInvalidWeight、errTagListTooLarge、acceptFallback是在解析器中用于表示不同错误情况的变量：
+- errInvalidArgument用于表示无效的参数错误。
+- errInvalidWeight用于表示无效的权重错误。
+- errTagListTooLarge用于表示标签列表过大的错误。
+- acceptFallback用于表示在没有找到匹配的语言标签时，是否允许使用默认的语言标签作为回退。
+
+ValueError是一个结构体，用于表示错误的值。tagSort是一个结构体，用于按照特定规则对语言标签进行排序。
+
+Parse函数根据给定的字符串解析为语言标签。Compose函数用于将语言标签的表达形式合并为一个字符串。Update函数用于更新Accept-Language标头中的语言标签列表。ParseAcceptLanguage函数用于解析Accept-Language标头中的语言标签列表。consume函数用于从字符串中消费解析的标签。split函数用于将字符串按照特定的分隔符分割成多个子字符串。Len、Less、Swap函数是用于实现tagSort结构体的sort.Interface接口的方法，用于排序语言标签。
+
+以上是text/language/parse.go文件中的一些关键函数和结构体的作用介绍。
+

@@ -1,0 +1,12 @@
+# File: text/language/match.go
+
+在Go的text项目中，text/language/match.go文件的作用是实现语言标签匹配的相关逻辑。该文件中定义了一些常量、变量和函数，用于进行语言标签的匹配和比较。
+
+ErrMissingLikelyTagsData是一个错误变量，用于表示缺少可能的标签数据。notEquivalent是一个标识符常量，表示未等价。这些常量和变量在语言标签匹配过程中用于表示错误和状态。
+
+MatchOption是一个结构体，表示匹配的选项。Matcher是一个接口类型，定义了匹配器的方法。matcher是一个结构体，实现了Matcher接口。matchHeader是一个结构体，表示标头匹配的结果。haveTag是一个函数类型，表示具有标签的函数。bestMatch是一个结构体，表示最佳匹配的结果。这些结构体在匹配过程中用于保存和传递数据。
+
+PreferSameScript是一个常量，表示首选相同脚本。MatchStrings是一个函数，用于匹配字符串。Comprehends是一个函数，用于判断一个语言标签是否能理解另一个语言标签。NewMatcher是一个函数，用于创建一个新的匹配器。Match是一个方法，用于进行语言标签的匹配。makeHaveTag是一个函数，用于创建具有标签的函数。altScript是一个函数，用于获取备选脚本。addIfNew是一个方法，用于将标签添加到标头的备选语言集中。header是一个结构体，表示标头信息。toConf是一个方法，用于将标头信息转换为配置信息。newMatcher是一个函数，用于创建一个新的匹配器。getBest是一个函数，用于获取最佳匹配的结果。update是一个方法，用于更新匹配结果。isParadigmLocale是一个函数，用于判断是否为典型区域设置。regionGroupDist是一个函数，用于计算区域组的距离。equalsRest是一个方法，用于比较剩余的部分是否相等。isExactEquivalent是一个方法，用于判断是否为精确等效。init是一个初始化函数，用于初始化语言标签匹配的相关数据。
+
+总而言之，text/language/match.go文件中定义了一些常量、变量和函数，用于实现语言标签的匹配和比较逻辑，并提供了一些辅助方法和结构体，用于保存和处理匹配的结果和数据。
+

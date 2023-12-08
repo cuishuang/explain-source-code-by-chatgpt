@@ -1,0 +1,14 @@
+# File: /Users/fliter/go2023/sys/cpu/cpu_linux_arm64.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/cpu/cpu_linux_arm64.go文件是用于处理在Linux上运行的ARM64架构下的CPU相关信息的。
+
+该文件中的函数和变量有以下几个作用：
+
+1. linuxKernelCanEmulateCPUID函数：该函数用于判断Linux内核是否支持模拟CPUID指令。CPUID指令是用于查询CPU信息的指令，在某些情况下，特定的ARM64处理器可能不支持CPUID指令，而Linux内核可以通过模拟该指令来提供CPU信息。该函数会返回一个布尔值，表示内核是否支持模拟CPUID指令。
+
+2. doinit函数：该函数用于在程序启动时进行初始化操作。在该函数中，会先检查是否设置了CPUCacheLineSize（CPU缓存行大小）和CPUFeatureSet（CPU特性集）的全局变量，如果没有设置，则尝试从内核中读取相应信息进行设置。通过调用linuxKernelCanEmulateCPUID函数判断内核是否支持CPUID指令的模拟，并根据结构体中的CPUID字段是否为空来判断是否成功获取CPU信息。
+
+3. isSet函数：该函数用于判断全局变量是否已经设置。在该文件中，isSet主要用于判断CPUCacheLineSize和CPUFeatureSet变量是否已经被设置。
+
+这些函数和变量在整个文件中的功能是为了获取和处理ARM64架构下的CPU信息，其中的linuxKernelCanEmulateCPUID函数用于判断是否支持CPUID指令的模拟，doinit函数用于初始化相关变量，isSet函数用于判断全局变量是否已经设置。这些信息对于进行ARM64架构下的系统软件开发非常重要，可以通过这些信息优化程序的性能和功能。
+

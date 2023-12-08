@@ -1,0 +1,22 @@
+# File: /Users/fliter/go2023/sys/unix/ioctl_zos.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/ioctl_zos.go文件是用于实现在z/OS操作系统上执行ioctl系统调用的功能。
+
+ioctl系统调用是一种通用的设备控制接口，它允许应用程序通过使用特定的命令值来对设备进行控制。在Unix/Linux系统中，可以使用ioctl系统调用来对设备进行配置、管理和查询。
+
+在ioctl_zos.go文件中，定义了一系列与ioctl相关的函数，如IoctlSetInt，IoctlSetWinsize，IoctlSetTermios，IoctlGetInt，IoctlGetWinsize和IoctlGetTermios。这些函数的作用如下：
+
+1. IoctlSetInt函数用于设置设备的整数型参数。它接受一个文件描述符、一个ioctl命令值和一个整数值作为参数，并将这个整数值设置到设备上。
+
+2. IoctlSetWinsize函数用于设置设备的窗口大小。它接受一个文件描述符、一个ioctl命令值和一个winsize结构作为参数，并将这个winsize结构设置到设备上。winsize结构用于表示终端窗口的大小。
+
+3. IoctlSetTermios函数用于设置终端设备的参数。它接受一个文件描述符、一个ioctl命令值和一个termios结构作为参数，并将这个termios结构设置到设备上。termios结构用于表示终端设备的属性和配置。
+
+4. IoctlGetInt函数用于获取设备的整数型参数。它接受一个文件描述符和一个ioctl命令值作为参数，并返回设备上的整数值。
+
+5. IoctlGetWinsize函数用于获取设备的窗口大小。它接受一个文件描述符和一个ioctl命令值作为参数，并返回设备上的winsize结构。通过winsize结构，可以获取终端窗口的大小信息。
+
+6. IoctlGetTermios函数用于获取终端设备的参数。它接受一个文件描述符和一个ioctl命令值作为参数，并返回设备上的termios结构。通过termios结构，可以获取终端设备的属性和配置信息。
+
+这些函数通过调用底层的ioctl系统调用，实现了对设备的控制和查询操作。它们在sys/unix包中定义，可以通过导入该包来使用这些函数，从而实现对设备的底层操作。
+

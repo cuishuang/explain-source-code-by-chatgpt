@@ -1,0 +1,12 @@
+# File: /Users/fliter/go2023/sys/unix/zsyscall_aix_ppc64_gc.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/zsyscall_aix_ppc64_gc.go文件的作用是定义了运行在AIX（一个UNIX操作系统）上的系统调用函数。
+
+该文件中的libc_utimes变量是一个函数指针，指向libc库中的utimes函数。utimes函数用于更改指定文件的访问和修改时间。
+
+syscallFunc结构体是用于标识一个系统调用函数的结构。它包含一个函数指针，指向相应的系统调用函数。
+
+这个文件中的rawSyscall6、syscall6、callutimes、callutimensat、callgetcwd、callaccept、callgetdirent、callwait4、callioctl、callioctl_ptr、callfcntl、callfsync_range、callacct、callchdir、callchroot、callclose、calldup、callexit、callfaccessat、callfchdir、callfchmod、callfchmodat、callfchownat、callfdatasync、callgetpgid、callgetpgrp、callgetpid、callgetppid、callgetpriority、callgetrusage、callgetsid、callkill、callsyslog、callmkdir、callmkdirat、callmkfifo、callmknod、callmknodat、callnanosleep、callopen64、callopenat、callread、callreadlink、callrenameat、callsetdomainname、callsethostname、callsetpgid、callsetsid、callsettimeofday、callsetuid、callsetgid、callsetpriority、callstatx、callsync、calltimes、callumask、calluname、callunlink、callunlinkat、callustat、callwrite、calldup2、callposix_fadvise64、callfchown、callfstat、callfstatat、callfstatfs、callftruncate、callgetegid、callgeteuid、callgetgid、callgetuid、calllchown、calllisten、calllstat、callpause、callpread64、callpwrite64、callselect、callpselect、callsetregid、callsetreuid、callshutdown、callsplice、callstat、callstatfs、calltruncate、callbind、callconnect、callgetgroups、callsetgroups、callgetsockopt、callsetsockopt、callsocket、callsocketpair、callgetpeername、callgetsockname、callrecvfrom、callsendto、callnrecvmsg、callnsendmsg、callmunmap、callmadvise、callmprotect、callmlock、callmlockall、callmsync、callmunlock、callmunlockall、callpipe、callpoll、callgettimeofday、calltime、callutime、callgetsystemcfg、callumount、callgetrlimit、calllseek、callmmap64等这些函数，分别对应着AIX操作系统中的不同系统调用。这些函数用于完成各种底层操作，例如文件处理、网络通信、进程管理等。
+
+总结起来，/Users/fliter/go2023/sys/unix/zsyscall_aix_ppc64_gc.go文件定义并实现了Go语言在AIX操作系统上的系统调用函数，用于与底层系统交互和完成各种底层操作。
+

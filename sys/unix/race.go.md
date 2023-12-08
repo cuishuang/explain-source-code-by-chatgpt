@@ -1,0 +1,14 @@
+# File: /Users/fliter/go2023/sys/unix/race.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/race.go文件的作用是实现了Go语言在UNIX系统平台上涉及竞争检测（race detection）的相关功能。
+
+raceAcquire函数用于通知竞争检测器当前goroutine正在获取锁，防止其他goroutine对同一锁的使用造成竞争条件。它的实现使用了race.Acquire函数来调度竞争仪进行相应的记录。
+
+raceReleaseMerge函数用于通知竞争检测器当前goroutine正在释放锁，同样避免竞争条件的发生。它的实现使用了race.ReleaseMerge函数，与raceAcquire函数相反，用于通知竞争仪解除当前goroutine对锁的拥有权。
+
+raceReadRange函数用于通知竞争检测器当前goroutine正在读取指定范围的内存，该函数用于检测并记录读取共享数据的情况。
+
+raceWriteRange函数用于通知竞争检测器当前goroutine正在写入指定范围的内存，用于检测并记录写入共享数据的情况。
+
+上述这些函数的实现都依赖于race包中的相应函数，race包是Go语言竞争检测的核心模块，它提供了一组函数用于在运行时检测并记录goroutine之间的竞争条件，以及对这些条件进行报告和分析。通过在代码中插入race包相关函数的调用，可以在运行时对程序进行竞争检测，以帮助开发者尽早发现并解决潜在的竞争问题。
+

@@ -1,0 +1,12 @@
+# File: text/encoding/charmap/charmap.go
+
+text/encoding/charmap/charmap.go文件是Go语言中text包下的子包之一，它提供了针对字符映射编码（charmap encoding）的支持。
+
+在该文件中，ISO8859_6E、ISO8859_6I、ISO8859_8E、ISO8859_8I、iso8859_6E、iso8859_6I、iso8859_8E、iso8859_8I、All等变量是支持的字符映射编码的常量。这些常量用于指定特定字符集编码的名称，比如ISO 8859-6E是阿拉伯字符集（Arabic），ISO 8859-8I是希伯来字符集（Hebrew），iso8859_6E是ISO 8859-6E的缩写形式，All常量用于将所有支持的字符集编码一起导出。
+
+utf8Enc结构体是用于编码UTF-8字符集的编码器。Charmap结构体表示一个字符映射编码（charmap encoding），它包含了该字符编码所需的信息。charmapDecoder和charmapEncoder是用于字符映射编码的解码器和编码器结构体，它们实现了Decoder和Encoder接口。
+
+NewDecoder函数用于创建一个新的字符映射解码器，该解码器可以将字符映射编码的输入流转换为Go语言中的字符串。NewEncoder函数用于创建一个新的字符映射编码器，该编码器可以将Go语言中的字符串转换为字符映射编码的输出流。
+
+String函数用于根据指定的字符集编码名称创建一个字符串编码器。ID函数返回特定字符集编码的唯一标识符，用于在程序中识别字符编码。Transform函数用于将字符映射编码的输入流转换为字符映射编码的输出流。DecodeByte函数用于将byte数组解码为对应字符集编码的字符串。EncodeRune函数用于将字符编码为对应字符集编码的字节序列。这些函数组合起来提供了字符映射编码的转换和操作能力。
+

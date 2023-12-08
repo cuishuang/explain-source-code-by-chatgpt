@@ -1,0 +1,12 @@
+# File: text/internal/number/roundingmode_string.go
+
+text/internal/number/roundingmode_string.go文件的作用是提供一个将字符串表示的舍入模式转换为对应的_RoundingMode常量值，以及将_RoundingMode常量值转换为字符串表示的操作。
+
+_RoundingMode_index是一个切片，存储了_RoundingMode的字符串表示。
+
+String函数用于将_RoundingMode常量值转换为字符串表示，主要通过将_RoundingMode常量值作为索引查找_RoundingMode_index切片获取对应的字符串表示。
+
+函数_是一个导出的函数，用于将字符串表示的舍入模式转换为对应的_RoundingMode常量值，主要通过将字符串作为key查找_RoundingMode_index切片获取对应的_RoundingMode常量值。
+
+总结起来，这个文件主要提供了字符串和_RoundingMode常量值之间的转换功能。_RoundingMode_index变量存储了_RoundingMode的字符串表示，String函数将_RoundingMode常量值转换为字符串表示，_函数将字符串表示的舍入模式转换为对应的_RoundingMode常量值。
+

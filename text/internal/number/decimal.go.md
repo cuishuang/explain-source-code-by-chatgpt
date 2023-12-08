@@ -1,0 +1,12 @@
+# File: text/internal/number/decimal.go
+
+text/internal/number/decimal.go文件是Go语言text项目中的一个文件，其作用是提供了对十进制数进行转换和处理的功能。
+
+文件中的scales变量是一个字符串切片，用于定义在进行十进制数转换时使用的各个尺度（scale），例如"千"、"百万"等，用于转换大数值为人类可读的形式。
+
+RoundingMode结构体是一个表示舍入方式的枚举类型，包含了四种不同的舍入方式：RoundHalfEven、RoundHalfUp、RoundHalfDown和RoundHalfAwayFromZero。Decimal是一个十进制数的结构体，包含了数字、小数等信息。digits结构体是一个用于存储十进制数各个位上的数字的数组，用于进行数值的存取和转换。Digits结构体则用于设定十进制数的精度和舍入方式。Converter结构体是一个转换器，用于将十进制数转换为字符串。
+
+NumFracDigits函数用于获取十进制数的小数位数。normalize函数用于将十进制数进行规范化，排除前导零和末尾无效的零。clear函数用于清零十进制数的各个位数。String函数用于将十进制数转换为字符串。appendDigits函数用于向十进制数的digits数组追加数字。appendZeros函数用于向十进制数中追加零位。round函数用于进行舍入操作。roundFloat函数用于对浮点数进行舍入运算。roundUp函数用于对十进制数进行向上舍入。roundDown函数用于对十进制数进行向下舍入。trim函数用于对十进制数进行修剪，移除前导零。Convert函数用于将字符串转换为十进制数。ConvertInt函数用于将整数转换为十进制数。ConvertFloat函数用于将浮点数转换为十进制数。fillIntDigits函数用于将整数的各个位数填充到digits数组中。init函数用于初始化十进制数的各个位数。
+
+总而言之，decimal.go文件提供了对十进制数进行转换和处理的功能，包含了各种转换、舍入和处理函数，以及一些用于存储和转换数字的结构体。
+

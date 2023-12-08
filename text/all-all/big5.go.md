@@ -1,0 +1,16 @@
+# File: text/encoding/traditionalchinese/big5.go
+
+在Go的text项目中，text/encoding/traditionalchinese/big5.go文件的作用是定义了与繁体中文编码（Big5）相关的编码器和解码器。
+
+- All变量是一个繁体中文编码的编码器和解码器的集合。它是一个map，键是字符集名称，值是相应的编码器和解码器。在big5.go文件中，它只包含了对应Big5编码的编码器和解码器。
+
+- Big5变量是对Big5编码的编码器。它是big5Encoder结构体类型的实例，用于将Unicode文本编码为Big5。
+
+- big5变量是对Big5编码的解码器。它是big5Decoder结构体类型的实例，用于将Big5编码解码为Unicode文本。
+
+big5Encoder结构体使用了text.Encoding接口，实现了将Unicode文本编码为Big5编码的功能。它包含一些必要的字段，如编码器的名称、编码器的索引以及编码映射等。big5Decoder结构体也是类似的，但是它实现了将Big5编码解码为Unicode文本的功能。
+
+Transform函数是编码器和解码器必须实现的方法，用于将输入的字节序列转换为对应的Unicode文本，或者将Unicode文本转换为对应的字节序列。init函数在编译时自动调用，用于将编码器和解码器注册到All变量中。
+
+通过这些定义，我们可以使用big5.go文件中的编码器和解码器来进行繁体中文的编码和解码操作。例如，可以使用big5Encoder将Unicode文本编码为Big5，或者使用big5Decoder将Big5编码解码为Unicode文本。
+

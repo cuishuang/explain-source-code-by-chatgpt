@@ -1,0 +1,12 @@
+# File: /Users/fliter/go2023/sys/cpu/cpu_linux_s390x.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/cpu/cpu_linux_s390x.go文件的作用是实现了针对Linux平台下s390x架构的CPU特定功能。
+
+该文件定义了一些常量和变量，以及一些与CPU相关的函数。其中，initS390Xbase函数是该文件的初始化函数，该函数会在包被导入时自动调用。它会初始化一些全局变量，例如cpu.HWCAP和cpu.HWCAP2等，这些全局变量用于标识CPU的硬件功能。
+
+initS390Xbase函数还会调用其他实现了针对s390x架构的特定功能的函数，例如detectFeatures函数和setupAuxv函数等。这些函数会通过系统调用和读取特定文件等方式，获取并初始化一些与CPU功能相关的信息，例如支持的指令集、缓存大小等。
+
+/sys/cpu/cpu_linux_s390x.go文件中还定义了一些用于检测和判断CPU特性的函数，例如hasVX函数和hasZ196Functions函数等。这些函数会根据读取到的CPU信息和硬件功能标识，判断当前CPU是否支持特定的硬件特性和指令集。
+
+总之，/Users/fliter/go2023/sys/cpu/cpu_linux_s390x.go文件是Go语言sys包中用于实现针对Linux平台下s390x架构的CPU特定功能的文件。它通过读取系统文件、执行系统调用等方式，获取并初始化了与CPU硬件功能相关的信息，并提供了一些函数用于检测和判断CPU的特性。
+

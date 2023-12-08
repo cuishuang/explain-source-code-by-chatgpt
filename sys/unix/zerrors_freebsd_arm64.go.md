@@ -1,0 +1,10 @@
+# File: /Users/fliter/go2023/sys/unix/zerrors_freebsd_arm64.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/zerrors_freebsd_arm64.go文件的作用是定义了FreeBSD操作系统上运行的ARM64架构下的系统错误信息和信号信息。
+
+该文件中定义了一个struct类型的errorList，它包含了一系列与系统错误相关的信息，比如错误码、错误名称和错误描述等。errorList变量的作用是提供一个错误码到错误名称的映射，以及提供从错误名称到错误码的反向映射。这样，使用者可以根据错误码或错误名称来获取具体的错误信息。
+
+另外，该文件还定义了一个struct类型的signalList，它包含了一系列与信号相关的信息，比如信号编号、信号名称和信号描述等。signalList变量的作用是提供一个信号编号到信号名称的映射，以及提供从信号名称到信号编号的反向映射。这样，使用者可以根据信号编号或信号名称来获取具体的信号信息。
+
+总而言之，/Users/fliter/go2023/sys/unix/zerrors_freebsd_arm64.go文件在Go语言的sys项目中扮演了定义FreeBSD操作系统上运行的ARM64架构下的系统错误信息和信号信息的角色，其中errorList和signalList变量分别提供了错误信息和信号信息的映射关系。
+

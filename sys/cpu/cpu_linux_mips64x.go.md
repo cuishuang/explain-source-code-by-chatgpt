@@ -1,0 +1,12 @@
+# File: /Users/fliter/go2023/sys/cpu/cpu_linux_mips64x.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/cpu/cpu_linux_mips64x.go文件的作用是提供与Linux下MIPS64X架构相关的CPU信息和功能。
+
+该文件中包含了一些函数，其中doinit函数用于初始化CPU信息，isSet函数用于检查是否设置了某些CPU特性。
+
+具体来说，doinit函数在初始化阶段被调用，它会通过调用doinit函数来初始化CPU相关的全局变量和特性信息。该函数内部会调用其他的特定CPU架构的初始化函数，以便获取和设置底层硬件的相关信息。
+
+isSet函数用于检查MIPS64X架构下的特定CPU特性是否被设置。它会检查一些根据底层硬件能力设置的全局变量，如果这些变量已经设置，则返回true，否则返回false。这些变量通常会在初始化阶段被设置，以便在后续代码中根据具体硬件能力进行条件判断和优化。
+
+总之，/Users/fliter/go2023/sys/cpu/cpu_linux_mips64x.go文件中的doinit函数和isSet函数是用于初始化和检查Linux下MIPS64X架构的CPU信息和特性的。
+

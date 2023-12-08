@@ -1,0 +1,12 @@
+# File: /Users/fliter/go2023/sys/unix/zsysnum_linux_mips64.go
+
+该文件的作用是为Go语言的sys项目提供MIPS64架构的Linux系统调用号码。
+
+在Go语言中，系统调用号码是操作系统提供的一组接口，在应用程序中直接调用这些接口可以访问操作系统底层的功能。不同的操作系统和架构上的系统调用号码可能不同，因此Go语言的sys项目为每个操作系统和架构都提供了一个对应的系统调用号码文件。
+
+在/sys/unix目录下，每个操作系统和架构都有一个对应的文件，保存了该操作系统和架构上的系统调用号码信息。在这个具体的文件中，定义了一个名为rawSysnum_linux_mips64的数组，数组中每个元素对应一个系统调用，包含了系统调用的名称和调用号码。
+
+对于MIPS64架构的Linux系统，/Users/fliter/go2023/sys/unix/zsysnum_linux_mips64.go文件保存了系统调用号码的信息。通过引入该文件，可以在Go语言中直接使用这些系统调用号码，调用对应的系统调用接口。这样可以方便地编写操作系统相关的代码。
+
+总之，/Users/fliter/go2023/sys/unix/zsysnum_linux_mips64.go文件在Go语言的sys项目中的作用是提供MIPS64架构的Linux系统调用号码信息，以供开发者在Go语言程序中使用。
+

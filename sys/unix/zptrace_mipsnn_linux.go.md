@@ -1,0 +1,14 @@
+# File: /Users/fliter/go2023/sys/unix/zptrace_mipsnn_linux.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/unix/zptrace_mipsnn_linux.go文件是针对MIPS架构的Linux系统的ptrace调试功能的实现。
+
+Ptrace是一个系统调用，允许一个进程观察和控制另一个进程的执行。在Linux系统上，通过ptrace可以实现进程的跟踪、断点设置、读取/修改寄存器状态等功能。
+
+zptrace_mipsnn_linux.go文件中定义了PtraceRegsMips和PtraceRegsMips64两个结构体，它们分别表示MIPS和MIPS64架构的寄存器状态。这些结构体的作用是保存和传递进程的寄存器状态，在调试过程中使用。
+
+PtraceGetRegsMips函数用于从目标进程中获取MIPS架构的寄存器状态，并将其存储在指定的PtraceRegsMips结构体中。PtraceSetRegsMips函数用于将指定的寄存器状态设置到目标进程中。
+
+PtraceGetRegsMips64和PtraceSetRegsMips64函数与上述相似，不同之处在于它们是针对MIPS64架构的寄存器状态的获取和设置函数。
+
+这些函数的作用在于实现了对于MIPS架构的进程寄存器状态的读取和设置，通过这些函数，可以实现对于目标进程的寄存器状态的观察、修改和控制，从而实现调试和分析的功能。
+

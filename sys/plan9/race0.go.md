@@ -1,0 +1,22 @@
+# File: /Users/fliter/go2023/sys/plan9/race0.go
+
+在Go语言的sys项目中，/Users/fliter/go2023/sys/plan9/race0.go文件的作用是实现了对于Plan 9系统的竞争检测。Plan 9是一个分布式操作系统，race0.go中的代码用于在Plan 9上实现Go语言中的竞争检测机制。
+
+该文件中定义了一些用于竞争检测的函数，包括raceAcquire、raceReleaseMerge、raceReadRange和raceWriteRange。
+
+1. raceAcquire
+raceAcquire函数用于标记一个互斥锁的获取操作。在多线程环境中，多个线程可能会竞争同一个互斥锁。当一个线程成功获取到互斥锁时，需要通过调用raceAcquire来通知竞争检测工具。
+
+2. raceReleaseMerge
+raceReleaseMerge函数用于标记一个互斥锁的释放操作。当一个线程释放了一个互斥锁时，需要通过调用raceReleaseMerge来通知竞争检测工具。
+
+3. raceReadRange
+raceReadRange函数用于标记对于内存区域的读取操作。在多线程环境中，多个线程可能会同时读取同一块内存区域。当一个线程进行对内存区域的读取操作时，需要通过调用raceReadRange来通知竞争检测工具。
+
+4. raceWriteRange
+raceWriteRange函数用于标记对于内存区域的写入操作。在多线程环境中，多个线程可能会同时写入同一块内存区域。当一个线程进行对内存区域的写入操作时，需要通过调用raceWriteRange来通知竞争检测工具。
+
+这些函数的作用是在运行时对线程间的竞争进行检测和记录。通过调用这些函数，可以在运行时捕获并记录与竞争相关的操作，帮助开发人员定位和修复潜在的线程安全问题。
+
+需要注意的是，这些函数在普通的Go程序中并不会被直接调用。它们是由Go语言的运行时系统在特定情况下自动调用的，以实现竞争检测的功能。对于普通的开发者来说，了解这些函数的作用和机制有助于理解和避免并发编程中的竞争问题。
+
