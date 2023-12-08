@@ -1,0 +1,10 @@
+# File: excelize/chart.go
+
+在Go生态excelize项目中，chart.go文件是用于处理Excel中的图表相关操作的文件。
+
+chartView3DRotX、chartView3DRotY、plotAreaChartOverlap、chartView3DPerspective、chartView3DRAngAx、chartLegendPosition、chartValAxNumFmtFormatCode、chartValAxCrossBetween、plotAreaChartGrouping、plotAreaChartBarDir、orientation、catAxPos、valAxPos、valTickLblPos这些变量分别用于设置图表的3D旋转角度、图表区域的重叠方式、3D视角、图表角度轴的角度、图例的位置、数值轴格式、数值轴的交叉方式、图表区域的分组方式、柱形图的方向、图表的方向、分类轴的位置、数值轴的位置、数值标签的位置。
+
+ChartType结构体用于表示图表的类型，ChartLineType结构体用于表示线条的类型。
+
+parseChartOptions函数用于解析图表的选项，parseTitle函数用于解析标题，AddChart函数用于添加图表，AddChartSheet函数用于在工作簿中添加一个包含图表的工作表，getChartOptions函数用于获取图表的选项，DeleteChart函数用于删除图表，countCharts函数用于计算工作簿中的图表数量，ptToEMUs函数用于将像素转换为EMUs单位。
+
