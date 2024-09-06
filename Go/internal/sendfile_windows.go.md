@@ -1,0 +1,30 @@
+# File: sendfile_windows.go
+
+sendfile_windows.go是Go语言标准库中内置的一个文件，其作用是在Windows平台上使用sendfile系统调用来优化网络传输的性能。
+
+sendfile系统调用是一种特殊的I/O操作，用于将一个文件的内容传输到另一个文件，而无需通过内核将数据从源文件缓冲区复制到用户空间缓冲区，再从用户空间缓冲区复制到目标文件缓冲区，从而实现了零拷贝传输数据的功能。
+
+sendfile_windows.go实现了sendfile系统调用在Windows平台下的绑定和操作，使得Go程序可以利用sendfile系统调用来优化网络传输的性能。具体实现方式包括：
+
+1. 使用系统函数GetQueuedCompletionStatusEx和CreateIoCompletionPort来创建和管理I/O请求队列和完成端口，以实现异步I/O操作。
+
+2. 使用系统函数CreateFile和CreateFileMapping来创建文件句柄和内存映射文件，以实现文件的读取和写入操作。
+
+3. 借助系统函数ReadFile和WriteFile来实现文件的读取和写入操作，通过传递文件句柄和内存映射文件对象的方式来使用sendfile系统调用来实现零拷贝传输。
+
+总之，sendfile_windows.go扩展了Go语言在Windows平台上的网络传输能力，提高了网络传输性能的同时减少了CPU和内存的负载。
+
+## Functions:
+
+### SendFile
+
+SendFile是一个在Windows平台上用于发送文件的函数。其作用是将指定的文件通过一个已连接的套接字（socket）发送出去。
+
+该函数使用了Windows系统底层的sendfile函数，它可以在文件和网络套接字之间进行零拷贝（Zero-Copy）的数据传输。也就是说，文件的数据不需要先被读入内存，再拷贝到网络缓冲区，而是直接从文件传输到网络缓冲区，这样可以节省CPU和内存的开销，提高传输效率。
+
+SendFile函数的参数包括一个已打开的文件的句柄、一个套接字、文件偏移量、要发送的数据长度等。函数会自动根据指定的偏移量和长度从文件中读取数据，然后使用sendfile函数将数据发送到套接字。函数返回值为发送出去的字节数，如果发送失败则返回一个错误。
+
+在Go语言中，SendFile函数被用于在http包中实现了HTTP/1.1的Range请求功能，这个功能可以实现断点续传、文件分块下载等。同时，SendFile函数也可以被用于实现其他的高效的数据传输应用，例如P2P文件共享、视频流媒体等。
+
+
+

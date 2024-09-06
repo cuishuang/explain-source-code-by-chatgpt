@@ -1,0 +1,10 @@
+# File: at_sysnum_newfstatat_linux.go
+
+该文件是Go语言内部包（internal）中的文件，用于Linux操作系统下的at_sysnum_newfstatat系统调用。
+
+at_sysnum_newfstatat系统调用是新的fstatat系统调用的替代版本。当在文件系统中进行文件检查时，该系统调用可以避免竞争条件和安全性问题。at_sysnum_newfstatat_linux.go文件提供了对该系统调用的支持，包括参数的设置和返回值的处理。
+
+该文件中包含了at_sysnum_newfstatat_linux函数的实现，用于在Linux系统上调用at_sysnum_newfstatat系统调用。该函数的参数包括一个文件描述符fd，一个路径path和一个标志flag。该函数返回一个结构体，其中包含了文件的信息，例如文件大小、修改时间、访问时间等。在调用该函数前，您需要定义一个C语言结构体来保存返回的值。
+
+在Go语言中，使用at_sysnum_newfstatat_linux.go文件的主要目的是使用系统调用对文件进行操作时，提高文件系统的安全性和可靠性。例如，在使用系统调用检查文件属性时，避免了同时对文件进行写操作的情况，从而避免了竞争条件和安全性问题。
+

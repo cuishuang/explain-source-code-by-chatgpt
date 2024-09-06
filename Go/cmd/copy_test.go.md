@@ -1,0 +1,8 @@
+# File: copy_test.go
+
+copy_test.go文件是Golang中标准库cmd包中的一个测试文件，它是为了测试拷贝操作(copy)而创建的。
+
+具体来说，该文件包含了一系列测试函数，这些测试函数使用了Golang中内置的copy函数，对copy函数在不同情况下的实际效果进行了验证。例如，通过测试函数TestCopy_equalSize可以验证两个大小相等的slice之间进行拷贝操作时能否正确工作；通过测试函数TestCopy_destShorter也可以验证目标slice比源slice更短的情况下copy函数的行为是否正确等等。
+
+这些测试函数的实现既包括了验证正确情况下的测试，也包括了一些极端情况下的测试。通过对copy_test.go文件中的这些测试函数进行测试，我们可以非常直观地了解到copy函数的使用场景及其注意事项，从而加深对Golang的理解和应用。
+

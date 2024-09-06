@@ -1,0 +1,8 @@
+# File: exp_pagetrace_off.go
+
+exp_pagetrace_off.go文件是Go语言内部包（internal）中的一个文件，它的作用是关闭页面跟踪（Page Trace）。
+
+页面跟踪是Go语言的一种性能分析工具，可以用来记录函数调用、内存分配和垃圾回收等信息。但是，它会大大影响应用程序的性能并增加资源占用，因此在实际运行中不建议一直开启。
+
+exp_pagetrace_off.go文件中定义了一个函数uninitPageTrace，在函数中使用runtime包提供的SetBlockProfileRate方法将页面跟踪的查询阈值设置为0，从而停止记录页面跟踪信息。这个函数在内部包中的使用场景主要是提供给需要关闭页面跟踪的应用程序使用，例如一些在性能要求较高的场景中需要优化的应用程序。
+

@@ -1,0 +1,10 @@
+# File: exp_preemptibleloops_on.go
+
+exp_preemptibleloops_on.go是Go语言运行时包中的一个文件，主要作用是启用Go程序中预占用goroutine的实验特性。
+
+在Go语言中，预占用goroutine指的是在一个goroutine中执行一段时间后强制停止这个goroutine，转而执行其他的goroutine，这种机制被称为“抢占”（preemption）。预占用特性来源于操作系统的调度机制，可以统一地处理运行时中所有的goroutine，从而提高程序的可靠性和稳定性。
+
+exp_preemptibleloops_on.go的作用是在运行时启用这种预占用goroutine的特性。通过使用这个文件中的一些实验性的API，开发者可以在编写Go程序时更加灵活地使用goroutine，提高程序的运行效率和出错率。
+
+需要注意的是，由于这个特性还处于实验阶段，使用时需要谨慎操作，并进行充分的测试和验证。同时，这个特性可能会对程序的性能造成影响，需要在实际应用中进行权衡。
+

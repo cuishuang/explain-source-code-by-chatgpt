@@ -1,0 +1,40 @@
+# File: recorder_test.go
+
+recorder_test.go文件是Go语言标准库中网络包（net）的一个测试文件，主要作用是测试recorder类型的功能和行为。recorder类型是net包中的一个内部类型，用于记录网络连接的读取和写入过程。
+
+在这个文件中，使用了go test命令进行测试，其中包括对recorder类型中方法的单元测试和对整个recorder类型的集成测试。单元测试主要是针对每个方法的正确性进行测试，包括Write，Read，Close等方法的测试。集成测试则会将多个方法进行组合，测试recorder对象是否能够正确地处理网络连接读写。
+
+通过对recorder类型进行测试，可以保证网络包在不同平台和环境下的兼容性和可靠性，确保网络连接能够正常工作。测试结果可用于验证网络包的正确性，减少编程错误和Bug，提高网络应用的稳定性和性能。
+
+## Functions:
+
+### TestRecorder
+
+TestRecorder函数是一个单元测试函数，作用是对于net包中的recorder.go文件中的Recorder类型进行单元测试，即测试Recorder类型在记录http请求和响应时的功能是否正确。具体来说，TestRecorder函数会创建一个模拟的http.Request对象和http.ResponseWriter对象，并且将它们作为参数传入Recorder类型的实例中，然后通过调用Recorder类型的Write方法以及实现了http.Hijacker接口的Conn类型的Hijack方法，分别模拟发送http请求和接收http响应，并且通过断言判断Recorder类型在记录http请求和响应时的输出是否与预期一致。这个单元测试函数的目的是确保Recorder类型在实现record类型的所有功能时都能够正确记录http请求和响应，并且输出符合预期。
+
+
+
+### TestParseContentLength
+
+TestParseContentLength函数是一个单元测试函数，在测试过程中，它通过传入各种不同的Content-Length值，来确保ParseContentLength函数可以正确地解析Content-Length值并返回正确的结果。
+
+具体来说，TestParseContentLength函数分别测试了以下情况：
+
+1. 如果Content-Length值是一个整数字符串，那么ParseContentLength函数应该返回该整数。
+2. 如果Content-Length的值是一个16进制字符串，那么ParseContentLength函数应该将其转换为十进制整数并返回。
+3. 如果Content-Length的值无法解析，即不是整数或16进制字符串，那么ParseContentLength函数应该返回一个错误。
+
+通过上述测试，TestParseContentLength函数可以验证ParseContentLength函数的正确性，并确保在不同的传入数据情况下，函数可以正常工作。
+
+
+
+### TestRecorderPanicsOnNonXXXStatusCode
+
+TestRecorderPanicsOnNonXXXStatusCode是一个功能测试函数，用于测试Recorder类型的PanicOnNonXXXStatusCode方法。测试目的是确保Recorder在记录HTTP响应时，如果响应的状态码不属于1xx、2xx或3xx，会抛出恐慌。
+
+该测试函数首先创建一个虚拟HTTP请求，并使用testRecorder作为其响应记录器。接着，它发送一个设置了非2xx或3xx状态码的HTTP响应，再次使用testRecorder记录该响应。然后，它检查panic的状态码是否与设置的响应状态码相同（即，测试Recorder是否抛出了预期的Panic）。最后，它检查记录器内的缓冲区是否包含了响应的标头和正文。
+
+此测试函数的目的是确保Recorder在处理HTTP响应时，能够正确处理返回状态码不是1xx、2xx或3xx的情况，并在这些情况下抛出合理的恐慌。它也确保记录器将响应标头和正文正确地保存在其内部缓冲区中，以便在之后进行进一步处理。
+
+
+

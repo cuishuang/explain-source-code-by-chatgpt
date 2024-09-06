@@ -1,0 +1,10 @@
+# File: plist.go
+
+plist.go是Go语言编译器中的一个文件，用于生成MacOS和iOS平台下的Property List文件（.plist）。
+
+Property List文件是一种XML格式的文件，用于存储和传输由一个软件或系统组件生成、消费或维护的配置数据、状态数据和其他数据。在MacOS和iOS平台下，Property List文件被广泛用于存储、传输和共享各种类型的数据，包括应用程序设置、系统配置、邮件账户信息、通讯录等。
+
+Go语言编译器中的plist.go文件利用系统库Funcs通过一个简单的API暴露了生成Property List文件的功能。它提供了一个接口，让开发者能够将任意类型的Go语言数据结构序列化为Property List文件，并写入到磁盘上的文件或输出到标准输出流中。此外，plist.go文件还支持读取和解析Property List文件，将其反序列化为Go语言的数据结构，从而使得开发者可以方便地在代码中操作和管理Property List文件。
+
+总之，plist.go文件为MacOS和iOS平台下的应用程序开发者提供了一个方便而简单的方式来生成、读取和处理Property List文件，从而使得开发者能够更加高效地管理和传输应用程序所需要的各种数据。
+

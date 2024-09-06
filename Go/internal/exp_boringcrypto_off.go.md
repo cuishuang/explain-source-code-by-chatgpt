@@ -1,0 +1,10 @@
+# File: exp_boringcrypto_off.go
+
+这个文件是Go语言标准库中的一个实验性的包，名称为"exp_boringcrypto"，旨在提供在低延迟场景下的更快速度和安全性的密码学原语。文件名称为"exp_boringcrypto_off.go"，该文件的作用是在编译时禁用"exp_boringcrypto"包的相关功能，使其不会被编译进可执行文件中。
+
+这个包是由Google开发的，基于其使用的加密库BoringSSL。BoringSSL是由OpenSSL衍生出来的一个库，它专注于保持代码清洁、小巧，并且容易进行审核和验证。因此，exp_boringcrypto包是一种尝试在Go语言中使用BoringSSL库的实验性方法。
+
+exp_boringcrypto包中提供了一些加密算法的实现，例如SHA-256哈希、AES加密和HMAC哈希等。使用exp_boringcrypto可以为需要快速加密的网络应用程序提供更高效的加密原语。但是，由于这个包是实验性的，因此可能不会经过充分的测试和审核，因此使用此包需要小心谨慎。
+
+exp_boringcrypto_off.go文件是一个用于"exp_boringcrypto"包的编译开关。在一些情况下，可能需要通过在编译时禁用exp_boringcrypto来避免一些与其他库冲突的问题。因此，通过包括exp_boringcrypto_off.go文件，并设置GOOS=nacl、GOARCH=amd64p32等编译选项，可以禁用exp_boringcrypto的相关功能，从而避免这些冲突问题。
+

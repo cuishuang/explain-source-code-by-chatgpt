@@ -1,0 +1,8 @@
+# File: zsysnum_freebsd_arm64.go
+
+zsysnum_freebsd_arm64.go是Go语言标准库中的一个源代码文件，位于go/src/cmd/sys/internal/syscall/zsysnum_freebsd_arm64.go路径下，其主要作用是为FreeBSD操作系统上的ARM64架构提供系统调用号码常量。
+
+在FreeBSD操作系统上，系统调用号码是用于识别操作系统中可供使用的不同内核服务和功能的数字。当应用程序需要执行系统级任务时，可以使用系统调用来请求内核执行这些任务。
+
+zsysnum_freebsd_arm64.go文件中定义了FreeBSD操作系统上可以使用的各种系统调用号码常量，这些常量会在应用程序中使用到。该文件属于Go语言标准库的一部分，可以帮助Go语言程序员更方便地使用系统调用来访问操作系统内核。因此，该文件对于Go语言在FreeBSD操作系统上的应用开发非常重要。
+

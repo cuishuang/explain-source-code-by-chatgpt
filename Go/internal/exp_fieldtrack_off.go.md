@@ -1,0 +1,12 @@
+# File: exp_fieldtrack_off.go
+
+exp_fieldtrack_off.go是Go语言中内部的一个文件，用于实现字段跟踪的功能。在Go语言中，可以通过反射机制访问和修改结构体中的字段，但是这会带来一定的性能开销，因此在某些情况下需要关闭这个功能。
+
+该文件中定义的函数可以禁用或启用该字段跟踪功能，从而提高反射的性能。具体来说，该文件定义了两个函数：enableFieldTrack和disableFieldTrack，用于分别启用和禁用字段跟踪。
+
+enableFieldTrack函数会将一个全局变量expFieldTrackOff设置为false，并且调用一个特殊的函数initValueSizeTable，该函数会初始化一个值类型大小的表格，可以用于提高值类型的反射性能。
+
+disableFieldTrack函数则会将该全局变量设置为true，并将该表格设置为nil。这样可以禁用字段跟踪功能，以提高性能。
+
+总之，exp_fieldtrack_off.go文件的作用是通过控制一个全局变量和一个特殊的函数来实现禁用或启用Go语言中结构体字段跟踪的功能，从而提高反射的性能。
+

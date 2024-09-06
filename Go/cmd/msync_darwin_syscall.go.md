@@ -1,0 +1,10 @@
+# File: msync_darwin_syscall.go
+
+msync_darwin_syscall.go是Go语言标准库中cmd包下的一个文件，该文件是针对Darwin系统上的系统调用msync进行了封装。
+
+在Darwin系统中，msync()是一个同步内存映射文件到存储器中的系统调用。这个调用可以用来确保对内存映射文件所做的任何修改都被写回到磁盘中，从而保证文件的一致性和稳定性。
+
+msync_darwin_syscall.go文件实现了在Go程序中调用Darwin系统上的msync()系统调用的接口。它通过调用syscall包中的相应函数来实现系统调用。
+
+这个文件的主要作用是提供了一个方便的接口，使得开发者可以在Go语言中使用msync()系统调用来同步内存映射文件到存储器中，从而保证文件的完整性和可靠性。
+

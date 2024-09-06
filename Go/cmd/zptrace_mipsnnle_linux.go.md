@@ -1,0 +1,10 @@
+# File: zptrace_mipsnnle_linux.go
+
+zptrace_mipsnnle_linux.go是Go语言标准库中cmd包的一部分，其作用是实现MIPS架构平台上的非正常的LE模式下的ZPtrace支持。
+
+ZPtrace是一种跟踪工具，通常用于调试和优化代码，其使用技术类似于strace。ZPtrace的原理是通过修改系统调用表，以捕获进程执行的系统调用，从而实现对系统调用的跟踪。在Linux系统中，ZPtrace是使用ptrace系统调用实现的。
+
+然而，对于某些MIPS架构的处理器，非正常的LE（little-endian）模式下，ptrace无法正确处理，因此需要使用特殊的ZPtrace实现。zptrace_mipsnnle_linux.go就是这种特殊的实现，通过使用对比于LE模式下的不同指令集和系统调用表，来实现对系统调用的跟踪。
+
+总之，zptrace_mipsnnle_linux.go是一种针对某些MIPS架构处理器非正常的LE模式下的ZPtrace实现。它的主要作用是为开发人员和系统管理员提供一种工具，以便跟踪系统调用，定位和解决问题。
+

@@ -1,0 +1,22 @@
+# File: critical.go
+
+critical.go文件的作用是提供了一个在多个goroutine之间共享状态的示例。在这个文件中，定义了一个共享状态的变量counter，同时定义了一个Mutex类型的变量mutex用来控制该变量的访问。
+
+在该文件中，还定义了两个函数increment和decrement。这两个函数都使用了mutex来保证在任何时候只有一个goroutine能够访问counter变量。increment函数将counter变量加1，而decrement函数将counter变量减1。
+
+同时，该文件中还定义了一个main函数，其中创建了10个goroutine，并让这些goroutine对counter变量执行增加或减少操作。
+
+通过使用Mutex类型的变量来控制对共享状态的访问，可以避免多个goroutine同时修改共享状态而导致出现不一致的情况。因此，critical.go文件提供了一种可行的多线程编程方式，通过细粒度的控制共享状态的访问，可以避免并发访问导致的数据竞争问题。
+
+## Functions:
+
+### critical
+
+`critical`函数是Go语言内部实现的一个同步函数，用来保证同一时刻只有一个goroutine访问某些共享资源，从而防止数据竞争的发生。
+
+该函数实现方式是通过调用`runtime.LockOSThread()`将当前goroutine固定在特定的操作系统线程上，然后获取全局的锁，保证只有一个goroutine能够访问受保护的共享资源，直到用户调用`runtime.UnlockOSThread()`释放该函数获得的锁。
+
+这个函数通常情况下不需要用户手动调用，因为Go语言已经提供了更高级别的同步原语如mutex、channel等，可以更方便地进行同步。但在特定的情况下，如在调试或基准测试中时，用户可能需要直接使用这个函数来实现更精细的同步操作。
+
+
+

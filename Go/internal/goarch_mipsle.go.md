@@ -1,0 +1,10 @@
+# File: goarch_mipsle.go
+
+go/src/internal/goarch_mipsle.go是Go编译器源码的一个文件，主要作用是定义Mipsle体系结构的特定函数和常量。Mipsle即小端Mips，是一种在Mips体系结构上运行的处理器，它的字节顺序是小端字节序。
+
+该文件由Go编译器使用，以便在Mipsle体系结构上编译和执行Go程序。它定义了一些用于Mipsle体系结构的特定功能和常量，包括CPU体系结构的名称、寄存器、指令集以及其他平台相关的信息。
+
+该文件中还包括一些函数，它们定义了Mipsle体系结构的特定字节序转换和原子操作。这些函数在Go程序的编译和执行过程中发挥着重要作用，因为它们确保了程序在Mipsle体系结构上的正确逻辑行为，同时还提高了其性能。
+
+总之，go/src/internal/goarch_mipsle.go是Go编译器的一个重要部分，它确保了Go程序在Mipsle体系结构上的正确性和性能。
+

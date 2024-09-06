@@ -1,0 +1,8 @@
+# File: fcntl.go
+
+fcntl.go是Go语言的命令行工具中的一个文件，它实现了fcntl函数。fcntl函数是一个UNIX和UNIX-like系统中的系统调用，它用于控制文件描述符的属性，例如文件状态标志、文件锁和文件信号处理等。
+
+fcntl.go文件中的代码定义了一个结构体fcntlArg和一个函数fcntl，该函数根据传递的参数执行各种fcntl命令。fcntl函数接受三个参数：文件描述符fd，fcntl命令cmd和参数arg。根据参数cmd的不同，fcntl函数将执行不同的fcntl命令。例如，当cmd为F_GETFL时，fcntl函数将获取文件状态标志；当cmd为F_SETFL时，fcntl函数将设置文件状态标志。
+
+在Go语言的命令行工具中，fcntl.go可以用于控制标准输入、标准输出和标准错误的属性，以及控制文件的锁定和信号处理等。
+

@@ -1,0 +1,10 @@
+# File: sysnum_linux_generic.go
+
+sysnum_linux_generic.go是一个Go语言源代码文件，它包含了Linux平台系统调用号的常量定义。这些常量被用于在Go程序中调用Linux系统的各种系统调用函数。
+
+在Linux系统中，每个系统调用都有一个唯一的系统调用号，这个号码在内核中被使用。通过在用户空间程序中调用系统调用函数来触发内核中对应的系统调用。因为不同的操作系统和架构有不同的系统调用号，所以需要在不同的平台上定义不同的常量。
+
+sysnum_linux_generic.go中定义了一个叫做SyscallTable的结构体，它包含了Linux系统调用的相关信息。并且定义了一个叫做syscallTableGeneric的SyscallTable实例，其中包含了所有的通用Linux系统调用，也就是和架构无关的系统调用。
+
+通过sysnum_linux_generic.go中定义的常量，Go程序可以直接调用Linux系统的各种系统调用函数，方便了Go程序员对Linux系统进行底层的操作。
+

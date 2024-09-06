@@ -1,0 +1,10 @@
+# File: exp_regabiwrappers_off.go
+
+exp_regabiwrappers_off.go是Go语言内部的一个文件，其主要作用是生成用于解决不同操作系统、CPU架构以及ABI（应用程序二进制接口）之间差异的代码。
+
+在Go语言中，使用CGO调用C代码时，需要注意操作系统、CPU架构以及ABI之间的差异。对于一些特定的情况，Go语言需要使用特殊的指令来生成调用C代码的wrapper。exp_regabiwrappers_off.go就是用于生成这些wrapper的代码文件。
+
+exp_regabiwrappers_off.go文件中包含了一些函数，这些函数的功能主要是将Go语言类型转换为C语言类型。这些函数以特定的方式将参数打包成结构体，并将结构体传递给C语言函数来调用。这些函数会在编译期间被调用，以确保生成正确的wrapper代码。
+
+通过生成wrapper代码，Go语言可以解决不同操作系统、CPU架构以及ABI之间的差异，在调用C函数时拥有更高的可移植性和可靠性。
+

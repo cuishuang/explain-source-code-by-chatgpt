@@ -1,0 +1,10 @@
+# File: zsysnum_linux_mips64le.go
+
+zsysnum_linux_mips64le.go是Go语言中cmd包的一部分，它是用于将系统调用号与相应的函数名进行映射的文件。该文件是针对Linux平台上的mips64le架构编写的。
+
+在Linux系统中，程序可以通过系统调用来请求内核执行某些操作。每个系统调用都有一个唯一的整数值，称为系统调用号。zsysnum_linux_mips64le.go文件就定义了Linux平台上mips64le架构所支持的所有系统调用号及其对应的函数名。
+
+该文件定义了一个名为syscalls的数组，数组中每个元素都是一个Syscall类型的结构体，其中包含了系统调用号和对应的函数名。在Go语言中，可以通过Syscall包中的Syscall和Syscall6函数来调用系统调用。
+
+总之，zsysnum_linux_mips64le.go文件是Go语言中支持Linux平台上mips64le架构的系统调用号与函数名映射的重要文件，它提供了系统调用的接口，让程序可以与操作系统进行交互，实现各种功能。
+

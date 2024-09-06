@@ -1,0 +1,12 @@
+# File: profile.go
+
+profile.go是Go语言标准库中的一个文件，其作用是提供基于CPU和内存的性能分析功能。具体来说，它实现了Profiling接口，提供了一组函数和结构体，可以用于生成和分析CPU和内存的性能概要报告。
+
+在生成CPU性能概要报告方面，profile.go提供了两个函数：CPUProfile和StartCPUProfile。CPUProfile函数用于将CPU分析器数据写入w中，可以用于自定义输出方式；而StartCPUProfile函数则会启动CPU分析器，并将数据写入文件名为filename的文件中。
+
+在生成内存性能概要报告方面，profile.go提供了一个函数：LookupHeapProfile。该函数用于查找当前进程的内存概要信息，包括堆分配、内存释放、内存泄露等信息，并返回一个指向申请内存信息的结构体的指针。
+
+除了上述函数外，profile.go文件中还定义了几个相关的结构体，包括Profile、ProfileBuilder和ProfileWriter等。这些结构体提供了一些与性能分析相关的功能，比如设置分析的采样数、分析时长、写入输出文件等。
+
+总之，profile.go文件提供了一套完整的基于CPU和内存的性能分析功能，可以为开发者提供有用的性能数据，帮助开发者解决性能瓶颈和进行优化。
+

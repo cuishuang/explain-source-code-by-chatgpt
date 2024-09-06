@@ -1,0 +1,30 @@
+# File: fd_opendir_darwin.go
+
+fd_opendir_darwin.go是Go语言内部包中的一个文件，它的作用是在macOS系统中打开一个目录并返回其文件描述符。
+
+具体来说，当我们使用Go语言中的os.Open函数打开一个目录时，该函数底层会调用fd_opendir_darwin.go中的opendir函数，并将目录路径作为参数传递给opendir函数。opendir函数会打开该目录并返回一个文件描述符，这个文件描述符可以用来操作该目录中的文件。同时，opendir函数还会返回一个指向该目录的DIR类型的指针，这个指针在后续的文件操作中会派上用场。
+
+在macOS系统中，opendir函数是使用Apple的libSystem库实现的。该函数的实现包括了打开目录的操作以及对返回的文件描述符和DIR类型指针的处理。其中包括了错误处理和资源回收等操作。这样，我们在使用os.Open函数打开目录时，就可以直接使用返回的文件描述符和指针进行文件操作，不需要关心底层的实现细节。
+
+## Functions:
+
+### OpenDir
+
+OpenDir函数的作用是打开一个目录，返回其目录句柄和任何错误。该函数接收一个字符串参数表示要打开的目录的路径。
+
+具体实现上，OpenDir函数通过调用系统调用opendir打开一个目录，如果失败则返回一个错误。如果成功，函数返回一个类型为dirEnt的指针，这个指针持有该目录的句柄，可以用于读取该目录中的文件和子目录等信息。
+
+在此函数中还包括了一些前置代码，如设置C语言开发库函数对齐方式，调用macOS系统相关函数，等等。这些都是为了确保函数的正确性和可靠性。
+
+OpenDir函数是在Darwin系统（即macOS和iOS）上使用的，用于打开目录以获取其文件列表。
+
+
+
+### fdopendir
+
+fdopendir函数可以将一个打开的目录文件描述符转换为一个DIR指针，该DIR指针可以在后续的目录操作中使用。在go/src/internal/fd_opendir_darwin.go文件中的fdopendir函数是为了实现在Darwin操作系统上的目录操作而设计的。
+
+该函数首先使用syscall库的openat函数打开目录，然后使用C语言的fdopendir函数将打开的目录文件描述符转换为DIR指针，并返回该指针。通过返回的DIR指针，可以使用readdir和closedir等函数读取和关闭目录。
+
+
+

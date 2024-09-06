@@ -1,0 +1,8 @@
+# File: exp_boringcrypto_on.go
+
+exp_boringcrypto_on.go这个文件是Go语言中用于控制加密算法实现来源的一个重要文件。它的作用是在启用了内部加密算法实现（crypto/internal）时，强制使用Google BoringCrypto的实现。BoringCrypto是由Google维护的一个加密库，可用于替代OpenSSL等加密库。
+
+在该文件中，通过设置一个环境变量boringcrypto_on来指示编译器使用boringcrypto库。同时，它还提供了一些条件编译选项，以便在代码中使用BoringCrypto的特定实现。这些选项包括ciphers、hashes和rsa等。
+
+通过使用BoringCrypto库，可以提高加密算法的性能和安全性，并减少代码的复杂度和漏洞率。因此，exp_boringcrypto_on.go是一个非常重要的文件，它可以帮助Go语言的使用者更好地保护他们的数据和隐私。
+

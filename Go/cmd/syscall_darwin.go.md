@@ -1,0 +1,10 @@
+# File: syscall_darwin.go
+
+syscall_darwin.go是Go语言标准库中的一个文件，用于实现与Darwin平台相关的系统调用函数。Darwin是一个基于BSD的操作系统内核，用于苹果电脑和移动设备，因此该文件的作用是为Go语言提供在苹果设备上能够进行系统调用的接口。
+
+该文件中包含了很多函数，例如fork、execve、wait4等，这些函数都是用于处理底层系统调用的。这些函数可以调用libc、kernel或者其他系统库函数，提供了操作系统内核的访问权限，这些权限是普通用户无法获取的。
+
+此外，syscall_darwin.go还包含了Darwin平台特有的一些系统调用函数的实现，例如Lsof（list open files），用于列出所有已打开的文件和网络连接。
+
+总之，syscall_darwin.go文件是Go语言在Darwin平台上使用系统调用的实现文件，提供了基本的系统调用接口以及特定平台的系统调用接口和实现。
+

@@ -1,0 +1,10 @@
+# File: syscall_hurd.go
+
+syscall_hurd.go是Go语言标准库中syscall包的一部分，该文件主要用于在GNU Hurd操作系统上实现syscall调用。GNU Hurd操作系统是一个基于微内核的操作系统，与Linux等操作系统有所不同，因此需要单独实现syscall调用。
+
+该文件中实现了各种系统调用函数，如open、read、write、close等常用函数，还包括一些特定于Hurd系统的系统调用函数，如_setruid、_setrlimit等。
+
+与其他Unix-like系统不同，Hurd系统中的系统调用涉及到多个进程间的协作，因此syscall_hurd.go还包括一些相关的辅助函数，如__sem_init、__mmap、__mprotect等，用于处理进程间共享内存和信号量等问题。
+
+总而言之，syscall_hurd.go文件的作用是为了在GNU Hurd操作系统上提供Go语言的标准库syscall包的支持，实现系统调用并提供相应的辅助函数。
+

@@ -1,0 +1,32 @@
+# File: transport_default_wasm.go
+
+transport_default_wasm.go是golang的net包的一个文件，其作用是实现WebAssembly平台上的默认网络传输。在WebAssembly平台上，golang的net包需要一个特定的传输实现，而这个文件就是实现这个功能的。
+
+具体来说，这个文件定义了一个transport类型，其中包含了一个基于Fetch API的HTTP传输实现和一个UDP传输实现。通过这个文件，golang的net包可以在WebAssembly平台上使用这些默认的传输实现来发送和接收网络数据。
+
+除了实现默认的网络传输之外，这个文件还定义了一些WebAssembly平台上的特定常量和函数。例如，它定义了一个maxMessageSize常量，即最大写入单个TCP消息的字节数。还定义了一些网络传输相关的函数，例如ReadFrom和WriteTo，这些函数可以在WebAssembly平台上读取和写入网络数据。
+
+总之，transport_default_wasm.go文件的作用是实现WebAssembly平台上的默认网络传输和相关的常量和函数，以便golang的net包可以在WebAssembly平台上正常运行。
+
+## Functions:
+
+### defaultTransportDialContext
+
+在go/src/net中transport_default_wasm.go文件中，defaultTransportDialContext函数是用于在WebAssembly环境中创建默认传输方式的dialer对象的。该函数的主要目的是在WebAssembly环境中建立网络连接，提供对Web API的访问，建立TCP连接、TLS握手和HTTP请求。默认传输方式的dialer对象可以用于创建各种类型的网络连接。
+
+defaultTransportDialContext函数的作用包括：
+
+1. 建立TCP连接：默认Transport实现使用TCP进行数据传输。该函数使用TCP连接来建立网络连接，以便传输数据。
+
+2. TLS握手：如果需要安全连接，该函数会通过TLS进行加密，并使用TLS握手来建立安全连接。
+
+3. 创建HTTP请求：创建HTTP请求是用于向远程服务器发送数据的方法。该函数使用HTTP协议来发送数据和接收数据。
+
+4. 实现Transport接口：该函数实现Transport接口，可以被其他Go库使用，以便进行网络传输。
+
+5. 使用Dialer接口：使用Dialer接口可以定制网络连接的设置，例如超时和代理设置。
+
+总之，在一个WebAssembly环境中，defaultTransportDialContext函数是用于创建默认传输方式的dialer对象，它是网络传输的核心。它可以通过底层TCP连接，通过网络协议，实现与远程服务器建立网络连接，发送和接收数据。
+
+
+

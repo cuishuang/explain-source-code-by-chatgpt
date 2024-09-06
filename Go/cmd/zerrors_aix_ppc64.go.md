@@ -1,0 +1,10 @@
+# File: zerrors_aix_ppc64.go
+
+zerrors_aix_ppc64.go文件位于Go语言源码路径下的cmd目录中，是Go语言在AIX PowerPC64平台上的错误码定义文件。它将特定平台的系统错误码与Go语言中对应的错误类型关联起来，从而可以在Go程序中直接使用这些错误码。
+
+AIX是IBM公司开发的一款UNIX操作系统，而PowerPC64是AIX上支持的处理器架构。由于AIX PowerPC64平台具有独特的特性，因此需要单独定义其错误码。而zerrors_aix_ppc64.go文件就是Go语言在AIX PowerPC64平台上的错误码定义文件。
+
+在该文件中，定义了各种系统错误码与Go语言中对应的错误类型。例如，与文件相关的错误码有ENOTBLK、ENOANO、EREMOTERELEASE等，而与网络相关的错误码有ENOLINK、EHOSTUNREACH、EADDRNOTAVAIL等。这些错误码对应的错误类型包括os.PathError、os.LinkError和net.OpError等。
+
+通过zerrors_aix_ppc64.go文件，Go语言可以直接使用系统错误码，而无需自己编写错误类型。这使得Go程序在AIX PowerPC64平台下的错误处理更加方便和高效。
+

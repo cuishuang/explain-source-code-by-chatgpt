@@ -1,0 +1,10 @@
+# File: syscall_linux_arm.go
+
+syscall_linux_arm.go是Go语言标准库中系统调用相关的文件之一，它的作用是实现Go语言在ARM架构的Linux系统中执行系统调用的功能。
+
+在ARM架构中，系统调用的方式与x86架构不同，因此需要单独实现。syscall_linux_arm.go中包含了所有需要在ARM架构上执行系统调用的函数和结构体。
+
+其中，与其他系统调用相关的文件一样，syscall_linux_arm.go中定义了大量系统调用的常量和函数，如open、close、read、write等等，同时还定义了与系统调用相关的结构体，如File和Dirent等等。
+
+通过调用syscall_linux_arm.go中定义的系统调用函数来访问底层操作系统的API，从而实现一系列高级功能，例如文件读写、进程管理、网络通信等等。
+

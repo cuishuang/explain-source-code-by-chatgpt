@@ -1,0 +1,10 @@
+# File: sysnum_linux_mips64x.go
+
+sysnum_linux_mips64x.go是Go语言标准库中内部包internal/syscall/linux_mips64x的一个文件，它的作用是定义Linux MIPS64X操作系统下的系统调用编号。
+
+在Linux MIPS64X操作系统中，系统调用是一种通过软件中断实现的内核服务调用机制。每个系统调用都有一个唯一的编号，为了在用户空间中发起系统调用，需要将相应的系统调用编号和参数传递给内核。而sysnum_linux_mips64x.go就是定义了这些系统调用编号的常量。
+
+具体来说，在sysnum_linux_mips64x.go中，以const关键字定义了一系列常量，这些常量对应了Linux MIPS64X操作系统下的各种系统调用，如读取文件、写入文件、打开文件、关闭文件等常见的系统调用。这些常量的值就是系统调用编号，可以在用户空间中使用系统调用接口（如syscall包）发起相应的系统调用。
+
+总之，sysnum_linux_mips64x.go文件的作用是为Go语言中提供系统调用接口的相关包（如syscall包）定义了Linux MIPS64X操作系统下的系统调用编号，方便用户空间中发起系统调用。
+

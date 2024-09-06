@@ -1,0 +1,10 @@
+# File: sysnum_linux_mipsx.go
+
+sysnum_linux_mipsx.go是Go语言中对于MIPS64X平台Linux系统调用编号的定义文件。它包含了一系列常量，每个常量表示一个Linux系统调用的编号，这些常量被用于Go语言中对于这些系统调用的调用和处理。
+
+系统调用是操作系统提供给程序的主要接口之一，它允许程序请求操作系统提供各种各样的服务。在Linux中，系统调用被定义为一个数字，每个数字代表了一个特定的操作，例如打开文件、读写文件、创建进程、等待进程等等。
+
+sysnum_linux_mipsx.go中定义的常量是针对MIPS64X平台的Linux系统调用，这些常量提供了Go语言对于这些调用的支持。通过这个文件，Go语言程序员可以更方便地调用MIPS64X Linux系统调用，并实现程序的各种功能。
+
+总的来说，sysnum_linux_mipsx.go的作用就是提供了MIPS64X架构下的Linux系统调用编号，帮助Go语言程序员更方便地编写基于MIPS64X的Linux应用程序。
+

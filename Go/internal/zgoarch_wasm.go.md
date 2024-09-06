@@ -1,0 +1,10 @@
+# File: zgoarch_wasm.go
+
+zgoarch_wasm.go文件的作用是确定Go程序编译成WebAssembly时所用的架构。
+
+WebAssembly是一种新的机器码格式，可以在浏览器中运行高效的代码。Go支持WebAssembly目标，可以把Go程序编译成WebAssembly的机器码格式，以便在浏览器中运行。
+
+zgoarch_wasm.go文件定义了在编译过程中使用的Go架构，以便在生成WebAssembly代码时确保正确的字节序和指令集。在这个文件中，定义了与WebAssembly相关的架构信息，例如字节序和支持的操作指令集。
+
+此文件中的常量和函数将影响在编译时使用的架构信息，因此可以确保生成的WebAssembly代码将与Go程序的其他版本兼容，并且可以正确地在浏览器中执行。
+

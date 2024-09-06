@@ -1,0 +1,10 @@
+# File: at_sysnum_fstatat_linux.go
+
+at_sysnum_fstatat_linux.go是Go语言标准库中的一个文件，它主要的作用是提供Linux系统中fstatat系统调用的封装实现。fstatat系统调用可以用于获取指定路径下文件的元数据信息，例如文件大小、权限、时间戳等等。
+
+在Linux系统中，所有的系统调用都需要通过系统调用号来进行调用。在at_sysnum_fstatat_linux.go文件中，通过预处理指令和常量定义的方式，将fstatat系统调用号定义为了SYSCALL_FSTATAT常量，方便后续调用。
+
+此外，该文件还提供了一个名为atFstatat的函数，用于实现对fstatat系统调用的封装。该函数接收的参数包括：要获取元数据信息的文件描述符fd、要获取信息的文件路径path和一些额外的选项flags。函数通过向底层操作系统发送系统调用请求，获取文件元数据信息，并将结果封装在一个名为stat的结构体中返回。
+
+总而言之，at_sysnum_fstatat_linux.go文件的作用就是提供了对Linux系统中fstatat系统调用的封装实现，方便Go语言的开发者在程序中获取指定文件的元数据信息。
+

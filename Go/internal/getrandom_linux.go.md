@@ -1,0 +1,10 @@
+# File: getrandom_linux.go
+
+getrandom_linux.go文件是Go语言在Linux系统上实现随机数生成器的文件，它提供了随机数的获取方法。
+
+在Linux系统上，可以使用/dev/urandom设备来获取随机数。但是该设备的产生的随机数是非阻塞的，可能会存在不够随机或者重复性较高的问题。因此，getrandom_linux.go文件提供了更为安全和随机的随机数生成器。
+
+该文件的主要函数是readRandom，其中通过调用系统调用syscall.Syscall6来获取一个更随机的随机数，并将其转化为Go语言的[]byte类型，以便开发人员在程序中使用。
+
+getrandom_linux.go文件的作用是让开发人员可以在安全可靠的情况下获取高质量的随机数，并且是Go语言在Linux系统上实现随机数生成器的一个重要组成部分。
+

@@ -1,0 +1,10 @@
+# File: zgoos_darwin.go
+
+zgoos_darwin.go是Go语言中的一个操作系统相关的文件，它的作用是定义了在Darwin操作系统上运行的程序所需要的一些特殊操作和行为。
+
+Darwin是一个类Unix的操作系统，是在FreeBSD和Mach Kernel的基础上开发的，主要用于苹果公司的Mac电脑和移动设备。zgoos_darwin.go文件中定义了一些Darwin操作系统所需要的特殊操作，例如设置进程的资源限制、获取系统负载信息、设置文件句柄限制等。
+
+此外，zgoos_darwin.go文件还定义了Darwin操作系统上系统调用的相关信息，例如系统调用的参数传递方式、系统调用的返回值类型、系统调用编号等。
+
+总体来说，zgoos_darwin.go文件是Go语言中的一个重要的操作系统相关文件，它确保了在Darwin操作系统上运行的程序能够正常工作，并提供了一些特殊操作和行为。
+

@@ -1,0 +1,10 @@
+# File: zsyscall_windows.go
+
+zsyscall_windows.go是Go语言标准库中cmd包的一个文件，主要用于定义Windows系统下的系统调用函数。因为Windows系统和Unix/Linux系统有较大的差异，所以需要单独定义Windows系统特有的系统调用函数。
+
+该文件中列出了Windows系统下大部分的系统调用函数，包括进程管理、文件操作、网络通信、注册表处理、系统信息获取等等方面。具体的函数包括但不限于CreateProcess、ReadFile、WriteFile、CreateFile、WSASocket等等。
+
+这些系统调用函数是Go语言中和Windows系统协作的重要接口，为开发人员提供了丰富的调用功能，可以完成大量高级操作，例如文件读写、进程管理、网络通信等等任务。同时，这些函数还支持自定义参数和返回值，使开发人员可以访问Windows系统更广泛的功能，以及自定义实现更复杂的功能。
+
+总之，zsyscall_windows.go 的主要作用就是提供了Go语言和Windows系统之间沟通的桥梁，是实现Windows下各种操作的关键所在。
+

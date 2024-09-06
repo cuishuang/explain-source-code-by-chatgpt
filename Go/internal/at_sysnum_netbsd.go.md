@@ -1,0 +1,10 @@
+# File: at_sysnum_netbsd.go
+
+at_sysnum_netbsd.go是Go语言的标准库中internal目录下的一个文件，主要负责将NetBSD系统调用转换为相应的Go函数。
+
+在NetBSD操作系统中，每个系统调用都有一个唯一的编号，称为系统调用号。这个文件中的atSysCallNetBSD函数就是根据系统调用号来定位对应的系统调用函数，并将其封装为一个Go函数。
+
+内部实现通过引入hostarch包中的syscalls_netbsd_amd64.go文件，使用go:linkname指令实现了和内核函数的连接。
+
+该文件是Go标准库中实现系统调用转换的一部分，为Go程序员屏蔽了底层操作系统细节，提供了更加简单易用的API。
+

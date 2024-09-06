@@ -1,0 +1,10 @@
+# File: memory_windows.go
+
+memory_windows.go文件是Go语言标准库中/cmd包下面的一个文件，它的作用是实现了在Windows操作系统中查询系统内存信息的功能。
+
+在Windows上，内存信息可以通过调用系统API来获取，而memory_windows.go文件就是通过这种方式获取内存信息的。它使用了Windows API的GlobalMemoryStatusEx函数去获取内存信息，并将其存储在一个定义好的结构体中。
+
+该文件定义了一个MemoryStatusEx结构体，它包含了最大可用内存、当前可用内存、系统缓存和已提交的内存等信息。此外，它还包含了一个名为GlobalMemoryStatusEx的函数，用于调用Windows API并将返回的内存信息存储在上述结构体中。
+
+MemoryStatusEx结构体的定义以及GlobalMemoryStatusEx函数的实现都在memory_windows.go文件中，它们提供了一种方便的方式来查询和获取系统内存信息，使Go语言能够在Windows环境下更好地使用和管理系统资源。
+

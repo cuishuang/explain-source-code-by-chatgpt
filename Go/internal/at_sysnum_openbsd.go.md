@@ -1,0 +1,10 @@
+# File: at_sysnum_openbsd.go
+
+at_sysnum_openbsd.go文件是Go语言标准库中internal包下的一个文件，该文件实现了在OpenBSD操作系统上使用at系统调用进行文件系统操作时需要用到的系统调用编号。
+
+在OpenBSD操作系统中，at系统调用可以通过相对路径和文件描述符等方式来进行文件操作。通过at_sysnum_openbsd.go文件的实现，在Go语言中就可以通过at系统调用来进行文件操作，这使得Go语言可以更方便地在OpenBSD操作系统上进行文件处理。
+
+具体来说，这个文件通过定义了一个sysnum类型和一个sysnumMap映射表来定义at系统调用的编号，同时还定义了对应的Syscall函数和两个系统调用参数结构体（AtParam和 AtFlags），以实现通过at系统调用进行文件操作的功能。
+
+总之，at_sysnum_openbsd.go文件的作用是实现了在OpenBSD操作系统上使用at系统调用进行文件系统操作的相关功能，为Go语言在OpenBSD操作系统上进行文件处理提供了支持。
+
